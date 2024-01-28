@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "372239090571",
+    "project_id": "rainconnect-b85obh",
+    "storage_bucket": "rainconnect-b85obh.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:372239090571:android:418ea913215980fafaa58e",
+        "android_client_info": {
+          "package_name": "com.mycompany.rainconnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "372239090571-m5s1kshc9igjsruh0ndja6jmguvq7obu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.rainconnect",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "372239090571-nh7imc8rqk914vjgf6nfnu4feaqovlgo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBltIYMvn_5rjO9jfYfljPOeZUGI30r9Pk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "372239090571-nh7imc8rqk914vjgf6nfnu4feaqovlgo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "372239090571-1vnvg0rhb51s6mi5er0int3l995536dp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.rainconnect"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

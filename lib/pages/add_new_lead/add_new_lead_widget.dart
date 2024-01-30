@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
@@ -290,10 +291,28 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       ),
                                 ),
                               ),
-                              expanded: const Column(
+                              expanded: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [],
+                                children: [
+                                  SizedBox(
+                                    width: double.infinity,
+                                    height: 400.0,
+                                    child: custom_widgets.SpeechToTextWidget(
+                                      width: double.infinity,
+                                      height: 400.0,
+                                      recordButtonHeight: 70.0,
+                                      recordButtonWidth: 70.0,
+                                      glowColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      buttonColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      resetButtonColor: const Color(0x2EA9ADC6),
+                                      dropdownListValue:
+                                          FFAppState().languageList,
+                                    ),
+                                  ),
+                                ],
                               ),
                               theme: const ExpandableThemeData(
                                 tapHeaderToExpand: true,

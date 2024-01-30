@@ -106,63 +106,65 @@ class _TemplateCardComponentWidgetState
                   ),
                 ),
               ),
-              StreamBuilder<UsersRecord>(
-                stream: UsersRecord.getDocument(currentUserReference!),
-                builder: (context, snapshot) {
-                  // Customize what your widget looks like when it's loading.
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: SizedBox(
-                        width: 50.0,
-                        height: 50.0,
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            FlutterFlowTheme.of(context).primary,
+              if (widget.templateDoc?.reference.id != 'bCgEwBkohz1awIQ50ZTi')
+                StreamBuilder<UsersRecord>(
+                  stream: UsersRecord.getDocument(currentUserReference!),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50.0,
+                          height: 50.0,
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).primary,
+                            ),
                           ),
                         ),
+                      );
+                    }
+                    final toggleIconUsersRecord = snapshot.data!;
+                    return ToggleIcon(
+                      onPressed: () async {
+                        final templateRefsElement =
+                            widget.templateDoc?.reference;
+                        final templateRefsUpdate = toggleIconUsersRecord
+                                .templateRefs
+                                .contains(templateRefsElement)
+                            ? FieldValue.arrayRemove([templateRefsElement])
+                            : FieldValue.arrayUnion([templateRefsElement]);
+                        await toggleIconUsersRecord.reference.update({
+                          ...mapToFirestore(
+                            {
+                              'template_refs': templateRefsUpdate,
+                            },
+                          ),
+                        });
+                        if (FFAppState()
+                            .selectedStarterTemplate
+                            .contains(widget.templateDoc?.reference)) {
+                          setState(() {
+                            FFAppState().removeFromSelectedStarterTemplate(
+                                widget.templateDoc!.reference);
+                          });
+                        }
+                      },
+                      value: toggleIconUsersRecord.templateRefs
+                          .contains(widget.templateDoc?.reference),
+                      onIcon: Icon(
+                        Icons.check_circle_outline_rounded,
+                        color: FlutterFlowTheme.of(context).primary,
+                        size: 25.0,
+                      ),
+                      offIcon: Icon(
+                        Icons.radio_button_off,
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        size: 25.0,
                       ),
                     );
-                  }
-                  final toggleIconUsersRecord = snapshot.data!;
-                  return ToggleIcon(
-                    onPressed: () async {
-                      final templateRefsElement = widget.templateDoc?.reference;
-                      final templateRefsUpdate = toggleIconUsersRecord
-                              .templateRefs
-                              .contains(templateRefsElement)
-                          ? FieldValue.arrayRemove([templateRefsElement])
-                          : FieldValue.arrayUnion([templateRefsElement]);
-                      await toggleIconUsersRecord.reference.update({
-                        ...mapToFirestore(
-                          {
-                            'template_refs': templateRefsUpdate,
-                          },
-                        ),
-                      });
-                      if (FFAppState()
-                          .selectedStarterTemplate
-                          .contains(widget.templateDoc?.reference)) {
-                        setState(() {
-                          FFAppState().removeFromSelectedStarterTemplate(
-                              widget.templateDoc!.reference);
-                        });
-                      }
-                    },
-                    value: toggleIconUsersRecord.templateRefs
-                        .contains(widget.templateDoc?.reference),
-                    onIcon: Icon(
-                      Icons.check_circle_outline_rounded,
-                      color: FlutterFlowTheme.of(context).primary,
-                      size: 25.0,
-                    ),
-                    offIcon: Icon(
-                      Icons.radio_button_off,
-                      color: FlutterFlowTheme.of(context).secondaryText,
-                      size: 25.0,
-                    ),
-                  );
-                },
-              ),
+                  },
+                ),
             ],
           ),
         ),

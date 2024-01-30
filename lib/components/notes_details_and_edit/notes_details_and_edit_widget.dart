@@ -126,6 +126,7 @@ class _NotesDetailsAndEditWidgetState extends State<NotesDetailsAndEditWidget> {
                 child: TextFormField(
                   controller: _model.textController,
                   focusNode: _model.textFieldFocusNode,
+                  autofocus: true,
                   readOnly: _model.isEdit == false,
                   obscureText: false,
                   decoration: InputDecoration(

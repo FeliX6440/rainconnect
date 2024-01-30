@@ -127,27 +127,28 @@ class _UserTemplateCardComponentWidgetState
                       ),
                     ),
                   ),
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      await currentUserReference!.update({
-                        ...mapToFirestore(
-                          {
-                            'template_refs':
-                                FieldValue.arrayRemove([widget.templateRef]),
-                          },
-                        ),
-                      });
-                    },
-                    child: Icon(
-                      Icons.remove_circle_outline_rounded,
-                      color: FlutterFlowTheme.of(context).error,
-                      size: 24.0,
+                  if (rowTemplatesRecord.reference.id != 'bCgEwBkohz1awIQ50ZTi')
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        await currentUserReference!.update({
+                          ...mapToFirestore(
+                            {
+                              'template_refs':
+                                  FieldValue.arrayRemove([widget.templateRef]),
+                            },
+                          ),
+                        });
+                      },
+                      child: Icon(
+                        Icons.remove_circle_outline_rounded,
+                        color: FlutterFlowTheme.of(context).error,
+                        size: 24.0,
+                      ),
                     ),
-                  ),
                 ],
               );
             },

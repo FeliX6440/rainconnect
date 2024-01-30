@@ -126,6 +126,7 @@ class _TTSDetailsAndEditWidgetState extends State<TTSDetailsAndEditWidget> {
                 child: TextFormField(
                   controller: _model.textController,
                   focusNode: _model.textFieldFocusNode,
+                  autofocus: true,
                   readOnly: _model.isEdit == false,
                   obscureText: false,
                   decoration: InputDecoration(

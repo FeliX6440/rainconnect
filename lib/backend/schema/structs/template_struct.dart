@@ -10,9 +10,11 @@ class TemplateStruct extends FFFirebaseStruct {
   TemplateStruct({
     String? name,
     String? description,
+    String? id,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _name = name,
         _description = description,
+        _id = id,
         super(firestoreUtilData);
 
   // "name" field.
@@ -27,9 +29,16 @@ class TemplateStruct extends FFFirebaseStruct {
   set description(String? val) => _description = val;
   bool hasDescription() => _description != null;
 
+  // "id" field.
+  String? _id;
+  String get id => _id ?? '';
+  set id(String? val) => _id = val;
+  bool hasId() => _id != null;
+
   static TemplateStruct fromMap(Map<String, dynamic> data) => TemplateStruct(
         name: data['name'] as String?,
         description: data['description'] as String?,
+        id: data['id'] as String?,
       );
 
   static TemplateStruct? maybeFromMap(dynamic data) =>
@@ -38,6 +47,7 @@ class TemplateStruct extends FFFirebaseStruct {
   Map<String, dynamic> toMap() => {
         'name': _name,
         'description': _description,
+        'id': _id,
       }.withoutNulls;
 
   @override
@@ -48,6 +58,10 @@ class TemplateStruct extends FFFirebaseStruct {
         ),
         'description': serializeParam(
           _description,
+          ParamType.String,
+        ),
+        'id': serializeParam(
+          _id,
           ParamType.String,
         ),
       }.withoutNulls;
@@ -64,6 +78,11 @@ class TemplateStruct extends FFFirebaseStruct {
           ParamType.String,
           false,
         ),
+        id: deserializeParam(
+          data['id'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -73,16 +92,18 @@ class TemplateStruct extends FFFirebaseStruct {
   bool operator ==(Object other) {
     return other is TemplateStruct &&
         name == other.name &&
-        description == other.description;
+        description == other.description &&
+        id == other.id;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([name, description]);
+  int get hashCode => const ListEquality().hash([name, description, id]);
 }
 
 TemplateStruct createTemplateStruct({
   String? name,
   String? description,
+  String? id,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -91,6 +112,7 @@ TemplateStruct createTemplateStruct({
     TemplateStruct(
       name: name,
       description: description,
+      id: id,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

@@ -1,0 +1,121 @@
+import 'dart:async';
+
+import 'package:collection/collection.dart';
+
+import '/backend/schema/util/firestore_util.dart';
+
+import 'index.dart';
+
+class EmailTemplatesRecord extends FirestoreRecord {
+  EmailTemplatesRecord._(
+    super.reference,
+    super.data,
+  ) {
+    _initializeFields();
+  }
+
+  // "email" field.
+  String? _email;
+  String get email => _email ?? '';
+  bool hasEmail() => _email != null;
+
+  // "subject" field.
+  String? _subject;
+  String get subject => _subject ?? '';
+  bool hasSubject() => _subject != null;
+
+  // "body" field.
+  String? _body;
+  String get body => _body ?? '';
+  bool hasBody() => _body != null;
+
+  // "attachment_url" field.
+  String? _attachmentUrl;
+  String get attachmentUrl => _attachmentUrl ?? '';
+  bool hasAttachmentUrl() => _attachmentUrl != null;
+
+  DocumentReference get parentReference => reference.parent.parent!;
+
+  void _initializeFields() {
+    _email = snapshotData['email'] as String?;
+    _subject = snapshotData['subject'] as String?;
+    _body = snapshotData['body'] as String?;
+    _attachmentUrl = snapshotData['attachment_url'] as String?;
+  }
+
+  static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
+      parent != null
+          ? parent.collection('email_templates')
+          : FirebaseFirestore.instance.collectionGroup('email_templates');
+
+  static DocumentReference createDoc(DocumentReference parent, {String? id}) =>
+      parent.collection('email_templates').doc(id);
+
+  static Stream<EmailTemplatesRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => EmailTemplatesRecord.fromSnapshot(s));
+
+  static Future<EmailTemplatesRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then((s) => EmailTemplatesRecord.fromSnapshot(s));
+
+  static EmailTemplatesRecord fromSnapshot(DocumentSnapshot snapshot) =>
+      EmailTemplatesRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
+
+  static EmailTemplatesRecord getDocumentFromData(
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      EmailTemplatesRecord._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'EmailTemplatesRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is EmailTemplatesRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
+}
+
+Map<String, dynamic> createEmailTemplatesRecordData({
+  String? email,
+  String? subject,
+  String? body,
+  String? attachmentUrl,
+}) {
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'email': email,
+      'subject': subject,
+      'body': body,
+      'attachment_url': attachmentUrl,
+    }.withoutNulls,
+  );
+
+  return firestoreData;
+}
+
+class EmailTemplatesRecordDocumentEquality
+    implements Equality<EmailTemplatesRecord> {
+  const EmailTemplatesRecordDocumentEquality();
+
+  @override
+  bool equals(EmailTemplatesRecord? e1, EmailTemplatesRecord? e2) {
+    return e1?.email == e2?.email &&
+        e1?.subject == e2?.subject &&
+        e1?.body == e2?.body &&
+        e1?.attachmentUrl == e2?.attachmentUrl;
+  }
+
+  @override
+  int hash(EmailTemplatesRecord? e) => const ListEquality()
+      .hash([e?.email, e?.subject, e?.body, e?.attachmentUrl]);
+
+  @override
+  bool isValidKey(Object? o) => o is EmailTemplatesRecord;
+}

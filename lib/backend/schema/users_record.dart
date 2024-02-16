@@ -49,10 +49,20 @@ class UsersRecord extends FirestoreRecord {
   String get jobTitle => _jobTitle ?? '';
   bool hasJobTitle() => _jobTitle != null;
 
-  // "template_refs" field.
-  List<DocumentReference>? _templateRefs;
-  List<DocumentReference> get templateRefs => _templateRefs ?? const [];
-  bool hasTemplateRefs() => _templateRefs != null;
+  // "teams_admin" field.
+  List<DocumentReference>? _teamsAdmin;
+  List<DocumentReference> get teamsAdmin => _teamsAdmin ?? const [];
+  bool hasTeamsAdmin() => _teamsAdmin != null;
+
+  // "team_refs" field.
+  List<DocumentReference>? _teamRefs;
+  List<DocumentReference> get teamRefs => _teamRefs ?? const [];
+  bool hasTeamRefs() => _teamRefs != null;
+
+  // "team_requests_sent" field.
+  List<DocumentReference>? _teamRequestsSent;
+  List<DocumentReference> get teamRequestsSent => _teamRequestsSent ?? const [];
+  bool hasTeamRequestsSent() => _teamRequestsSent != null;
 
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
@@ -62,7 +72,9 @@ class UsersRecord extends FirestoreRecord {
     _createdTime = snapshotData['created_time'] as DateTime?;
     _phoneNumber = snapshotData['phone_number'] as String?;
     _jobTitle = snapshotData['job_title'] as String?;
-    _templateRefs = getDataList(snapshotData['template_refs']);
+    _teamsAdmin = getDataList(snapshotData['teams_admin']);
+    _teamRefs = getDataList(snapshotData['team_refs']);
+    _teamRequestsSent = getDataList(snapshotData['team_requests_sent']);
   }
 
   static CollectionReference get collection =>
@@ -135,7 +147,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
         e1?.jobTitle == e2?.jobTitle &&
-        listEquality.equals(e1?.templateRefs, e2?.templateRefs);
+        listEquality.equals(e1?.teamsAdmin, e2?.teamsAdmin) &&
+        listEquality.equals(e1?.teamRefs, e2?.teamRefs) &&
+        listEquality.equals(e1?.teamRequestsSent, e2?.teamRequestsSent);
   }
 
   @override
@@ -147,7 +161,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.createdTime,
         e?.phoneNumber,
         e?.jobTitle,
-        e?.templateRefs
+        e?.teamsAdmin,
+        e?.teamRefs,
+        e?.teamRequestsSent
       ]);
 
   @override

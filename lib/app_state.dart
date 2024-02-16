@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '/backend/backend.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '/backend/schema/structs/index.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
 class FFAppState extends ChangeNotifier {
@@ -16,23 +16,12 @@ class FFAppState extends ChangeNotifier {
     _instance = FFAppState._internal();
   }
 
-  Future initializePersistedState() async {
-    prefs = await SharedPreferences.getInstance();
-    _safeInit(() {
-      _selectedStarterTemplate = prefs
-              .getStringList('ff_selectedStarterTemplate')
-              ?.map((path) => path.ref)
-              .toList() ??
-          _selectedStarterTemplate;
-    });
-  }
+  Future initializePersistedState() async {}
 
   void update(VoidCallback callback) {
     callback();
     notifyListeners();
   }
-
-  late SharedPreferences prefs;
 
   List<String> _languageList = [
     'English',
@@ -114,104 +103,9 @@ class FFAppState extends ChangeNotifier {
     _templates.insert(index, value);
   }
 
-  List<DocumentReference> _starterTemplateRefs = [
-    FirebaseFirestore.instance.doc('/templates/JU1ksivyJfDlMy56kVfs'),
-    FirebaseFirestore.instance.doc('/templates/tc9uD9MTBLcO4Xnh54oS'),
-    FirebaseFirestore.instance.doc('/templates/uSWZfZcNjoVCl5y1ojkT'),
-    FirebaseFirestore.instance.doc('/templates/bCgEwBkohz1awIQ50ZTi')
-  ];
-  List<DocumentReference> get starterTemplateRefs => _starterTemplateRefs;
-  set starterTemplateRefs(List<DocumentReference> value) {
-    _starterTemplateRefs = value;
+  bool _componentSwitchState = false;
+  bool get componentSwitchState => _componentSwitchState;
+  set componentSwitchState(bool value) {
+    _componentSwitchState = value;
   }
-
-  void addToStarterTemplateRefs(DocumentReference value) {
-    _starterTemplateRefs.add(value);
-  }
-
-  void removeFromStarterTemplateRefs(DocumentReference value) {
-    _starterTemplateRefs.remove(value);
-  }
-
-  void removeAtIndexFromStarterTemplateRefs(int index) {
-    _starterTemplateRefs.removeAt(index);
-  }
-
-  void updateStarterTemplateRefsAtIndex(
-    int index,
-    DocumentReference Function(DocumentReference) updateFn,
-  ) {
-    _starterTemplateRefs[index] = updateFn(_starterTemplateRefs[index]);
-  }
-
-  void insertAtIndexInStarterTemplateRefs(
-      int index, DocumentReference value) {
-    _starterTemplateRefs.insert(index, value);
-  }
-
-  List<DocumentReference> _selectedStarterTemplate = [];
-  List<DocumentReference> get selectedStarterTemplate =>
-      _selectedStarterTemplate;
-  set selectedStarterTemplate(List<DocumentReference> value) {
-    _selectedStarterTemplate = value;
-    prefs.setStringList(
-        'ff_selectedStarterTemplate', value.map((x) => x.path).toList());
-  }
-
-  void addToSelectedStarterTemplate(DocumentReference value) {
-    _selectedStarterTemplate.add(value);
-    prefs.setStringList('ff_selectedStarterTemplate',
-        _selectedStarterTemplate.map((x) => x.path).toList());
-  }
-
-  void removeFromSelectedStarterTemplate(DocumentReference value) {
-    _selectedStarterTemplate.remove(value);
-    prefs.setStringList('ff_selectedStarterTemplate',
-        _selectedStarterTemplate.map((x) => x.path).toList());
-  }
-
-  void removeAtIndexFromSelectedStarterTemplate(int index) {
-    _selectedStarterTemplate.removeAt(index);
-    prefs.setStringList('ff_selectedStarterTemplate',
-        _selectedStarterTemplate.map((x) => x.path).toList());
-  }
-
-  void updateSelectedStarterTemplateAtIndex(
-    int index,
-    DocumentReference Function(DocumentReference) updateFn,
-  ) {
-    _selectedStarterTemplate[index] =
-        updateFn(_selectedStarterTemplate[index]);
-    prefs.setStringList('ff_selectedStarterTemplate',
-        _selectedStarterTemplate.map((x) => x.path).toList());
-  }
-
-  void insertAtIndexInSelectedStarterTemplate(
-      int index, DocumentReference value) {
-    _selectedStarterTemplate.insert(index, value);
-    prefs.setStringList('ff_selectedStarterTemplate',
-        _selectedStarterTemplate.map((x) => x.path).toList());
-  }
-}
-
-LatLng? _latLngFromString(String? val) {
-  if (val == null) {
-    return null;
-  }
-  final split = val.split(',');
-  final lat = double.parse(split.first);
-  final lng = double.parse(split.last);
-  return LatLng(lat, lng);
-}
-
-void _safeInit(Function() initializeField) {
-  try {
-    initializeField();
-  } catch (_) {}
-}
-
-Future _safeInitAsync(Function() initializeField) async {
-  try {
-    await initializeField();
-  } catch (_) {}
 }

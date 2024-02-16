@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
 
@@ -73,13 +74,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const StartPageWidget() : const LoginregisterWidget(),
+          appStateNotifier.loggedIn ? const HomePageWidget() : const LoginregisterWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) => appStateNotifier.loggedIn
-              ? const StartPageWidget()
+              ? const HomePageWidget()
               : const LoginregisterWidget(),
         ),
         FFRoute(
@@ -93,14 +94,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const ForgotPasswordWidget(),
         ),
         FFRoute(
-          name: 'StartPage',
-          path: '/startPage',
-          builder: (context, params) => const StartPageWidget(),
+          name: 'HomePage',
+          path: '/homePage',
+          builder: (context, params) => const HomePageWidget(),
         ),
         FFRoute(
           name: 'MyLeads',
           path: '/myLeads',
-          builder: (context, params) => const MyLeadsWidget(),
+          builder: (context, params) => MyLeadsWidget(
+            teamDocRef: params.getParam(
+                'teamDocRef', ParamType.DocumentReference, false, ['teams']),
+          ),
         ),
         FFRoute(
           name: 'LeadDetailView',
@@ -115,22 +119,28 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'addNewLead',
           path: '/addNewLead',
-          builder: (context, params) => const AddNewLeadWidget(),
+          builder: (context, params) => AddNewLeadWidget(
+            teamDocRef: params.getParam(
+                'teamDocRef', ParamType.DocumentReference, false, ['teams']),
+          ),
         ),
         FFRoute(
           name: 'Templates',
           path: '/templates',
-          builder: (context, params) => const TemplatesWidget(),
-        ),
-        FFRoute(
-          name: 'editTemplate',
-          path: '/editTemplate',
-          builder: (context, params) => const EditTemplateWidget(),
+          asyncParams: {
+            'teamDoc': getDoc(['teams'], TeamsRecord.fromSnapshot),
+          },
+          builder: (context, params) => TemplatesWidget(
+            teamDoc: params.getParam('teamDoc', ParamType.Document),
+          ),
         ),
         FFRoute(
           name: 'CustomComponentPage',
           path: '/customComponentPage',
-          builder: (context, params) => const CustomComponentPageWidget(),
+          builder: (context, params) => CustomComponentPageWidget(
+            teamDocRef: params.getParam(
+                'teamDocRef', ParamType.DocumentReference, false, ['teams']),
+          ),
         ),
         FFRoute(
           name: 'ProfileSetUpPage',
@@ -162,6 +172,82 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => EditLeadPageWidget(
             leadDoc: params.getParam('leadDoc', ParamType.Document),
           ),
+        ),
+        FFRoute(
+          name: 'NewOrEditComponent',
+          path: '/newOrEditComponent',
+          asyncParams: {
+            'component': getDoc(['teams', 'team_components'],
+                TeamComponentsRecord.fromSnapshot),
+          },
+          builder: (context, params) => NewOrEditComponentWidget(
+            component: params.getParam('component', ParamType.Document),
+            teamDocRef: params.getParam(
+                'teamDocRef', ParamType.DocumentReference, false, ['teams']),
+          ),
+        ),
+        FFRoute(
+          name: 'AccountSettings',
+          path: '/accountSettings',
+          asyncParams: {
+            'teamDoc': getDoc(['teams'], TeamsRecord.fromSnapshot),
+          },
+          builder: (context, params) => AccountSettingsWidget(
+            teamDoc: params.getParam('teamDoc', ParamType.Document),
+          ),
+        ),
+        FFRoute(
+          name: 'Billing',
+          path: '/billing',
+          builder: (context, params) => const BillingWidget(),
+        ),
+        FFRoute(
+          name: 'checkoutcart',
+          path: '/checkout',
+          builder: (context, params) => const CheckoutcartWidget(),
+        ),
+        FFRoute(
+          name: 'checkout',
+          path: '/checkoutn',
+          builder: (context, params) => const CheckoutWidget(),
+        ),
+        FFRoute(
+          name: 'settings',
+          path: '/settings',
+          builder: (context, params) => const SettingsWidget(),
+        ),
+        FFRoute(
+          name: 'ManageMembers',
+          path: '/manageMembers',
+          builder: (context, params) => const ManageMembersWidget(),
+        ),
+        FFRoute(
+          name: 'checkoutcartCopy',
+          path: '/checkoutf',
+          builder: (context, params) => const CheckoutcartCopyWidget(),
+        ),
+        FFRoute(
+          name: 'EmailTemplateEditor',
+          path: '/emailTemplateEditor',
+          builder: (context, params) => const EmailTemplateEditorWidget(),
+        ),
+        FFRoute(
+          name: 'EmailTemplatesList',
+          path: '/emailTemplatesList',
+          builder: (context, params) => const EmailTemplatesListWidget(),
+        ),
+        FFRoute(
+          name: 'ComponentMarketplaceList',
+          path: '/componentMarketplaceList',
+          builder: (context, params) => ComponentMarketplaceListWidget(
+            teamDocRef: params.getParam(
+                'teamDocRef', ParamType.DocumentReference, false, ['teams']),
+          ),
+        ),
+        FFRoute(
+          name: 'checkoutcartCopyCopy',
+          path: '/checkoutff',
+          builder: (context, params) => const CheckoutcartCopyCopyWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -343,12 +429,11 @@ class FFRoute {
           final child = appStateNotifier.loading
               ? Center(
                   child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).primary,
-                      ),
+                    width: 30.0,
+                    height: 30.0,
+                    child: SpinKitFadingFour(
+                      color: FlutterFlowTheme.of(context).primary,
+                      size: 30.0,
                     ),
                   ),
                 )

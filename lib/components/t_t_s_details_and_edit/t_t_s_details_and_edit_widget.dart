@@ -17,7 +17,7 @@ class TTSDetailsAndEditWidget extends StatefulWidget {
   });
 
   final String? headText;
-  final SpeechToTextNotesRecord? ttsDoc;
+  final ComponentContentRecord? ttsDoc;
 
   @override
   State<TTSDetailsAndEditWidget> createState() =>
@@ -38,7 +38,8 @@ class _TTSDetailsAndEditWidgetState extends State<TTSDetailsAndEditWidget> {
     super.initState();
     _model = createModel(context, () => TTSDetailsAndEditModel());
 
-    _model.textController ??= TextEditingController(text: widget.ttsDoc?.note);
+    _model.textController ??=
+        TextEditingController(text: widget.ttsDoc?.content);
     _model.textFieldFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -172,16 +173,10 @@ class _TTSDetailsAndEditWidgetState extends State<TTSDetailsAndEditWidget> {
                 padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                 child: FFButtonWidget(
                   onPressed: () async {
-                    await widget.ttsDoc!.reference.update({
-                      ...createSpeechToTextNotesRecordData(
-                        note: _model.textController.text,
-                      ),
-                      ...mapToFirestore(
-                        {
-                          'updated_at': FieldValue.serverTimestamp(),
-                        },
-                      ),
-                    });
+                    await widget.ttsDoc!.reference
+                        .update(createComponentContentRecordData(
+                      content: _model.textController.text,
+                    ));
                     context.safePop();
                   },
                   text: 'Save',

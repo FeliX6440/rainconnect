@@ -78,7 +78,7 @@ class _DeleteLeadComponentWidgetState extends State<DeleteLeadComponentWidget> {
                   await widget.leadDocRef!.delete();
                   Navigator.pop(context);
 
-                  context.goNamed('StartPage');
+                  context.goNamed('HomePage');
                 },
                 text: 'Delete lead',
                 options: FFButtonOptions(

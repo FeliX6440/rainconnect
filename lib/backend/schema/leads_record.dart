@@ -90,15 +90,15 @@ class LeadsRecord extends FirestoreRecord {
   DateTime? get createdAt => _createdAt;
   bool hasCreatedAt() => _createdAt != null;
 
-  // "lead_collected_by" field.
-  DocumentReference? _leadCollectedBy;
-  DocumentReference? get leadCollectedBy => _leadCollectedBy;
-  bool hasLeadCollectedBy() => _leadCollectedBy != null;
-
   // "photo_url" field.
   String? _photoUrl;
   String get photoUrl => _photoUrl ?? '';
   bool hasPhotoUrl() => _photoUrl != null;
+
+  // "lead_collected_by" field.
+  DocumentReference? _leadCollectedBy;
+  DocumentReference? get leadCollectedBy => _leadCollectedBy;
+  bool hasLeadCollectedBy() => _leadCollectedBy != null;
 
   void _initializeFields() {
     _firstName = snapshotData['first_name'] as String?;
@@ -116,8 +116,8 @@ class LeadsRecord extends FirestoreRecord {
     _company = snapshotData['company'] as String?;
     _industry = snapshotData['industry'] as String?;
     _createdAt = snapshotData['created_at'] as DateTime?;
-    _leadCollectedBy = snapshotData['lead_collected_by'] as DocumentReference?;
     _photoUrl = snapshotData['photo_url'] as String?;
+    _leadCollectedBy = snapshotData['lead_collected_by'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -169,8 +169,8 @@ Map<String, dynamic> createLeadsRecordData({
   String? company,
   String? industry,
   DateTime? createdAt,
-  DocumentReference? leadCollectedBy,
   String? photoUrl,
+  DocumentReference? leadCollectedBy,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -189,8 +189,8 @@ Map<String, dynamic> createLeadsRecordData({
       'company': company,
       'industry': industry,
       'created_at': createdAt,
-      'lead_collected_by': leadCollectedBy,
       'photo_url': photoUrl,
+      'lead_collected_by': leadCollectedBy,
     }.withoutNulls,
   );
 
@@ -217,8 +217,8 @@ class LeadsRecordDocumentEquality implements Equality<LeadsRecord> {
         e1?.company == e2?.company &&
         e1?.industry == e2?.industry &&
         e1?.createdAt == e2?.createdAt &&
-        e1?.leadCollectedBy == e2?.leadCollectedBy &&
-        e1?.photoUrl == e2?.photoUrl;
+        e1?.photoUrl == e2?.photoUrl &&
+        e1?.leadCollectedBy == e2?.leadCollectedBy;
   }
 
   @override
@@ -238,8 +238,8 @@ class LeadsRecordDocumentEquality implements Equality<LeadsRecord> {
         e?.company,
         e?.industry,
         e?.createdAt,
-        e?.leadCollectedBy,
-        e?.photoUrl
+        e?.photoUrl,
+        e?.leadCollectedBy
       ]);
 
   @override

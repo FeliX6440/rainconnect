@@ -17,7 +17,7 @@ class NotesDetailsAndEditWidget extends StatefulWidget {
   });
 
   final String? headText;
-  final NotesRecord? noteDoc;
+  final ComponentContentRecord? noteDoc;
 
   @override
   State<NotesDetailsAndEditWidget> createState() =>
@@ -38,7 +38,8 @@ class _NotesDetailsAndEditWidgetState extends State<NotesDetailsAndEditWidget> {
     super.initState();
     _model = createModel(context, () => NotesDetailsAndEditModel());
 
-    _model.textController ??= TextEditingController(text: widget.noteDoc?.note);
+    _model.textController ??=
+        TextEditingController(text: widget.noteDoc?.content);
     _model.textFieldFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -172,16 +173,10 @@ class _NotesDetailsAndEditWidgetState extends State<NotesDetailsAndEditWidget> {
                 padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                 child: FFButtonWidget(
                   onPressed: () async {
-                    await widget.noteDoc!.reference.update({
-                      ...createNotesRecordData(
-                        note: _model.textController.text,
-                      ),
-                      ...mapToFirestore(
-                        {
-                          'updated_at': FieldValue.serverTimestamp(),
-                        },
-                      ),
-                    });
+                    await widget.noteDoc!.reference
+                        .update(createComponentContentRecordData(
+                      content: _model.textController.text,
+                    ));
                     context.safePop();
                   },
                   text: 'Save',

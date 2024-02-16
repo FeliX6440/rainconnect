@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'template_tile_component_model.dart';
 export 'template_tile_component_model.dart';
@@ -10,10 +11,12 @@ export 'template_tile_component_model.dart';
 class TemplateTileComponentWidget extends StatefulWidget {
   const TemplateTileComponentWidget({
     super.key,
-    required this.template,
+    required this.component,
+    required this.teamDocRef,
   });
 
-  final DocumentReference? template;
+  final TeamComponentsRecord? component;
+  final DocumentReference? teamDocRef;
 
   @override
   State<TemplateTileComponentWidget> createState() =>
@@ -58,104 +61,115 @@ class _TemplateTileComponentWidgetState
       ),
       child: Padding(
         padding: const EdgeInsetsDirectional.fromSTEB(12.0, 8.0, 12.0, 8.0),
-        child: StreamBuilder<TemplatesRecord>(
-          stream: TemplatesRecord.getDocument(widget.template!),
-          builder: (context, snapshot) {
-            // Customize what your widget looks like when it's loading.
-            if (!snapshot.hasData) {
-              return const Center(
-                child: SizedBox(
-                  width: 40.0,
-                  height: 40.0,
-                  child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      Color(0x009489F5),
-                    ),
-                  ),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(40.0),
+                child: Image.network(
+                  'https://images.unsplash.com/photo-1629196206335-744346ba1331?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxMHx8dmlvbGV0JTIwd2FsbHBhcGVyfGVufDB8fHx8MTcwNTY4OTA2NHww&ixlib=rb-4.0.3&q=80&w=1080',
+                  width: 32.0,
+                  height: 32.0,
+                  fit: BoxFit.cover,
                 ),
-              );
-            }
-            final rowTemplatesRecord = snapshot.data!;
-            return Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(40.0),
-                    child: Image.network(
-                      'https://images.unsplash.com/photo-1629196206335-744346ba1331?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxMHx8dmlvbGV0JTIwd2FsbHBhcGVyfGVufDB8fHx8MTcwNTY4OTA2NHww&ixlib=rb-4.0.3&q=80&w=1080',
-                      width: 32.0,
-                      height: 32.0,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          rowTemplatesRecord.name,
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Plus Jakarta Sans',
-                                    color: const Color(0xFF14181B),
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 4.0, 0.0, 0.0),
-                          child: Text(
-                            rowTemplatesRecord.description,
-                            style:
-                                FlutterFlowTheme.of(context).bodySmall.override(
-                                      fontFamily: 'Plus Jakarta Sans',
-                                      color: const Color(0xFF4B39EF),
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.component!.name,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Plus Jakarta Sans',
+                            color: const Color(0xFF14181B),
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.bold,
                           ),
-                        ),
-                      ],
                     ),
-                  ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                      child: Text(
+                        widget.component!.description,
+                        style: FlutterFlowTheme.of(context).bodySmall.override(
+                              fontFamily: 'Plus Jakarta Sans',
+                              color: const Color(0xFF4B39EF),
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                      ),
+                    ),
+                  ],
                 ),
-                InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    context.pushNamed('editTemplate');
-                  },
-                  child: const Icon(
-                    Icons.edit_outlined,
-                    color: Color(0xFF4B39EF),
-                    size: 24.0,
-                  ),
+              ),
+            ),
+            if (widget.component?.isCustom == true)
+              InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  context.pushNamed(
+                    'NewOrEditComponent',
+                    queryParameters: {
+                      'component': serializeParam(
+                        widget.component,
+                        ParamType.Document,
+                      ),
+                      'teamDocRef': serializeParam(
+                        widget.teamDocRef,
+                        ParamType.DocumentReference,
+                      ),
+                    }.withoutNulls,
+                    extra: <String, dynamic>{
+                      'component': widget.component,
+                    },
+                  );
+                },
+                child: const Icon(
+                  Icons.edit_outlined,
+                  color: Color(0xFF4B39EF),
+                  size: 24.0,
                 ),
-                ToggleIcon(
+              ),
+            StreamBuilder<TeamComponentsRecord>(
+              stream:
+                  TeamComponentsRecord.getDocument(widget.component!.reference),
+              builder: (context, snapshot) {
+                // Customize what your widget looks like when it's loading.
+                if (!snapshot.hasData) {
+                  return const Center(
+                    child: SizedBox(
+                      width: 40.0,
+                      height: 40.0,
+                      child: SpinKitPulse(
+                        color: Color(0x009489F5),
+                        size: 40.0,
+                      ),
+                    ),
+                  );
+                }
+                final toggleIconTeamComponentsRecord = snapshot.data!;
+                return ToggleIcon(
                   onPressed: () async {
-                    setState(
-                      () => FFAppState()
-                              .selectedStarterTemplate
-                              .contains(rowTemplatesRecord.reference)
-                          ? FFAppState().removeFromSelectedStarterTemplate(
-                              rowTemplatesRecord.reference)
-                          : FFAppState().addToSelectedStarterTemplate(
-                              rowTemplatesRecord.reference),
-                    );
+                    await toggleIconTeamComponentsRecord.reference.update({
+                      ...mapToFirestore(
+                        {
+                          'is_starter':
+                              !toggleIconTeamComponentsRecord.isStarter,
+                        },
+                      ),
+                    });
                   },
-                  value: FFAppState()
-                      .selectedStarterTemplate
-                      .contains(rowTemplatesRecord.reference),
+                  value: toggleIconTeamComponentsRecord.isStarter,
                   onIcon: Icon(
                     Icons.check_circle_outline_rounded,
                     color: FlutterFlowTheme.of(context).primary,
@@ -166,10 +180,10 @@ class _TemplateTileComponentWidgetState
                     color: FlutterFlowTheme.of(context).secondaryText,
                     size: 25.0,
                   ),
-                ),
-              ],
-            );
-          },
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

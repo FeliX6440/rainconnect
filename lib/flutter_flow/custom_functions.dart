@@ -37,11 +37,14 @@ List<String> extractNameFromTemplate(List<TemplateStruct> templates) {
   return names;
 }
 
-bool checkForStarterTemplate(
-  List<DocumentReference> templateList,
-  String idCheckValue,
+List<String> searchTextInFirestore(String value) {
+  return value.split('').toList();
+}
+
+bool checkForDomianExtension(
+  String userEmail,
+  String teamEmail,
 ) {
-  return templateList.any(
-    (element) => element.id == idCheckValue,
-  );
+  String teamExtension = teamEmail.split('@').last;
+  return userEmail.split('@').last == teamExtension;
 }

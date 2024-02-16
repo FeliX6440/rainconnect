@@ -6,6 +6,17 @@ enum Gender {
   others,
 }
 
+enum ComponentType {
+  Dropdown,
+  MultipleChoice,
+  TextField,
+  SpeechToText,
+  Note,
+  Temperature,
+  industrialFair,
+  placeOfEncounter,
+}
+
 extension FFEnumExtensions<T extends Enum> on T {
   String serialize() => name;
 }
@@ -19,6 +30,8 @@ T? deserializeEnum<T>(String? value) {
   switch (T) {
     case (Gender):
       return Gender.values.deserialize(value) as T?;
+    case (ComponentType):
+      return ComponentType.values.deserialize(value) as T?;
     default:
       return null;
   }

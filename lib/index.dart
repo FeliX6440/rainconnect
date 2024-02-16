@@ -2,19 +2,39 @@
 export '/auth/loginregister/loginregister_widget.dart' show LoginregisterWidget;
 export '/auth/forgot_password/forgot_password_widget.dart'
     show ForgotPasswordWidget;
-export '/pages/start_page/start_page_widget.dart' show StartPageWidget;
-export '/pages/my_leads/my_leads_widget.dart' show MyLeadsWidget;
-export '/pages/lead_detail_view/lead_detail_view_widget.dart'
+export '/home/home_page/home_page_widget.dart' show HomePageWidget;
+export '/home/my_leads/my_leads_widget.dart' show MyLeadsWidget;
+export '/home/lead_detail_view/lead_detail_view_widget.dart'
     show LeadDetailViewWidget;
-export '/pages/add_new_lead/add_new_lead_widget.dart' show AddNewLeadWidget;
-export '/pages/templates/templates_widget.dart' show TemplatesWidget;
-export '/pages/edit_template/edit_template_widget.dart' show EditTemplateWidget;
-export '/pages/custom_component_page/custom_component_page_widget.dart'
+export '/home/add_new_lead/add_new_lead_widget.dart' show AddNewLeadWidget;
+export '/home/templates/templates_widget.dart' show TemplatesWidget;
+export '/home/custom_component_page/custom_component_page_widget.dart'
     show CustomComponentPageWidget;
-export '/pages/profile_set_up_page/profile_set_up_page_widget.dart'
+export '/profile/profile_set_up_page/profile_set_up_page_widget.dart'
     show ProfileSetUpPageWidget;
-export '/pages/speech_to_text_notes_page/speech_to_text_notes_page_widget.dart'
+export '/home/speech_to_text_notes_page/speech_to_text_notes_page_widget.dart'
     show SpeechToTextNotesPageWidget;
-export '/pages/quick_notes_page/quick_notes_page_widget.dart'
+export '/home/quick_notes_page/quick_notes_page_widget.dart'
     show QuickNotesPageWidget;
-export '/edit_lead_page/edit_lead_page_widget.dart' show EditLeadPageWidget;
+export '/home/edit_lead_page/edit_lead_page_widget.dart'
+    show EditLeadPageWidget;
+export '/home/new_or_edit_component/new_or_edit_component_widget.dart'
+    show NewOrEditComponentWidget;
+export '/profile/account_settings/account_settings_widget.dart'
+    show AccountSettingsWidget;
+export '/billing/billing_widget.dart' show BillingWidget;
+export '/checkoutcart/checkoutcart_widget.dart' show CheckoutcartWidget;
+export '/checkout/checkout_widget.dart' show CheckoutWidget;
+export '/profile/settings/settings_widget.dart' show SettingsWidget;
+export '/profile/manage_members/manage_members_widget.dart'
+    show ManageMembersWidget;
+export '/checkoutcart_copy/checkoutcart_copy_widget.dart'
+    show CheckoutcartCopyWidget;
+export '/profile/email_template_editor/email_template_editor_widget.dart'
+    show EmailTemplateEditorWidget;
+export '/profile/email_templates_list/email_templates_list_widget.dart'
+    show EmailTemplatesListWidget;
+export '/marketplace/component_marketplace_list/component_marketplace_list_widget.dart'
+    show ComponentMarketplaceListWidget;
+export '/checkoutcart_copy_copy/checkoutcart_copy_copy_widget.dart'
+    show CheckoutcartCopyCopyWidget;

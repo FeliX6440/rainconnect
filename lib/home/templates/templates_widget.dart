@@ -229,8 +229,8 @@ class _TemplatesWidgetState extends State<TemplatesWidget> {
                           thickness: 1.0,
                           color: Color(0xFFE0E3E7),
                         ),
-                        FutureBuilder<List<TeamComponentsRecord>>(
-                          future: queryTeamComponentsRecordOnce(
+                        StreamBuilder<List<TeamComponentsRecord>>(
+                          stream: queryTeamComponentsRecord(
                             parent: widget.teamDoc?.reference,
                             queryBuilder: (teamComponentsRecord) =>
                                 teamComponentsRecord

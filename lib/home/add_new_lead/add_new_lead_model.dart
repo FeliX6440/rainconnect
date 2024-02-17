@@ -1,6 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/form_field_controller.dart';
 import 'add_new_lead_widget.dart' show AddNewLeadWidget;
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,13 @@ class AddNewLeadModel extends FlutterFlowModel<AddNewLeadWidget> {
           pageViewController!.page != null
       ? pageViewController!.page!.round()
       : 0;
+  // State field(s) for industryDropdown widget.
+  String? industryDropdownValue;
+  FormFieldController<String>? industryDropdownValueController;
+  // State field(s) for encounterField widget.
+  FocusNode? encounterFieldFocusNode;
+  TextEditingController? encounterFieldController;
+  String? Function(BuildContext, String?)? encounterFieldControllerValidator;
   bool isDataUploading1 = false;
   FFUploadedFile uploadedLocalFile1 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
@@ -98,6 +106,9 @@ class AddNewLeadModel extends FlutterFlowModel<AddNewLeadWidget> {
   @override
   void dispose() {
     unfocusNode.dispose();
+    encounterFieldFocusNode?.dispose();
+    encounterFieldController?.dispose();
+
     firstNameFocusNode?.dispose();
     firstNameController?.dispose();
 

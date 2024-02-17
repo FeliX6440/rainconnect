@@ -122,6 +122,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => AddNewLeadWidget(
             teamDocRef: params.getParam(
                 'teamDocRef', ParamType.DocumentReference, false, ['teams']),
+            isIndustryMode: params.getParam('isIndustryMode', ParamType.bool),
+            industryListValue: params.getParam<String>(
+                'industryListValue', ParamType.String, true),
           ),
         ),
         FFRoute(

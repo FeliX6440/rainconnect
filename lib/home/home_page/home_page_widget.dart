@@ -1568,6 +1568,19 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       ParamType
                                                           .DocumentReference,
                                                     ),
+                                                    'isIndustryMode':
+                                                        serializeParam(
+                                                      homePageTeamsRecord
+                                                          .templateMode,
+                                                      ParamType.bool,
+                                                    ),
+                                                    'industryListValue':
+                                                        serializeParam(
+                                                      homePageTeamsRecord
+                                                          .fairModeValues,
+                                                      ParamType.String,
+                                                      true,
+                                                    ),
                                                   }.withoutNulls,
                                                 );
                                               },

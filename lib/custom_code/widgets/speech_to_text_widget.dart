@@ -25,6 +25,8 @@ class SpeechToTextWidget extends StatefulWidget {
     required this.buttonColor,
     required this.resetButtonColor,
     required this.dropdownListValue,
+    required this.isEdit,
+    required this.leadRef,
   });
 
   final double? width;
@@ -35,6 +37,8 @@ class SpeechToTextWidget extends StatefulWidget {
   final Color buttonColor;
   final Color resetButtonColor;
   final List<String> dropdownListValue;
+  final bool isEdit;
+  final DocumentReference leadRef;
 
   @override
   State<SpeechToTextWidget> createState() => _SpeechToTextWidgetState();
@@ -110,8 +114,31 @@ class _SpeechToTextWidgetState extends State<SpeechToTextWidget> {
   void initState() {
     _dio = Dio();
     Future.microtask(() async {
+      if (widget.isEdit) {
+        try {
+          await FirebaseFirestore.instance
+              .collection('component_content')
+              .where('lead_ref', isEqualTo: widget.leadRef)
+              .where('type', isEqualTo: 'SpeechToText')
+              .get()
+              .then(
+            (value) {
+              setState(() {
+                _textEditingController.text =
+                    value.docs.first.data()['content'].toString();
+              });
+            },
+          );
+        } catch (e) {
+          print(e.toString());
+        }
+      }
+
       available = await speechToText.initialize();
       setState(() {});
+    });
+    _textEditingController.addListener(() {
+      FFAppState().audioTextResult = _textEditingController.text;
     });
     super.initState();
   }
@@ -196,13 +223,13 @@ class _SpeechToTextWidgetState extends State<SpeechToTextWidget> {
             child: TextFormField(
               controller: _textEditingController,
               maxLines: 4,
-              onChanged: (value) {
-                FFAppState().update(
-                  () {
-                    FFAppState().audioTextResult = value;
-                  },
-                );
-              },
+              // onChanged: (value) {
+              //   FFAppState().update(
+              //     () {
+              //       FFAppState().audioTextResult = value;
+              //     },
+              //   );
+              // },
               decoration: InputDecoration(
                 suffix: GestureDetector(
                     onTap: () {

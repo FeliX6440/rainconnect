@@ -4,10 +4,12 @@ import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/backend/schema/enums/enums.dart';
 import '/components/tile_component/tile_component_widget.dart';
+import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
@@ -22,9 +24,13 @@ class AddNewLeadWidget extends StatefulWidget {
   const AddNewLeadWidget({
     super.key,
     required this.teamDocRef,
+    required this.isIndustryMode,
+    required this.industryListValue,
   });
 
   final DocumentReference? teamDocRef;
+  final bool? isIndustryMode;
+  final List<String>? industryListValue;
 
   @override
   State<AddNewLeadWidget> createState() => _AddNewLeadWidgetState();
@@ -39,6 +45,9 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AddNewLeadModel());
+
+    _model.encounterFieldController ??= TextEditingController();
+    _model.encounterFieldFocusNode ??= FocusNode();
 
     _model.firstNameController ??= TextEditingController();
     _model.firstNameFocusNode ??= FocusNode();
@@ -192,6 +201,103 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 30.0),
+                          child: Builder(
+                            builder: (context) {
+                              if (widget.isIndustryMode ?? false) {
+                                return FlutterFlowDropDown<String>(
+                                  controller:
+                                      _model.industryDropdownValueController ??=
+                                          FormFieldController<String>(null),
+                                  options: widget.industryListValue!,
+                                  onChanged: (val) => setState(
+                                      () => _model.industryDropdownValue = val),
+                                  width: double.infinity,
+                                  height: 50.0,
+                                  textStyle:
+                                      FlutterFlowTheme.of(context).bodyMedium,
+                                  hintText: 'Please select...',
+                                  icon: Icon(
+                                    Icons.keyboard_arrow_down_rounded,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    size: 24.0,
+                                  ),
+                                  fillColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  elevation: 2.0,
+                                  borderColor:
+                                      FlutterFlowTheme.of(context).alternate,
+                                  borderWidth: 2.0,
+                                  borderRadius: 8.0,
+                                  margin: const EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 4.0, 16.0, 4.0),
+                                  hidesUnderline: true,
+                                  isOverButton: true,
+                                  isSearchable: false,
+                                  isMultiSelect: false,
+                                );
+                              } else {
+                                return TextFormField(
+                                  controller: _model.encounterFieldController,
+                                  focusNode: _model.encounterFieldFocusNode,
+                                  autofocus: true,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium,
+                                    hintText: 'Place of encounter',
+                                    hintStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Manrope',
+                                          fontSize: 14.0,
+                                        ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color:
+                                            FlutterFlowTheme.of(context).error,
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color:
+                                            FlutterFlowTheme.of(context).error,
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  ),
+                                  style:
+                                      FlutterFlowTheme.of(context).bodyMedium,
+                                  validator: _model
+                                      .encounterFieldControllerValidator
+                                      .asValidator(context),
+                                );
+                              }
+                            },
+                          ),
+                        ),
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 20.0),
@@ -1702,6 +1808,41 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                     },
                                   ),
                                 }, leadsRecordReference);
+                                if (widget.isIndustryMode!) {
+                                  await ComponentContentRecord.collection
+                                      .doc()
+                                      .set({
+                                    ...createComponentContentRecordData(
+                                      leadRef: _model.leadResponse?.reference,
+                                      type: ComponentType.industrialFair,
+                                      content: _model.industryDropdownValue,
+                                    ),
+                                    ...mapToFirestore(
+                                      {
+                                        'created_at':
+                                            FieldValue.serverTimestamp(),
+                                      },
+                                    ),
+                                  });
+                                } else {
+                                  await ComponentContentRecord.collection
+                                      .doc()
+                                      .set({
+                                    ...createComponentContentRecordData(
+                                      leadRef: _model.leadResponse?.reference,
+                                      type: ComponentType.placeOfEncounter,
+                                      content:
+                                          _model.encounterFieldController.text,
+                                    ),
+                                    ...mapToFirestore(
+                                      {
+                                        'created_at':
+                                            FieldValue.serverTimestamp(),
+                                      },
+                                    ),
+                                  });
+                                }
+
                                 await _model.pageViewController?.nextPage(
                                   duration: const Duration(milliseconds: 300),
                                   curve: Curves.ease,
@@ -1796,11 +1937,18 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                 final listViewTeamComponentsRecord =
                                     listViewTeamComponentsRecordList[
                                         listViewIndex];
-                                return TileComponentWidget(
-                                  key: Key(
-                                      'Key3l4_${listViewIndex}_of_${listViewTeamComponentsRecordList.length}'),
-                                  component: listViewTeamComponentsRecord,
-                                  lead: _model.leadResponse!.reference,
+                                return Visibility(
+                                  visible:
+                                      !((listViewTeamComponentsRecord.type ==
+                                              ComponentType.industrialFair) ||
+                                          (listViewTeamComponentsRecord.type ==
+                                              ComponentType.placeOfEncounter)),
+                                  child: TileComponentWidget(
+                                    key: Key(
+                                        'Key3l4_${listViewIndex}_of_${listViewTeamComponentsRecordList.length}'),
+                                    component: listViewTeamComponentsRecord,
+                                    lead: _model.leadResponse!.reference,
+                                  ),
                                 );
                               },
                             );

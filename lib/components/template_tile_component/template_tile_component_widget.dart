@@ -159,6 +159,21 @@ class _TemplateTileComponentWidgetState
                   size: 24.0,
                 ),
               ),
+            if (widget.component?.isCustom == true)
+              InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  await widget.component!.reference.delete();
+                },
+                child: Icon(
+                  Icons.delete_forever,
+                  color: FlutterFlowTheme.of(context).error,
+                  size: 24.0,
+                ),
+              ),
             StreamBuilder<TeamComponentsRecord>(
               stream:
                   TeamComponentsRecord.getDocument(widget.component!.reference),

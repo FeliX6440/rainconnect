@@ -197,6 +197,8 @@ class _TileComponentWidgetState extends State<TileComponentWidget> {
                           child: SpeechToTextBottomSheetWidget(
                             leadDocRef: widget.lead!,
                             componentDocRef: widget.component?.reference,
+                            isEdit: widget.component!.containLeads
+                                .contains(widget.lead),
                           ),
                         ),
                       );

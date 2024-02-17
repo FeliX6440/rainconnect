@@ -677,6 +677,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                             await teamsRecordReference.set({
                               ...createTeamsRecordData(
                                 creatorRef: currentUserReference,
+                                templateMode: false,
                               ),
                               ...mapToFirestore(
                                 {
@@ -691,6 +692,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                                 TeamsRecord.getDocumentFromData({
                               ...createTeamsRecordData(
                                 creatorRef: currentUserReference,
+                                templateMode: false,
                               ),
                               ...mapToFirestore(
                                 {
@@ -762,24 +764,10 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                                     _model.newTeamDoc!.reference)
                                 .set({
                               ...createTeamComponentsRecordData(
-                                name: 'Industrial Fair',
-                                isStarter: true,
-                                type: ComponentType.industrialFair,
-                              ),
-                              ...mapToFirestore(
-                                {
-                                  'added_at': FieldValue.serverTimestamp(),
-                                },
-                              ),
-                            });
-
-                            await TeamComponentsRecord.createDoc(
-                                    _model.newTeamDoc!.reference)
-                                .set({
-                              ...createTeamComponentsRecordData(
                                 name: 'Place Of Encounter',
                                 isStarter: true,
                                 type: ComponentType.placeOfEncounter,
+                                isCustom: false,
                               ),
                               ...mapToFirestore(
                                 {

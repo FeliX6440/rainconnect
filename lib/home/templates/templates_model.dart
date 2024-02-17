@@ -15,8 +15,6 @@ class TemplatesModel extends FlutterFlowModel<TemplatesWidget> {
   final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in Templates widget.
   List<TeamComponentsRecord>? componentData;
-  // State field(s) for Switch widget.
-  bool? switchValue;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;

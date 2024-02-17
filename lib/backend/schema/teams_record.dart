@@ -65,6 +65,16 @@ class TeamsRecord extends FirestoreRecord {
   List<DocumentReference> get boughtComponents => _boughtComponents ?? const [];
   bool hasBoughtComponents() => _boughtComponents != null;
 
+  // "template_mode" field.
+  bool? _templateMode;
+  bool get templateMode => _templateMode ?? false;
+  bool hasTemplateMode() => _templateMode != null;
+
+  // "fair_mode_values" field.
+  List<String>? _fairModeValues;
+  List<String> get fairModeValues => _fairModeValues ?? const [];
+  bool hasFairModeValues() => _fairModeValues != null;
+
   void _initializeFields() {
     _creatorRef = snapshotData['creator_ref'] as DocumentReference?;
     _members = getDataList(snapshotData['members']);
@@ -76,6 +86,8 @@ class TeamsRecord extends FirestoreRecord {
     _componentCount = castToType<int>(snapshotData['component_count']);
     _componentLimit = castToType<int>(snapshotData['component_limit']);
     _boughtComponents = getDataList(snapshotData['bought_components']);
+    _templateMode = snapshotData['template_mode'] as bool?;
+    _fairModeValues = getDataList(snapshotData['fair_mode_values']);
   }
 
   static CollectionReference get collection =>
@@ -118,6 +130,7 @@ Map<String, dynamic> createTeamsRecordData({
   DateTime? createdAt,
   int? componentCount,
   int? componentLimit,
+  bool? templateMode,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -127,6 +140,7 @@ Map<String, dynamic> createTeamsRecordData({
       'created_at': createdAt,
       'component_count': componentCount,
       'component_limit': componentLimit,
+      'template_mode': templateMode,
     }.withoutNulls,
   );
 
@@ -148,7 +162,9 @@ class TeamsRecordDocumentEquality implements Equality<TeamsRecord> {
         listEquality.equals(e1?.requests, e2?.requests) &&
         e1?.componentCount == e2?.componentCount &&
         e1?.componentLimit == e2?.componentLimit &&
-        listEquality.equals(e1?.boughtComponents, e2?.boughtComponents);
+        listEquality.equals(e1?.boughtComponents, e2?.boughtComponents) &&
+        e1?.templateMode == e2?.templateMode &&
+        listEquality.equals(e1?.fairModeValues, e2?.fairModeValues);
   }
 
   @override
@@ -162,7 +178,9 @@ class TeamsRecordDocumentEquality implements Equality<TeamsRecord> {
         e?.requests,
         e?.componentCount,
         e?.componentLimit,
-        e?.boughtComponents
+        e?.boughtComponents,
+        e?.templateMode,
+        e?.fairModeValues
       ]);
 
   @override

@@ -1,4 +1,6 @@
 import '/backend/backend.dart';
+import '/backend/schema/enums/enums.dart';
+import '/components/edit_industrial_fair_bottom_sheet_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -117,22 +119,39 @@ class _TemplateTileComponentWidgetState
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  context.pushNamed(
-                    'NewOrEditComponent',
-                    queryParameters: {
-                      'component': serializeParam(
-                        widget.component,
-                        ParamType.Document,
-                      ),
-                      'teamDocRef': serializeParam(
-                        widget.teamDocRef,
-                        ParamType.DocumentReference,
-                      ),
-                    }.withoutNulls,
-                    extra: <String, dynamic>{
-                      'component': widget.component,
-                    },
-                  );
+                  if (widget.component?.type == ComponentType.industrialFair) {
+                    await showModalBottomSheet(
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      enableDrag: false,
+                      context: context,
+                      builder: (context) {
+                        return Padding(
+                          padding: MediaQuery.viewInsetsOf(context),
+                          child: EditIndustrialFairBottomSheetWidget(
+                            teamDocRef: widget.teamDocRef!,
+                          ),
+                        );
+                      },
+                    ).then((value) => safeSetState(() {}));
+                  } else {
+                    context.pushNamed(
+                      'NewOrEditComponent',
+                      queryParameters: {
+                        'component': serializeParam(
+                          widget.component,
+                          ParamType.Document,
+                        ),
+                        'teamDocRef': serializeParam(
+                          widget.teamDocRef,
+                          ParamType.DocumentReference,
+                        ),
+                      }.withoutNulls,
+                      extra: <String, dynamic>{
+                        'component': widget.component,
+                      },
+                    );
+                  }
                 },
                 child: const Icon(
                   Icons.edit_outlined,

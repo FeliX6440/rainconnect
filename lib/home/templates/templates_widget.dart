@@ -1,7 +1,6 @@
 import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
 import '/components/template_tile_component/template_tile_component_widget.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -10,7 +9,6 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'templates_model.dart';
@@ -28,34 +26,10 @@ class TemplatesWidget extends StatefulWidget {
   State<TemplatesWidget> createState() => _TemplatesWidgetState();
 }
 
-class _TemplatesWidgetState extends State<TemplatesWidget>
-    with TickerProviderStateMixin {
+class _TemplatesWidgetState extends State<TemplatesWidget> {
   late TemplatesModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  final animationsMap = {
-    'containerOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 100.ms),
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 100.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 100.ms,
-          duration: 600.ms,
-          begin: const Offset(0.0, 60.0),
-          end: const Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-  };
 
   @override
   void initState() {
@@ -80,13 +54,6 @@ class _TemplatesWidgetState extends State<TemplatesWidget>
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
-
-    setupAnimations(
-      animationsMap.values.where((anim) =>
-          anim.trigger == AnimationTrigger.onActionTrigger ||
-          !anim.applyInitialState),
-      this,
-    );
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -149,93 +116,6 @@ class _TemplatesWidgetState extends State<TemplatesWidget>
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 5.0, 16.0, 0.0),
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                    borderRadius: BorderRadius.circular(14.0),
-                    border: Border.all(
-                      color: FlutterFlowTheme.of(context).alternate,
-                      width: 2.0,
-                    ),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(8.0, 12.0, 8.0, 0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  12.0, 0.0, 0.0, 0.0),
-                              child: Text(
-                                _model.switchState
-                                    ? 'Industrial Fair Mode'
-                                    : 'Salesperson Mode',
-                                style: FlutterFlowTheme.of(context).bodyLarge,
-                              ),
-                            ),
-                            Switch.adaptive(
-                              value: _model.switchValue ??=
-                                  FFAppState().componentSwitchState,
-                              onChanged: (newValue) async {
-                                setState(() => _model.switchValue = newValue);
-                                if (newValue) {
-                                  await _model.componentData!.first.reference
-                                      .update(createTeamComponentsRecordData(
-                                    isStarter: false,
-                                  ));
-
-                                  await _model.componentData!.last.reference
-                                      .update(createTeamComponentsRecordData(
-                                    isStarter: true,
-                                  ));
-                                } else {
-                                  await _model.componentData!.first.reference
-                                      .update(createTeamComponentsRecordData(
-                                    isStarter: true,
-                                  ));
-
-                                  await _model.componentData!.last.reference
-                                      .update(createTeamComponentsRecordData(
-                                    isStarter: false,
-                                  ));
-                                }
-                              },
-                              activeColor: FlutterFlowTheme.of(context).primary,
-                              activeTrackColor:
-                                  FlutterFlowTheme.of(context).accent1,
-                              inactiveTrackColor:
-                                  FlutterFlowTheme.of(context).alternate,
-                              inactiveThumbColor:
-                                  FlutterFlowTheme.of(context).secondaryText,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            20.0, 0.0, 20.0, 20.0),
-                        child: Text(
-                          'Additional Features that make Lead-Collecting easier. Industrial Fair Mode adds a dropdown to select the Fair you are currently on. The Salesperson Mode has an additional textfield to describe the place you met with your customer/lead.',
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Manrope',
-                                    fontSize: 12.0,
-                                  ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ).animateOnPageLoad(
-                    animationsMap['containerOnPageLoadAnimation']!),
-              ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Container(

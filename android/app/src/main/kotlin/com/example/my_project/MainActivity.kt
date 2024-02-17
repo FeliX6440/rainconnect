@@ -1,4 +1,4 @@
-package com.mycompany.rainconnect
+package com.rainhackers.rainconnect
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 

@@ -159,7 +159,8 @@ class _TemplateTileComponentWidgetState
                   size: 24.0,
                 ),
               ),
-            if (widget.component?.isCustom == true)
+            if ((widget.component?.isCustom == true) &&
+                (widget.component?.type != ComponentType.industrialFair))
               InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,

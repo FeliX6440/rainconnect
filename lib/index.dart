@@ -38,3 +38,5 @@ export '/marketplace/component_marketplace_list/component_marketplace_list_widge
     show ComponentMarketplaceListWidget;
 export '/checkoutcart_copy_copy/checkoutcart_copy_copy_widget.dart'
     show CheckoutcartCopyCopyWidget;
+export '/profile/edit_profile_page/edit_profile_page_widget.dart'
+    show EditProfilePageWidget;

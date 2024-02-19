@@ -1,4 +1,5 @@
 import '/backend/backend.dart';
+import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -139,10 +140,17 @@ class _CustomComponentPageWidgetState extends State<CustomComponentPageWidget> {
                               future: queryTeamComponentsRecordOnce(
                                 parent: widget.teamDocRef,
                                 queryBuilder: (teamComponentsRecord) =>
-                                    teamComponentsRecord.where(
-                                  'is_custom',
-                                  isEqualTo: true,
-                                ),
+                                    teamComponentsRecord
+                                        .where(
+                                          'is_custom',
+                                          isEqualTo: true,
+                                        )
+                                        .where(
+                                          'type',
+                                          isNotEqualTo: ComponentType
+                                              .industrialFair
+                                              .serialize(),
+                                        ),
                               ),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.

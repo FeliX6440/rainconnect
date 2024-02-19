@@ -32,6 +32,33 @@ class BusinessCardReaderEndPointCall {
   }
 }
 
+class TranscribeAudioCall {
+  static Future<ApiCallResponse> call({
+    String? file = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'transcribeAudio',
+      apiUrl: 'https://api.openai.com/v1/audio/transcriptions/',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization':
+            'Bearer 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',
+        'Content-Type': 'multipart/form-data',
+      },
+      params: {
+        'file': file,
+        'model': "whisper-1",
+      },
+      bodyType: BodyType.MULTIPART,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;

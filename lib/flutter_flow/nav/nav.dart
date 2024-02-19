@@ -251,6 +251,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'checkoutcartCopyCopy',
           path: '/checkoutff',
           builder: (context, params) => const CheckoutcartCopyCopyWidget(),
+        ),
+        FFRoute(
+          name: 'EditProfilePage',
+          path: '/editProfilePage',
+          builder: (context, params) => const EditProfilePageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

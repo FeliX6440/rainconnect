@@ -112,7 +112,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
           title: Text(
-            'Initial Setup',
+            'Profile setup',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Urbanist',
                   color: Colors.white,
@@ -776,18 +776,27 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                               ),
                             });
 
-                            await currentUserReference!
-                                .update(createUsersRecordData(
-                              displayName: _model.fullNameController.text,
-                              photoUrl: _model.uploadedFileUrl != ''
-                                  ? _model.uploadedFileUrl
-                                  : random_data.randomImageUrl(
-                                      500,
-                                      500,
-                                    ),
-                              phoneNumber: _model.phoneController.text,
-                              jobTitle: _model.jobController.text,
-                            ));
+                            await currentUserReference!.update({
+                              ...createUsersRecordData(
+                                displayName: _model.fullNameController.text,
+                                photoUrl: _model.uploadedFileUrl != ''
+                                    ? _model.uploadedFileUrl
+                                    : random_data.randomImageUrl(
+                                        500,
+                                        500,
+                                      ),
+                                phoneNumber: _model.phoneController.text,
+                                jobTitle: _model.jobController.text,
+                              ),
+                              ...mapToFirestore(
+                                {
+                                  'teams_admin': FieldValue.arrayUnion(
+                                      [_model.newTeamDoc?.reference]),
+                                  'team_refs': FieldValue.arrayUnion(
+                                      [_model.newTeamDoc?.reference]),
+                                },
+                              ),
+                            });
 
                             context.goNamed('HomePage');
                           }

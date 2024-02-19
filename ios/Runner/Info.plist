@@ -58,7 +58,7 @@
 	<key>NSPhotoLibraryUsageDescription</key>
     <string>In order to upload data, this app requires permission to access the photo library.</string>
 	<key>NSMicrophoneUsageDescription</key>
-    <string>The Speech to Text functionality requires access to your microphone</string>
+    <string>This app requires permissions to record audio.</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
     <string>app will need to access your blutooth</string>
 	<key>NSSpeechRecognitionUsageDescription</key>

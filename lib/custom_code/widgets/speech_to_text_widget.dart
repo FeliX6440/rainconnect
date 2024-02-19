@@ -10,9 +10,12 @@ import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import 'dart:io';
+
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:dio/dio.dart';
 import 'package:speech_to_text/speech_to_text.dart';
+import 'package:dart_openai/dart_openai.dart';
 
 class SpeechToTextWidget extends StatefulWidget {
   const SpeechToTextWidget({
@@ -27,6 +30,9 @@ class SpeechToTextWidget extends StatefulWidget {
     required this.dropdownListValue,
     required this.isEdit,
     required this.leadRef,
+    required this.onRecordStart,
+    this.onRecordStop,
+    this.filePath,
   });
 
   final double? width;
@@ -39,6 +45,9 @@ class SpeechToTextWidget extends StatefulWidget {
   final List<String> dropdownListValue;
   final bool isEdit;
   final DocumentReference leadRef;
+  final Future Function() onRecordStart;
+  final Future Function()? onRecordStop;
+  final String? filePath;
 
   @override
   State<SpeechToTextWidget> createState() => _SpeechToTextWidgetState();
@@ -112,6 +121,7 @@ class _SpeechToTextWidgetState extends State<SpeechToTextWidget> {
 
   @override
   void initState() {
+    OpenAI.apiKey = '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';
     _dio = Dio();
     Future.microtask(() async {
       if (widget.isEdit) {
@@ -134,7 +144,7 @@ class _SpeechToTextWidgetState extends State<SpeechToTextWidget> {
         }
       }
 
-      available = await speechToText.initialize();
+      // available = await speechToText.initialize();
       setState(() {});
     });
     _textEditingController.addListener(() {
@@ -164,30 +174,39 @@ class _SpeechToTextWidgetState extends State<SpeechToTextWidget> {
                 setState(() {
                   _isAnimate = true;
                 });
-                if (available) {
-                  speechToText.listen(
-                    onResult: (result) {
-                      setState(() {
-                        text = result.recognizedWords;
-                        FFAppState().update(
-                          () {
-                            _textEditingController.text = text;
-                            FFAppState().audioTextResult =
-                                _textEditingController.text;
-                          },
-                        );
-                      });
-                    },
-                  );
-                }
+                await widget.onRecordStart;
+                // if (available) {
+                //   speechToText.listen(
+                //     onResult: (result) {
+                //       setState(() {
+                //         text = result.recognizedWords;
+                //         FFAppState().update(
+                //           () {
+                //             _textEditingController.text = text;
+                //             FFAppState().audioTextResult =
+                //                 _textEditingController.text;
+                //           },
+                //         );
+                //       });
+                //     },
+                //   );
+                // }
               },
               onTapUp: (details) async {
-                await speechToText.stop();
-
-                // returnedText = await chat(text);
                 setState(() {
                   _isAnimate = false;
                 });
+                await widget.onRecordStop;
+                if (widget.filePath != null) {
+                  final transcription =
+                      await OpenAI.instance.audio.createTranscription(
+                    file: File(widget.filePath!),
+                    model: "whisper-1",
+                    responseFormat: OpenAIAudioResponseFormat.text,
+                  );
+                  _textEditingController.text =
+                      _textEditingController.text + transcription.text;
+                }
               },
               child: SizedBox(
                 height: widget.recordButtonHeight,
@@ -364,3 +383,17 @@ class AppButton extends StatelessWidget {
     );
   }
 }
+
+// OpenAI.apiKey = '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';
+
+//   OpenAIAudioModel transcription = OpenAI.instance.audio.createTranscription(
+//     file: File(file),
+//     model: "whisper-1",
+//     responseFormat: OpenAIAudioResponseFormat.text,
+//   );
+//   FFAppState().update(
+//     () {
+//       FFAppState().audioTextResult =
+//           FFAppState().audioTextResult + transcription.text;
+//     },
+//   );

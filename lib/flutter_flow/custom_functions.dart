@@ -19,9 +19,15 @@ String convertImageFileToByte64(FFUploadedFile imagePath) {
   return base64Image;
 }
 
-String formateDisplayName(String displayName) {
-  final shortText =
+String formateDisplayName(
+  String firstName,
+  String lastName,
+) {
+  String displayName =
+      '${firstName.isEmpty ? lastName : firstName} ${lastName.isEmpty ? firstName : lastName}';
+  String shortText =
       '${displayName.split(' ').first[0]} ${displayName.split(' ').last[0]}';
+
   return shortText;
 }
 

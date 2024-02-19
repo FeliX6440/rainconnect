@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'speech_to_text_bottom_sheet_widget.dart'
     show SpeechToTextBottomSheetWidget;
 import 'package:flutter/material.dart';
+import 'package:record/record.dart';
 
 class SpeechToTextBottomSheetModel
     extends FlutterFlowModel<SpeechToTextBottomSheetWidget> {
@@ -10,6 +11,10 @@ class SpeechToTextBottomSheetModel
 
   // Stores action output result for [Firestore Query - Query a collection] action in SpeechToTextBottomSheet widget.
   ComponentContentRecord? contentResponse;
+  AudioRecorder? audioRecorder;
+  String? audioPath;
+  FFUploadedFile recordedFileBytes =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
 
   /// Initialization and disposal methods.
 

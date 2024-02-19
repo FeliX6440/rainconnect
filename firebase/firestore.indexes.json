@@ -15,6 +15,20 @@
       ]
     },
     {
+      "collectionGroup": "team_components",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "is_custom",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "type",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "component_content",
       "queryScope": "COLLECTION",
       "fields": [

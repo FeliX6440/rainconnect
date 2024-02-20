@@ -354,6 +354,68 @@ class _EmailTemplatesListWidgetState extends State<EmailTemplatesListWidget>
                         ),
                       ),
                       Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
+                        child: Container(
+                          width: 100.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 0.0,
+                                color: FlutterFlowTheme.of(context).alternate,
+                                offset: const Offset(0.0, 1.0),
+                              )
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            12.0, 0.0, 0.0, 0.0),
+                                        child: Text(
+                                          'Template Name 3',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyLarge,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Card(
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                  elevation: 1.0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(40.0),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Icon(
+                                      Icons.keyboard_arrow_right_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      size: 24.0,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             0.0, 24.0, 0.0, 12.0),
                         child: FFButtonWidget(

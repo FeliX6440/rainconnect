@@ -5,6 +5,7 @@ import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'index.dart'; // Imports other custom widgets
+import '/custom_code/actions/index.dart'; // Imports custom actions
 import '/flutter_flow/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
 // Begin custom widget code
@@ -121,7 +122,7 @@ class _SpeechToTextWidgetState extends State<SpeechToTextWidget> {
 
   @override
   void initState() {
-    OpenAI.apiKey = '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';
+    OpenAI.apiKey = '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';
     _dio = Dio();
     Future.microtask(() async {
       if (widget.isEdit) {

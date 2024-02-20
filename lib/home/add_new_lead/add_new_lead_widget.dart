@@ -211,7 +211,10 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                   controller:
                                       _model.industryDropdownValueController ??=
                                           FormFieldController<String>(null),
-                                  options: widget.industryListValue!,
+                                  options: widget.industryListValue != null &&
+                                          (widget.industryListValue)!.isNotEmpty
+                                      ? widget.industryListValue!
+                                      : [],
                                   onChanged: (val) => setState(
                                       () => _model.industryDropdownValue = val),
                                   width: double.infinity,

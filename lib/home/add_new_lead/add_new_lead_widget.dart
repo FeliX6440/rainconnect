@@ -12,6 +12,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -25,12 +26,10 @@ class AddNewLeadWidget extends StatefulWidget {
     super.key,
     required this.teamDocRef,
     required this.isIndustryMode,
-    required this.industryListValue,
   });
 
   final DocumentReference? teamDocRef;
   final bool? isIndustryMode;
-  final List<String>? industryListValue;
 
   @override
   State<AddNewLeadWidget> createState() => _AddNewLeadWidgetState();
@@ -46,7 +45,10 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
     super.initState();
     _model = createModel(context, () => AddNewLeadModel());
 
-    _model.encounterFieldController ??= TextEditingController();
+    _model.encounterFieldController ??= TextEditingController(
+        text: FFAppState().salesPersonContent != ''
+            ? FFAppState().salesPersonContent
+            : ' ');
     _model.encounterFieldFocusNode ??= FocusNode();
 
     _model.firstNameController ??= TextEditingController();
@@ -211,9 +213,10 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                   controller:
                                       _model.industryDropdownValueController ??=
                                           FormFieldController<String>(null),
-                                  options: widget.industryListValue != null &&
-                                          (widget.industryListValue)!.isNotEmpty
-                                      ? widget.industryListValue!
+                                  options: FFAppState()
+                                          .industryFairContent
+                                          .isNotEmpty
+                                      ? FFAppState().industryFairContent
                                       : [],
                                   onChanged: (val) => setState(
                                       () => _model.industryDropdownValue = val),
@@ -246,6 +249,16 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                 return TextFormField(
                                   controller: _model.encounterFieldController,
                                   focusNode: _model.encounterFieldFocusNode,
+                                  onChanged: (_) => EasyDebounce.debounce(
+                                    '_model.encounterFieldController',
+                                    const Duration(milliseconds: 2000),
+                                    () async {
+                                      setState(() {
+                                        FFAppState().salesPersonContent = _model
+                                            .encounterFieldController.text;
+                                      });
+                                    },
+                                  ),
                                   autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(

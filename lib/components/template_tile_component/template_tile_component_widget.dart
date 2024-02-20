@@ -128,8 +128,11 @@ class _TemplateTileComponentWidgetState
                       builder: (context) {
                         return Padding(
                           padding: MediaQuery.viewInsetsOf(context),
-                          child: EditIndustrialFairBottomSheetWidget(
-                            teamDocRef: widget.teamDocRef!,
+                          child: SizedBox(
+                            height: MediaQuery.sizeOf(context).height * 0.45,
+                            child: EditIndustrialFairBottomSheetWidget(
+                              teamDocRef: widget.teamDocRef!,
+                            ),
                           ),
                         );
                       },

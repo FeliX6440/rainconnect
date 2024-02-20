@@ -121,8 +121,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             teamDocRef: params.getParam(
                 'teamDocRef', ParamType.DocumentReference, false, ['teams']),
             isIndustryMode: params.getParam('isIndustryMode', ParamType.bool),
-            industryListValue: params.getParam<String>(
-                'industryListValue', ParamType.String, true),
           ),
         ),
         FFRoute(

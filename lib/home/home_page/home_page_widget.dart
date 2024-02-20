@@ -1364,8 +1364,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                       {
                                                                         'added_at':
                                                                             FieldValue.serverTimestamp(),
-                                                                        'list_value':
-                                                                            homePageTeamsRecord.fairModeValues,
                                                                       },
                                                                     ),
                                                                   });
@@ -1591,13 +1589,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       homePageTeamsRecord
                                                           .templateMode,
                                                       ParamType.bool,
-                                                    ),
-                                                    'industryListValue':
-                                                        serializeParam(
-                                                      homePageTeamsRecord
-                                                          .fairModeValues,
-                                                      ParamType.String,
-                                                      true,
                                                     ),
                                                   }.withoutNulls,
                                                 );

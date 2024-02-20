@@ -17,6 +17,10 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:dio/dio.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:dart_openai/dart_openai.dart';
+import 'package:record/record.dart';
+import 'package:cross_file/cross_file.dart';
+import 'package:flutter/foundation.dart';
+import 'package:path_provider/path_provider.dart';
 
 class SpeechToTextWidget extends StatefulWidget {
   const SpeechToTextWidget({
@@ -31,9 +35,6 @@ class SpeechToTextWidget extends StatefulWidget {
     required this.dropdownListValue,
     required this.isEdit,
     required this.leadRef,
-    required this.onRecordStart,
-    this.onRecordStop,
-    this.filePath,
   });
 
   final double? width;
@@ -46,9 +47,6 @@ class SpeechToTextWidget extends StatefulWidget {
   final List<String> dropdownListValue;
   final bool isEdit;
   final DocumentReference leadRef;
-  final Future Function() onRecordStart;
-  final Future Function()? onRecordStop;
-  final String? filePath;
 
   @override
   State<SpeechToTextWidget> createState() => _SpeechToTextWidgetState();
@@ -66,6 +64,9 @@ class _SpeechToTextWidgetState extends State<SpeechToTextWidget> {
   String? _dropDownValue;
   late Dio _dio;
   Map<String, dynamic> header = {'Content-Type': 'application/json'};
+  late final AudioRecorder _recorder;
+  String _audioPath = '';
+  bool _transcribing = false;
 
   Future<void> _translateWord() async {
     setState(() {
@@ -122,7 +123,8 @@ class _SpeechToTextWidgetState extends State<SpeechToTextWidget> {
 
   @override
   void initState() {
-    OpenAI.apiKey = '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';
+    OpenAI.apiKey = '';
+    _recorder = AudioRecorder();
     _dio = Dio();
     Future.microtask(() async {
       if (widget.isEdit) {
@@ -171,42 +173,49 @@ class _SpeechToTextWidgetState extends State<SpeechToTextWidget> {
             glowRadiusFactor: 0.2,
             child: GestureDetector(
               onTapDown: (details) async {
-                // bool available = await speechToText.initialize();
                 setState(() {
                   _isAnimate = true;
                 });
-                await widget.onRecordStart;
-                // if (available) {
-                //   speechToText.listen(
-                //     onResult: (result) {
-                //       setState(() {
-                //         text = result.recognizedWords;
-                //         FFAppState().update(
-                //           () {
-                //             _textEditingController.text = text;
-                //             FFAppState().audioTextResult =
-                //                 _textEditingController.text;
-                //           },
-                //         );
-                //       });
-                //     },
-                //   );
-                // }
+
+                if (await _recorder.hasPermission()) {
+                  try {
+                    final dir = await getApplicationDocumentsDirectory();
+                    _audioPath =
+                        '${dir.path}/audio_${DateTime.now().millisecondsSinceEpoch}.m4a';
+                    await _recorder.start(
+                        RecordConfig(encoder: AudioEncoder.aacLc),
+                        path: _audioPath);
+                  } catch (e) {
+                    print(e);
+                  }
+                } else {
+                  showSnackbar(
+                    context,
+                    'You have not provided permission to record audio.',
+                  );
+                }
               },
               onTapUp: (details) async {
                 setState(() {
                   _isAnimate = false;
                 });
-                await widget.onRecordStop;
-                if (widget.filePath != null) {
+
+                final result = await _recorder.stop();
+                if (result != null) {
+                  setState(() {
+                    _transcribing = true;
+                  });
                   final transcription =
                       await OpenAI.instance.audio.createTranscription(
-                    file: File(widget.filePath!),
+                    file: File(result),
                     model: "whisper-1",
                     responseFormat: OpenAIAudioResponseFormat.text,
                   );
                   _textEditingController.text =
                       _textEditingController.text + transcription.text;
+                  setState(() {
+                    _transcribing = false;
+                  });
                 }
               },
               child: SizedBox(
@@ -243,13 +252,6 @@ class _SpeechToTextWidgetState extends State<SpeechToTextWidget> {
             child: TextFormField(
               controller: _textEditingController,
               maxLines: 4,
-              // onChanged: (value) {
-              //   FFAppState().update(
-              //     () {
-              //       FFAppState().audioTextResult = value;
-              //     },
-              //   );
-              // },
               decoration: InputDecoration(
                 suffix: GestureDetector(
                     onTap: () {
@@ -270,6 +272,7 @@ class _SpeechToTextWidgetState extends State<SpeechToTextWidget> {
               ),
             ),
           ),
+          _transcribing ? LinearProgressIndicator() : SizedBox(),
           const SizedBox(
             height: 10,
           ),

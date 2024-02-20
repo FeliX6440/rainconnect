@@ -363,7 +363,16 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        context.pushNamed('ManageMembers');
+                                        context.pushNamed(
+                                          'ManageMembers',
+                                          queryParameters: {
+                                            'membersCount': serializeParam(
+                                              homePageTeamsRecord
+                                                  ?.members.length,
+                                              ParamType.int,
+                                            ),
+                                          }.withoutNulls,
+                                        );
                                       },
                                       child: AnimatedContainer(
                                         duration: const Duration(milliseconds: 150),
@@ -1221,7 +1230,16 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               child: FFButtonWidget(
                                                 onPressed: () async {
                                                   context.pushNamed(
-                                                      'ManageMembers');
+                                                    'ManageMembers',
+                                                    queryParameters: {
+                                                      'membersCount':
+                                                          serializeParam(
+                                                        homePageTeamsRecord
+                                                            .members.length,
+                                                        ParamType.int,
+                                                      ),
+                                                    }.withoutNulls,
+                                                  );
                                                 },
                                                 text: 'Manage Team',
                                                 icon: const Icon(

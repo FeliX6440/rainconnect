@@ -1,10 +1,12 @@
 import '/backend/backend.dart';
+import '/backend/schema/enums/enums.dart';
 import '/components/delete_lead_component/delete_lead_component_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'lead_detail_view_model.dart';
@@ -407,6 +409,227 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .headlineSmall,
                                   ),
+                                ),
+                                Builder(
+                                  builder: (context) {
+                                    if (widget.leadDoc?.mode ==
+                                        TemplateMode.industry) {
+                                      return Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 8.0),
+                                        child: StreamBuilder<
+                                            List<ComponentContentRecord>>(
+                                          stream: queryComponentContentRecord(
+                                            queryBuilder:
+                                                (componentContentRecord) =>
+                                                    componentContentRecord
+                                                        .where(
+                                                          'lead_ref',
+                                                          isEqualTo: widget
+                                                              .leadDoc
+                                                              ?.reference,
+                                                        )
+                                                        .where(
+                                                          'type',
+                                                          isEqualTo:
+                                                              ComponentType
+                                                                  .industrialFair
+                                                                  .serialize(),
+                                                        ),
+                                            singleRecord: true,
+                                          ),
+                                          builder: (context, snapshot) {
+                                            // Customize what your widget looks like when it's loading.
+                                            if (!snapshot.hasData) {
+                                              return Center(
+                                                child: SizedBox(
+                                                  width: 30.0,
+                                                  height: 30.0,
+                                                  child: SpinKitFadingFour(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    size: 30.0,
+                                                  ),
+                                                ),
+                                              );
+                                            }
+                                            List<ComponentContentRecord>
+                                                rowComponentContentRecordList =
+                                                snapshot.data!;
+                                            // Return an empty Container when the item does not exist.
+                                            if (snapshot.data!.isEmpty) {
+                                              return Container();
+                                            }
+                                            final rowComponentContentRecord =
+                                                rowComponentContentRecordList
+                                                        .isNotEmpty
+                                                    ? rowComponentContentRecordList
+                                                        .first
+                                                    : null;
+                                            return Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 8.0, 16.0, 8.0),
+                                                  child: Icon(
+                                                    Icons.assignment_ind,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    size: 24.0,
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                12.0, 0.0),
+                                                    child: Text(
+                                                      'Industry Fair',
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  rowComponentContentRecord!
+                                                      .content,
+                                                  textAlign: TextAlign.center,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                      ),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        ),
+                                      );
+                                    } else {
+                                      return Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 8.0),
+                                        child: StreamBuilder<
+                                            List<ComponentContentRecord>>(
+                                          stream: queryComponentContentRecord(
+                                            queryBuilder:
+                                                (componentContentRecord) =>
+                                                    componentContentRecord
+                                                        .where(
+                                                          'lead_ref',
+                                                          isEqualTo: widget
+                                                              .leadDoc
+                                                              ?.reference,
+                                                        )
+                                                        .where(
+                                                          'type',
+                                                          isEqualTo: ComponentType
+                                                              .placeOfEncounter
+                                                              .serialize(),
+                                                        ),
+                                            singleRecord: true,
+                                          ),
+                                          builder: (context, snapshot) {
+                                            // Customize what your widget looks like when it's loading.
+                                            if (!snapshot.hasData) {
+                                              return Center(
+                                                child: SizedBox(
+                                                  width: 30.0,
+                                                  height: 30.0,
+                                                  child: SpinKitFadingFour(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    size: 30.0,
+                                                  ),
+                                                ),
+                                              );
+                                            }
+                                            List<ComponentContentRecord>
+                                                rowComponentContentRecordList =
+                                                snapshot.data!;
+                                            // Return an empty Container when the item does not exist.
+                                            if (snapshot.data!.isEmpty) {
+                                              return Container();
+                                            }
+                                            final rowComponentContentRecord =
+                                                rowComponentContentRecordList
+                                                        .isNotEmpty
+                                                    ? rowComponentContentRecordList
+                                                        .first
+                                                    : null;
+                                            return Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 8.0, 16.0, 8.0),
+                                                  child: Icon(
+                                                    Icons.assignment_ind,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    size: 24.0,
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                12.0, 0.0),
+                                                    child: Text(
+                                                      'Salesperson',
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  rowComponentContentRecord!
+                                                      .content,
+                                                  textAlign: TextAlign.center,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                      ),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        ),
+                                      );
+                                    }
+                                  },
                                 ),
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(

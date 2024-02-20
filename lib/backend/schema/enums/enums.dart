@@ -17,6 +17,11 @@ enum ComponentType {
   placeOfEncounter,
 }
 
+enum TemplateMode {
+  industry,
+  salesPerson,
+}
+
 extension FFEnumExtensions<T extends Enum> on T {
   String serialize() => name;
 }
@@ -32,6 +37,8 @@ T? deserializeEnum<T>(String? value) {
       return Gender.values.deserialize(value) as T?;
     case (ComponentType):
       return ComponentType.values.deserialize(value) as T?;
+    case (TemplateMode):
+      return TemplateMode.values.deserialize(value) as T?;
     default:
       return null;
   }

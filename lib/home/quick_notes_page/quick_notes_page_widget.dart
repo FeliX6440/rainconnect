@@ -1,6 +1,7 @@
 import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
 import '/components/notes_details_and_edit/notes_details_and_edit_widget.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -66,6 +67,20 @@ class _QuickNotesPageWidgetState extends State<QuickNotesPageWidget> {
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
+          leading: FlutterFlowIconButton(
+            borderColor: Colors.transparent,
+            borderRadius: 30.0,
+            borderWidth: 1.0,
+            buttonSize: 60.0,
+            icon: const Icon(
+              Icons.arrow_back_rounded,
+              color: Colors.white,
+              size: 30.0,
+            ),
+            onPressed: () async {
+              context.pop();
+            },
+          ),
           title: Text(
             'Notes',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -75,7 +90,7 @@ class _QuickNotesPageWidgetState extends State<QuickNotesPageWidget> {
                 ),
           ),
           actions: const [],
-          centerTitle: false,
+          centerTitle: true,
           elevation: 2.0,
         ),
         body: SafeArea(

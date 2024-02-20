@@ -2,7 +2,6 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'profile_set_up_page_widget.dart' show ProfileSetUpPageWidget;
 import 'package:flutter/material.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class ProfileSetUpPageModel extends FlutterFlowModel<ProfileSetUpPageWidget> {
   ///  State fields for stateful widgets in this page.
@@ -24,7 +23,6 @@ class ProfileSetUpPageModel extends FlutterFlowModel<ProfileSetUpPageWidget> {
   // State field(s) for phone widget.
   FocusNode? phoneFocusNode;
   TextEditingController? phoneController;
-  final phoneMask = MaskTextInputFormatter(mask: '+# (###) ###-##-##');
   String? Function(BuildContext, String?)? phoneControllerValidator;
   // State field(s) for isInvite widget.
   bool? isInviteValue;

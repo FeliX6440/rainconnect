@@ -5,13 +5,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:collection/collection.dart';
-import 'package:cross_file/cross_file.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:record/record.dart';
 import 'speech_to_text_bottom_sheet_model.dart';
 export 'speech_to_text_bottom_sheet_model.dart';
 
@@ -108,43 +104,6 @@ class _SpeechToTextBottomSheetWidgetState
                 dropdownListValue: FFAppState().languageList,
                 isEdit: widget.isEdit!,
                 leadRef: widget.leadDocRef!,
-                filePath: _model.audioPath,
-                onRecordStart: () async {
-                  _model.audioRecorder ??= AudioRecorder();
-                  if (await _model.audioRecorder!.hasPermission()) {
-                    final String path;
-                    final AudioEncoder encoder;
-                    if (kIsWeb) {
-                      path = '';
-                      encoder = AudioEncoder.opus;
-                    } else {
-                      final dir = await getApplicationDocumentsDirectory();
-                      path =
-                          '${dir.path}/audio_${DateTime.now().millisecondsSinceEpoch}.m4a';
-                      encoder = AudioEncoder.aacLc;
-                    }
-                    await _model.audioRecorder!.start(
-                      RecordConfig(encoder: encoder),
-                      path: path,
-                    );
-                  } else {
-                    showSnackbar(
-                      context,
-                      'You have not provided permission to record audio.',
-                    );
-                  }
-                },
-                onRecordStop: () async {
-                  _model.audioPath = await _model.audioRecorder?.stop();
-                  if (_model.audioPath != null) {
-                    _model.recordedFileBytes = FFUploadedFile(
-                      name: 'recordedFileBytes.mp3',
-                      bytes: await XFile(_model.audioPath!).readAsBytes(),
-                    );
-                  }
-
-                  setState(() {});
-                },
               ),
             ),
             Padding(

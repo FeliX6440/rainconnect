@@ -417,7 +417,6 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                       keyboardType: TextInputType.phone,
                       validator:
                           _model.phoneControllerValidator.asValidator(context),
-                      inputFormatters: [_model.phoneMask],
                     ),
                   ),
                 ),
@@ -438,6 +437,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                           const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
@@ -495,7 +495,9 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       20.0, 0.0, 20.0, 10.0),
                                   child: Text(
-                                    'Manage your own team: Decide what component are important for customer acquicition, create new custom ones and optimize for best data quality.\n\nBase fee -19.99 Euro, due 30 Days from Today',
+                                    _model.isInviteValue!
+                                        ? 'Be the essential part of a working Team - an Admin will need to invite you to use the App for you to be able to collect new Customer Data. Enter a Team ID to Get Started'
+                                        : 'Manage your own team: Decide what component are important for customer acquicition, create new custom ones and optimize for best data quality.  Base fee -19.99 Euro, due 30 Days from Today',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -678,6 +680,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                               ...createTeamsRecordData(
                                 creatorRef: currentUserReference,
                                 templateMode: false,
+                                memberLimit: 1.0,
                               ),
                               ...mapToFirestore(
                                 {
@@ -693,6 +696,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                               ...createTeamsRecordData(
                                 creatorRef: currentUserReference,
                                 templateMode: false,
+                                memberLimit: 1.0,
                               ),
                               ...mapToFirestore(
                                 {

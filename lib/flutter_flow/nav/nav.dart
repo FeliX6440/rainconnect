@@ -218,7 +218,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'ManageMembers',
           path: '/manageMembers',
-          builder: (context, params) => const ManageMembersWidget(),
+          builder: (context, params) => ManageMembersWidget(
+            membersCount: params.getParam('membersCount', ParamType.int),
+          ),
         ),
         FFRoute(
           name: 'checkoutcartCopy',

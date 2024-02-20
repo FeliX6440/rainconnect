@@ -15,7 +15,12 @@ import 'manage_members_model.dart';
 export 'manage_members_model.dart';
 
 class ManageMembersWidget extends StatefulWidget {
-  const ManageMembersWidget({super.key});
+  const ManageMembersWidget({
+    super.key,
+    required this.membersCount,
+  });
+
+  final int? membersCount;
 
   @override
   State<ManageMembersWidget> createState() => _ManageMembersWidgetState();
@@ -161,13 +166,29 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(24.0, 15.0, 0.0, 5.0),
-                      child: Text(
-                        'Total Members: 4',
-                        style: FlutterFlowTheme.of(context).labelMedium,
-                      ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              24.0, 15.0, 5.0, 5.0),
+                          child: Text(
+                            'Total Members:5',
+                            style: FlutterFlowTheme.of(context).labelMedium,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 15.0, 0.0, 5.0),
+                          child: Text(
+                            valueOrDefault<String>(
+                              widget.membersCount?.toString(),
+                              '0',
+                            ),
+                            style: FlutterFlowTheme.of(context).labelMedium,
+                          ),
+                        ),
+                      ],
                     ),
                     Padding(
                       padding:
@@ -831,6 +852,18 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                             ),
                           ],
                         ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
+                      child: Text(
+                        'Team member limit: ${manageMembersTeamsRecord?.memberLimit.toString()}',
+                        style:
+                            FlutterFlowTheme.of(context).labelMedium.override(
+                                  fontFamily: 'Manrope',
+                                  color: FlutterFlowTheme.of(context).error,
+                                ),
                       ),
                     ),
                     Padding(

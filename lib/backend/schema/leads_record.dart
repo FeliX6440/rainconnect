@@ -100,6 +100,11 @@ class LeadsRecord extends FirestoreRecord {
   DocumentReference? get leadCollectedBy => _leadCollectedBy;
   bool hasLeadCollectedBy() => _leadCollectedBy != null;
 
+  // "mode" field.
+  TemplateMode? _mode;
+  TemplateMode? get mode => _mode;
+  bool hasMode() => _mode != null;
+
   void _initializeFields() {
     _firstName = snapshotData['first_name'] as String?;
     _lastName = snapshotData['last_name'] as String?;
@@ -118,6 +123,7 @@ class LeadsRecord extends FirestoreRecord {
     _createdAt = snapshotData['created_at'] as DateTime?;
     _photoUrl = snapshotData['photo_url'] as String?;
     _leadCollectedBy = snapshotData['lead_collected_by'] as DocumentReference?;
+    _mode = deserializeEnum<TemplateMode>(snapshotData['mode']);
   }
 
   static CollectionReference get collection =>
@@ -171,6 +177,7 @@ Map<String, dynamic> createLeadsRecordData({
   DateTime? createdAt,
   String? photoUrl,
   DocumentReference? leadCollectedBy,
+  TemplateMode? mode,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -191,6 +198,7 @@ Map<String, dynamic> createLeadsRecordData({
       'created_at': createdAt,
       'photo_url': photoUrl,
       'lead_collected_by': leadCollectedBy,
+      'mode': mode,
     }.withoutNulls,
   );
 
@@ -218,7 +226,8 @@ class LeadsRecordDocumentEquality implements Equality<LeadsRecord> {
         e1?.industry == e2?.industry &&
         e1?.createdAt == e2?.createdAt &&
         e1?.photoUrl == e2?.photoUrl &&
-        e1?.leadCollectedBy == e2?.leadCollectedBy;
+        e1?.leadCollectedBy == e2?.leadCollectedBy &&
+        e1?.mode == e2?.mode;
   }
 
   @override
@@ -239,7 +248,8 @@ class LeadsRecordDocumentEquality implements Equality<LeadsRecord> {
         e?.industry,
         e?.createdAt,
         e?.photoUrl,
-        e?.leadCollectedBy
+        e?.leadCollectedBy,
+        e?.mode
       ]);
 
   @override

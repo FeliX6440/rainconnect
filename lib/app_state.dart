@@ -143,4 +143,10 @@ class FFAppState extends ChangeNotifier {
   set salesPersonContent(String value) {
     _salesPersonContent = value;
   }
+
+  String _selectedIndustrialFair = '';
+  String get selectedIndustrialFair => _selectedIndustrialFair;
+  set selectedIndustrialFair(String value) {
+    _selectedIndustrialFair = value;
+  }
 }

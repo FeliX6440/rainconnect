@@ -70,6 +70,11 @@ class TeamsRecord extends FirestoreRecord {
   bool get templateMode => _templateMode ?? false;
   bool hasTemplateMode() => _templateMode != null;
 
+  // "member_limit" field.
+  double? _memberLimit;
+  double get memberLimit => _memberLimit ?? 0.0;
+  bool hasMemberLimit() => _memberLimit != null;
+
   void _initializeFields() {
     _creatorRef = snapshotData['creator_ref'] as DocumentReference?;
     _members = getDataList(snapshotData['members']);
@@ -82,6 +87,7 @@ class TeamsRecord extends FirestoreRecord {
     _componentLimit = castToType<int>(snapshotData['component_limit']);
     _boughtComponents = getDataList(snapshotData['bought_components']);
     _templateMode = snapshotData['template_mode'] as bool?;
+    _memberLimit = castToType<double>(snapshotData['member_limit']);
   }
 
   static CollectionReference get collection =>
@@ -125,6 +131,7 @@ Map<String, dynamic> createTeamsRecordData({
   int? componentCount,
   int? componentLimit,
   bool? templateMode,
+  double? memberLimit,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -135,6 +142,7 @@ Map<String, dynamic> createTeamsRecordData({
       'component_count': componentCount,
       'component_limit': componentLimit,
       'template_mode': templateMode,
+      'member_limit': memberLimit,
     }.withoutNulls,
   );
 
@@ -157,7 +165,8 @@ class TeamsRecordDocumentEquality implements Equality<TeamsRecord> {
         e1?.componentCount == e2?.componentCount &&
         e1?.componentLimit == e2?.componentLimit &&
         listEquality.equals(e1?.boughtComponents, e2?.boughtComponents) &&
-        e1?.templateMode == e2?.templateMode;
+        e1?.templateMode == e2?.templateMode &&
+        e1?.memberLimit == e2?.memberLimit;
   }
 
   @override
@@ -172,7 +181,8 @@ class TeamsRecordDocumentEquality implements Equality<TeamsRecord> {
         e?.componentCount,
         e?.componentLimit,
         e?.boughtComponents,
-        e?.templateMode
+        e?.templateMode,
+        e?.memberLimit
       ]);
 
   @override

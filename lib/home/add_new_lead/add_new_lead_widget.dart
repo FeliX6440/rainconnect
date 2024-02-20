@@ -212,14 +212,27 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                 return FlutterFlowDropDown<String>(
                                   controller:
                                       _model.industryDropdownValueController ??=
-                                          FormFieldController<String>(null),
+                                          FormFieldController<String>(
+                                    _model
+                                        .industryDropdownValue ??= FFAppState()
+                                                    .selectedIndustrialFair !=
+                                                ''
+                                        ? FFAppState().selectedIndustrialFair
+                                        : ' ',
+                                  ),
                                   options: FFAppState()
                                           .industryFairContent
                                           .isNotEmpty
                                       ? FFAppState().industryFairContent
                                       : [],
-                                  onChanged: (val) => setState(
-                                      () => _model.industryDropdownValue = val),
+                                  onChanged: (val) async {
+                                    setState(() =>
+                                        _model.industryDropdownValue = val);
+                                    setState(() {
+                                      FFAppState().selectedIndustrialFair =
+                                          _model.industryDropdownValue!;
+                                    });
+                                  },
                                   width: double.infinity,
                                   height: 50.0,
                                   textStyle:
@@ -1840,6 +1853,11 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       },
                                     ),
                                   });
+
+                                  await _model.leadResponse!.reference
+                                      .update(createLeadsRecordData(
+                                    mode: TemplateMode.industry,
+                                  ));
                                 } else {
                                   await ComponentContentRecord.collection
                                       .doc()
@@ -1857,6 +1875,11 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       },
                                     ),
                                   });
+
+                                  await _model.leadResponse!.reference
+                                      .update(createLeadsRecordData(
+                                    mode: TemplateMode.salesPerson,
+                                  ));
                                 }
 
                                 await _model.pageViewController?.nextPage(

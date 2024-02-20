@@ -173,7 +173,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               24.0, 15.0, 5.0, 5.0),
                           child: Text(
-                            'Total Members:5',
+                            'Total Members:',
                             style: FlutterFlowTheme.of(context).labelMedium,
                           ),
                         ),

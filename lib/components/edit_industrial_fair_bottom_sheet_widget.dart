@@ -1,8 +1,8 @@
-import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'edit_industrial_fair_bottom_sheet_model.dart';
 export 'edit_industrial_fair_bottom_sheet_model.dart';
@@ -34,6 +34,14 @@ class _EditIndustrialFairBottomSheetWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => EditIndustrialFairBottomSheetModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      setState(() {
+        _model.listValue =
+            FFAppState().industryFairContent.toList().cast<String>();
+      });
+    });
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
@@ -228,12 +236,9 @@ class _EditIndustrialFairBottomSheetWidgetState
               padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
-                  await widget.teamDocRef!.update({
-                    ...mapToFirestore(
-                      {
-                        'fair_mode_values': _model.listValue,
-                      },
-                    ),
+                  setState(() {
+                    FFAppState().industryFairContent =
+                        _model.listValue.toList().cast<String>();
                   });
                   Navigator.pop(context);
                 },
@@ -267,7 +272,7 @@ class _EditIndustrialFairBottomSheetWidgetState
                 text: 'Cancel',
                 options: FFButtonOptions(
                   width: double.infinity,
-                  height: 60.0,
+                  height: 40.0,
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   iconPadding:
                       const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),

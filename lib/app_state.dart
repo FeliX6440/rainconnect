@@ -108,4 +108,39 @@ class FFAppState extends ChangeNotifier {
   set componentSwitchState(bool value) {
     _componentSwitchState = value;
   }
+
+  List<String> _industryFairContent = [];
+  List<String> get industryFairContent => _industryFairContent;
+  set industryFairContent(List<String> value) {
+    _industryFairContent = value;
+  }
+
+  void addToIndustryFairContent(String value) {
+    _industryFairContent.add(value);
+  }
+
+  void removeFromIndustryFairContent(String value) {
+    _industryFairContent.remove(value);
+  }
+
+  void removeAtIndexFromIndustryFairContent(int index) {
+    _industryFairContent.removeAt(index);
+  }
+
+  void updateIndustryFairContentAtIndex(
+    int index,
+    String Function(String) updateFn,
+  ) {
+    _industryFairContent[index] = updateFn(_industryFairContent[index]);
+  }
+
+  void insertAtIndexInIndustryFairContent(int index, String value) {
+    _industryFairContent.insert(index, value);
+  }
+
+  String _salesPersonContent = '';
+  String get salesPersonContent => _salesPersonContent;
+  set salesPersonContent(String value) {
+    _salesPersonContent = value;
+  }
 }

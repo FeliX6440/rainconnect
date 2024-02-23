@@ -110,10 +110,14 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                       TextSearch(
                                     records
                                         .map(
-                                          (record) => TextSearchItem.fromTerms(
-                                              record, [
+                                          (record) =>
+                                              TextSearchItem.fromTerms(record, [
                                             record.firstName,
-                                            record.lastName]),
+                                            record.lastName,
+                                            record.company,
+                                            record.email,
+                                            record.website,
+                                            record.phone]),
                                         )
                                         .toList(),
                                   )

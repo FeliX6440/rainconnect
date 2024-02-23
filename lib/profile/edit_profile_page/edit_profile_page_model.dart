@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import 'edit_profile_page_widget.dart' show EditProfilePageWidget;
 import 'package:flutter/material.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class EditProfilePageModel extends FlutterFlowModel<EditProfilePageWidget> {
   ///  State fields for stateful widgets in this page.
@@ -23,7 +22,6 @@ class EditProfilePageModel extends FlutterFlowModel<EditProfilePageWidget> {
   // State field(s) for phone widget.
   FocusNode? phoneFocusNode;
   TextEditingController? phoneController;
-  final phoneMask = MaskTextInputFormatter(mask: '+# (###) ###-##-##');
   String? Function(BuildContext, String?)? phoneControllerValidator;
 
   /// Initialization and disposal methods.

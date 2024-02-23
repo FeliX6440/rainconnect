@@ -80,7 +80,6 @@ dependencies:
   infinite_scroll_pagination: 4.0.0
   intl: 0.18.1
   json_path: 0.6.2
-  mask_text_input_formatter: 2.4.0
   mime_type: 1.0.0
   page_transition: 2.1.0
   path_provider: 2.0.14
@@ -108,6 +107,7 @@ dependencies:
   stripe_js: 3.2.0
   stripe_platform_interface: 9.4.0
   substring_highlight: 1.0.33
+  text_search: 1.0.1
   timeago: 3.2.2
   url_launcher: 6.1.10
   url_launcher_android: 6.0.27

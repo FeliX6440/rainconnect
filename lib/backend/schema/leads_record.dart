@@ -30,11 +30,6 @@ class LeadsRecord extends FirestoreRecord {
   String get positionRole => _positionRole ?? '';
   bool hasPositionRole() => _positionRole != null;
 
-  // "gender" field.
-  Gender? _gender;
-  Gender? get gender => _gender;
-  bool hasGender() => _gender != null;
-
   // "language" field.
   String? _language;
   String get language => _language ?? '';
@@ -105,11 +100,15 @@ class LeadsRecord extends FirestoreRecord {
   TemplateMode? get mode => _mode;
   bool hasMode() => _mode != null;
 
+  // "gender" field.
+  String? _gender;
+  String get gender => _gender ?? '';
+  bool hasGender() => _gender != null;
+
   void _initializeFields() {
     _firstName = snapshotData['first_name'] as String?;
     _lastName = snapshotData['last_name'] as String?;
     _positionRole = snapshotData['position_role'] as String?;
-    _gender = deserializeEnum<Gender>(snapshotData['gender']);
     _language = snapshotData['language'] as String?;
     _phone = snapshotData['phone'] as String?;
     _website = snapshotData['website'] as String?;
@@ -124,6 +123,7 @@ class LeadsRecord extends FirestoreRecord {
     _photoUrl = snapshotData['photo_url'] as String?;
     _leadCollectedBy = snapshotData['lead_collected_by'] as DocumentReference?;
     _mode = deserializeEnum<TemplateMode>(snapshotData['mode']);
+    _gender = snapshotData['gender'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -163,7 +163,6 @@ Map<String, dynamic> createLeadsRecordData({
   String? firstName,
   String? lastName,
   String? positionRole,
-  Gender? gender,
   String? language,
   String? phone,
   String? website,
@@ -178,13 +177,13 @@ Map<String, dynamic> createLeadsRecordData({
   String? photoUrl,
   DocumentReference? leadCollectedBy,
   TemplateMode? mode,
+  String? gender,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'first_name': firstName,
       'last_name': lastName,
       'position_role': positionRole,
-      'gender': gender,
       'language': language,
       'phone': phone,
       'website': website,
@@ -199,6 +198,7 @@ Map<String, dynamic> createLeadsRecordData({
       'photo_url': photoUrl,
       'lead_collected_by': leadCollectedBy,
       'mode': mode,
+      'gender': gender,
     }.withoutNulls,
   );
 
@@ -213,7 +213,6 @@ class LeadsRecordDocumentEquality implements Equality<LeadsRecord> {
     return e1?.firstName == e2?.firstName &&
         e1?.lastName == e2?.lastName &&
         e1?.positionRole == e2?.positionRole &&
-        e1?.gender == e2?.gender &&
         e1?.language == e2?.language &&
         e1?.phone == e2?.phone &&
         e1?.website == e2?.website &&
@@ -227,7 +226,8 @@ class LeadsRecordDocumentEquality implements Equality<LeadsRecord> {
         e1?.createdAt == e2?.createdAt &&
         e1?.photoUrl == e2?.photoUrl &&
         e1?.leadCollectedBy == e2?.leadCollectedBy &&
-        e1?.mode == e2?.mode;
+        e1?.mode == e2?.mode &&
+        e1?.gender == e2?.gender;
   }
 
   @override
@@ -235,7 +235,6 @@ class LeadsRecordDocumentEquality implements Equality<LeadsRecord> {
         e?.firstName,
         e?.lastName,
         e?.positionRole,
-        e?.gender,
         e?.language,
         e?.phone,
         e?.website,
@@ -249,7 +248,8 @@ class LeadsRecordDocumentEquality implements Equality<LeadsRecord> {
         e?.createdAt,
         e?.photoUrl,
         e?.leadCollectedBy,
-        e?.mode
+        e?.mode,
+        e?.gender
       ]);
 
   @override

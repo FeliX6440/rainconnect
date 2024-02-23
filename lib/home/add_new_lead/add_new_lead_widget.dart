@@ -3,6 +3,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/backend/schema/enums/enums.dart';
+import '/components/empty_component_list_widget.dart';
 import '/components/tile_component/tile_component_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -14,7 +15,6 @@ import '/flutter_flow/upload_data.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -24,11 +24,11 @@ export 'add_new_lead_model.dart';
 class AddNewLeadWidget extends StatefulWidget {
   const AddNewLeadWidget({
     super.key,
-    required this.teamDocRef,
+    required this.teamDoc,
     required this.isIndustryMode,
   });
 
-  final DocumentReference? teamDocRef;
+  final TeamsRecord? teamDoc;
   final bool? isIndustryMode;
 
   @override
@@ -105,15 +105,6 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -126,60 +117,101 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           automaticallyImplyLeading: false,
-          leading: FlutterFlowIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 30.0,
-            borderWidth: 1.0,
-            buttonSize: 60.0,
-            icon: Icon(
-              Icons.arrow_back_rounded,
-              color: FlutterFlowTheme.of(context).primaryText,
-              size: 30.0,
+          leading: Visibility(
+            visible: _model.pageIndex != 1,
+            child: FlutterFlowIconButton(
+              borderColor: Colors.transparent,
+              borderRadius: 30.0,
+              borderWidth: 1.0,
+              buttonSize: 60.0,
+              icon: Icon(
+                Icons.arrow_back_rounded,
+                color: FlutterFlowTheme.of(context).primaryText,
+                size: 30.0,
+              ),
+              onPressed: () async {
+                if (_model.pageIndex == 0) {
+                  context.safePop();
+                } else {
+                  await _model.pageViewController?.previousPage(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.ease,
+                  );
+                  setState(() {
+                    _model.isPreviouse = true;
+                  });
+                  if ((_model.leadResponse?.reference != null) &&
+                      _model.isPreviouse) {
+                    _model.previouseLeadDoc = await LeadsRecord.getDocumentOnce(
+                        _model.leadResponse!.reference);
+                    setState(() {
+                      _model.firstNameController?.text =
+                          _model.previouseLeadDoc!.firstName;
+                    });
+                    setState(() {
+                      _model.industryDropdownValueController?.value =
+                          _model.previouseLeadDoc!.industry;
+                    });
+                    setState(() {
+                      _model.lastNameController?.text =
+                          _model.previouseLeadDoc!.lastName;
+                    });
+                    setState(() {
+                      _model.positionController?.text =
+                          _model.previouseLeadDoc!.positionRole;
+                    });
+                    setState(() {
+                      _model.languageController?.text =
+                          _model.previouseLeadDoc!.language;
+                    });
+                    setState(() {
+                      _model.genderMWController?.text =
+                          _model.previouseLeadDoc!.gender;
+                    });
+                    setState(() {
+                      _model.phoneController?.text =
+                          _model.previouseLeadDoc!.phone;
+                    });
+                    setState(() {
+                      _model.emailController?.text =
+                          _model.previouseLeadDoc!.email;
+                    });
+                    setState(() {
+                      _model.websiteController?.text =
+                          _model.previouseLeadDoc!.website;
+                    });
+                    setState(() {
+                      _model.cityController?.text =
+                          _model.previouseLeadDoc!.city;
+                    });
+                    setState(() {
+                      _model.zipController?.text =
+                          _model.previouseLeadDoc!.zipCode;
+                    });
+                    setState(() {
+                      _model.streetandNumController?.text =
+                          _model.previouseLeadDoc!.street;
+                    });
+                    setState(() {
+                      _model.countryController?.text =
+                          _model.previouseLeadDoc!.country;
+                    });
+                    setState(() {
+                      _model.companyController?.text =
+                          _model.previouseLeadDoc!.company;
+                    });
+                  }
+                }
+
+                setState(() {});
+              },
             ),
-            onPressed: () async {
-              context.pushNamed('HomePage');
-            },
           ),
           title: Text(
             'New Lead',
             style: FlutterFlowTheme.of(context).headlineSmall,
           ),
-          actions: [
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 15.0, 0.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  FFButtonWidget(
-                    onPressed: () async {
-                      context.goNamed('HomePage');
-                    },
-                    text: 'Done',
-                    options: FFButtonOptions(
-                      height: 40.0,
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Manrope',
-                                color: Colors.white,
-                              ),
-                      elevation: 3.0,
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(24.0),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+          actions: const [],
           centerTitle: false,
           elevation: 0.0,
         ),
@@ -194,6 +226,11 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                 physics: const NeverScrollableScrollPhysics(),
                 controller: _model.pageViewController ??=
                     PageController(initialPage: 0),
+                onPageChanged: (_) async {
+                  setState(() {
+                    _model.pageIndex = _model.pageViewCurrentIndex;
+                  });
+                },
                 scrollDirection: Axis.horizontal,
                 children: [
                   Padding(
@@ -202,7 +239,22 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 5.0),
+                          child: Text(
+                            'Location',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Manrope',
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                          ),
+                        ),
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 30.0),
@@ -461,84 +513,90 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                               );
                               if ((_model.apiResult40d?.succeeded ?? true)) {
                                 setState(() {
-                                  _model.firstNameController?.text = functions
-                                      .makeNullEmptyString(getJsonField(
+                                  _model.firstNameController?.text =
+                                      functions.makeNullEmptyString(
+                                          BusinessCardReaderEndPointCall
+                                              .firstName(
                                     (_model.apiResult40d?.jsonBody ?? ''),
-                                    r'''$["result"]["data"]["first_name"]''',
-                                  ).toString());
+                                  )!);
                                 });
                                 setState(() {
-                                  _model.lastNameController?.text = functions
-                                      .makeNullEmptyString(getJsonField(
+                                  _model.lastNameController?.text =
+                                      functions.makeNullEmptyString(
+                                          BusinessCardReaderEndPointCall
+                                              .lastName(
                                     (_model.apiResult40d?.jsonBody ?? ''),
-                                    r'''$["result"]["data"]["last_name"]''',
-                                  ).toString());
+                                  )!);
                                 });
                                 setState(() {
-                                  _model.positionController?.text = functions
-                                      .makeNullEmptyString(getJsonField(
+                                  _model.positionController?.text =
+                                      functions.makeNullEmptyString(
+                                          BusinessCardReaderEndPointCall
+                                              .positionRole(
                                     (_model.apiResult40d?.jsonBody ?? ''),
-                                    r'''$["data"]["field"]["position_role"]''',
-                                  ).toString());
+                                  )!);
                                 });
                                 setState(() {
-                                  _model.phoneController?.text = functions
-                                      .makeNullEmptyString(getJsonField(
+                                  _model.phoneController?.text =
+                                      functions.makeNullEmptyString(
+                                          BusinessCardReaderEndPointCall.phone(
                                     (_model.apiResult40d?.jsonBody ?? ''),
-                                    r'''$["data"]["field"]["phone_number"]''',
-                                  ).toString());
+                                  )!);
                                 });
                                 setState(() {
-                                  _model.emailController?.text = functions
-                                      .makeNullEmptyString(getJsonField(
+                                  _model.emailController?.text =
+                                      functions.makeNullEmptyString(
+                                          BusinessCardReaderEndPointCall.email(
                                     (_model.apiResult40d?.jsonBody ?? ''),
-                                    r'''$["data"]["field"]["email"]''',
-                                  ).toString());
+                                  )!);
                                 });
                                 setState(() {
-                                  _model.websiteController?.text = functions
-                                      .makeNullEmptyString(getJsonField(
+                                  _model.websiteController?.text =
+                                      functions.makeNullEmptyString(
+                                          BusinessCardReaderEndPointCall
+                                              .website(
                                     (_model.apiResult40d?.jsonBody ?? ''),
-                                    r'''$["data"]["field"]["website"]''',
-                                  ).toString());
+                                  )!);
                                 });
                                 setState(() {
-                                  _model.cityController?.text = functions
-                                      .makeNullEmptyString(getJsonField(
+                                  _model.cityController?.text =
+                                      functions.makeNullEmptyString(
+                                          BusinessCardReaderEndPointCall.city(
                                     (_model.apiResult40d?.jsonBody ?? ''),
-                                    r'''$["result"]["data"]["city"]''',
-                                  ).toString());
+                                  )!);
                                 });
                                 setState(() {
-                                  _model.zipController?.text = functions
-                                      .makeNullEmptyString(getJsonField(
+                                  _model.zipController?.text =
+                                      functions.makeNullEmptyString(
+                                          BusinessCardReaderEndPointCall
+                                              .zipCode(
                                     (_model.apiResult40d?.jsonBody ?? ''),
-                                    r'''$["data"]["field"]["zip_code"]''',
-                                  ).toString());
+                                  )!);
                                 });
                                 setState(() {
                                   _model.streetandNumController?.text =
-                                      '${functions.makeNullEmptyString(getJsonField(
+                                      '${functions.makeNullEmptyString(BusinessCardReaderEndPointCall.street(
                                     (_model.apiResult40d?.jsonBody ?? ''),
-                                    r'''$["data"]["field"]["street"]''',
-                                  ).toString())} ${functions.makeNullEmptyString(getJsonField(
+                                  )!)} ${functions.makeNullEmptyString(getJsonField(
                                     (_model.apiResult40d?.jsonBody ?? ''),
                                     r'''$["data"]["field"]["house_number"]''',
                                   ).toString())}';
                                 });
                                 setState(() {
-                                  _model.countryController?.text = functions
-                                      .makeNullEmptyString(getJsonField(
+                                  _model.countryController?.text =
+                                      functions.makeNullEmptyString(
+                                          BusinessCardReaderEndPointCall
+                                              .country(
                                     (_model.apiResult40d?.jsonBody ?? ''),
-                                    r'''$["result"]["data"]["country"]''',
-                                  ).toString());
+                                  )!);
                                 });
                                 setState(() {
-                                  _model.companyController?.text = functions
-                                      .makeNullEmptyString(getJsonField(
+                                  _model.companyController?.text =
+                                      functions.makeNullEmptyString(
+                                          BusinessCardReaderEndPointCall
+                                              .company(
                                     (_model.apiResult40d?.jsonBody ?? ''),
-                                    r'''$["result"]["data"]["company"]''',
-                                  ).toString());
+                                  )!);
                                 });
                                 setState(() {
                                   _model.industryController?.text = functions
@@ -1780,132 +1838,166 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                           ),
                           FFButtonWidget(
                             onPressed: () async {
-                              if (_model.lastNameController.text != '') {
-                                var leadsRecordReference =
-                                    LeadsRecord.collection.doc();
-                                await leadsRecordReference.set({
-                                  ...createLeadsRecordData(
-                                    firstName: _model.firstNameController.text,
-                                    lastName: _model.lastNameController.text,
-                                    positionRole:
-                                        _model.positionController.text,
-                                    gender: Gender.female,
-                                    language: _model.languageController.text,
-                                    phone: _model.phoneController.text,
-                                    website: _model.websiteController.text,
-                                    email: _model.emailController.text,
-                                    city: _model.cityController.text,
-                                    street: _model.streetandNumController.text,
-                                    country: _model.countryController.text,
-                                    zipCode: _model.zipController.text,
-                                    company: _model.companyController.text,
-                                    industry: _model.industryController.text,
-                                    leadCollectedBy: widget.teamDocRef,
-                                    photoUrl: _model.uploadedFileUrl2,
-                                  ),
-                                  ...mapToFirestore(
-                                    {
-                                      'created_at':
-                                          FieldValue.serverTimestamp(),
-                                    },
-                                  ),
+                              if (_model.isPreviouse) {
+                                await _model.previouseLeadDoc!.reference
+                                    .update(createLeadsRecordData(
+                                  firstName: _model.firstNameController.text,
+                                  lastName: _model.lastNameController.text,
+                                  positionRole: _model.positionController.text,
+                                  gender: _model.genderMWController.text,
+                                  language: _model.languageController.text,
+                                  phone: _model.phoneController.text,
+                                  website: _model.websiteController.text,
+                                  email: _model.emailController.text,
+                                  city: _model.cityController.text,
+                                  street: _model.streetandNumController.text,
+                                  country: _model.countryController.text,
+                                  zipCode: _model.zipController.text,
+                                  company: _model.companyController.text,
+                                  industry: _model.industryController.text,
+                                ));
+                                setState(() {
+                                  _model.isPreviouse = false;
                                 });
-                                _model.leadResponse =
-                                    LeadsRecord.getDocumentFromData({
-                                  ...createLeadsRecordData(
-                                    firstName: _model.firstNameController.text,
-                                    lastName: _model.lastNameController.text,
-                                    positionRole:
-                                        _model.positionController.text,
-                                    gender: Gender.female,
-                                    language: _model.languageController.text,
-                                    phone: _model.phoneController.text,
-                                    website: _model.websiteController.text,
-                                    email: _model.emailController.text,
-                                    city: _model.cityController.text,
-                                    street: _model.streetandNumController.text,
-                                    country: _model.countryController.text,
-                                    zipCode: _model.zipController.text,
-                                    company: _model.companyController.text,
-                                    industry: _model.industryController.text,
-                                    leadCollectedBy: widget.teamDocRef,
-                                    photoUrl: _model.uploadedFileUrl2,
-                                  ),
-                                  ...mapToFirestore(
-                                    {
-                                      'created_at': DateTime.now(),
-                                    },
-                                  ),
-                                }, leadsRecordReference);
-                                if (widget.isIndustryMode!) {
-                                  await ComponentContentRecord.collection
-                                      .doc()
-                                      .set({
-                                    ...createComponentContentRecordData(
-                                      leadRef: _model.leadResponse?.reference,
-                                      type: ComponentType.industrialFair,
-                                      content: _model.industryDropdownValue,
-                                    ),
-                                    ...mapToFirestore(
-                                      {
-                                        'created_at':
-                                            FieldValue.serverTimestamp(),
-                                      },
-                                    ),
-                                  });
-
-                                  await _model.leadResponse!.reference
-                                      .update(createLeadsRecordData(
-                                    mode: TemplateMode.industry,
-                                  ));
-                                } else {
-                                  await ComponentContentRecord.collection
-                                      .doc()
-                                      .set({
-                                    ...createComponentContentRecordData(
-                                      leadRef: _model.leadResponse?.reference,
-                                      type: ComponentType.placeOfEncounter,
-                                      content:
-                                          _model.encounterFieldController.text,
-                                    ),
-                                    ...mapToFirestore(
-                                      {
-                                        'created_at':
-                                            FieldValue.serverTimestamp(),
-                                      },
-                                    ),
-                                  });
-
-                                  await _model.leadResponse!.reference
-                                      .update(createLeadsRecordData(
-                                    mode: TemplateMode.salesPerson,
-                                  ));
-                                }
-
                                 await _model.pageViewController?.nextPage(
                                   duration: const Duration(milliseconds: 300),
                                   curve: Curves.ease,
                                 );
                               } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'Last name is required',
-                                      style: TextStyle(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                      ),
+                                if (_model.lastNameController.text != '') {
+                                  var leadsRecordReference =
+                                      LeadsRecord.collection.doc();
+                                  await leadsRecordReference.set({
+                                    ...createLeadsRecordData(
+                                      firstName:
+                                          _model.firstNameController.text,
+                                      lastName: _model.lastNameController.text,
+                                      positionRole:
+                                          _model.positionController.text,
+                                      gender: Gender.female.name,
+                                      language: _model.languageController.text,
+                                      phone: _model.phoneController.text,
+                                      website: _model.websiteController.text,
+                                      email: _model.emailController.text,
+                                      city: _model.cityController.text,
+                                      street:
+                                          _model.streetandNumController.text,
+                                      country: _model.countryController.text,
+                                      zipCode: _model.zipController.text,
+                                      company: _model.companyController.text,
+                                      industry: _model.industryController.text,
+                                      leadCollectedBy:
+                                          widget.teamDoc?.reference,
+                                      photoUrl: _model.uploadedFileUrl2,
                                     ),
-                                    duration: const Duration(milliseconds: 4000),
-                                    backgroundColor:
-                                        FlutterFlowTheme.of(context).secondary,
-                                  ),
-                                );
+                                    ...mapToFirestore(
+                                      {
+                                        'created_at':
+                                            FieldValue.serverTimestamp(),
+                                      },
+                                    ),
+                                  });
+                                  _model.leadResponse =
+                                      LeadsRecord.getDocumentFromData({
+                                    ...createLeadsRecordData(
+                                      firstName:
+                                          _model.firstNameController.text,
+                                      lastName: _model.lastNameController.text,
+                                      positionRole:
+                                          _model.positionController.text,
+                                      gender: Gender.female.name,
+                                      language: _model.languageController.text,
+                                      phone: _model.phoneController.text,
+                                      website: _model.websiteController.text,
+                                      email: _model.emailController.text,
+                                      city: _model.cityController.text,
+                                      street:
+                                          _model.streetandNumController.text,
+                                      country: _model.countryController.text,
+                                      zipCode: _model.zipController.text,
+                                      company: _model.companyController.text,
+                                      industry: _model.industryController.text,
+                                      leadCollectedBy:
+                                          widget.teamDoc?.reference,
+                                      photoUrl: _model.uploadedFileUrl2,
+                                    ),
+                                    ...mapToFirestore(
+                                      {
+                                        'created_at': DateTime.now(),
+                                      },
+                                    ),
+                                  }, leadsRecordReference);
+                                  if (widget.isIndustryMode!) {
+                                    await ComponentContentRecord.collection
+                                        .doc()
+                                        .set({
+                                      ...createComponentContentRecordData(
+                                        leadRef: _model.leadResponse?.reference,
+                                        type: ComponentType.industrialFair,
+                                        content: _model.industryDropdownValue,
+                                      ),
+                                      ...mapToFirestore(
+                                        {
+                                          'created_at':
+                                              FieldValue.serverTimestamp(),
+                                        },
+                                      ),
+                                    });
+
+                                    await _model.leadResponse!.reference
+                                        .update(createLeadsRecordData(
+                                      mode: TemplateMode.industry,
+                                    ));
+                                  } else {
+                                    await ComponentContentRecord.collection
+                                        .doc()
+                                        .set({
+                                      ...createComponentContentRecordData(
+                                        leadRef: _model.leadResponse?.reference,
+                                        type: ComponentType.placeOfEncounter,
+                                        content: _model
+                                            .encounterFieldController.text,
+                                      ),
+                                      ...mapToFirestore(
+                                        {
+                                          'created_at':
+                                              FieldValue.serverTimestamp(),
+                                        },
+                                      ),
+                                    });
+
+                                    await _model.leadResponse!.reference
+                                        .update(createLeadsRecordData(
+                                      mode: TemplateMode.salesPerson,
+                                    ));
+                                  }
+
+                                  await _model.pageViewController?.nextPage(
+                                    duration: const Duration(milliseconds: 300),
+                                    curve: Curves.ease,
+                                  );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Last name is required',
+                                        style: TextStyle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                        ),
+                                      ),
+                                      duration: const Duration(milliseconds: 4000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondary,
+                                    ),
+                                  );
+                                }
                               }
 
                               setState(() {});
                             },
-                            text: 'Continue',
+                            text: _model.isPreviouse ? 'Update' : 'Continue',
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 40.0,
@@ -1934,67 +2026,121 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        StreamBuilder<List<TeamComponentsRecord>>(
-                          stream: queryTeamComponentsRecord(
-                            parent: widget.teamDocRef,
-                            queryBuilder: (teamComponentsRecord) =>
-                                teamComponentsRecord.where(
-                              'is_starter',
-                              isEqualTo: true,
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Container(
+                        height: MediaQuery.sizeOf(context).height * 0.756,
+                        decoration: const BoxDecoration(),
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              15.0, 0.0, 15.0, 0.0),
+                          child: StreamBuilder<List<TeamComponentsRecord>>(
+                            stream: queryTeamComponentsRecord(
+                              parent: widget.teamDoc?.reference,
+                              queryBuilder: (teamComponentsRecord) =>
+                                  teamComponentsRecord
+                                      .where(
+                                        'is_starter',
+                                        isEqualTo: true,
+                                      )
+                                      .where(
+                                        'type',
+                                        isNotEqualTo: widget.isIndustryMode!
+                                            ? ComponentType.industrialFair
+                                            : ComponentType.placeOfEncounter
+                                                .serialize(),
+                                      ),
                             ),
-                          ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 30.0,
-                                  height: 30.0,
-                                  child: SpinKitFadingFour(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    size: 30.0,
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 30.0,
+                                    height: 30.0,
+                                    child: SpinKitFadingFour(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      size: 30.0,
+                                    ),
                                   ),
-                                ),
-                              );
-                            }
-                            List<TeamComponentsRecord>
-                                listViewTeamComponentsRecordList =
-                                snapshot.data!;
-                            return ListView.builder(
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              itemCount:
-                                  listViewTeamComponentsRecordList.length,
-                              itemBuilder: (context, listViewIndex) {
-                                final listViewTeamComponentsRecord =
-                                    listViewTeamComponentsRecordList[
-                                        listViewIndex];
-                                return Visibility(
-                                  visible:
-                                      !((listViewTeamComponentsRecord.type ==
-                                              ComponentType.industrialFair) ||
-                                          (listViewTeamComponentsRecord.type ==
-                                              ComponentType.placeOfEncounter)),
-                                  child: TileComponentWidget(
+                                );
+                              }
+                              List<TeamComponentsRecord>
+                                  listViewTeamComponentsRecordList =
+                                  snapshot.data!;
+                              if (listViewTeamComponentsRecordList.isEmpty) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: double.infinity,
+                                    height: 500.0,
+                                    child: EmptyComponentListWidget(
+                                      teamDoc: widget.teamDoc!,
+                                    ),
+                                  ),
+                                );
+                              }
+                              return ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount:
+                                    listViewTeamComponentsRecordList.length,
+                                itemBuilder: (context, listViewIndex) {
+                                  final listViewTeamComponentsRecord =
+                                      listViewTeamComponentsRecordList[
+                                          listViewIndex];
+                                  return TileComponentWidget(
                                     key: Key(
                                         'Key3l4_${listViewIndex}_of_${listViewTeamComponentsRecordList.length}'),
                                     component: listViewTeamComponentsRecord,
                                     lead: _model.leadResponse!.reference,
-                                  ),
-                                );
-                              },
-                            );
-                          },
+                                  );
+                                },
+                              );
+                            },
+                          ),
                         ),
-                      ],
-                    ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            15.0, 0.0, 15.0, 0.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            FFButtonWidget(
+                              onPressed: () async {
+                                context.goNamed('HomePage');
+                              },
+                              text: 'Done',
+                              options: FFButtonOptions(
+                                width: double.infinity,
+                                height: 50.0,
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    24.0, 0.0, 24.0, 0.0),
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                color: FlutterFlowTheme.of(context).primary,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      fontFamily: 'Manrope',
+                                      color: Colors.white,
+                                    ),
+                                elevation: 3.0,
+                                borderSide: const BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1.0,
+                                ),
+                                borderRadius: BorderRadius.circular(24.0),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

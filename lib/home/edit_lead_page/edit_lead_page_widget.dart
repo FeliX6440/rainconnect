@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'edit_lead_page_model.dart';
 export 'edit_lead_page_model.dart';
@@ -48,7 +47,7 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
     _model.languageFocusNode ??= FocusNode();
 
     _model.genderMWController ??=
-        TextEditingController(text: widget.leadDoc?.gender?.name);
+        TextEditingController(text: widget.leadDoc?.gender);
     _model.genderMWFocusNode ??= FocusNode();
 
     _model.phoneController ??=
@@ -98,15 +97,6 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(

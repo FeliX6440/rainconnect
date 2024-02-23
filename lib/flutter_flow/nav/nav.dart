@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
+import '/backend/schema/enums/enums.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
@@ -117,9 +118,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'addNewLead',
           path: '/addNewLead',
+          asyncParams: {
+            'teamDoc': getDoc(['teams'], TeamsRecord.fromSnapshot),
+          },
           builder: (context, params) => AddNewLeadWidget(
-            teamDocRef: params.getParam(
-                'teamDocRef', ParamType.DocumentReference, false, ['teams']),
+            teamDoc: params.getParam('teamDoc', ParamType.Document),
             isIndustryMode: params.getParam('isIndustryMode', ParamType.bool),
           ),
         ),
@@ -155,11 +158,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'QuickNotesPage',
-          path: '/quickNotesPage',
-          builder: (context, params) => QuickNotesPageWidget(
+          name: 'ComponentContentViewPage',
+          path: '/componentContentViewPage',
+          builder: (context, params) => ComponentContentViewPageWidget(
             leadRef: params.getParam(
                 'leadRef', ParamType.DocumentReference, false, ['leads']),
+            title: params.getParam('title', ParamType.String),
+            type: params.getParam<ComponentType>('type', ParamType.Enum),
           ),
         ),
         FFRoute(
@@ -220,6 +225,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/manageMembers',
           builder: (context, params) => ManageMembersWidget(
             membersCount: params.getParam('membersCount', ParamType.int),
+            teamRef: params.getParam(
+                'teamRef', ParamType.DocumentReference, false, ['teams']),
           ),
         ),
         FFRoute(
@@ -425,6 +432,7 @@ class FFRoute {
           return null;
         },
         pageBuilder: (context, state) {
+          fixStatusBarOniOS16AndBelow(context);
           final ffParams = FFParameters(state, asyncParams);
           final page = ffParams.hasFutures
               ? FutureBuilder(

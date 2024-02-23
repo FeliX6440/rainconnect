@@ -14,11 +14,6 @@ class EmailTemplatesRecord extends FirestoreRecord {
     _initializeFields();
   }
 
-  // "email" field.
-  String? _email;
-  String get email => _email ?? '';
-  bool hasEmail() => _email != null;
-
   // "subject" field.
   String? _subject;
   String get subject => _subject ?? '';
@@ -37,7 +32,6 @@ class EmailTemplatesRecord extends FirestoreRecord {
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
-    _email = snapshotData['email'] as String?;
     _subject = snapshotData['subject'] as String?;
     _body = snapshotData['body'] as String?;
     _attachmentUrl = snapshotData['attachment_url'] as String?;
@@ -83,14 +77,12 @@ class EmailTemplatesRecord extends FirestoreRecord {
 }
 
 Map<String, dynamic> createEmailTemplatesRecordData({
-  String? email,
   String? subject,
   String? body,
   String? attachmentUrl,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
-      'email': email,
       'subject': subject,
       'body': body,
       'attachment_url': attachmentUrl,
@@ -106,15 +98,14 @@ class EmailTemplatesRecordDocumentEquality
 
   @override
   bool equals(EmailTemplatesRecord? e1, EmailTemplatesRecord? e2) {
-    return e1?.email == e2?.email &&
-        e1?.subject == e2?.subject &&
+    return e1?.subject == e2?.subject &&
         e1?.body == e2?.body &&
         e1?.attachmentUrl == e2?.attachmentUrl;
   }
 
   @override
-  int hash(EmailTemplatesRecord? e) => const ListEquality()
-      .hash([e?.email, e?.subject, e?.body, e?.attachmentUrl]);
+  int hash(EmailTemplatesRecord? e) =>
+      const ListEquality().hash([e?.subject, e?.body, e?.attachmentUrl]);
 
   @override
   bool isValidKey(Object? o) => o is EmailTemplatesRecord;

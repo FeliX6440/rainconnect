@@ -1,38 +1,44 @@
 import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
+import '/bottomsheet/edit_temperature_content/edit_temperature_content_widget.dart';
 import '/components/notes_details_and_edit/notes_details_and_edit_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
-import 'quick_notes_page_model.dart';
-export 'quick_notes_page_model.dart';
+import 'component_content_view_page_model.dart';
+export 'component_content_view_page_model.dart';
 
-class QuickNotesPageWidget extends StatefulWidget {
-  const QuickNotesPageWidget({
+class ComponentContentViewPageWidget extends StatefulWidget {
+  const ComponentContentViewPageWidget({
     super.key,
     required this.leadRef,
+    required this.title,
+    required this.type,
   });
 
   final DocumentReference? leadRef;
+  final String? title;
+  final ComponentType? type;
 
   @override
-  State<QuickNotesPageWidget> createState() => _QuickNotesPageWidgetState();
+  State<ComponentContentViewPageWidget> createState() =>
+      _ComponentContentViewPageWidgetState();
 }
 
-class _QuickNotesPageWidgetState extends State<QuickNotesPageWidget> {
-  late QuickNotesPageModel _model;
+class _ComponentContentViewPageWidgetState
+    extends State<ComponentContentViewPageWidget> {
+  late ComponentContentViewPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => QuickNotesPageModel());
+    _model = createModel(context, () => ComponentContentViewPageModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -46,15 +52,6 @@ class _QuickNotesPageWidgetState extends State<QuickNotesPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -82,7 +79,7 @@ class _QuickNotesPageWidgetState extends State<QuickNotesPageWidget> {
             },
           ),
           title: Text(
-            'Notes',
+            widget.title!,
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Urbanist',
                   color: Colors.white,
@@ -110,7 +107,7 @@ class _QuickNotesPageWidgetState extends State<QuickNotesPageWidget> {
                         )
                         .where(
                           'type',
-                          isEqualTo: ComponentType.Note.serialize(),
+                          isEqualTo: widget.type?.serialize(),
                         )
                         .orderBy('created_at', descending: true),
                   ),
@@ -152,31 +149,58 @@ class _QuickNotesPageWidgetState extends State<QuickNotesPageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          await showModalBottomSheet(
-                            isScrollControlled: true,
-                            backgroundColor: Colors.transparent,
-                            enableDrag: false,
-                            context: context,
-                            builder: (context) {
-                              return GestureDetector(
-                                onTap: () => _model.unfocusNode.canRequestFocus
-                                    ? FocusScope.of(context)
-                                        .requestFocus(_model.unfocusNode)
-                                    : FocusScope.of(context).unfocus(),
-                                child: Padding(
-                                  padding: MediaQuery.viewInsetsOf(context),
-                                  child: SizedBox(
-                                    height:
-                                        MediaQuery.sizeOf(context).height * 0.5,
-                                    child: NotesDetailsAndEditWidget(
-                                      headText: 'Quick note',
-                                      noteDoc: listViewComponentContentRecord,
+                          if (widget.type == ComponentType.Temperature) {
+                            await showModalBottomSheet(
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              enableDrag: false,
+                              context: context,
+                              builder: (context) {
+                                return GestureDetector(
+                                  onTap: () =>
+                                      _model.unfocusNode.canRequestFocus
+                                          ? FocusScope.of(context)
+                                              .requestFocus(_model.unfocusNode)
+                                          : FocusScope.of(context).unfocus(),
+                                  child: Padding(
+                                    padding: MediaQuery.viewInsetsOf(context),
+                                    child: EditTemperatureContentWidget(
+                                      componentContentDoc:
+                                          listViewComponentContentRecord,
                                     ),
                                   ),
-                                ),
-                              );
-                            },
-                          ).then((value) => safeSetState(() {}));
+                                );
+                              },
+                            ).then((value) => safeSetState(() {}));
+                          } else {
+                            await showModalBottomSheet(
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              enableDrag: false,
+                              context: context,
+                              builder: (context) {
+                                return GestureDetector(
+                                  onTap: () =>
+                                      _model.unfocusNode.canRequestFocus
+                                          ? FocusScope.of(context)
+                                              .requestFocus(_model.unfocusNode)
+                                          : FocusScope.of(context).unfocus(),
+                                  child: Padding(
+                                    padding: MediaQuery.viewInsetsOf(context),
+                                    child: SizedBox(
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                              0.5,
+                                      child: NotesDetailsAndEditWidget(
+                                        headText: 'Quick note',
+                                        noteDoc: listViewComponentContentRecord,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ).then((value) => safeSetState(() {}));
+                          }
                         },
                         child: ListTile(
                           title: Text(

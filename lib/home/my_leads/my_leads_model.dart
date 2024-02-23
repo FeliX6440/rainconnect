@@ -13,18 +13,14 @@ class MyLeadsModel extends FlutterFlowModel<MyLeadsWidget> {
 
   final unfocusNode = FocusNode();
   // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode1;
-  TextEditingController? textController1;
-  String? Function(BuildContext, String?)? textController1Validator;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode2;
-  TextEditingController? textController2;
-  String? Function(BuildContext, String?)? textController2Validator;
+  FocusNode? textFieldFocusNode;
+  TextEditingController? textController;
+  String? Function(BuildContext, String?)? textControllerValidator;
+  List<LeadsRecord> simpleSearchResults = [];
   // State field(s) for ListView widget.
 
-  PagingController<DocumentSnapshot?, LeadsRecord>? listViewPagingController;
-  Query? listViewPagingQuery;
-  List<StreamSubscription?> listViewStreamSubscriptions = [];
+  PagingController<DocumentSnapshot?, LeadsRecord>? listViewPagingController2;
+  Query? listViewPagingQuery2;
 
   /// Initialization and disposal methods.
 
@@ -34,35 +30,29 @@ class MyLeadsModel extends FlutterFlowModel<MyLeadsWidget> {
   @override
   void dispose() {
     unfocusNode.dispose();
-    textFieldFocusNode1?.dispose();
-    textController1?.dispose();
+    textFieldFocusNode?.dispose();
+    textController?.dispose();
 
-    textFieldFocusNode2?.dispose();
-    textController2?.dispose();
-
-    for (var s in listViewStreamSubscriptions) {
-      s?.cancel();
-    }
-    listViewPagingController?.dispose();
+    listViewPagingController2?.dispose();
   }
 
   /// Action blocks are added here.
 
   /// Additional helper methods are added here.
 
-  PagingController<DocumentSnapshot?, LeadsRecord> setListViewController(
+  PagingController<DocumentSnapshot?, LeadsRecord> setListViewController2(
     Query query, {
     DocumentReference<Object?>? parent,
   }) {
-    listViewPagingController ??= _createListViewController(query, parent);
-    if (listViewPagingQuery != query) {
-      listViewPagingQuery = query;
-      listViewPagingController?.refresh();
+    listViewPagingController2 ??= _createListViewController2(query, parent);
+    if (listViewPagingQuery2 != query) {
+      listViewPagingQuery2 = query;
+      listViewPagingController2?.refresh();
     }
-    return listViewPagingController!;
+    return listViewPagingController2!;
   }
 
-  PagingController<DocumentSnapshot?, LeadsRecord> _createListViewController(
+  PagingController<DocumentSnapshot?, LeadsRecord> _createListViewController2(
     Query query,
     DocumentReference<Object?>? parent,
   ) {
@@ -71,12 +61,11 @@ class MyLeadsModel extends FlutterFlowModel<MyLeadsWidget> {
     return controller
       ..addPageRequestListener(
         (nextPageMarker) => queryLeadsRecordPage(
-          queryBuilder: (_) => listViewPagingQuery ??= query,
+          queryBuilder: (_) => listViewPagingQuery2 ??= query,
           nextPageMarker: nextPageMarker,
-          streamSubscriptions: listViewStreamSubscriptions,
           controller: controller,
           pageSize: 25,
-          isStream: true,
+          isStream: false,
         ),
       );
   }

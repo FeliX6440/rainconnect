@@ -54,3 +54,11 @@ bool checkForDomianExtension(
   String teamExtension = teamEmail.split('@').last;
   return userEmail.split('@').last == teamExtension;
 }
+
+String trimFilterText1(String text) {
+  return text.trim();
+}
+
+String trimFilter2(String text) {
+  return text.trim() + 'z';
+}

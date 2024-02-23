@@ -1,17 +1,15 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'audio_to_text_component_widget.dart' show AudioToTextComponentWidget;
+import 'edit_single_profile_doc_widget.dart' show EditSingleProfileDocWidget;
 import 'package:flutter/material.dart';
-import 'package:record/record.dart';
 
-class AudioToTextComponentModel
-    extends FlutterFlowModel<AudioToTextComponentWidget> {
+class EditSingleProfileDocModel
+    extends FlutterFlowModel<EditSingleProfileDocWidget> {
   ///  State fields for stateful widgets in this component.
 
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
-  AudioRecorder? audioRecorder;
 
   /// Initialization and disposal methods.
 

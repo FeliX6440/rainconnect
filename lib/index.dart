@@ -14,8 +14,8 @@ export '/profile/profile_set_up_page/profile_set_up_page_widget.dart'
     show ProfileSetUpPageWidget;
 export '/home/speech_to_text_notes_page/speech_to_text_notes_page_widget.dart'
     show SpeechToTextNotesPageWidget;
-export '/home/quick_notes_page/quick_notes_page_widget.dart'
-    show QuickNotesPageWidget;
+export '/home/component_content_view_page/component_content_view_page_widget.dart'
+    show ComponentContentViewPageWidget;
 export '/home/edit_lead_page/edit_lead_page_widget.dart'
     show EditLeadPageWidget;
 export '/home/new_or_edit_component/new_or_edit_component_widget.dart'

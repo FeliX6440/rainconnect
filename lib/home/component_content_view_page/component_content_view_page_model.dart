@@ -1,10 +1,12 @@
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'quick_notes_page_widget.dart' show QuickNotesPageWidget;
+import 'component_content_view_page_widget.dart'
+    show ComponentContentViewPageWidget;
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-class QuickNotesPageModel extends FlutterFlowModel<QuickNotesPageWidget> {
+class ComponentContentViewPageModel
+    extends FlutterFlowModel<ComponentContentViewPageWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

@@ -10,9 +10,15 @@ class AddNewLeadModel extends FlutterFlowModel<AddNewLeadWidget> {
 
   bool isTileUsed = false;
 
+  int pageIndex = 0;
+
+  bool isPreviouse = false;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Stores action output result for [Backend Call - Read Document] action in IconButton widget.
+  LeadsRecord? previouseLeadDoc;
   // State field(s) for PageView widget.
   PageController? pageViewController;
 

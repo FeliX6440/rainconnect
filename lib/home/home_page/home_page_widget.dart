@@ -8,8 +8,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
@@ -57,9 +55,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
     super.initState();
     _model = createModel(context, () => HomePageModel());
 
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {});
-
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -79,15 +74,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return AuthUserStreamWidget(
@@ -370,6 +356,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               homePageTeamsRecord
                                                   ?.members.length,
                                               ParamType.int,
+                                            ),
+                                            'teamRef': serializeParam(
+                                              homePageTeamsRecord?.reference,
+                                              ParamType.DocumentReference,
                                             ),
                                           }.withoutNulls,
                                         );
@@ -929,300 +919,621 @@ class _HomePageWidgetState extends State<HomePageWidget>
               ),
               body: SafeArea(
                 top: true,
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
-                        child: Container(
-                          width: double.infinity,
-                          decoration: const BoxDecoration(),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              ClipRRect(
-                                borderRadius: const BorderRadius.only(
-                                  bottomLeft: Radius.circular(100.0),
-                                  bottomRight: Radius.circular(100.0),
-                                  topLeft: Radius.circular(100.0),
-                                  topRight: Radius.circular(100.0),
-                                ),
-                                child: Image.network(
-                                  currentUserPhoto,
-                                  width: 130.0,
-                                  height: 130.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 10.0, 0.0, 0.0),
-                                child: Text(
-                                  currentUserDisplayName,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Manrope',
-                                        fontSize: 17.0,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                ),
-                              ),
-                              Text(
-                                valueOrDefault(
-                                    currentUserDocument?.jobTitle, ''),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Manrope',
-                                      fontSize: 12.0,
-                                    ),
-                              ),
-                              SizedBox(
-                                width: 170.0,
-                                child: Divider(
-                                  thickness: 1.0,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Builder(
-                        builder: (context) {
-                          if (homePageTeamsRecord.members
-                                  .contains(currentUserReference) ??
-                              false) {
-                            return Padding(
+                child: Builder(
+                  builder: (context) {
+                    if (homePageTeamsRecord.members
+                            .contains(currentUserReference) ??
+                        false) {
+                      return SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  15.0, 0.0, 15.0, 0.0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 9.0),
-                                    child: Container(
-                                      width: double.infinity,
-                                      decoration: const BoxDecoration(),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Align(
-                                            alignment:
-                                                const AlignmentDirectional(0.0, 0.0),
-                                            child: Text(
-                                              'Last Few Leads:',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        fontSize: 11.0,
-                                                      ),
+                                  0.0, 30.0, 0.0, 0.0),
+                              child: Container(
+                                width: double.infinity,
+                                decoration: const BoxDecoration(),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                        bottomLeft: Radius.circular(100.0),
+                                        bottomRight: Radius.circular(100.0),
+                                        topLeft: Radius.circular(100.0),
+                                        topRight: Radius.circular(100.0),
+                                      ),
+                                      child: Image.network(
+                                        currentUserPhoto,
+                                        width: 130.0,
+                                        height: 130.0,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 10.0, 0.0, 0.0),
+                                      child: Text(
+                                        currentUserDisplayName,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Manrope',
+                                              fontSize: 17.0,
+                                              fontWeight: FontWeight.w600,
                                             ),
+                                      ),
+                                    ),
+                                    Text(
+                                      valueOrDefault(
+                                          currentUserDocument?.jobTitle, ''),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Manrope',
+                                            fontSize: 12.0,
                                           ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 5.0, 0.0, 0.0),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(12.0),
-                                              ),
-                                              child: StreamBuilder<
-                                                  List<LeadsRecord>>(
-                                                stream: queryLeadsRecord(
-                                                  queryBuilder: (leadsRecord) =>
-                                                      leadsRecord.where(
-                                                    'lead_collected_by',
-                                                    isEqualTo:
-                                                        homePageTeamsRecord
-                                                            .reference,
-                                                  ),
-                                                  limit: 6,
-                                                ),
-                                                builder: (context, snapshot) {
-                                                  // Customize what your widget looks like when it's loading.
-                                                  if (!snapshot.hasData) {
-                                                    return Center(
-                                                      child: SizedBox(
-                                                        width: 30.0,
-                                                        height: 30.0,
-                                                        child:
-                                                            SpinKitFadingFour(
+                                    ),
+                                    SizedBox(
+                                      width: 170.0,
+                                      child: Divider(
+                                        thickness: 1.0,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Builder(
+                              builder: (context) {
+                                if (homePageTeamsRecord.members
+                                        .contains(currentUserReference) ??
+                                    false) {
+                                  return Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        15.0, 0.0, 15.0, 0.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 9.0),
+                                          child: Container(
+                                            width: double.infinity,
+                                            decoration: const BoxDecoration(),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Align(
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                          0.0, 0.0),
+                                                  child: Text(
+                                                    'Last Few Leads:',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Manrope',
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primary,
-                                                          size: 30.0,
+                                                          fontSize: 11.0,
                                                         ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 5.0, 0.0, 0.0),
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12.0),
+                                                    ),
+                                                    child: StreamBuilder<
+                                                        List<LeadsRecord>>(
+                                                      stream: queryLeadsRecord(
+                                                        queryBuilder:
+                                                            (leadsRecord) =>
+                                                                leadsRecord
+                                                                    .where(
+                                                          'lead_collected_by',
+                                                          isEqualTo:
+                                                              homePageTeamsRecord
+                                                                  .reference,
+                                                        ),
+                                                        limit: 6,
                                                       ),
-                                                    );
-                                                  }
-                                                  List<LeadsRecord>
-                                                      rowLeadsRecordList =
-                                                      snapshot.data!;
-                                                  return Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: List.generate(
-                                                        rowLeadsRecordList
-                                                            .length,
-                                                        (rowIndex) {
-                                                      final rowLeadsRecord =
-                                                          rowLeadsRecordList[
-                                                              rowIndex];
-                                                      return Padding(
-                                                        padding:
-                                                            const EdgeInsets.all(6.0),
-                                                        child: Container(
-                                                          width: 45.0,
-                                                          height: 45.0,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .secondaryBackground,
-                                                            boxShadow: const [
-                                                              BoxShadow(
-                                                                blurRadius: 4.0,
-                                                                color: Color(
-                                                                    0x33000000),
-                                                                offset: Offset(
-                                                                    0.0, 2.0),
-                                                              )
-                                                            ],
-                                                            shape:
-                                                                BoxShape.circle,
-                                                          ),
-                                                          child: Align(
-                                                            alignment:
-                                                                const AlignmentDirectional(
-                                                                    0.0, 0.0),
-                                                            child: Text(
-                                                              valueOrDefault<
-                                                                  String>(
-                                                                functions.formateDisplayName(
-                                                                    rowLeadsRecord
-                                                                        .firstName,
-                                                                    rowLeadsRecord
-                                                                        .lastName),
-                                                                'name',
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        // Customize what your widget looks like when it's loading.
+                                                        if (!snapshot.hasData) {
+                                                          return Center(
+                                                            child: SizedBox(
+                                                              width: 30.0,
+                                                              height: 30.0,
+                                                              child:
+                                                                  SpinKitFadingFour(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                                size: 30.0,
                                                               ),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Manrope',
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                  ),
                                                             ),
-                                                          ),
-                                                        ),
-                                                      );
-                                                    }),
-                                                  );
-                                                },
-                                              ),
+                                                          );
+                                                        }
+                                                        List<LeadsRecord>
+                                                            rowLeadsRecordList =
+                                                            snapshot.data!;
+                                                        return Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: List.generate(
+                                                              rowLeadsRecordList
+                                                                  .length,
+                                                              (rowIndex) {
+                                                            final rowLeadsRecord =
+                                                                rowLeadsRecordList[
+                                                                    rowIndex];
+                                                            return Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(6.0),
+                                                              child: Container(
+                                                                width: 45.0,
+                                                                height: 45.0,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryBackground,
+                                                                  boxShadow: const [
+                                                                    BoxShadow(
+                                                                      blurRadius:
+                                                                          4.0,
+                                                                      color: Color(
+                                                                          0x33000000),
+                                                                      offset: Offset(
+                                                                          0.0,
+                                                                          2.0),
+                                                                    )
+                                                                  ],
+                                                                  shape: BoxShape
+                                                                      .circle,
+                                                                ),
+                                                                child: Align(
+                                                                  alignment:
+                                                                      const AlignmentDirectional(
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: Text(
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                      functions.formateDisplayName(
+                                                                          rowLeadsRecord
+                                                                              .firstName,
+                                                                          rowLeadsRecord
+                                                                              .lastName),
+                                                                      'name',
+                                                                    ),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Manrope',
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            );
+                                                          }),
+                                                        );
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Divider(
-                                    thickness: 1.0,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                  ),
-                                  Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      if (homePageTeamsRecord.admins.contains(
-                                              currentUserReference) ??
-                                          true)
+                                        ),
+                                        Divider(
+                                          thickness: 1.0,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                        ),
                                         Column(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      0.0, 10.0, 0.0, 10.0),
-                                              child: FFButtonWidget(
-                                                onPressed: () async {
-                                                  context.pushNamed(
-                                                    'Templates',
-                                                    queryParameters: {
-                                                      'teamDoc': serializeParam(
-                                                        homePageTeamsRecord,
-                                                        ParamType.Document,
+                                            if (homePageTeamsRecord.admins
+                                                    .contains(
+                                                        currentUserReference) ??
+                                                true)
+                                              Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 10.0,
+                                                                0.0, 10.0),
+                                                    child: FFButtonWidget(
+                                                      onPressed: () async {
+                                                        context.pushNamed(
+                                                          'Templates',
+                                                          queryParameters: {
+                                                            'teamDoc':
+                                                                serializeParam(
+                                                              homePageTeamsRecord,
+                                                              ParamType
+                                                                  .Document,
+                                                            ),
+                                                          }.withoutNulls,
+                                                          extra: <String,
+                                                              dynamic>{
+                                                            'teamDoc':
+                                                                homePageTeamsRecord,
+                                                          },
+                                                        );
+                                                      },
+                                                      text: 'Select Components',
+                                                      icon: const Icon(
+                                                        Icons.edit_note_rounded,
+                                                        size: 15.0,
                                                       ),
-                                                    }.withoutNulls,
-                                                    extra: <String, dynamic>{
-                                                      'teamDoc':
-                                                          homePageTeamsRecord,
-                                                    },
-                                                  );
-                                                },
-                                                text: 'Select Components',
-                                                icon: const Icon(
-                                                  Icons.edit_note_rounded,
-                                                  size: 15.0,
-                                                ),
-                                                options: FFButtonOptions(
-                                                  width: double.infinity,
-                                                  height: 50.0,
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          24.0, 0.0, 24.0, 0.0),
-                                                  iconPadding:
-                                                      const EdgeInsetsDirectional
-                                                          .fromSTEB(0.0, 0.0,
-                                                              0.0, 0.0),
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryBackground,
-                                                  textStyle: FlutterFlowTheme
-                                                          .of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        color:
+                                                      options: FFButtonOptions(
+                                                        width: double.infinity,
+                                                        height: 50.0,
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    24.0,
+                                                                    0.0,
+                                                                    24.0,
+                                                                    0.0),
+                                                        iconPadding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        textStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .tertiary,
+                                                                .titleSmall
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Manrope',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .tertiary,
+                                                                ),
+                                                        elevation: 3.0,
+                                                        borderSide: BorderSide(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          width: 2.0,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(24.0),
                                                       ),
-                                                  elevation: 3.0,
-                                                  borderSide: BorderSide(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primary,
-                                                    width: 2.0,
+                                                    ),
                                                   ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          24.0),
-                                                ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 10.0),
+                                                    child: FFButtonWidget(
+                                                      onPressed: () async {
+                                                        context.pushNamed(
+                                                          'ManageMembers',
+                                                          queryParameters: {
+                                                            'membersCount':
+                                                                serializeParam(
+                                                              homePageTeamsRecord
+                                                                  .members
+                                                                  .length,
+                                                              ParamType.int,
+                                                            ),
+                                                            'teamRef':
+                                                                serializeParam(
+                                                              homePageTeamsRecord
+                                                                  .reference,
+                                                              ParamType
+                                                                  .DocumentReference,
+                                                            ),
+                                                          }.withoutNulls,
+                                                        );
+                                                      },
+                                                      text: 'Manage Team',
+                                                      icon: const Icon(
+                                                        Icons
+                                                            .admin_panel_settings_outlined,
+                                                        size: 15.0,
+                                                      ),
+                                                      options: FFButtonOptions(
+                                                        width: double.infinity,
+                                                        height: 50.0,
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    24.0,
+                                                                    0.0,
+                                                                    24.0,
+                                                                    0.0),
+                                                        iconPadding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        textStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmall
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Manrope',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .tertiary,
+                                                                ),
+                                                        elevation: 3.0,
+                                                        borderSide: BorderSide(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          width: 2.0,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(24.0),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 5.0,
+                                                                0.0, 20.0),
+                                                    child: Material(
+                                                      color: Colors.transparent,
+                                                      elevation: 2.0,
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(14.0),
+                                                      ),
+                                                      child: Container(
+                                                        width: double.infinity,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      14.0),
+                                                          border: Border.all(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .alternate,
+                                                            width: 2.0,
+                                                          ),
+                                                        ),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          8.0,
+                                                                          12.0,
+                                                                          8.0,
+                                                                          0.0),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            12.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                    child: Text(
+                                                                      homePageTeamsRecord.templateMode
+                                                                          ? 'Industrial Fair Mode'
+                                                                          : 'Salesperson Mode',
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyLarge,
+                                                                    ),
+                                                                  ),
+                                                                  Switch
+                                                                      .adaptive(
+                                                                    value: _model
+                                                                            .switchValue ??=
+                                                                        homePageTeamsRecord.templateMode,
+                                                                    onChanged:
+                                                                        (newValue) async {
+                                                                      setState(() =>
+                                                                          _model.switchValue =
+                                                                              newValue);
+                                                                      if (newValue) {
+                                                                        await homePageTeamsRecord.reference
+                                                                            .update(createTeamsRecordData(
+                                                                          templateMode:
+                                                                              true,
+                                                                        ));
+
+                                                                        await TeamComponentsRecord.createDoc(homePageTeamsRecord.reference)
+                                                                            .set({
+                                                                          ...createTeamComponentsRecordData(
+                                                                            name:
+                                                                                'Industrial Fair',
+                                                                            isStarter:
+                                                                                true,
+                                                                            type:
+                                                                                ComponentType.industrialFair,
+                                                                            isCustom:
+                                                                                true,
+                                                                          ),
+                                                                          ...mapToFirestore(
+                                                                            {
+                                                                              'added_at': FieldValue.serverTimestamp(),
+                                                                            },
+                                                                          ),
+                                                                        });
+                                                                        _model.encounterDocs =
+                                                                            await queryTeamComponentsRecordOnce(
+                                                                          parent:
+                                                                              homePageTeamsRecord.reference,
+                                                                          queryBuilder: (teamComponentsRecord) =>
+                                                                              teamComponentsRecord.where(
+                                                                            'type',
+                                                                            isEqualTo:
+                                                                                ComponentType.placeOfEncounter.serialize(),
+                                                                          ),
+                                                                        );
+                                                                        await actions
+                                                                            .deleteComponentDocs(
+                                                                          _model
+                                                                              .encounterDocs!
+                                                                              .toList(),
+                                                                          homePageTeamsRecord.reference,
+                                                                        );
+
+                                                                        setState(
+                                                                            () {});
+                                                                      } else {
+                                                                        await homePageTeamsRecord.reference
+                                                                            .update(createTeamsRecordData(
+                                                                          templateMode:
+                                                                              false,
+                                                                        ));
+
+                                                                        await TeamComponentsRecord.createDoc(homePageTeamsRecord.reference)
+                                                                            .set({
+                                                                          ...createTeamComponentsRecordData(
+                                                                            name:
+                                                                                'Place Of Encounter',
+                                                                            isStarter:
+                                                                                true,
+                                                                            type:
+                                                                                ComponentType.placeOfEncounter,
+                                                                            isCustom:
+                                                                                false,
+                                                                          ),
+                                                                          ...mapToFirestore(
+                                                                            {
+                                                                              'added_at': FieldValue.serverTimestamp(),
+                                                                            },
+                                                                          ),
+                                                                        });
+                                                                        _model.industryDocs =
+                                                                            await queryTeamComponentsRecordOnce(
+                                                                          parent:
+                                                                              homePageTeamsRecord.reference,
+                                                                          queryBuilder: (teamComponentsRecord) =>
+                                                                              teamComponentsRecord.where(
+                                                                            'type',
+                                                                            isEqualTo:
+                                                                                ComponentType.industrialFair.serialize(),
+                                                                          ),
+                                                                        );
+                                                                        await actions
+                                                                            .deleteComponentDocs(
+                                                                          _model
+                                                                              .industryDocs!
+                                                                              .toList(),
+                                                                          homePageTeamsRecord.reference,
+                                                                        );
+
+                                                                        setState(
+                                                                            () {});
+                                                                      }
+                                                                    },
+                                                                    activeColor:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .primary,
+                                                                    activeTrackColor:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .accent1,
+                                                                    inactiveTrackColor:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .alternate,
+                                                                    inactiveThumbColor:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .secondaryText,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          20.0,
+                                                                          0.0,
+                                                                          20.0,
+                                                                          20.0),
+                                                              child: Text(
+                                                                'Additional Features that make Lead-Collecting easier. Industrial Fair Mode adds a dropdown to select the Fair you are currently on. The Salesperson Mode has an additional textfield to describe the place you met with your customer/lead.',
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Manrope',
+                                                                      fontSize:
+                                                                          12.0,
+                                                                    ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ).animateOnPageLoad(
+                                                        animationsMap[
+                                                            'containerOnPageLoadAnimation']!),
+                                                  ),
+                                                ],
                                               ),
-                                            ),
                                             Padding(
                                               padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
@@ -1230,21 +1541,21 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               child: FFButtonWidget(
                                                 onPressed: () async {
                                                   context.pushNamed(
-                                                    'ManageMembers',
+                                                    'MyLeads',
                                                     queryParameters: {
-                                                      'membersCount':
+                                                      'teamDocRef':
                                                           serializeParam(
                                                         homePageTeamsRecord
-                                                            .members.length,
-                                                        ParamType.int,
+                                                            .reference,
+                                                        ParamType
+                                                            .DocumentReference,
                                                       ),
                                                     }.withoutNulls,
                                                   );
                                                 },
-                                                text: 'Manage Team',
+                                                text: 'Collected Leads',
                                                 icon: const Icon(
-                                                  Icons
-                                                      .admin_panel_settings_outlined,
+                                                  Icons.groups,
                                                   size: 15.0,
                                                 ),
                                                 options: FFButtonOptions(
@@ -1259,23 +1570,18 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                               0.0, 0.0),
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .primaryBackground,
+                                                      .primary,
                                                   textStyle: FlutterFlowTheme
                                                           .of(context)
                                                       .titleSmall
                                                       .override(
                                                         fontFamily: 'Manrope',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .tertiary,
+                                                        color: Colors.white,
                                                       ),
                                                   elevation: 3.0,
-                                                  borderSide: BorderSide(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primary,
-                                                    width: 2.0,
+                                                  borderSide: const BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 1.0,
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.circular(
@@ -1283,402 +1589,246 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 ),
                                               ),
                                             ),
-                                            Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      0.0, 5.0, 0.0, 20.0),
-                                              child: Material(
-                                                color: Colors.transparent,
-                                                elevation: 2.0,
-                                                shape: RoundedRectangleBorder(
+                                          ],
+                                        ),
+                                        Divider(
+                                          thickness: 1.0,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 20.0, 0.0, 50.0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Container(
+                                                width: double.infinity,
+                                                decoration: BoxDecoration(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          14.0),
-                                                ),
-                                                child: Container(
-                                                  width: double.infinity,
-                                                  decoration: BoxDecoration(
+                                                      const BorderRadius.only(
+                                                    bottomLeft:
+                                                        Radius.circular(50.0),
+                                                    bottomRight:
+                                                        Radius.circular(50.0),
+                                                    topLeft:
+                                                        Radius.circular(50.0),
+                                                    topRight:
+                                                        Radius.circular(50.0),
+                                                  ),
+                                                  shape: BoxShape.rectangle,
+                                                  border: Border.all(
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .secondaryBackground,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            14.0),
-                                                    border: Border.all(
+                                                        .backgroundComponents,
+                                                  ),
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(10.0),
+                                                  child: FFButtonWidget(
+                                                    onPressed: () async {
+                                                      context.pushNamed(
+                                                        'addNewLead',
+                                                        queryParameters: {
+                                                          'teamDoc':
+                                                              serializeParam(
+                                                            homePageTeamsRecord,
+                                                            ParamType.Document,
+                                                          ),
+                                                          'isIndustryMode':
+                                                              serializeParam(
+                                                            homePageTeamsRecord
+                                                                .templateMode,
+                                                            ParamType.bool,
+                                                          ),
+                                                        }.withoutNulls,
+                                                        extra: <String,
+                                                            dynamic>{
+                                                          'teamDoc':
+                                                              homePageTeamsRecord,
+                                                        },
+                                                      );
+                                                    },
+                                                    text: 'Add Lead',
+                                                    icon: const Icon(
+                                                      Icons.add,
+                                                      size: 15.0,
+                                                    ),
+                                                    options: FFButtonOptions(
+                                                      height: 45.0,
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  24.0,
+                                                                  0.0,
+                                                                  24.0,
+                                                                  0.0),
+                                                      iconPadding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .alternate,
-                                                      width: 2.0,
-                                                    ),
-                                                  ),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    8.0,
-                                                                    12.0,
-                                                                    8.0,
-                                                                    0.0),
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          12.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: Text(
-                                                                homePageTeamsRecord.templateMode
-                                                                    ? 'Industrial Fair Mode'
-                                                                    : 'Salesperson Mode',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyLarge,
-                                                              ),
-                                                            ),
-                                                            Switch.adaptive(
-                                                              value: _model
-                                                                      .switchValue ??=
-                                                                  homePageTeamsRecord.templateMode,
-                                                              onChanged:
-                                                                  (newValue) async {
-                                                                setState(() =>
-                                                                    _model.switchValue =
-                                                                        newValue);
-                                                                if (newValue) {
-                                                                  await homePageTeamsRecord.reference
-                                                                      .update(
-                                                                          createTeamsRecordData(
-                                                                    templateMode:
-                                                                        true,
-                                                                  ));
-
-                                                                  await TeamComponentsRecord.createDoc(
-                                                                          homePageTeamsRecord.reference)
-                                                                      .set({
-                                                                    ...createTeamComponentsRecordData(
-                                                                      name:
-                                                                          'Industrial Fair',
-                                                                      isStarter:
-                                                                          true,
-                                                                      type: ComponentType
-                                                                          .industrialFair,
-                                                                      isCustom:
-                                                                          true,
-                                                                    ),
-                                                                    ...mapToFirestore(
-                                                                      {
-                                                                        'added_at':
-                                                                            FieldValue.serverTimestamp(),
-                                                                      },
-                                                                    ),
-                                                                  });
-                                                                  _model.encounterDocs =
-                                                                      await queryTeamComponentsRecordOnce(
-                                                                    parent: homePageTeamsRecord
-                                                                        .reference,
-                                                                    queryBuilder:
-                                                                        (teamComponentsRecord) =>
-                                                                            teamComponentsRecord.where(
-                                                                      'type',
-                                                                      isEqualTo: ComponentType
-                                                                          .placeOfEncounter
-                                                                          .serialize(),
-                                                                    ),
-                                                                  );
-                                                                  await actions
-                                                                      .deleteComponentDocs(
-                                                                    _model
-                                                                        .encounterDocs!
-                                                                        .toList(),
-                                                                    homePageTeamsRecord.reference,
-                                                                  );
-
-                                                                  setState(
-                                                                      () {});
-                                                                } else {
-                                                                  await homePageTeamsRecord.reference
-                                                                      .update(
-                                                                          createTeamsRecordData(
-                                                                    templateMode:
-                                                                        false,
-                                                                  ));
-
-                                                                  await TeamComponentsRecord.createDoc(
-                                                                          homePageTeamsRecord.reference)
-                                                                      .set({
-                                                                    ...createTeamComponentsRecordData(
-                                                                      name:
-                                                                          'Place Of Encounter',
-                                                                      isStarter:
-                                                                          true,
-                                                                      type: ComponentType
-                                                                          .placeOfEncounter,
-                                                                      isCustom:
-                                                                          false,
-                                                                    ),
-                                                                    ...mapToFirestore(
-                                                                      {
-                                                                        'added_at':
-                                                                            FieldValue.serverTimestamp(),
-                                                                      },
-                                                                    ),
-                                                                  });
-                                                                  _model.industryDocs =
-                                                                      await queryTeamComponentsRecordOnce(
-                                                                    parent: homePageTeamsRecord
-                                                                        .reference,
-                                                                    queryBuilder:
-                                                                        (teamComponentsRecord) =>
-                                                                            teamComponentsRecord.where(
-                                                                      'type',
-                                                                      isEqualTo: ComponentType
-                                                                          .industrialFair
-                                                                          .serialize(),
-                                                                    ),
-                                                                  );
-                                                                  await actions
-                                                                      .deleteComponentDocs(
-                                                                    _model
-                                                                        .industryDocs!
-                                                                        .toList(),
-                                                                    homePageTeamsRecord.reference,
-                                                                  );
-
-                                                                  setState(
-                                                                      () {});
-                                                                }
-                                                              },
-                                                              activeColor:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                              activeTrackColor:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .accent1,
-                                                              inactiveTrackColor:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
-                                                              inactiveThumbColor:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    20.0,
-                                                                    0.0,
-                                                                    20.0,
-                                                                    20.0),
-                                                        child: Text(
-                                                          'Additional Features that make Lead-Collecting easier. Industrial Fair Mode adds a dropdown to select the Fair you are currently on. The Salesperson Mode has an additional textfield to describe the place you met with your customer/lead.',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
+                                                              .primaryText,
+                                                      textStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
                                                               .override(
                                                                 fontFamily:
                                                                     'Manrope',
-                                                                fontSize: 12.0,
+                                                                color: Colors
+                                                                    .white,
                                                               ),
-                                                        ),
+                                                      elevation: 3.0,
+                                                      borderSide: const BorderSide(
+                                                        color:
+                                                            Colors.transparent,
+                                                        width: 1.0,
                                                       ),
-                                                    ],
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              24.0),
+                                                    ),
                                                   ),
                                                 ),
-                                              ).animateOnPageLoad(animationsMap[
-                                                  'containerOnPageLoadAnimation']!),
-                                            ),
-                                          ],
-                                        ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 10.0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            context.pushNamed(
-                                              'MyLeads',
-                                              queryParameters: {
-                                                'teamDocRef': serializeParam(
-                                                  homePageTeamsRecord
-                                                      .reference,
-                                                  ParamType.DocumentReference,
-                                                ),
-                                              }.withoutNulls,
-                                            );
-                                          },
-                                          text: 'Collected Leads',
-                                          icon: const Icon(
-                                            Icons.groups,
-                                            size: 15.0,
-                                          ),
-                                          options: FFButtonOptions(
-                                            width: double.infinity,
-                                            height: 50.0,
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    24.0, 0.0, 24.0, 0.0),
-                                            iconPadding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .override(
-                                                      fontFamily: 'Manrope',
-                                                      color: Colors.white,
-                                                    ),
-                                            elevation: 3.0,
-                                            borderSide: const BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(24.0),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Divider(
-                                    thickness: 1.0,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 20.0, 0.0, 50.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Container(
-                                          width: double.infinity,
-                                          decoration: BoxDecoration(
-                                            borderRadius: const BorderRadius.only(
-                                              bottomLeft: Radius.circular(50.0),
-                                              bottomRight:
-                                                  Radius.circular(50.0),
-                                              topLeft: Radius.circular(50.0),
-                                              topRight: Radius.circular(50.0),
-                                            ),
-                                            shape: BoxShape.rectangle,
-                                            border: Border.all(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .backgroundComponents,
-                                            ),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(10.0),
-                                            child: FFButtonWidget(
-                                              onPressed: () async {
-                                                context.pushNamed(
-                                                  'addNewLead',
-                                                  queryParameters: {
-                                                    'teamDocRef':
-                                                        serializeParam(
-                                                      homePageTeamsRecord
-                                                          .reference,
-                                                      ParamType
-                                                          .DocumentReference,
-                                                    ),
-                                                    'isIndustryMode':
-                                                        serializeParam(
-                                                      homePageTeamsRecord
-                                                          .templateMode,
-                                                      ParamType.bool,
-                                                    ),
-                                                  }.withoutNulls,
-                                                );
-                                              },
-                                              text: 'Add Lead',
-                                              icon: const Icon(
-                                                Icons.add,
-                                                size: 15.0,
                                               ),
-                                              options: FFButtonOptions(
-                                                height: 45.0,
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        24.0, 0.0, 24.0, 0.0),
-                                                iconPadding:
-                                                    const EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .override(
-                                                          fontFamily: 'Manrope',
-                                                          color: Colors.white,
-                                                        ),
-                                                elevation: 3.0,
-                                                borderSide: const BorderSide(
-                                                  color: Colors.transparent,
-                                                  width: 1.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(24.0),
-                                              ),
-                                            ),
+                                            ],
                                           ),
                                         ),
                                       ],
                                     ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          } else {
-                            return Padding(
+                                  );
+                                } else {
+                                  return Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        15.0, 0.0, 15.0, 0.0),
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: 100.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      child: Align(
+                                        alignment:
+                                            const AlignmentDirectional(0.0, 0.0),
+                                        child: Text(
+                                          'Waiting for response from team admin',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
+                      return SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  15.0, 0.0, 15.0, 0.0),
+                                  0.0, 30.0, 0.0, 0.0),
                               child: Container(
                                 width: double.infinity,
-                                height: 100.0,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: Align(
-                                  alignment: const AlignmentDirectional(0.0, 0.0),
-                                  child: Text(
-                                    'Waiting for response from team admin',
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyMedium,
-                                  ),
+                                decoration: const BoxDecoration(),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                        bottomLeft: Radius.circular(100.0),
+                                        bottomRight: Radius.circular(100.0),
+                                        topLeft: Radius.circular(100.0),
+                                        topRight: Radius.circular(100.0),
+                                      ),
+                                      child: Image.network(
+                                        currentUserPhoto,
+                                        width: 130.0,
+                                        height: 130.0,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 10.0, 0.0, 0.0),
+                                      child: Text(
+                                        currentUserDisplayName,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Manrope',
+                                              fontSize: 17.0,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                      ),
+                                    ),
+                                    Text(
+                                      valueOrDefault(
+                                          currentUserDocument?.jobTitle, ''),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Manrope',
+                                            fontSize: 12.0,
+                                          ),
+                                    ),
+                                    SizedBox(
+                                      width: 170.0,
+                                      child: Divider(
+                                        thickness: 1.0,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            );
-                          }
-                        },
-                      ),
-                    ],
-                  ),
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      15.0, 0.0, 15.0, 0.0),
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: 100.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    child: Align(
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
+                                      child: Text(
+                                        'Waiting for response from team admin',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  },
                 ),
               ),
             ),

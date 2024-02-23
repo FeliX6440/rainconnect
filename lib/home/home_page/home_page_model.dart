@@ -7,12 +7,6 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // State field(s) for Switch widget.
-  bool? switchValue;
-  // Stores action output result for [Firestore Query - Query a collection] action in Switch widget.
-  List<TeamComponentsRecord>? encounterDocs;
-  // Stores action output result for [Firestore Query - Query a collection] action in Switch widget.
-  List<TeamComponentsRecord>? industryDocs;
   // State field(s) for MouseRegion widget.
   bool mouseRegionHovered1 = false;
   // State field(s) for MouseRegion widget.
@@ -29,6 +23,12 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   bool mouseRegionHovered7 = false;
   // State field(s) for MouseRegion widget.
   bool mouseRegionHovered8 = false;
+  // State field(s) for Switch widget.
+  bool? switchValue;
+  // Stores action output result for [Firestore Query - Query a collection] action in Switch widget.
+  List<TeamComponentsRecord>? encounterDocs;
+  // Stores action output result for [Firestore Query - Query a collection] action in Switch widget.
+  List<TeamComponentsRecord>? industryDocs;
 
   /// Initialization and disposal methods.
 

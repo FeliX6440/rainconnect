@@ -149,4 +149,16 @@ class FFAppState extends ChangeNotifier {
   set selectedIndustrialFair(String value) {
     _selectedIndustrialFair = value;
   }
+
+  String _emailSubjectHolder = '';
+  String get emailSubjectHolder => _emailSubjectHolder;
+  set emailSubjectHolder(String value) {
+    _emailSubjectHolder = value;
+  }
+
+  String _emailBodyHolder = '';
+  String get emailBodyHolder => _emailBodyHolder;
+  set emailBodyHolder(String value) {
+    _emailBodyHolder = value;
+  }
 }

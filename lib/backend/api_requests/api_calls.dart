@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
 
 export 'api_manager.dart' show ApiCallResponse;
@@ -30,6 +31,52 @@ class BusinessCardReaderEndPointCall {
       alwaysAllowBody: false,
     );
   }
+
+  static String? city(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.result.data.city''',
+      ));
+  static String? company(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.result.data.company_name''',
+      ));
+  static String? country(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.result.data.country''',
+      ));
+  static String? email(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.result.data.email''',
+      ));
+  static String? firstName(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.result.data.first_name''',
+      ));
+  static String? lastName(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.result.data.last_name''',
+      ));
+  static String? phone(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.result.data.phone_number''',
+      ));
+  static String? positionRole(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.result.data.position_role''',
+      ));
+  static String? street(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.result.data.street''',
+      ));
+  static String? website(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.result.data.website''',
+      ));
+  static String? zipCode(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.result.data.zip_code''',
+      ));
 }
 
 class TranscribeAudioCall {

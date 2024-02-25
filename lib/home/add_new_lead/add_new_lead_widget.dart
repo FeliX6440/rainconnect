@@ -3,7 +3,6 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/backend/schema/enums/enums.dart';
-import '/components/empty_component_list_widget.dart';
 import '/components/tile_component/tile_component_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -2092,17 +2091,6 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                 List<TeamComponentsRecord>
                                     listViewTeamComponentsRecordList =
                                     snapshot.data!;
-                                if (listViewTeamComponentsRecordList.isEmpty) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: double.infinity,
-                                      height: 500.0,
-                                      child: EmptyComponentListWidget(
-                                        teamDoc: widget.teamDoc!,
-                                      ),
-                                    ),
-                                  );
-                                }
                                 return ListView.builder(
                                   padding: EdgeInsets.zero,
                                   shrinkWrap: true,

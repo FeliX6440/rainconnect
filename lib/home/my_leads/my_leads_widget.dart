@@ -227,7 +227,9 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                           }
                           int textCount = snapshot.data!;
                           return Text(
-                            textCount.toString(),
+                            _model.simpleSearchResults.isNotEmpty
+                                ? _model.simpleSearchResults.length.toString()
+                                : textCount.toString(),
                             style: FlutterFlowTheme.of(context).bodyMedium,
                           );
                         },

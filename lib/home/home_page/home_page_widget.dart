@@ -1351,6 +1351,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                         child: Column(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
                                                           children: [
                                                             Padding(
                                                               padding:
@@ -1377,7 +1380,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                             0.0),
                                                                     child: Text(
                                                                       homePageTeamsRecord.templateMode
-                                                                          ? 'Industrial Fair Mode'
+                                                                          ? 'Trade fair'
                                                                           : 'Salesperson Mode',
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
@@ -1513,7 +1516,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                           20.0,
                                                                           20.0),
                                                               child: Text(
-                                                                'Additional Features that make Lead-Collecting easier. Industrial Fair Mode adds a dropdown to select the Fair you are currently on. The Salesperson Mode has an additional textfield to describe the place you met with your customer/lead.',
+                                                                homePageTeamsRecord.templateMode
+                                                                    ? 'Fair selection via dropdown - add fairs in the components tab'
+                                                                    : 'Field to specify encounter location',
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium

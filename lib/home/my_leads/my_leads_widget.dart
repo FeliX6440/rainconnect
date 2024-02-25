@@ -114,10 +114,12 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                               TextSearchItem.fromTerms(record, [
                                             record.firstName,
                                             record.lastName,
-                                            record.company,
-                                            record.email,
+                                            record.positionRole,
+                                            record.phone,
                                             record.website,
-                                            record.phone]),
+                                            record.email,
+                                            record.gender,
+                                            record.company]),
                                         )
                                         .toList(),
                                   )
@@ -243,8 +245,10 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                             const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
                         child: Builder(
                           builder: (context) {
-                            final searchedLead =
-                                _model.simpleSearchResults.toList();
+                            final searchedLead = _model.simpleSearchResults
+                                .where((e) =>
+                                    e.leadCollectedBy == widget.teamDocRef)
+                                .toList();
                             return ListView.builder(
                               padding: EdgeInsets.zero,
                               scrollDirection: Axis.vertical,

@@ -359,7 +359,6 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       });
                                     },
                                   ),
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelStyle: FlutterFlowTheme.of(context)
@@ -846,7 +845,6 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                 child: TextFormField(
                                   controller: _model.firstNameController,
                                   focusNode: _model.firstNameFocusNode,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     isDense: true,
@@ -919,7 +917,6 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                 child: TextFormField(
                                   controller: _model.lastNameController,
                                   focusNode: _model.lastNameFocusNode,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     isDense: true,
@@ -992,7 +989,6 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                 child: TextFormField(
                                   controller: _model.positionController,
                                   focusNode: _model.positionFocusNode,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     isDense: true,
@@ -1065,7 +1061,6 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                 child: TextFormField(
                                   controller: _model.languageController,
                                   focusNode: _model.languageFocusNode,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     isDense: true,
@@ -1138,7 +1133,6 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                 child: TextFormField(
                                   controller: _model.genderMWController,
                                   focusNode: _model.genderMWFocusNode,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     isDense: true,
@@ -1215,7 +1209,6 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                 child: TextFormField(
                                   controller: _model.phoneController,
                                   focusNode: _model.phoneFocusNode,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     isDense: true,
@@ -1288,7 +1281,6 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                 child: TextFormField(
                                   controller: _model.emailController,
                                   focusNode: _model.emailFocusNode,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     isDense: true,
@@ -1361,7 +1353,6 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                 child: TextFormField(
                                   controller: _model.websiteController,
                                   focusNode: _model.websiteFocusNode,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     isDense: true,
@@ -1438,7 +1429,6 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                 child: TextFormField(
                                   controller: _model.cityController,
                                   focusNode: _model.cityFocusNode,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     isDense: true,
@@ -1511,7 +1501,6 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                 child: TextFormField(
                                   controller: _model.zipController,
                                   focusNode: _model.zipFocusNode,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     isDense: true,
@@ -1584,7 +1573,6 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                 child: TextFormField(
                                   controller: _model.streetandNumController,
                                   focusNode: _model.streetandNumFocusNode,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     isDense: true,
@@ -1658,7 +1646,6 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                 child: TextFormField(
                                   controller: _model.countryController,
                                   focusNode: _model.countryFocusNode,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     isDense: true,
@@ -1735,7 +1722,6 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                 child: TextFormField(
                                   controller: _model.companyController,
                                   focusNode: _model.companyFocusNode,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     isDense: true,
@@ -1808,7 +1794,6 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                 child: TextFormField(
                                   controller: _model.industryController,
                                   focusNode: _model.industryFocusNode,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     isDense: true,
@@ -2032,7 +2017,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
 
                               setState(() {});
                             },
-                            text: _model.isPreviouse ? 'Update' : 'Continue',
+                            text: 'Continue',
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 40.0,
@@ -2061,91 +2046,91 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                       ),
                     ),
                   ),
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Container(
-                        height: MediaQuery.sizeOf(context).height * 0.756,
-                        decoration: const BoxDecoration(),
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              15.0, 0.0, 15.0, 0.0),
-                          child: StreamBuilder<List<TeamComponentsRecord>>(
-                            stream: queryTeamComponentsRecord(
-                              parent: widget.teamDoc?.reference,
-                              queryBuilder: (teamComponentsRecord) =>
-                                  teamComponentsRecord
-                                      .where(
-                                        'is_starter',
-                                        isEqualTo: true,
-                                      )
-                                      .where(
-                                        'type',
-                                        isNotEqualTo: widget.isIndustryMode!
-                                            ? ComponentType.industrialFair
-                                            : ComponentType.placeOfEncounter
-                                                .serialize(),
+                  SizedBox(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: Stack(
+                      children: [
+                        Container(
+                          height: double.infinity,
+                          decoration: const BoxDecoration(),
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                15.0, 0.0, 15.0, 0.0),
+                            child: StreamBuilder<List<TeamComponentsRecord>>(
+                              stream: queryTeamComponentsRecord(
+                                parent: widget.teamDoc?.reference,
+                                queryBuilder: (teamComponentsRecord) =>
+                                    teamComponentsRecord
+                                        .where(
+                                          'is_starter',
+                                          isEqualTo: true,
+                                        )
+                                        .where(
+                                          'type',
+                                          isNotEqualTo: widget.isIndustryMode!
+                                              ? ComponentType.industrialFair
+                                              : ComponentType.placeOfEncounter
+                                                  .serialize(),
+                                        ),
+                              ),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 30.0,
+                                      height: 30.0,
+                                      child: SpinKitFadingFour(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        size: 30.0,
                                       ),
-                            ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 30.0,
-                                    height: 30.0,
-                                    child: SpinKitFadingFour(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      size: 30.0,
                                     ),
-                                  ),
-                                );
-                              }
-                              List<TeamComponentsRecord>
-                                  listViewTeamComponentsRecordList =
-                                  snapshot.data!;
-                              if (listViewTeamComponentsRecordList.isEmpty) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: double.infinity,
-                                    height: 500.0,
-                                    child: EmptyComponentListWidget(
-                                      teamDoc: widget.teamDoc!,
-                                    ),
-                                  ),
-                                );
-                              }
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount:
-                                    listViewTeamComponentsRecordList.length,
-                                itemBuilder: (context, listViewIndex) {
-                                  final listViewTeamComponentsRecord =
-                                      listViewTeamComponentsRecordList[
-                                          listViewIndex];
-                                  return TileComponentWidget(
-                                    key: Key(
-                                        'Key3l4_${listViewIndex}_of_${listViewTeamComponentsRecordList.length}'),
-                                    component: listViewTeamComponentsRecord,
-                                    lead: _model.leadResponse!.reference,
                                   );
-                                },
-                              );
-                            },
+                                }
+                                List<TeamComponentsRecord>
+                                    listViewTeamComponentsRecordList =
+                                    snapshot.data!;
+                                if (listViewTeamComponentsRecordList.isEmpty) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: double.infinity,
+                                      height: 500.0,
+                                      child: EmptyComponentListWidget(
+                                        teamDoc: widget.teamDoc!,
+                                      ),
+                                    ),
+                                  );
+                                }
+                                return ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount:
+                                      listViewTeamComponentsRecordList.length,
+                                  itemBuilder: (context, listViewIndex) {
+                                    final listViewTeamComponentsRecord =
+                                        listViewTeamComponentsRecordList[
+                                            listViewIndex];
+                                    return TileComponentWidget(
+                                      key: Key(
+                                          'Key3l4_${listViewIndex}_of_${listViewTeamComponentsRecordList.length}'),
+                                      component: listViewTeamComponentsRecord,
+                                      lead: _model.leadResponse!.reference,
+                                    );
+                                  },
+                                );
+                              },
+                            ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            15.0, 0.0, 15.0, 0.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FFButtonWidget(
+                        Align(
+                          alignment: const AlignmentDirectional(0.0, 1.0),
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                15.0, 0.0, 15.0, 30.0),
+                            child: FFButtonWidget(
                               onPressed: () async {
                                 context.goNamed('HomePage');
                               },
@@ -2172,10 +2157,10 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                 borderRadius: BorderRadius.circular(24.0),
                               ),
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),

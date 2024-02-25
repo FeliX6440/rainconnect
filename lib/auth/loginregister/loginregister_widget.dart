@@ -325,7 +325,6 @@ class _LoginregisterWidgetState extends State<LoginregisterWidget>
                                                                     .regEmailController,
                                                                 focusNode: _model
                                                                     .regEmailFocusNode,
-                                                                autofocus: true,
                                                                 autofillHints: const [
                                                                   AutofillHints
                                                                       .email
@@ -447,7 +446,6 @@ class _LoginregisterWidgetState extends State<LoginregisterWidget>
                                                                     .regPassController,
                                                                 focusNode: _model
                                                                     .regPassFocusNode,
-                                                                autofocus: true,
                                                                 autofillHints: const [
                                                                   AutofillHints
                                                                       .password
@@ -591,7 +589,6 @@ class _LoginregisterWidgetState extends State<LoginregisterWidget>
                                                                     .regConfirmPassController,
                                                                 focusNode: _model
                                                                     .regConfirmPassFocusNode,
-                                                                autofocus: true,
                                                                 autofillHints: const [
                                                                   AutofillHints
                                                                       .password
@@ -1006,11 +1003,6 @@ class _LoginregisterWidgetState extends State<LoginregisterWidget>
                                                                     .emailAddressController,
                                                                 focusNode: _model
                                                                     .emailAddressFocusNode,
-                                                                autofocus: true,
-                                                                autofillHints: const [
-                                                                  AutofillHints
-                                                                      .email
-                                                                ],
                                                                 obscureText:
                                                                     false,
                                                                 decoration:
@@ -1127,11 +1119,6 @@ class _LoginregisterWidgetState extends State<LoginregisterWidget>
                                                                     .passwordController,
                                                                 focusNode: _model
                                                                     .passwordFocusNode,
-                                                                autofocus: true,
-                                                                autofillHints: const [
-                                                                  AutofillHints
-                                                                      .password
-                                                                ],
                                                                 obscureText: !_model
                                                                     .passwordVisibility,
                                                                 decoration:

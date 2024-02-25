@@ -150,7 +150,6 @@ class _TemplatesWidgetState extends State<TemplatesWidget> {
                             const Duration(milliseconds: 1000),
                             () => setState(() {}),
                           ),
-                          autofocus: true,
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'Search templates...',

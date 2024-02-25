@@ -172,50 +172,51 @@ class _SpeechToTextWidgetState extends State<SpeechToTextWidget> {
             glowCount: 1,
             glowRadiusFactor: 0.2,
             child: GestureDetector(
-              onTapDown: (details) async {
-                setState(() {
-                  _isAnimate = true;
-                });
+              onTap: () async {
+                if (await _recorder.isRecording()) {
+                  setState(() {
+                    _isAnimate = false;
+                  });
 
-                if (await _recorder.hasPermission()) {
-                  try {
-                    final dir = await getApplicationDocumentsDirectory();
-                    _audioPath =
-                        '${dir.path}/audio_${DateTime.now().millisecondsSinceEpoch}.m4a';
-                    await _recorder.start(
-                        RecordConfig(encoder: AudioEncoder.aacLc),
-                        path: _audioPath);
-                  } catch (e) {
-                    print(e);
+                  final result = await _recorder.stop();
+                  if (result != null) {
+                    setState(() {
+                      _transcribing = true;
+                    });
+                    final transcription =
+                        await OpenAI.instance.audio.createTranscription(
+                      file: File(result),
+                      model: "whisper-1",
+                      responseFormat: OpenAIAudioResponseFormat.text,
+                    );
+                    _textEditingController.text =
+                        _textEditingController.text + transcription.text;
+                    setState(() {
+                      _transcribing = false;
+                    });
                   }
                 } else {
-                  showSnackbar(
-                    context,
-                    'You have not provided permission to record audio.',
-                  );
-                }
-              },
-              onTapUp: (details) async {
-                setState(() {
-                  _isAnimate = false;
-                });
+                  setState(() {
+                    _isAnimate = true;
+                  });
 
-                final result = await _recorder.stop();
-                if (result != null) {
-                  setState(() {
-                    _transcribing = true;
-                  });
-                  final transcription =
-                      await OpenAI.instance.audio.createTranscription(
-                    file: File(result),
-                    model: "whisper-1",
-                    responseFormat: OpenAIAudioResponseFormat.text,
-                  );
-                  _textEditingController.text =
-                      _textEditingController.text + transcription.text;
-                  setState(() {
-                    _transcribing = false;
-                  });
+                  if (await _recorder.hasPermission()) {
+                    try {
+                      final dir = await getApplicationDocumentsDirectory();
+                      _audioPath =
+                          '${dir.path}/audio_${DateTime.now().millisecondsSinceEpoch}.m4a';
+                      await _recorder.start(
+                          RecordConfig(encoder: AudioEncoder.aacLc),
+                          path: _audioPath);
+                    } catch (e) {
+                      print(e);
+                    }
+                  } else {
+                    showSnackbar(
+                      context,
+                      'You have not provided permission to record audio.',
+                    );
+                  }
                 }
               },
               child: SizedBox(

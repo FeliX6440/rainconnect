@@ -431,7 +431,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 10.0, 0.0),
                               child: Text(
-                                'Total : X Seats',
+                                'Total : ${manageMembersTeamsRecord.memberLimit.toString()} Seats',
                                 style: FlutterFlowTheme.of(context).bodyMedium,
                               ),
                             ),

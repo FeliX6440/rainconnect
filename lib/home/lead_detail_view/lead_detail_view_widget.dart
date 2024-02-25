@@ -1,5 +1,7 @@
 import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
+import '/bottomsheet/speech_to_text_bottom_sheet/speech_to_text_bottom_sheet_widget.dart';
+import '/components/component_details_sheet/component_details_sheet_widget.dart';
 import '/components/delete_lead_component/delete_lead_component_widget.dart';
 import '/components/edit_industrial_fair_component_widget.dart';
 import '/components/edit_sale_person_component_content_widget.dart';
@@ -1216,28 +1218,126 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                   highlightColor:
                                                       Colors.transparent,
                                                   onTap: () async {
-                                                    context.pushNamed(
-                                                      'ComponentContentViewPage',
-                                                      queryParameters: {
-                                                        'leadRef':
-                                                            serializeParam(
-                                                          widget.leadDoc
-                                                              ?.reference,
-                                                          ParamType
-                                                              .DocumentReference,
-                                                        ),
-                                                        'title': serializeParam(
-                                                          columnTeamComponentsRecord
-                                                              .name,
-                                                          ParamType.String,
-                                                        ),
-                                                        'type': serializeParam(
-                                                          columnTeamComponentsRecord
-                                                              .type,
-                                                          ParamType.Enum,
-                                                        ),
-                                                      }.withoutNulls,
-                                                    );
+                                                    if (columnTeamComponentsRecord
+                                                            .type ==
+                                                        ComponentType
+                                                            .SpeechToText) {
+                                                      await showModalBottomSheet(
+                                                        isScrollControlled:
+                                                            true,
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        enableDrag: false,
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return GestureDetector(
+                                                            onTap: () => _model
+                                                                    .unfocusNode
+                                                                    .canRequestFocus
+                                                                ? FocusScope.of(
+                                                                        context)
+                                                                    .requestFocus(
+                                                                        _model
+                                                                            .unfocusNode)
+                                                                : FocusScope.of(
+                                                                        context)
+                                                                    .unfocus(),
+                                                            child: Padding(
+                                                              padding: MediaQuery
+                                                                  .viewInsetsOf(
+                                                                      context),
+                                                              child: SizedBox(
+                                                                height: MediaQuery.sizeOf(
+                                                                            context)
+                                                                        .height *
+                                                                    0.6,
+                                                                child:
+                                                                    SpeechToTextBottomSheetWidget(
+                                                                  leadDocRef:
+                                                                      leadDetailViewLeadsRecord
+                                                                          .reference,
+                                                                  componentDocRef:
+                                                                      columnTeamComponentsRecord
+                                                                          .reference,
+                                                                  isEdit: true,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                      ).then((value) =>
+                                                          safeSetState(() {}));
+                                                    } else {
+                                                      await showModalBottomSheet(
+                                                        isScrollControlled:
+                                                            true,
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        enableDrag: false,
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return GestureDetector(
+                                                            onTap: () => _model
+                                                                    .unfocusNode
+                                                                    .canRequestFocus
+                                                                ? FocusScope.of(
+                                                                        context)
+                                                                    .requestFocus(
+                                                                        _model
+                                                                            .unfocusNode)
+                                                                : FocusScope.of(
+                                                                        context)
+                                                                    .unfocus(),
+                                                            child: Padding(
+                                                              padding: MediaQuery
+                                                                  .viewInsetsOf(
+                                                                      context),
+                                                              child: SizedBox(
+                                                                height: MediaQuery.sizeOf(
+                                                                            context)
+                                                                        .height *
+                                                                    0.4,
+                                                                child:
+                                                                    ComponentDetailsSheetWidget(
+                                                                  leadRef:
+                                                                      leadDetailViewLeadsRecord
+                                                                          .reference,
+                                                                  type:
+                                                                      columnTeamComponentsRecord
+                                                                          .type!,
+                                                                  headText: () {
+                                                                    if (columnTeamComponentsRecord
+                                                                            .type ==
+                                                                        ComponentType
+                                                                            .Dropdown) {
+                                                                      return 'Dropdown';
+                                                                    } else if (columnTeamComponentsRecord
+                                                                            .type ==
+                                                                        ComponentType
+                                                                            .MultipleChoice) {
+                                                                      return 'Multi choice';
+                                                                    } else if (columnTeamComponentsRecord
+                                                                            .type ==
+                                                                        ComponentType
+                                                                            .TextField) {
+                                                                      return 'Textfield';
+                                                                    } else if (columnTeamComponentsRecord
+                                                                            .type ==
+                                                                        ComponentType
+                                                                            .Note) {
+                                                                      return 'Note';
+                                                                    } else {
+                                                                      return 'Temperature';
+                                                                    }
+                                                                  }(),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                      ).then((value) =>
+                                                          safeSetState(() {}));
+                                                    }
                                                   },
                                                   child: Row(
                                                     mainAxisSize:

@@ -1174,10 +1174,24 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                               widget.leadDoc?.leadCollectedBy,
                                           queryBuilder:
                                               (teamComponentsRecord) =>
-                                                  teamComponentsRecord.where(
-                                            'is_starter',
-                                            isEqualTo: true,
-                                          ),
+                                                  teamComponentsRecord
+                                                      .where(
+                                                        'is_starter',
+                                                        isEqualTo: true,
+                                                      )
+                                                      .where(
+                                                        'type',
+                                                        isNotEqualTo:
+                                                            leadDetailViewLeadsRecord
+                                                                        .mode ==
+                                                                    TemplateMode
+                                                                        .industry
+                                                                ? ComponentType
+                                                                    .industrialFair
+                                                                : ComponentType
+                                                                    .placeOfEncounter
+                                                                    .serialize(),
+                                                      ),
                                         ),
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.

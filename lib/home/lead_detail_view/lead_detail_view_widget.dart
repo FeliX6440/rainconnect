@@ -1179,19 +1179,6 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                         'is_starter',
                                                         isEqualTo: true,
                                                       )
-                                                      .where(
-                                                        'type',
-                                                        isNotEqualTo:
-                                                            leadDetailViewLeadsRecord
-                                                                        .mode ==
-                                                                    TemplateMode
-                                                                        .industry
-                                                                ? ComponentType
-                                                                    .industrialFair
-                                                                : ComponentType
-                                                                    .placeOfEncounter
-                                                                    .serialize(),
-                                                      )
                                                       .orderBy('type'),
                                         ),
                                         builder: (context, snapshot) {

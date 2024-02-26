@@ -1414,14 +1414,14 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                     );
                                                   } else {
                                                     return Visibility(
-                                                      visible: (columnTeamComponentsRecord
-                                                                  .type !=
+                                                      visible: !((columnTeamComponentsRecord
+                                                                  .type ==
                                                               ComponentType
-                                                                  .placeOfEncounter) ||
+                                                                  .industrialFair) ||
                                                           (columnTeamComponentsRecord
-                                                                  .type !=
+                                                                  .type ==
                                                               ComponentType
-                                                                  .industrialFair),
+                                                                  .placeOfEncounter)),
                                                       child: InkWell(
                                                         splashColor:
                                                             Colors.transparent,

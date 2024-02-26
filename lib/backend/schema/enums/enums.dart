@@ -12,9 +12,9 @@ enum ComponentType {
   TextField,
   SpeechToText,
   Note,
+  industrialFair,
   Temperature,
   placeOfEncounter,
-  industrialFair,
 }
 
 enum TemplateMode {

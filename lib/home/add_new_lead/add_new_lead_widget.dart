@@ -2056,22 +2056,14 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 15.0, 0.0, 15.0, 0.0),
-                            child: StreamBuilder<List<TeamComponentsRecord>>(
-                              stream: queryTeamComponentsRecord(
+                            child: FutureBuilder<List<TeamComponentsRecord>>(
+                              future: queryTeamComponentsRecordOnce(
                                 parent: widget.teamDoc?.reference,
                                 queryBuilder: (teamComponentsRecord) =>
-                                    teamComponentsRecord
-                                        .where(
-                                          'is_starter',
-                                          isEqualTo: true,
-                                        )
-                                        .where(
-                                          'type',
-                                          isNotEqualTo: widget.isIndustryMode!
-                                              ? ComponentType.industrialFair
-                                              : ComponentType.placeOfEncounter
-                                                  .serialize(),
-                                        ),
+                                    teamComponentsRecord.where(
+                                  'is_starter',
+                                  isEqualTo: true,
+                                ),
                               ),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
@@ -2101,11 +2093,20 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                     final listViewTeamComponentsRecord =
                                         listViewTeamComponentsRecordList[
                                             listViewIndex];
-                                    return TileComponentWidget(
-                                      key: Key(
-                                          'Key3l4_${listViewIndex}_of_${listViewTeamComponentsRecordList.length}'),
-                                      component: listViewTeamComponentsRecord,
-                                      lead: _model.leadResponse!.reference,
+                                    return Visibility(
+                                      visible: !((widget.isIndustryMode ==
+                                              (listViewTeamComponentsRecord
+                                                      .type ==
+                                                  ComponentType
+                                                      .industrialFair)) ||
+                                          (listViewTeamComponentsRecord.type ==
+                                              ComponentType.placeOfEncounter)),
+                                      child: TileComponentWidget(
+                                        key: Key(
+                                            'Key3l4_${listViewIndex}_of_${listViewTeamComponentsRecordList.length}'),
+                                        component: listViewTeamComponentsRecord,
+                                        lead: _model.leadResponse!.reference,
+                                      ),
                                     );
                                   },
                                 );

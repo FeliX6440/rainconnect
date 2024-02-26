@@ -1413,375 +1413,393 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                       ),
                                                     );
                                                   } else {
-                                                    return InkWell(
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      focusColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      onTap: () async {
-                                                        if (columnTeamComponentsRecord
-                                                                .type ==
-                                                            ComponentType
-                                                                .Note) {
-                                                          await showModalBottomSheet(
-                                                            isScrollControlled:
-                                                                true,
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    0x00F1F4F8),
-                                                            enableDrag: false,
-                                                            context: context,
-                                                            builder: (context) {
-                                                              return GestureDetector(
-                                                                onTap: () => _model
-                                                                        .unfocusNode
-                                                                        .canRequestFocus
-                                                                    ? FocusScope.of(
-                                                                            context)
-                                                                        .requestFocus(_model
-                                                                            .unfocusNode)
-                                                                    : FocusScope.of(
-                                                                            context)
-                                                                        .unfocus(),
-                                                                child: Padding(
-                                                                  padding: MediaQuery
-                                                                      .viewInsetsOf(
-                                                                          context),
+                                                    return Visibility(
+                                                      visible: (columnTeamComponentsRecord
+                                                                  .type !=
+                                                              ComponentType
+                                                                  .placeOfEncounter) ||
+                                                          (columnTeamComponentsRecord
+                                                                  .type !=
+                                                              ComponentType
+                                                                  .industrialFair),
+                                                      child: InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
+                                                        onTap: () async {
+                                                          if (columnTeamComponentsRecord
+                                                                  .type ==
+                                                              ComponentType
+                                                                  .Note) {
+                                                            await showModalBottomSheet(
+                                                              isScrollControlled:
+                                                                  true,
+                                                              backgroundColor:
+                                                                  const Color(
+                                                                      0x00F1F4F8),
+                                                              enableDrag: false,
+                                                              context: context,
+                                                              builder:
+                                                                  (context) {
+                                                                return GestureDetector(
+                                                                  onTap: () => _model
+                                                                          .unfocusNode
+                                                                          .canRequestFocus
+                                                                      ? FocusScope.of(
+                                                                              context)
+                                                                          .requestFocus(_model
+                                                                              .unfocusNode)
+                                                                      : FocusScope.of(
+                                                                              context)
+                                                                          .unfocus(),
                                                                   child:
-                                                                      SizedBox(
-                                                                    height:
-                                                                        MediaQuery.sizeOf(context).height *
-                                                                            0.4,
+                                                                      Padding(
+                                                                    padding: MediaQuery
+                                                                        .viewInsetsOf(
+                                                                            context),
                                                                     child:
-                                                                        NoteBottomSheetWidget(
-                                                                      leadDocRef:
-                                                                          leadDetailViewLeadsRecord
-                                                                              .reference,
-                                                                      coomponentDocRef:
-                                                                          columnTeamComponentsRecord
-                                                                              .reference,
-                                                                      isEdit:
-                                                                          false,
+                                                                        SizedBox(
+                                                                      height:
+                                                                          MediaQuery.sizeOf(context).height *
+                                                                              0.4,
+                                                                      child:
+                                                                          NoteBottomSheetWidget(
+                                                                        leadDocRef:
+                                                                            leadDetailViewLeadsRecord.reference,
+                                                                        coomponentDocRef:
+                                                                            columnTeamComponentsRecord.reference,
+                                                                        isEdit:
+                                                                            false,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ).then((value) =>
+                                                                safeSetState(
+                                                                    () {}));
+                                                          } else if (columnTeamComponentsRecord
+                                                                  .type ==
+                                                              ComponentType
+                                                                  .Dropdown) {
+                                                            await showModalBottomSheet(
+                                                              isScrollControlled:
+                                                                  true,
+                                                              backgroundColor:
+                                                                  const Color(
+                                                                      0x00F1F4F8),
+                                                              enableDrag: false,
+                                                              context: context,
+                                                              builder:
+                                                                  (context) {
+                                                                return GestureDetector(
+                                                                  onTap: () => _model
+                                                                          .unfocusNode
+                                                                          .canRequestFocus
+                                                                      ? FocusScope.of(
+                                                                              context)
+                                                                          .requestFocus(_model
+                                                                              .unfocusNode)
+                                                                      : FocusScope.of(
+                                                                              context)
+                                                                          .unfocus(),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: MediaQuery
+                                                                        .viewInsetsOf(
+                                                                            context),
+                                                                    child:
+                                                                        SizedBox(
+                                                                      height:
+                                                                          MediaQuery.sizeOf(context).height *
+                                                                              0.4,
+                                                                      child:
+                                                                          DropdownBottomSheetWidget(
+                                                                        teamComponentDoc:
+                                                                            columnTeamComponentsRecord,
+                                                                        leadDocRef:
+                                                                            leadDetailViewLeadsRecord.reference,
+                                                                        isEdit:
+                                                                            false,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ).then((value) =>
+                                                                safeSetState(
+                                                                    () {}));
+                                                          } else if (columnTeamComponentsRecord
+                                                                  .type ==
+                                                              ComponentType
+                                                                  .MultipleChoice) {
+                                                            await showModalBottomSheet(
+                                                              isScrollControlled:
+                                                                  true,
+                                                              backgroundColor:
+                                                                  const Color(
+                                                                      0x00F1F4F8),
+                                                              enableDrag: false,
+                                                              context: context,
+                                                              builder:
+                                                                  (context) {
+                                                                return GestureDetector(
+                                                                  onTap: () => _model
+                                                                          .unfocusNode
+                                                                          .canRequestFocus
+                                                                      ? FocusScope.of(
+                                                                              context)
+                                                                          .requestFocus(_model
+                                                                              .unfocusNode)
+                                                                      : FocusScope.of(
+                                                                              context)
+                                                                          .unfocus(),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: MediaQuery
+                                                                        .viewInsetsOf(
+                                                                            context),
+                                                                    child:
+                                                                        SizedBox(
+                                                                      height:
+                                                                          MediaQuery.sizeOf(context).height *
+                                                                              0.4,
+                                                                      child:
+                                                                          MultichoiceBottomSheetWidget(
+                                                                        componentDoc:
+                                                                            columnTeamComponentsRecord,
+                                                                        leadDocRef:
+                                                                            leadDetailViewLeadsRecord.reference,
+                                                                        isEdit:
+                                                                            false,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ).then((value) =>
+                                                                safeSetState(
+                                                                    () {}));
+                                                          } else if (columnTeamComponentsRecord
+                                                                  .type ==
+                                                              ComponentType
+                                                                  .TextField) {
+                                                            await showModalBottomSheet(
+                                                              isScrollControlled:
+                                                                  true,
+                                                              backgroundColor:
+                                                                  const Color(
+                                                                      0x00F1F4F8),
+                                                              enableDrag: false,
+                                                              context: context,
+                                                              builder:
+                                                                  (context) {
+                                                                return GestureDetector(
+                                                                  onTap: () => _model
+                                                                          .unfocusNode
+                                                                          .canRequestFocus
+                                                                      ? FocusScope.of(
+                                                                              context)
+                                                                          .requestFocus(_model
+                                                                              .unfocusNode)
+                                                                      : FocusScope.of(
+                                                                              context)
+                                                                          .unfocus(),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: MediaQuery
+                                                                        .viewInsetsOf(
+                                                                            context),
+                                                                    child:
+                                                                        SizedBox(
+                                                                      height:
+                                                                          MediaQuery.sizeOf(context).height *
+                                                                              0.4,
+                                                                      child:
+                                                                          TextFieldBottomSheetWidget(
+                                                                        isEdit:
+                                                                            false,
+                                                                        teamComponentDoc:
+                                                                            columnTeamComponentsRecord,
+                                                                        leadDocRef:
+                                                                            leadDetailViewLeadsRecord.reference,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ).then((value) =>
+                                                                safeSetState(
+                                                                    () {}));
+                                                          } else if (columnTeamComponentsRecord
+                                                                  .type ==
+                                                              ComponentType
+                                                                  .Temperature) {
+                                                            await showModalBottomSheet(
+                                                              isScrollControlled:
+                                                                  true,
+                                                              backgroundColor:
+                                                                  Colors
+                                                                      .transparent,
+                                                              enableDrag: false,
+                                                              context: context,
+                                                              builder:
+                                                                  (context) {
+                                                                return GestureDetector(
+                                                                  onTap: () => _model
+                                                                          .unfocusNode
+                                                                          .canRequestFocus
+                                                                      ? FocusScope.of(
+                                                                              context)
+                                                                          .requestFocus(_model
+                                                                              .unfocusNode)
+                                                                      : FocusScope.of(
+                                                                              context)
+                                                                          .unfocus(),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: MediaQuery
+                                                                        .viewInsetsOf(
+                                                                            context),
+                                                                    child:
+                                                                        SizedBox(
+                                                                      height:
+                                                                          MediaQuery.sizeOf(context).height *
+                                                                              0.4,
+                                                                      child:
+                                                                          TemperatureBottomSheetWidget(
+                                                                        leadDocRef:
+                                                                            leadDetailViewLeadsRecord.reference,
+                                                                        componentDocRef:
+                                                                            columnTeamComponentsRecord.reference,
+                                                                        isEdit:
+                                                                            false,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ).then((value) =>
+                                                                safeSetState(
+                                                                    () {}));
+                                                          } else {
+                                                            await showModalBottomSheet(
+                                                              isScrollControlled:
+                                                                  true,
+                                                              backgroundColor:
+                                                                  const Color(
+                                                                      0x00F1F4F8),
+                                                              enableDrag: false,
+                                                              context: context,
+                                                              builder:
+                                                                  (context) {
+                                                                return GestureDetector(
+                                                                  onTap: () => _model
+                                                                          .unfocusNode
+                                                                          .canRequestFocus
+                                                                      ? FocusScope.of(
+                                                                              context)
+                                                                          .requestFocus(_model
+                                                                              .unfocusNode)
+                                                                      : FocusScope.of(
+                                                                              context)
+                                                                          .unfocus(),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: MediaQuery
+                                                                        .viewInsetsOf(
+                                                                            context),
+                                                                    child:
+                                                                        SizedBox(
+                                                                      height:
+                                                                          MediaQuery.sizeOf(context).height *
+                                                                              0.6,
+                                                                      child:
+                                                                          SpeechToTextBottomSheetWidget(
+                                                                        leadDocRef:
+                                                                            leadDetailViewLeadsRecord.reference,
+                                                                        componentDocRef:
+                                                                            columnTeamComponentsRecord.reference,
+                                                                        isEdit:
+                                                                            false,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ).then((value) =>
+                                                                safeSetState(
+                                                                    () {}));
+                                                          }
+                                                        },
+                                                        child:
+                                                            AnimatedContainer(
+                                                          duration: const Duration(
+                                                              milliseconds:
+                                                                  150),
+                                                          curve:
+                                                              Curves.easeInOut,
+                                                          width:
+                                                              double.infinity,
+                                                          decoration:
+                                                              const BoxDecoration(
+                                                            color: Colors.white,
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        8.0,
+                                                                        0.0,
+                                                                        8.0),
+                                                            child: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Icon(
+                                                                  Icons
+                                                                      .add_circle,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondary,
+                                                                  size: 20.0,
+                                                                ),
+                                                                Expanded(
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            12.0,
+                                                                            0.0,
+                                                                            12.0,
+                                                                            0.0),
+                                                                    child: Text(
+                                                                      'Add ${columnTeamComponentsRecord.name}',
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Plus Jakarta Sans',
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).secondary,
+                                                                            fontSize:
+                                                                                14.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w500,
+                                                                          ),
                                                                     ),
                                                                   ),
                                                                 ),
-                                                              );
-                                                            },
-                                                          ).then((value) =>
-                                                              safeSetState(
-                                                                  () {}));
-                                                        } else if (columnTeamComponentsRecord
-                                                                .type ==
-                                                            ComponentType
-                                                                .Dropdown) {
-                                                          await showModalBottomSheet(
-                                                            isScrollControlled:
-                                                                true,
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    0x00F1F4F8),
-                                                            enableDrag: false,
-                                                            context: context,
-                                                            builder: (context) {
-                                                              return GestureDetector(
-                                                                onTap: () => _model
-                                                                        .unfocusNode
-                                                                        .canRequestFocus
-                                                                    ? FocusScope.of(
-                                                                            context)
-                                                                        .requestFocus(_model
-                                                                            .unfocusNode)
-                                                                    : FocusScope.of(
-                                                                            context)
-                                                                        .unfocus(),
-                                                                child: Padding(
-                                                                  padding: MediaQuery
-                                                                      .viewInsetsOf(
-                                                                          context),
-                                                                  child:
-                                                                      SizedBox(
-                                                                    height:
-                                                                        MediaQuery.sizeOf(context).height *
-                                                                            0.4,
-                                                                    child:
-                                                                        DropdownBottomSheetWidget(
-                                                                      teamComponentDoc:
-                                                                          columnTeamComponentsRecord,
-                                                                      leadDocRef:
-                                                                          leadDetailViewLeadsRecord
-                                                                              .reference,
-                                                                      isEdit:
-                                                                          false,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            },
-                                                          ).then((value) =>
-                                                              safeSetState(
-                                                                  () {}));
-                                                        } else if (columnTeamComponentsRecord
-                                                                .type ==
-                                                            ComponentType
-                                                                .MultipleChoice) {
-                                                          await showModalBottomSheet(
-                                                            isScrollControlled:
-                                                                true,
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    0x00F1F4F8),
-                                                            enableDrag: false,
-                                                            context: context,
-                                                            builder: (context) {
-                                                              return GestureDetector(
-                                                                onTap: () => _model
-                                                                        .unfocusNode
-                                                                        .canRequestFocus
-                                                                    ? FocusScope.of(
-                                                                            context)
-                                                                        .requestFocus(_model
-                                                                            .unfocusNode)
-                                                                    : FocusScope.of(
-                                                                            context)
-                                                                        .unfocus(),
-                                                                child: Padding(
-                                                                  padding: MediaQuery
-                                                                      .viewInsetsOf(
-                                                                          context),
-                                                                  child:
-                                                                      SizedBox(
-                                                                    height:
-                                                                        MediaQuery.sizeOf(context).height *
-                                                                            0.4,
-                                                                    child:
-                                                                        MultichoiceBottomSheetWidget(
-                                                                      componentDoc:
-                                                                          columnTeamComponentsRecord,
-                                                                      leadDocRef:
-                                                                          leadDetailViewLeadsRecord
-                                                                              .reference,
-                                                                      isEdit:
-                                                                          false,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            },
-                                                          ).then((value) =>
-                                                              safeSetState(
-                                                                  () {}));
-                                                        } else if (columnTeamComponentsRecord
-                                                                .type ==
-                                                            ComponentType
-                                                                .TextField) {
-                                                          await showModalBottomSheet(
-                                                            isScrollControlled:
-                                                                true,
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    0x00F1F4F8),
-                                                            enableDrag: false,
-                                                            context: context,
-                                                            builder: (context) {
-                                                              return GestureDetector(
-                                                                onTap: () => _model
-                                                                        .unfocusNode
-                                                                        .canRequestFocus
-                                                                    ? FocusScope.of(
-                                                                            context)
-                                                                        .requestFocus(_model
-                                                                            .unfocusNode)
-                                                                    : FocusScope.of(
-                                                                            context)
-                                                                        .unfocus(),
-                                                                child: Padding(
-                                                                  padding: MediaQuery
-                                                                      .viewInsetsOf(
-                                                                          context),
-                                                                  child:
-                                                                      SizedBox(
-                                                                    height:
-                                                                        MediaQuery.sizeOf(context).height *
-                                                                            0.4,
-                                                                    child:
-                                                                        TextFieldBottomSheetWidget(
-                                                                      isEdit:
-                                                                          false,
-                                                                      teamComponentDoc:
-                                                                          columnTeamComponentsRecord,
-                                                                      leadDocRef:
-                                                                          leadDetailViewLeadsRecord
-                                                                              .reference,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            },
-                                                          ).then((value) =>
-                                                              safeSetState(
-                                                                  () {}));
-                                                        } else if (columnTeamComponentsRecord
-                                                                .type ==
-                                                            ComponentType
-                                                                .Temperature) {
-                                                          await showModalBottomSheet(
-                                                            isScrollControlled:
-                                                                true,
-                                                            backgroundColor:
-                                                                Colors
-                                                                    .transparent,
-                                                            enableDrag: false,
-                                                            context: context,
-                                                            builder: (context) {
-                                                              return GestureDetector(
-                                                                onTap: () => _model
-                                                                        .unfocusNode
-                                                                        .canRequestFocus
-                                                                    ? FocusScope.of(
-                                                                            context)
-                                                                        .requestFocus(_model
-                                                                            .unfocusNode)
-                                                                    : FocusScope.of(
-                                                                            context)
-                                                                        .unfocus(),
-                                                                child: Padding(
-                                                                  padding: MediaQuery
-                                                                      .viewInsetsOf(
-                                                                          context),
-                                                                  child:
-                                                                      SizedBox(
-                                                                    height:
-                                                                        MediaQuery.sizeOf(context).height *
-                                                                            0.4,
-                                                                    child:
-                                                                        TemperatureBottomSheetWidget(
-                                                                      leadDocRef:
-                                                                          leadDetailViewLeadsRecord
-                                                                              .reference,
-                                                                      componentDocRef:
-                                                                          columnTeamComponentsRecord
-                                                                              .reference,
-                                                                      isEdit:
-                                                                          false,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            },
-                                                          ).then((value) =>
-                                                              safeSetState(
-                                                                  () {}));
-                                                        } else {
-                                                          await showModalBottomSheet(
-                                                            isScrollControlled:
-                                                                true,
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    0x00F1F4F8),
-                                                            enableDrag: false,
-                                                            context: context,
-                                                            builder: (context) {
-                                                              return GestureDetector(
-                                                                onTap: () => _model
-                                                                        .unfocusNode
-                                                                        .canRequestFocus
-                                                                    ? FocusScope.of(
-                                                                            context)
-                                                                        .requestFocus(_model
-                                                                            .unfocusNode)
-                                                                    : FocusScope.of(
-                                                                            context)
-                                                                        .unfocus(),
-                                                                child: Padding(
-                                                                  padding: MediaQuery
-                                                                      .viewInsetsOf(
-                                                                          context),
-                                                                  child:
-                                                                      SizedBox(
-                                                                    height:
-                                                                        MediaQuery.sizeOf(context).height *
-                                                                            0.6,
-                                                                    child:
-                                                                        SpeechToTextBottomSheetWidget(
-                                                                      leadDocRef:
-                                                                          leadDetailViewLeadsRecord
-                                                                              .reference,
-                                                                      componentDocRef:
-                                                                          columnTeamComponentsRecord
-                                                                              .reference,
-                                                                      isEdit:
-                                                                          false,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            },
-                                                          ).then((value) =>
-                                                              safeSetState(
-                                                                  () {}));
-                                                        }
-                                                      },
-                                                      child: AnimatedContainer(
-                                                        duration: const Duration(
-                                                            milliseconds: 150),
-                                                        curve: Curves.easeInOut,
-                                                        width: double.infinity,
-                                                        decoration:
-                                                            const BoxDecoration(
-                                                          color: Colors.white,
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      8.0,
-                                                                      0.0,
-                                                                      8.0),
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Icon(
-                                                                Icons
-                                                                    .add_circle,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondary,
-                                                                size: 20.0,
-                                                              ),
-                                                              Expanded(
-                                                                child: Padding(
-                                                                  padding: const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          12.0,
-                                                                          0.0,
-                                                                          12.0,
-                                                                          0.0),
-                                                                  child: Text(
-                                                                    'Add ${columnTeamComponentsRecord.name}',
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Plus Jakarta Sans',
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).secondary,
-                                                                          fontSize:
-                                                                              14.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w500,
-                                                                        ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
+                                                              ],
+                                                            ),
                                                           ),
                                                         ),
                                                       ),

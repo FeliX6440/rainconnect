@@ -1166,7 +1166,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 20.0),
+                                          0.0, 0.0, 0.0, 40.0),
                                       child: FutureBuilder<
                                           List<TeamComponentsRecord>>(
                                         future: queryTeamComponentsRecordOnce(

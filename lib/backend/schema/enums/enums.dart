@@ -13,8 +13,8 @@ enum ComponentType {
   SpeechToText,
   Note,
   Temperature,
-  industrialFair,
   placeOfEncounter,
+  industrialFair,
 }
 
 enum TemplateMode {

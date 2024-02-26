@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -1008,24 +1007,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
-                                                Align(
-                                                  alignment:
-                                                      const AlignmentDirectional(
-                                                          0.0, 0.0),
-                                                  child: Text(
-                                                    'Last Few Leads:',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Manrope',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primary,
-                                                          fontSize: 11.0,
-                                                        ),
-                                                  ),
-                                                ),
                                                 Padding(
                                                   padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
@@ -1036,125 +1017,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                           BorderRadius.circular(
                                                               12.0),
                                                     ),
-                                                    child: StreamBuilder<
-                                                        List<LeadsRecord>>(
-                                                      stream: queryLeadsRecord(
-                                                        queryBuilder:
-                                                            (leadsRecord) =>
-                                                                leadsRecord
-                                                                    .where(
-                                                          'lead_collected_by',
-                                                          isEqualTo:
-                                                              homePageTeamsRecord
-                                                                  .reference,
-                                                        ),
-                                                        limit: 6,
-                                                      ),
-                                                      builder:
-                                                          (context, snapshot) {
-                                                        // Customize what your widget looks like when it's loading.
-                                                        if (!snapshot.hasData) {
-                                                          return Center(
-                                                            child: SizedBox(
-                                                              width: 30.0,
-                                                              height: 30.0,
-                                                              child:
-                                                                  SpinKitFadingFour(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                size: 30.0,
-                                                              ),
-                                                            ),
-                                                          );
-                                                        }
-                                                        List<LeadsRecord>
-                                                            rowLeadsRecordList =
-                                                            snapshot.data!;
-                                                        return Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: List.generate(
-                                                              rowLeadsRecordList
-                                                                  .length,
-                                                              (rowIndex) {
-                                                            final rowLeadsRecord =
-                                                                rowLeadsRecordList[
-                                                                    rowIndex];
-                                                            return Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(6.0),
-                                                              child: Container(
-                                                                width: 45.0,
-                                                                height: 45.0,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryBackground,
-                                                                  boxShadow: const [
-                                                                    BoxShadow(
-                                                                      blurRadius:
-                                                                          4.0,
-                                                                      color: Color(
-                                                                          0x33000000),
-                                                                      offset: Offset(
-                                                                          0.0,
-                                                                          2.0),
-                                                                    )
-                                                                  ],
-                                                                  shape: BoxShape
-                                                                      .circle,
-                                                                ),
-                                                                child: Align(
-                                                                  alignment:
-                                                                      const AlignmentDirectional(
-                                                                          0.0,
-                                                                          0.0),
-                                                                  child: Text(
-                                                                    valueOrDefault<
-                                                                        String>(
-                                                                      functions.formateDisplayName(
-                                                                          rowLeadsRecord
-                                                                              .firstName,
-                                                                          rowLeadsRecord
-                                                                              .lastName),
-                                                                      'name',
-                                                                    ),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Manrope',
-                                                                          fontWeight:
-                                                                              FontWeight.w500,
-                                                                        ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }),
-                                                        );
-                                                      },
-                                                    ),
                                                   ),
                                                 ),
                                               ],
                                             ),
                                           ),
-                                        ),
-                                        Divider(
-                                          thickness: 1.0,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
                                         ),
                                         Column(
                                           mainAxisSize: MainAxisSize.max,

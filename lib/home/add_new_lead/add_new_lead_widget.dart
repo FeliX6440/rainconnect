@@ -2094,11 +2094,9 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                         listViewTeamComponentsRecordList[
                                             listViewIndex];
                                     return Visibility(
-                                      visible: !((widget.isIndustryMode ==
-                                              (listViewTeamComponentsRecord
-                                                      .type ==
-                                                  ComponentType
-                                                      .industrialFair)) ||
+                                      visible: !((listViewTeamComponentsRecord
+                                                  .type ==
+                                              ComponentType.industrialFair) ||
                                           (listViewTeamComponentsRecord.type ==
                                               ComponentType.placeOfEncounter)),
                                       child: TileComponentWidget(

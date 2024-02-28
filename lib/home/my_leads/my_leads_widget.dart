@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -636,8 +637,19 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 40.0),
                 child: FFButtonWidget(
-                  onPressed: () {
-                    print('Button pressed ...');
+                  onPressed: () async {
+                    _model.teamDocs = await queryLeadsRecordOnce(
+                      queryBuilder: (leadsRecord) => leadsRecord.where(
+                        'lead_collected_by',
+                        isEqualTo: widget.teamDocRef,
+                      ),
+                    );
+                    await actions.exportLeadsDocsAsCSV(
+                      context,
+                      _model.teamDocs!.toList(),
+                    );
+
+                    setState(() {});
                   },
                   text: 'Export Current List',
                   options: FFButtonOptions(

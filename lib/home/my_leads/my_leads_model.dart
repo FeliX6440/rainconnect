@@ -22,6 +22,9 @@ class MyLeadsModel extends FlutterFlowModel<MyLeadsWidget> {
   PagingController<DocumentSnapshot?, LeadsRecord>? listViewPagingController2;
   Query? listViewPagingQuery2;
 
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  List<LeadsRecord>? teamDocs;
+
   /// Initialization and disposal methods.
 
   @override

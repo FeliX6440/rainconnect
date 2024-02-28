@@ -10,28 +10,57 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import 'dart:io';
+
 import 'package:path_provider/path_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:csv/csv.dart';
 
 Future exportLeadsDocsAsCSV(
+  BuildContext context,
   List<LeadsRecord> leadDocs,
-  List<ComponentContentRecord> componentContentDocs,
+  // List<ComponentContentRecord> componentContentDocs,
 ) async {
   // Add your function code here!
   List<List<dynamic>> rows = [
-    'first_name',
-    'last_name',
-    'email',
-    'gender',
-    'phone',
-    'company',
-    'city',
-    'country',
-    'language',
-    'industry',
+    [
+      'first_name',
+      'last_name',
+      'email',
+      'gender',
+      'phone',
+      'company',
+      'city',
+      'country',
+      'language',
+      'industry',
+    ]
   ];
-  leadDocs.forEach((doc) {});
+  leadDocs.forEach((userData) {
+    rows.add([
+      userData.firstName ?? '',
+      userData.lastName ?? '',
+      userData.email ?? '',
+      userData.gender ?? '',
+      userData.phone ?? '',
+      userData.company ?? '',
+      userData.city ?? '',
+      userData.country ?? '',
+      userData.language ?? '',
+      userData.industry ?? '',
+    ]);
+  });
+
+  String csv = const ListToCsvConverter().convert(rows);
+  // DateTime currentDateTime = DateTime.now().millisecondsSinceEpoch;
+  final String dir = (await getApplicationDocumentsDirectory()).path;
+  final String path = '$dir/leads.csv';
+  final File file = File(path);
+
+  await file.writeAsString(csv);
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(content: Text('CSV file exported successfully')),
+  );
 }
 
 //  FirebaseFirestore firestore = FirebaseFirestore.instance;

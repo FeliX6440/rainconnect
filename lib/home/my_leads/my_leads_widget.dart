@@ -419,7 +419,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                     } else {
                       return Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 20.0),
                         child: PagedListView<DocumentSnapshot<Object?>?,
                             LeadsRecord>(
                           pagingController: _model.setListViewController2(
@@ -634,7 +634,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 40.0),
                 child: FFButtonWidget(
                   onPressed: () {
                     print('Button pressed ...');

@@ -215,34 +215,39 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 15.0, 0.0),
-                  child: FFButtonWidget(
-                    onPressed: () {
-                      print('Button pressed ...');
-                    },
-                    text: 'Cancel',
-                    options: FFButtonOptions(
-                      height: 40.0,
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Manrope',
-                                color: Colors.white,
-                              ),
-                      elevation: 3.0,
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                        width: 1.0,
+                if (_model.pageIndex == 2)
+                  Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 15.0, 0.0),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        if (_model.leadResponse?.reference != null) {
+                          await _model.leadResponse!.reference.delete();
+                          context.safePop();
+                        }
+                      },
+                      text: 'Cancel',
+                      options: FFButtonOptions(
+                        height: 40.0,
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            24.0, 0.0, 24.0, 0.0),
+                        iconPadding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: FlutterFlowTheme.of(context).primary,
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Manrope',
+                                  color: Colors.white,
+                                ),
+                        elevation: 3.0,
+                        borderSide: const BorderSide(
+                          color: Colors.transparent,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
-                      borderRadius: BorderRadius.circular(20.0),
                     ),
                   ),
-                ),
               ],
             ),
           ],
@@ -2056,8 +2061,8 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 15.0, 0.0, 15.0, 0.0),
-                            child: FutureBuilder<List<TeamComponentsRecord>>(
-                              future: queryTeamComponentsRecordOnce(
+                            child: StreamBuilder<List<TeamComponentsRecord>>(
+                              stream: queryTeamComponentsRecord(
                                 parent: widget.teamDoc?.reference,
                                 queryBuilder: (teamComponentsRecord) =>
                                     teamComponentsRecord.where(

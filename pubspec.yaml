@@ -37,6 +37,7 @@ dependencies:
   cloud_functions_web: 4.6.11
   collection: 1.17.2
   cross_file: 0.3.3+7
+  csv: ^6.0.0
   dart_openai: ^5.0.0
   dio: ^5.4.0
   dropdown_button2: 2.3.9

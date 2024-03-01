@@ -16,16 +16,15 @@ import 'package:path_provider/path_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:csv/csv.dart';
 
-Future exportLeadsDocsAsCSV(
+Future<void> exportLeadsDocsAsCSV(
   BuildContext context,
   List<LeadsRecord> leadDocs,
-  // List<ComponentContentRecord> componentContentDocs,
 ) async {
-  // Add your function code here!
+  final fireStore = FirebaseFirestore.instance;
   List<List<dynamic>> rows = [
     [
-      'first_name',
-      'last_name',
+      'first name',
+      'last name',
       'email',
       'gender',
       'phone',
@@ -34,66 +33,107 @@ Future exportLeadsDocsAsCSV(
       'country',
       'language',
       'industry',
+      'speech to text',
+      'note',
+      'Temperature',
+      'Dropdown',
+      'TextField',
+      'Industrial Fair',
+      'Multiple Choice',
     ]
   ];
-  leadDocs.forEach((userData) {
-    rows.add([
-      userData.firstName ?? '',
-      userData.lastName ?? '',
-      userData.email ?? '',
-      userData.gender ?? '',
-      userData.phone ?? '',
-      userData.company ?? '',
-      userData.city ?? '',
-      userData.country ?? '',
-      userData.language ?? '',
-      userData.industry ?? '',
-    ]);
-  });
+
+  for (final leadData in leadDocs) {
+    // final componentContentQuery = await fireStore
+    //     .collection('component_content')
+    //     .where('lead_ref', isEqualTo: leadData.reference);
+    // final componentContentDocs = await componentContentQuery.get();
+
+    // // Check if the query result is empty before accessing .first
+    // String speechToTextContent = '';
+    // String noteContent = '';
+    // String temperatureContent = '';
+    // String dropdownContent = '';
+    // String textFieldContent = '';
+    // String industrialFairContent = '';
+    // String multipleChoiceContent = '';
+
+    // if (componentContentDocs.docs.isNotEmpty) {
+    //   speechToTextContent = componentContentDocs.docs
+    //           .firstWhere(
+    //             (element) => element.data()['type'] == 'SpeechToText',
+    //           )
+    //           ?.data()['content'] ??
+    //       '';
+    //   noteContent = componentContentDocs.docs
+    //           .firstWhere(
+    //             (element) => element.data()['type'] == 'Note',
+    //           )
+    //           ?.data()['content'] ??
+    //       '';
+    //   temperatureContent = componentContentDocs.docs
+    //           .firstWhere(
+    //             (element) => element.data()['type'] == 'Temperature',
+    //           )
+    //           ?.data()['content'] ??
+    //       '';
+    //   dropdownContent = componentContentDocs.docs
+    //           .firstWhere(
+    //             (element) => element.data()['type'] == 'Dropdown',
+    //           )
+    //           ?.data()['content'] ??
+    //       '';
+    //   textFieldContent = componentContentDocs.docs
+    //           .firstWhere(
+    //             (element) => element.data()['type'] == 'TextField',
+    //           )
+    //           ?.data()['content'] ??
+    //       '';
+    //   industrialFairContent = componentContentDocs.docs
+    //           .firstWhere(
+    //             (element) => element.data()['type'] == 'industrialFair',
+    //           )
+    //           ?.data()['content'] ??
+    //       '';
+    //   multipleChoiceContent = componentContentDocs.docs
+    //           .firstWhere(
+    //             (element) => element.data()['type'] == 'MultipleChoice',
+    //           )
+    //           ?.data()['content'] ??
+    //       '';
+    // }
+
+    List<dynamic> leadRow = [
+      leadData.firstName ?? '',
+      leadData.lastName ?? '',
+      leadData.email ?? '',
+      leadData.gender ?? '',
+      leadData.phone ?? '',
+      leadData.company ?? '',
+      leadData.city ?? '',
+      leadData.country ?? '',
+      leadData.language ?? '',
+      leadData.industry ?? '',
+      // speechToTextContent,
+      // noteContent,
+      // temperatureContent,
+      // dropdownContent,
+      // textFieldContent,
+      // industrialFairContent,
+      // multipleChoiceContent,
+    ];
+
+    rows.add(leadRow);
+  }
 
   String csv = const ListToCsvConverter().convert(rows);
-  // DateTime currentDateTime = DateTime.now().millisecondsSinceEpoch;
   final String dir = (await getApplicationDocumentsDirectory()).path;
   final String path = '$dir/leads.csv';
   final File file = File(path);
 
   await file.writeAsString(csv);
+
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(content: Text('CSV file exported successfully')),
   );
 }
-
-//  FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-//   Future<void> exportUsers() async {
-//     List<List<dynamic>> rows = [
-//       ['Name', 'Email', 'Age'] // CSV headers
-//     ];
-
-//     QuerySnapshot querySnapshot = await firestore.collection('users').get();
-
-//     querySnapshot.docs.forEach((doc) {
-//       var userData = doc.data();
-//       rows.add([
-//         userData['name'] ?? '',
-//         userData['email'] ?? '',
-//         userData['age'] ?? '',
-//       ]);
-//     });
-
-//     String csv = const ListToCsvConverter().convert(rows);
-
-//     final String dir = (await getApplicationDocumentsDirectory()).path;
-//     final String path = '$dir/users.csv';
-//     final File file = File(path);
-
-//     await file.writeAsString(csv);
-
-//     ScaffoldMessenger.of(context).showSnackBar(
-//       SnackBar(content: Text('CSV file exported successfully')),
-//     );
-
-//     // Open file or download it
-//     // For now, let's just print the path
-//     print('CSV file path: $path');
-//   }

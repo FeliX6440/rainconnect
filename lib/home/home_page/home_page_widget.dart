@@ -459,7 +459,15 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        context.pushNamed('EmailTemplatesList');
+                                        context.pushNamed(
+                                          'EmailTemplatesList',
+                                          queryParameters: {
+                                            'teamDocRef': serializeParam(
+                                              homePageTeamsRecord?.reference,
+                                              ParamType.DocumentReference,
+                                            ),
+                                          }.withoutNulls,
+                                        );
                                       },
                                       child: AnimatedContainer(
                                         duration: const Duration(milliseconds: 150),

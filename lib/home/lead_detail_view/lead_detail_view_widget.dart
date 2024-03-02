@@ -1,6 +1,7 @@
 import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
 import '/bottomsheet/dropdown_bottom_sheet/dropdown_bottom_sheet_widget.dart';
+import '/bottomsheet/email_template_bottom_sheet/email_template_bottom_sheet_widget.dart';
 import '/bottomsheet/multichoice_bottom_sheet/multichoice_bottom_sheet_widget.dart';
 import '/bottomsheet/note_bottom_sheet/note_bottom_sheet_widget.dart';
 import '/bottomsheet/speech_to_text_bottom_sheet/speech_to_text_bottom_sheet_widget.dart';
@@ -17,7 +18,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'lead_detail_view_model.dart';
 export 'lead_detail_view_model.dart';
 
@@ -220,25 +220,35 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    await launchUrl(Uri(
-                                      scheme: 'mailto',
-                                      path: widget.leadDoc!.email,
-                                    ));
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          'Email sent',
-                                          style: TextStyle(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
+                                    await showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      enableDrag: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return GestureDetector(
+                                          onTap: () => _model
+                                                  .unfocusNode.canRequestFocus
+                                              ? FocusScope.of(context)
+                                                  .requestFocus(
+                                                      _model.unfocusNode)
+                                              : FocusScope.of(context)
+                                                  .unfocus(),
+                                          child: Padding(
+                                            padding: MediaQuery.viewInsetsOf(
+                                                context),
+                                            child:
+                                                EmailTemplateBottomSheetWidget(
+                                              leadDoc:
+                                                  leadDetailViewLeadsRecord,
+                                              teamDocRef:
+                                                  leadDetailViewLeadsRecord
+                                                      .leadCollectedBy!,
+                                            ),
                                           ),
-                                        ),
-                                        duration: const Duration(milliseconds: 4000),
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondary,
-                                      ),
-                                    );
+                                        );
+                                      },
+                                    ).then((value) => safeSetState(() {}));
                                   },
                                   child: Container(
                                     width: 44.0,

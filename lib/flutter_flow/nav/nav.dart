@@ -242,7 +242,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'EmailTemplatesList',
           path: '/emailTemplatesList',
-          builder: (context, params) => const EmailTemplatesListWidget(),
+          builder: (context, params) => EmailTemplatesListWidget(
+            teamDocRef: params.getParam(
+                'teamDocRef', ParamType.DocumentReference, false, ['teams']),
+          ),
         ),
         FFRoute(
           name: 'ComponentMarketplaceList',
@@ -261,6 +264,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'EditProfilePage',
           path: '/editProfilePage',
           builder: (context, params) => const EditProfilePageWidget(),
+        ),
+        FFRoute(
+          name: 'EmailTemplateEditorCopy',
+          path: '/emailTemplateEditorCopy',
+          builder: (context, params) => EmailTemplateEditorCopyWidget(
+            teamDocRef: params.getParam(
+                'teamDocRef', ParamType.DocumentReference, false, ['teams']),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

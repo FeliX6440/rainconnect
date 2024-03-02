@@ -62,3 +62,49 @@ String trimFilterText1(String text) {
 String trimFilter2(String text) {
   return text.trim() + 'z';
 }
+
+String fillSubjectPlaceHolder(
+  LeadsRecord leadDoc,
+  String subjectValue,
+) {
+  final String subject = subjectValue
+      .replaceAll('{email}', leadDoc.email)
+      .replaceAll('{first_name}', leadDoc.firstName)
+      .replaceAll('{last_name}', leadDoc.lastName)
+      .replaceAll('{city}', leadDoc.city)
+      .replaceAll('{country}', leadDoc.country)
+      .replaceAll('{gender}', leadDoc.gender)
+      .replaceAll('{industry}', leadDoc.industry)
+      .replaceAll('{language}', leadDoc.language)
+      .replaceAll('{phone}', leadDoc.phone)
+      .replaceAll('{photoUrl}', leadDoc.photoUrl)
+      .replaceAll('{positionRole}', leadDoc.positionRole)
+      .replaceAll('{street}', leadDoc.street)
+      .replaceAll('{website}', leadDoc.website)
+      .replaceAll('{zipCode}', leadDoc.zipCode)
+      .replaceAll('{company}', leadDoc.company);
+  return subject;
+}
+
+String fillEmailBodyTemplate(
+  String bodyValue,
+  LeadsRecord leadDoc,
+) {
+  final String body = bodyValue
+      .replaceAll('{email}', leadDoc.email)
+      .replaceAll('{first_name}', leadDoc.firstName)
+      .replaceAll('{last_name}', leadDoc.lastName)
+      .replaceAll('{city}', leadDoc.city)
+      .replaceAll('{country}', leadDoc.country)
+      .replaceAll('{gender}', leadDoc.gender)
+      .replaceAll('{industry}', leadDoc.industry)
+      .replaceAll('{language}', leadDoc.language)
+      .replaceAll('{phone}', leadDoc.phone)
+      .replaceAll('{photoUrl}', leadDoc.photoUrl)
+      .replaceAll('{positionRole}', leadDoc.positionRole)
+      .replaceAll('{street}', leadDoc.street)
+      .replaceAll('{website}', leadDoc.website)
+      .replaceAll('{zipCode}', leadDoc.zipCode)
+      .replaceAll('{company}', leadDoc.company);
+  return body;
+}

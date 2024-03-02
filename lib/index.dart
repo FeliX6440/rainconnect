@@ -40,3 +40,5 @@ export '/checkoutcart_copy_copy/checkoutcart_copy_copy_widget.dart'
     show CheckoutcartCopyCopyWidget;
 export '/profile/edit_profile_page/edit_profile_page_widget.dart'
     show EditProfilePageWidget;
+export '/profile/email_template_editor_copy/email_template_editor_copy_widget.dart'
+    show EmailTemplateEditorCopyWidget;

@@ -42,8 +42,12 @@ class _CustomEmailTemplateWidgetState extends State<CustomEmailTemplateWidget> {
 
   @override
   void initState() {
-    _subjectController.addListener(() {});
-    _bodyController.addListener(() {});
+    _subjectController.addListener(() {
+      FFAppState().emailSubjectHolder = _subjectController.text;
+    });
+    _bodyController.addListener(() {
+      FFAppState().emailBodyHolder = _bodyController.text;
+    });
     super.initState();
   }
 

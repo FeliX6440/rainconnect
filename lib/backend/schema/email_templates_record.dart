@@ -29,12 +29,18 @@ class EmailTemplatesRecord extends FirestoreRecord {
   String get attachmentUrl => _attachmentUrl ?? '';
   bool hasAttachmentUrl() => _attachmentUrl != null;
 
+  // "created_at" field.
+  DateTime? _createdAt;
+  DateTime? get createdAt => _createdAt;
+  bool hasCreatedAt() => _createdAt != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
     _subject = snapshotData['subject'] as String?;
     _body = snapshotData['body'] as String?;
     _attachmentUrl = snapshotData['attachment_url'] as String?;
+    _createdAt = snapshotData['created_at'] as DateTime?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -80,12 +86,14 @@ Map<String, dynamic> createEmailTemplatesRecordData({
   String? subject,
   String? body,
   String? attachmentUrl,
+  DateTime? createdAt,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'subject': subject,
       'body': body,
       'attachment_url': attachmentUrl,
+      'created_at': createdAt,
     }.withoutNulls,
   );
 
@@ -100,12 +108,13 @@ class EmailTemplatesRecordDocumentEquality
   bool equals(EmailTemplatesRecord? e1, EmailTemplatesRecord? e2) {
     return e1?.subject == e2?.subject &&
         e1?.body == e2?.body &&
-        e1?.attachmentUrl == e2?.attachmentUrl;
+        e1?.attachmentUrl == e2?.attachmentUrl &&
+        e1?.createdAt == e2?.createdAt;
   }
 
   @override
-  int hash(EmailTemplatesRecord? e) =>
-      const ListEquality().hash([e?.subject, e?.body, e?.attachmentUrl]);
+  int hash(EmailTemplatesRecord? e) => const ListEquality()
+      .hash([e?.subject, e?.body, e?.attachmentUrl, e?.createdAt]);
 
   @override
   bool isValidKey(Object? o) => o is EmailTemplatesRecord;

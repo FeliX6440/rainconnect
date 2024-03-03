@@ -119,10 +119,10 @@ class _EmailTemplateEditorCopyWidgetState
               children: [
                 SizedBox(
                   width: double.infinity,
-                  height: 450.0,
+                  height: 400.0,
                   child: custom_widgets.CustomEmailTemplateWidget(
                     width: double.infinity,
-                    height: 450.0,
+                    height: 400.0,
                     valuePlaceHolder: _model.templateValues,
                   ),
                 ),
@@ -182,6 +182,7 @@ class _EmailTemplateEditorCopyWidgetState
                           },
                         ),
                       });
+                      context.safePop();
                     },
                     text: 'Save Template',
                     options: FFButtonOptions(

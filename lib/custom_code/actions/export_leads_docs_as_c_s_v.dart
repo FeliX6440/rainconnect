@@ -44,64 +44,70 @@ Future<void> exportLeadsDocsAsCSV(
   ];
 
   for (final leadData in leadDocs) {
-    // final componentContentQuery = await fireStore
-    //     .collection('component_content')
-    //     .where('lead_ref', isEqualTo: leadData.reference);
-    // final componentContentDocs = await componentContentQuery.get();
+    List<Map<String, dynamic>> componentContentDocs = [];
+    try {
+      final componentContentQuery = await fireStore
+          .collection('component_content')
+          .where('lead_ref', isEqualTo: leadData.reference);
+      componentContentDocs = await componentContentQuery
+          .get()
+          .then((value) => value.docs.map((e) => e.data()).toList());
+    } catch (e) {
+      print(e.toString());
+    }
 
     // // Check if the query result is empty before accessing .first
-    // String speechToTextContent = '';
-    // String noteContent = '';
-    // String temperatureContent = '';
-    // String dropdownContent = '';
-    // String textFieldContent = '';
-    // String industrialFairContent = '';
-    // String multipleChoiceContent = '';
+    String speechToTextContent = '';
+    String noteContent = '';
+    String temperatureContent = '';
+    String dropdownContent = '';
+    String textFieldContent = '';
+    String industrialFairContent = '';
+    String multipleChoiceContent = '';
 
-    // if (componentContentDocs.docs.isNotEmpty) {
-    //   speechToTextContent = componentContentDocs.docs
-    //           .firstWhere(
-    //             (element) => element.data()['type'] == 'SpeechToText',
-    //           )
-    //           ?.data()['content'] ??
-    //       '';
-    //   noteContent = componentContentDocs.docs
-    //           .firstWhere(
-    //             (element) => element.data()['type'] == 'Note',
-    //           )
-    //           ?.data()['content'] ??
-    //       '';
-    //   temperatureContent = componentContentDocs.docs
-    //           .firstWhere(
-    //             (element) => element.data()['type'] == 'Temperature',
-    //           )
-    //           ?.data()['content'] ??
-    //       '';
-    //   dropdownContent = componentContentDocs.docs
-    //           .firstWhere(
-    //             (element) => element.data()['type'] == 'Dropdown',
-    //           )
-    //           ?.data()['content'] ??
-    //       '';
-    //   textFieldContent = componentContentDocs.docs
-    //           .firstWhere(
-    //             (element) => element.data()['type'] == 'TextField',
-    //           )
-    //           ?.data()['content'] ??
-    //       '';
-    //   industrialFairContent = componentContentDocs.docs
-    //           .firstWhere(
-    //             (element) => element.data()['type'] == 'industrialFair',
-    //           )
-    //           ?.data()['content'] ??
-    //       '';
-    //   multipleChoiceContent = componentContentDocs.docs
-    //           .firstWhere(
-    //             (element) => element.data()['type'] == 'MultipleChoice',
-    //           )
-    //           ?.data()['content'] ??
-    //       '';
-    // }
+    if (componentContentDocs.isNotEmpty) {
+      List<Map<String, dynamic>> speech = componentContentDocs
+          .where(
+              (element) => element['type'] == ComponentType.SpeechToText.name)
+          .toList();
+
+      speechToTextContent = speech.isEmpty ? '' : speech.first['content'] ?? '';
+
+      List<Map<String, dynamic>> temp = componentContentDocs
+          .where((element) => element['type'] == ComponentType.Temperature.name)
+          .toList();
+
+      temperatureContent = temp.isEmpty ? '' : temp.first['content'] ?? '';
+
+      List<Map<String, dynamic>> dropdown = componentContentDocs
+          .where((element) => element['type'] == ComponentType.Dropdown.name)
+          .toList();
+
+      dropdownContent = dropdown.isEmpty ? '' : dropdown.first['content'] ?? '';
+
+      List<Map<String, dynamic>> textField = componentContentDocs
+          .where((element) => element['type'] == ComponentType.TextField.name)
+          .toList();
+
+      textFieldContent =
+          textField.isEmpty ? '' : textField.first['content'] ?? '';
+
+      List<Map<String, dynamic>> industrialFair = componentContentDocs
+          .where(
+              (element) => element['type'] == ComponentType.industrialFair.name)
+          .toList();
+
+      industrialFairContent =
+          industrialFair.isEmpty ? '' : industrialFair.first['content'] ?? '';
+
+      List<Map<String, dynamic>> multipleChoice = componentContentDocs
+          .where(
+              (element) => element['type'] == ComponentType.MultipleChoice.name)
+          .toList();
+
+      multipleChoiceContent =
+          multipleChoice.isEmpty ? '' : multipleChoice.first['content'] ?? '';
+    }
 
     List<dynamic> leadRow = [
       leadData.firstName ?? '',
@@ -114,13 +120,13 @@ Future<void> exportLeadsDocsAsCSV(
       leadData.country ?? '',
       leadData.language ?? '',
       leadData.industry ?? '',
-      // speechToTextContent,
-      // noteContent,
-      // temperatureContent,
-      // dropdownContent,
-      // textFieldContent,
-      // industrialFairContent,
-      // multipleChoiceContent,
+      speechToTextContent,
+      noteContent,
+      temperatureContent,
+      dropdownContent,
+      textFieldContent,
+      industrialFairContent,
+      multipleChoiceContent,
     ];
 
     rows.add(leadRow);
@@ -130,7 +136,6 @@ Future<void> exportLeadsDocsAsCSV(
   final String dir = (await getApplicationDocumentsDirectory()).path;
   final String path = '$dir/leads.csv';
   final File file = File(path);
-
   await file.writeAsString(csv);
 
   ScaffoldMessenger.of(context).showSnackBar(

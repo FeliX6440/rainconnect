@@ -237,13 +237,18 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                           child: Padding(
                                             padding: MediaQuery.viewInsetsOf(
                                                 context),
-                                            child:
-                                                EmailTemplateBottomSheetWidget(
-                                              leadDoc:
-                                                  leadDetailViewLeadsRecord,
-                                              teamDocRef:
-                                                  leadDetailViewLeadsRecord
-                                                      .leadCollectedBy!,
+                                            child: SizedBox(
+                                              height: MediaQuery.sizeOf(context)
+                                                      .height *
+                                                  0.5,
+                                              child:
+                                                  EmailTemplateBottomSheetWidget(
+                                                leadDoc:
+                                                    leadDetailViewLeadsRecord,
+                                                teamDocRef:
+                                                    leadDetailViewLeadsRecord
+                                                        .leadCollectedBy!,
+                                              ),
                                             ),
                                           ),
                                         );

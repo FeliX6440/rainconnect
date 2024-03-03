@@ -29,12 +29,6 @@ class CustomEmailTemplateWidget extends StatefulWidget {
 }
 
 class _CustomEmailTemplateWidgetState extends State<CustomEmailTemplateWidget> {
-  final List<String> _templateValue = [
-    '{first_name}',
-    '{last_name}',
-    '{email}'
-  ];
-
   final TextEditingController _subjectController = TextEditingController();
   final TextEditingController _bodyController = TextEditingController();
   final FocusNode _subjectNode = FocusNode();
@@ -63,10 +57,11 @@ class _CustomEmailTemplateWidgetState extends State<CustomEmailTemplateWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Column(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextFormField(
               controller: _subjectController,
@@ -106,9 +101,11 @@ class _CustomEmailTemplateWidgetState extends State<CustomEmailTemplateWidget> {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 40,
+              width: double.infinity,
             ),
             SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
               child: Row(
                 children: List.generate(
                     widget.valuePlaceHolder.length,
@@ -119,14 +116,14 @@ class _CustomEmailTemplateWidgetState extends State<CustomEmailTemplateWidget> {
                               if (_subjectNode.hasFocus) {
                                 _subjectController.text =
                                     _subjectController.text +
-                                        _templateValue[index];
+                                        widget.valuePlaceHolder[index];
                                 _subjectController.selection =
                                     TextSelection.fromPosition(TextPosition(
                                         offset:
                                             _subjectController.text.length));
                               } else if (_bodyNode.hasFocus) {
                                 _bodyController.text = _bodyController.text +
-                                    _templateValue[index];
+                                    widget.valuePlaceHolder[index];
                                 _bodyController.selection =
                                     TextSelection.fromPosition(TextPosition(
                                         offset: _bodyController.text.length));

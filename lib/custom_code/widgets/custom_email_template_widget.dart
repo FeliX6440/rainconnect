@@ -116,14 +116,16 @@ class _CustomEmailTemplateWidgetState extends State<CustomEmailTemplateWidget> {
                               if (_subjectNode.hasFocus) {
                                 _subjectController.text =
                                     _subjectController.text +
-                                        widget.valuePlaceHolder[index];
+                                        widget.valuePlaceHolder[index] +
+                                        ' ';
                                 _subjectController.selection =
                                     TextSelection.fromPosition(TextPosition(
                                         offset:
                                             _subjectController.text.length));
                               } else if (_bodyNode.hasFocus) {
                                 _bodyController.text = _bodyController.text +
-                                    widget.valuePlaceHolder[index];
+                                    widget.valuePlaceHolder[index] +
+                                    ' ';
                                 _bodyController.selection =
                                     TextSelection.fromPosition(TextPosition(
                                         offset: _bodyController.text.length));

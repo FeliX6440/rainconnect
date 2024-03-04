@@ -75,6 +75,11 @@ class TeamsRecord extends FirestoreRecord {
   double get memberLimit => _memberLimit ?? 0.0;
   bool hasMemberLimit() => _memberLimit != null;
 
+  // "lead_location" field.
+  String? _leadLocation;
+  String get leadLocation => _leadLocation ?? '';
+  bool hasLeadLocation() => _leadLocation != null;
+
   void _initializeFields() {
     _creatorRef = snapshotData['creator_ref'] as DocumentReference?;
     _members = getDataList(snapshotData['members']);
@@ -88,6 +93,7 @@ class TeamsRecord extends FirestoreRecord {
     _boughtComponents = getDataList(snapshotData['bought_components']);
     _templateMode = snapshotData['template_mode'] as bool?;
     _memberLimit = castToType<double>(snapshotData['member_limit']);
+    _leadLocation = snapshotData['lead_location'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -132,6 +138,7 @@ Map<String, dynamic> createTeamsRecordData({
   int? componentLimit,
   bool? templateMode,
   double? memberLimit,
+  String? leadLocation,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -143,6 +150,7 @@ Map<String, dynamic> createTeamsRecordData({
       'component_limit': componentLimit,
       'template_mode': templateMode,
       'member_limit': memberLimit,
+      'lead_location': leadLocation,
     }.withoutNulls,
   );
 
@@ -166,7 +174,8 @@ class TeamsRecordDocumentEquality implements Equality<TeamsRecord> {
         e1?.componentLimit == e2?.componentLimit &&
         listEquality.equals(e1?.boughtComponents, e2?.boughtComponents) &&
         e1?.templateMode == e2?.templateMode &&
-        e1?.memberLimit == e2?.memberLimit;
+        e1?.memberLimit == e2?.memberLimit &&
+        e1?.leadLocation == e2?.leadLocation;
   }
 
   @override
@@ -182,7 +191,8 @@ class TeamsRecordDocumentEquality implements Equality<TeamsRecord> {
         e?.componentLimit,
         e?.boughtComponents,
         e?.templateMode,
-        e?.memberLimit
+        e?.memberLimit,
+        e?.leadLocation
       ]);
 
   @override

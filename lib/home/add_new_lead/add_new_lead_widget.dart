@@ -4,15 +4,12 @@ import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/backend/schema/enums/enums.dart';
 import '/components/tile_component/tile_component_widget.dart';
-import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -43,12 +40,6 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AddNewLeadModel());
-
-    _model.encounterFieldController ??= TextEditingController(
-        text: FFAppState().salesPersonContent != ''
-            ? FFAppState().salesPersonContent
-            : ' ');
-    _model.encounterFieldFocusNode ??= FocusNode();
 
     _model.firstNameController ??= TextEditingController();
     _model.firstNameFocusNode ??= FocusNode();
@@ -146,10 +137,6 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                     setState(() {
                       _model.firstNameController?.text =
                           _model.previouseLeadDoc!.firstName;
-                    });
-                    setState(() {
-                      _model.industryDropdownValueController?.value =
-                          _model.previouseLeadDoc!.industry;
                     });
                     setState(() {
                       _model.lastNameController?.text =
@@ -280,151 +267,6 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 5.0),
-                          child: Text(
-                            'Location',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Manrope',
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          ),
-                        ),
-                        if (widget.teamDoc?.admins
-                                .contains(currentUserReference) ??
-                            true)
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 30.0),
-                            child: Builder(
-                              builder: (context) {
-                                if (widget.isIndustryMode ?? false) {
-                                  return FlutterFlowDropDown<String>(
-                                    controller: _model
-                                            .industryDropdownValueController ??=
-                                        FormFieldController<String>(
-                                      _model
-                                          .industryDropdownValue ??= FFAppState()
-                                                      .selectedIndustrialFair !=
-                                                  ''
-                                          ? FFAppState().selectedIndustrialFair
-                                          : ' ',
-                                    ),
-                                    options: FFAppState()
-                                            .industryFairContent
-                                            .isNotEmpty
-                                        ? FFAppState().industryFairContent
-                                        : [],
-                                    onChanged: (val) async {
-                                      setState(() =>
-                                          _model.industryDropdownValue = val);
-                                      setState(() {
-                                        FFAppState().selectedIndustrialFair =
-                                            _model.industryDropdownValue!;
-                                      });
-                                    },
-                                    width: double.infinity,
-                                    height: 50.0,
-                                    textStyle:
-                                        FlutterFlowTheme.of(context).bodyMedium,
-                                    hintText: 'Please select...',
-                                    icon: Icon(
-                                      Icons.keyboard_arrow_down_rounded,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      size: 24.0,
-                                    ),
-                                    fillColor: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    elevation: 2.0,
-                                    borderColor:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    borderWidth: 2.0,
-                                    borderRadius: 8.0,
-                                    margin: const EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 4.0, 16.0, 4.0),
-                                    hidesUnderline: true,
-                                    isOverButton: true,
-                                    isSearchable: false,
-                                    isMultiSelect: false,
-                                  );
-                                } else {
-                                  return TextFormField(
-                                    controller: _model.encounterFieldController,
-                                    focusNode: _model.encounterFieldFocusNode,
-                                    onChanged: (_) => EasyDebounce.debounce(
-                                      '_model.encounterFieldController',
-                                      const Duration(milliseconds: 2000),
-                                      () async {
-                                        setState(() {
-                                          FFAppState().salesPersonContent =
-                                              _model.encounterFieldController
-                                                  .text;
-                                        });
-                                      },
-                                    ),
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      labelStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium,
-                                      hintText: 'Place of encounter',
-                                      hintStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily: 'Manrope',
-                                            fontSize: 14.0,
-                                          ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                          width: 2.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                          width: 2.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 2.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 2.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                    ),
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyMedium,
-                                    validator: _model
-                                        .encounterFieldControllerValidator
-                                        .asValidator(context),
-                                  );
-                                }
-                              },
-                            ),
-                          ),
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 20.0),
@@ -1959,51 +1801,6 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       },
                                     ),
                                   }, leadsRecordReference);
-                                  if (widget.isIndustryMode!) {
-                                    await ComponentContentRecord.collection
-                                        .doc()
-                                        .set({
-                                      ...createComponentContentRecordData(
-                                        leadRef: _model.leadResponse?.reference,
-                                        type: ComponentType.industrialFair,
-                                        content: _model.industryDropdownValue,
-                                      ),
-                                      ...mapToFirestore(
-                                        {
-                                          'created_at':
-                                              FieldValue.serverTimestamp(),
-                                        },
-                                      ),
-                                    });
-
-                                    await _model.leadResponse!.reference
-                                        .update(createLeadsRecordData(
-                                      mode: TemplateMode.industry,
-                                    ));
-                                  } else {
-                                    await ComponentContentRecord.collection
-                                        .doc()
-                                        .set({
-                                      ...createComponentContentRecordData(
-                                        leadRef: _model.leadResponse?.reference,
-                                        type: ComponentType.placeOfEncounter,
-                                        content: _model
-                                            .encounterFieldController.text,
-                                      ),
-                                      ...mapToFirestore(
-                                        {
-                                          'created_at':
-                                              FieldValue.serverTimestamp(),
-                                        },
-                                      ),
-                                    });
-
-                                    await _model.leadResponse!.reference
-                                        .update(createLeadsRecordData(
-                                      mode: TemplateMode.salesPerson,
-                                    ));
-                                  }
-
                                   await _model.pageViewController?.nextPage(
                                     duration: const Duration(milliseconds: 300),
                                     curve: Curves.ease,
@@ -2132,6 +1929,22 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                 15.0, 0.0, 15.0, 30.0),
                             child: FFButtonWidget(
                               onPressed: () async {
+                                await ComponentContentRecord.collection
+                                    .doc()
+                                    .set({
+                                  ...createComponentContentRecordData(
+                                    leadRef: _model.leadResponse?.reference,
+                                    type: ComponentType.placeOfEncounter,
+                                    content: widget.teamDoc?.leadLocation,
+                                  ),
+                                  ...mapToFirestore(
+                                    {
+                                      'created_at':
+                                          FieldValue.serverTimestamp(),
+                                    },
+                                  ),
+                                });
+
                                 context.goNamed('HomePage');
                               },
                               text: 'Done',

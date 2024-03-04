@@ -1,11 +1,9 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -53,6 +51,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => HomePageModel());
+
+    _model.locationFieldController ??= TextEditingController();
+    _model.locationFieldFocusNode ??= FocusNode();
 
     setupAnimations(
       animationsMap.values.where((anim) =>
@@ -1234,166 +1235,12 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                               padding:
                                                                   const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          8.0,
-                                                                          12.0,
-                                                                          8.0,
-                                                                          0.0),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  Padding(
-                                                                    padding: const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            12.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    child: Text(
-                                                                      homePageTeamsRecord.templateMode
-                                                                          ? 'Trade fair'
-                                                                          : 'Salesperson Mode',
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyLarge,
-                                                                    ),
-                                                                  ),
-                                                                  Switch
-                                                                      .adaptive(
-                                                                    value: _model
-                                                                            .switchValue ??=
-                                                                        homePageTeamsRecord.templateMode,
-                                                                    onChanged:
-                                                                        (newValue) async {
-                                                                      setState(() =>
-                                                                          _model.switchValue =
-                                                                              newValue);
-                                                                      if (newValue) {
-                                                                        await homePageTeamsRecord.reference
-                                                                            .update(createTeamsRecordData(
-                                                                          templateMode:
-                                                                              true,
-                                                                        ));
-
-                                                                        await TeamComponentsRecord.createDoc(homePageTeamsRecord.reference)
-                                                                            .set({
-                                                                          ...createTeamComponentsRecordData(
-                                                                            name:
-                                                                                'Industrial Fair',
-                                                                            isStarter:
-                                                                                true,
-                                                                            type:
-                                                                                ComponentType.industrialFair,
-                                                                            isCustom:
-                                                                                true,
-                                                                          ),
-                                                                          ...mapToFirestore(
-                                                                            {
-                                                                              'added_at': FieldValue.serverTimestamp(),
-                                                                            },
-                                                                          ),
-                                                                        });
-                                                                        _model.encounterDocs =
-                                                                            await queryTeamComponentsRecordOnce(
-                                                                          parent:
-                                                                              homePageTeamsRecord.reference,
-                                                                          queryBuilder: (teamComponentsRecord) =>
-                                                                              teamComponentsRecord.where(
-                                                                            'type',
-                                                                            isEqualTo:
-                                                                                ComponentType.placeOfEncounter.serialize(),
-                                                                          ),
-                                                                        );
-                                                                        await actions
-                                                                            .deleteComponentDocs(
-                                                                          _model
-                                                                              .encounterDocs!
-                                                                              .toList(),
-                                                                          homePageTeamsRecord.reference,
-                                                                        );
-
-                                                                        setState(
-                                                                            () {});
-                                                                      } else {
-                                                                        await homePageTeamsRecord.reference
-                                                                            .update(createTeamsRecordData(
-                                                                          templateMode:
-                                                                              false,
-                                                                        ));
-
-                                                                        await TeamComponentsRecord.createDoc(homePageTeamsRecord.reference)
-                                                                            .set({
-                                                                          ...createTeamComponentsRecordData(
-                                                                            name:
-                                                                                'Place Of Encounter',
-                                                                            isStarter:
-                                                                                true,
-                                                                            type:
-                                                                                ComponentType.placeOfEncounter,
-                                                                            isCustom:
-                                                                                false,
-                                                                          ),
-                                                                          ...mapToFirestore(
-                                                                            {
-                                                                              'added_at': FieldValue.serverTimestamp(),
-                                                                            },
-                                                                          ),
-                                                                        });
-                                                                        _model.industryDocs =
-                                                                            await queryTeamComponentsRecordOnce(
-                                                                          parent:
-                                                                              homePageTeamsRecord.reference,
-                                                                          queryBuilder: (teamComponentsRecord) =>
-                                                                              teamComponentsRecord.where(
-                                                                            'type',
-                                                                            isEqualTo:
-                                                                                ComponentType.industrialFair.serialize(),
-                                                                          ),
-                                                                        );
-                                                                        await actions
-                                                                            .deleteComponentDocs(
-                                                                          _model
-                                                                              .industryDocs!
-                                                                              .toList(),
-                                                                          homePageTeamsRecord.reference,
-                                                                        );
-
-                                                                        setState(
-                                                                            () {});
-                                                                      }
-                                                                    },
-                                                                    activeColor:
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .primary,
-                                                                    activeTrackColor:
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .accent1,
-                                                                    inactiveTrackColor:
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .alternate,
-                                                                    inactiveThumbColor:
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .secondaryText,
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
                                                                           20.0,
-                                                                          0.0,
                                                                           20.0,
-                                                                          20.0),
+                                                                          20.0,
+                                                                          10.0),
                                                               child: Text(
-                                                                homePageTeamsRecord.templateMode
-                                                                    ? 'Fair selection via dropdown - add fairs in the components tab'
-                                                                    : 'Field to specify encounter location',
+                                                                'Enter a location for all users',
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
@@ -1401,10 +1248,200 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                       fontFamily:
                                                                           'Manrope',
                                                                       fontSize:
-                                                                          12.0,
+                                                                          18.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
                                                                     ),
                                                               ),
                                                             ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          15.0,
+                                                                          0.0,
+                                                                          15.0,
+                                                                          20.0),
+                                                              child:
+                                                                  TextFormField(
+                                                                controller: _model
+                                                                    .locationFieldController,
+                                                                focusNode: _model
+                                                                    .locationFieldFocusNode,
+                                                                autofocus: true,
+                                                                obscureText:
+                                                                    false,
+                                                                decoration:
+                                                                    InputDecoration(
+                                                                  labelStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium,
+                                                                  hintText:
+                                                                      'Enter location',
+                                                                  hintStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium,
+                                                                  enabledBorder:
+                                                                      OutlineInputBorder(
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .alternate,
+                                                                      width:
+                                                                          2.0,
+                                                                    ),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            8.0),
+                                                                  ),
+                                                                  focusedBorder:
+                                                                      OutlineInputBorder(
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primary,
+                                                                      width:
+                                                                          2.0,
+                                                                    ),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            8.0),
+                                                                  ),
+                                                                  errorBorder:
+                                                                      OutlineInputBorder(
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .error,
+                                                                      width:
+                                                                          2.0,
+                                                                    ),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            8.0),
+                                                                  ),
+                                                                  focusedErrorBorder:
+                                                                      OutlineInputBorder(
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .error,
+                                                                      width:
+                                                                          2.0,
+                                                                    ),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            8.0),
+                                                                  ),
+                                                                ),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium,
+                                                                validator: _model
+                                                                    .locationFieldControllerValidator
+                                                                    .asValidator(
+                                                                        context),
+                                                              ),
+                                                            ),
+                                                            if ((_model
+                                                                    .locationFieldFocusNode
+                                                                    ?.hasFocus ??
+                                                                false))
+                                                              Padding(
+                                                                padding: const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        15.0,
+                                                                        0.0,
+                                                                        15.0,
+                                                                        30.0),
+                                                                child:
+                                                                    FFButtonWidget(
+                                                                  onPressed:
+                                                                      () async {
+                                                                    await homePageTeamsRecord.reference
+                                                                        .update(
+                                                                            createTeamsRecordData(
+                                                                      leadLocation: _model
+                                                                          .locationFieldController
+                                                                          .text,
+                                                                    ));
+                                                                    setState(
+                                                                        () {
+                                                                      _model
+                                                                          .locationFieldController
+                                                                          ?.clear();
+                                                                    });
+                                                                    ScaffoldMessenger.of(
+                                                                            context)
+                                                                        .showSnackBar(
+                                                                      SnackBar(
+                                                                        content:
+                                                                            Text(
+                                                                          'Location is saved',
+                                                                          style:
+                                                                              TextStyle(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                          ),
+                                                                        ),
+                                                                        duration:
+                                                                            const Duration(milliseconds: 4000),
+                                                                        backgroundColor:
+                                                                            FlutterFlowTheme.of(context).secondary,
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                  text: 'Save',
+                                                                  options:
+                                                                      FFButtonOptions(
+                                                                    width: double
+                                                                        .infinity,
+                                                                    height:
+                                                                        40.0,
+                                                                    padding: const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            24.0,
+                                                                            0.0,
+                                                                            24.0,
+                                                                            0.0),
+                                                                    iconPadding:
+                                                                        const EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary,
+                                                                    textStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleSmall
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Manrope',
+                                                                          color:
+                                                                              Colors.white,
+                                                                        ),
+                                                                    elevation:
+                                                                        3.0,
+                                                                    borderSide:
+                                                                        const BorderSide(
+                                                                      color: Colors
+                                                                          .transparent,
+                                                                      width:
+                                                                          1.0,
+                                                                    ),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            8.0),
+                                                                  ),
+                                                                ),
+                                                              ),
                                                           ],
                                                         ),
                                                       ),

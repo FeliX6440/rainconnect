@@ -805,22 +805,6 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                                   ),
                                 });
 
-                                await TeamComponentsRecord.createDoc(
-                                        _model.newTeamDoc!.reference)
-                                    .set({
-                                  ...createTeamComponentsRecordData(
-                                    name: 'Place Of Encounter',
-                                    isStarter: true,
-                                    type: ComponentType.placeOfEncounter,
-                                    isCustom: false,
-                                  ),
-                                  ...mapToFirestore(
-                                    {
-                                      'added_at': FieldValue.serverTimestamp(),
-                                    },
-                                  ),
-                                });
-
                                 await currentUserReference!.update({
                                   ...createUsersRecordData(
                                     displayName: _model.fullNameController.text,

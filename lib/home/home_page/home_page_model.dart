@@ -1,4 +1,3 @@
-import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'home_page_widget.dart' show HomePageWidget;
 import 'package:flutter/material.dart';
@@ -23,12 +22,10 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   bool mouseRegionHovered7 = false;
   // State field(s) for MouseRegion widget.
   bool mouseRegionHovered8 = false;
-  // State field(s) for Switch widget.
-  bool? switchValue;
-  // Stores action output result for [Firestore Query - Query a collection] action in Switch widget.
-  List<TeamComponentsRecord>? encounterDocs;
-  // Stores action output result for [Firestore Query - Query a collection] action in Switch widget.
-  List<TeamComponentsRecord>? industryDocs;
+  // State field(s) for locationField widget.
+  FocusNode? locationFieldFocusNode;
+  TextEditingController? locationFieldController;
+  String? Function(BuildContext, String?)? locationFieldControllerValidator;
 
   /// Initialization and disposal methods.
 
@@ -38,6 +35,8 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   @override
   void dispose() {
     unfocusNode.dispose();
+    locationFieldFocusNode?.dispose();
+    locationFieldController?.dispose();
   }
 
   /// Action blocks are added here.

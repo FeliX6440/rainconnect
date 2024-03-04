@@ -294,129 +294,137 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                 ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 30.0),
-                          child: Builder(
-                            builder: (context) {
-                              if (widget.isIndustryMode ?? false) {
-                                return FlutterFlowDropDown<String>(
-                                  controller:
-                                      _model.industryDropdownValueController ??=
-                                          FormFieldController<String>(
-                                    _model
-                                        .industryDropdownValue ??= FFAppState()
-                                                    .selectedIndustrialFair !=
-                                                ''
-                                        ? FFAppState().selectedIndustrialFair
-                                        : ' ',
-                                  ),
-                                  options: FFAppState()
-                                          .industryFairContent
-                                          .isNotEmpty
-                                      ? FFAppState().industryFairContent
-                                      : [],
-                                  onChanged: (val) async {
-                                    setState(() =>
-                                        _model.industryDropdownValue = val);
-                                    setState(() {
-                                      FFAppState().selectedIndustrialFair =
-                                          _model.industryDropdownValue!;
-                                    });
-                                  },
-                                  width: double.infinity,
-                                  height: 50.0,
-                                  textStyle:
-                                      FlutterFlowTheme.of(context).bodyMedium,
-                                  hintText: 'Please select...',
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down_rounded,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 24.0,
-                                  ),
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  elevation: 2.0,
-                                  borderColor:
-                                      FlutterFlowTheme.of(context).alternate,
-                                  borderWidth: 2.0,
-                                  borderRadius: 8.0,
-                                  margin: const EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 4.0, 16.0, 4.0),
-                                  hidesUnderline: true,
-                                  isOverButton: true,
-                                  isSearchable: false,
-                                  isMultiSelect: false,
-                                );
-                              } else {
-                                return TextFormField(
-                                  controller: _model.encounterFieldController,
-                                  focusNode: _model.encounterFieldFocusNode,
-                                  onChanged: (_) => EasyDebounce.debounce(
-                                    '_model.encounterFieldController',
-                                    const Duration(milliseconds: 2000),
-                                    () async {
+                        if (widget.teamDoc?.admins
+                                .contains(currentUserReference) ??
+                            true)
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 30.0),
+                            child: Builder(
+                              builder: (context) {
+                                if (widget.isIndustryMode ?? false) {
+                                  return FlutterFlowDropDown<String>(
+                                    controller: _model
+                                            .industryDropdownValueController ??=
+                                        FormFieldController<String>(
+                                      _model
+                                          .industryDropdownValue ??= FFAppState()
+                                                      .selectedIndustrialFair !=
+                                                  ''
+                                          ? FFAppState().selectedIndustrialFair
+                                          : ' ',
+                                    ),
+                                    options: FFAppState()
+                                            .industryFairContent
+                                            .isNotEmpty
+                                        ? FFAppState().industryFairContent
+                                        : [],
+                                    onChanged: (val) async {
+                                      setState(() =>
+                                          _model.industryDropdownValue = val);
                                       setState(() {
-                                        FFAppState().salesPersonContent = _model
-                                            .encounterFieldController.text;
+                                        FFAppState().selectedIndustrialFair =
+                                            _model.industryDropdownValue!;
                                       });
                                     },
-                                  ),
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
-                                    hintText: 'Place of encounter',
-                                    hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          fontFamily: 'Manrope',
-                                          fontSize: 14.0,
+                                    width: double.infinity,
+                                    height: 50.0,
+                                    textStyle:
+                                        FlutterFlowTheme.of(context).bodyMedium,
+                                    hintText: 'Please select...',
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      size: 24.0,
+                                    ),
+                                    fillColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    elevation: 2.0,
+                                    borderColor:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    borderWidth: 2.0,
+                                    borderRadius: 8.0,
+                                    margin: const EdgeInsetsDirectional.fromSTEB(
+                                        16.0, 4.0, 16.0, 4.0),
+                                    hidesUnderline: true,
+                                    isOverButton: true,
+                                    isSearchable: false,
+                                    isMultiSelect: false,
+                                  );
+                                } else {
+                                  return TextFormField(
+                                    controller: _model.encounterFieldController,
+                                    focusNode: _model.encounterFieldFocusNode,
+                                    onChanged: (_) => EasyDebounce.debounce(
+                                      '_model.encounterFieldController',
+                                      const Duration(milliseconds: 2000),
+                                      () async {
+                                        setState(() {
+                                          FFAppState().salesPersonContent =
+                                              _model.encounterFieldController
+                                                  .text;
+                                        });
+                                      },
+                                    ),
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium,
+                                      hintText: 'Place of encounter',
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'Manrope',
+                                            fontSize: 14.0,
+                                          ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                          width: 2.0,
                                         ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate,
-                                        width: 2.0,
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
                                       ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        width: 2.0,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
                                       ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        width: 2.0,
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
                                       ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        width: 2.0,
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
                                       ),
-                                      borderRadius: BorderRadius.circular(8.0),
                                     ),
-                                  ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
-                                  validator: _model
-                                      .encounterFieldControllerValidator
-                                      .asValidator(context),
-                                );
-                              }
-                            },
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyMedium,
+                                    validator: _model
+                                        .encounterFieldControllerValidator
+                                        .asValidator(context),
+                                  );
+                                }
+                              },
+                            ),
                           ),
-                        ),
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 20.0),

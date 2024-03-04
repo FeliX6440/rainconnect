@@ -15,26 +15,25 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:csv/csv.dart';
+import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 
 Future<void> exportLeadsDocsAsCSV(
-  BuildContext context,
-  List<LeadsRecord> leadDocs,
-) async {
-  final fireStore = FirebaseFirestore.instance;
-  List<List<dynamic>> rows = [
+    BuildContext context, List<LeadsRecord> leadDocs) async {
+  final firestore = FirebaseFirestore.instance;
+  final rows = [
     [
-      'first name',
-      'last name',
-      'email',
-      'gender',
-      'phone',
-      'company',
-      'city',
-      'country',
-      'language',
-      'industry',
-      'speech to text',
-      'note',
+      'First Name',
+      'Last Name',
+      'Email',
+      'Gender',
+      'Phone',
+      'Company',
+      'City',
+      'Country',
+      'Language',
+      'Industry',
+      'Speech to Text',
+      'Note',
       'Temperature',
       'Dropdown',
       'TextField',
@@ -44,19 +43,13 @@ Future<void> exportLeadsDocsAsCSV(
   ];
 
   for (final leadData in leadDocs) {
-    List<Map<String, dynamic>> componentContentDocs = [];
-    try {
-      final componentContentQuery = await fireStore
-          .collection('component_content')
-          .where('lead_ref', isEqualTo: leadData.reference);
-      componentContentDocs = await componentContentQuery
-          .get()
-          .then((value) => value.docs.map((e) => e.data()).toList());
-    } catch (e) {
-      print(e.toString());
-    }
+    final componentContentQuery = await firestore
+        .collection('component_content')
+        .where('lead_ref', isEqualTo: leadData.reference);
+    final componentContentDocs = await componentContentQuery
+        .get()
+        .then((value) => value.docs.map((e) => e.data()).toList());
 
-    // // Check if the query result is empty before accessing .first
     String speechToTextContent = '';
     String noteContent = '';
     String temperatureContent = '';
@@ -66,50 +59,22 @@ Future<void> exportLeadsDocsAsCSV(
     String multipleChoiceContent = '';
 
     if (componentContentDocs.isNotEmpty) {
-      List<Map<String, dynamic>> speech = componentContentDocs
-          .where(
-              (element) => element['type'] == ComponentType.SpeechToText.name)
-          .toList();
-
-      speechToTextContent = speech.isEmpty ? '' : speech.first['content'] ?? '';
-
-      List<Map<String, dynamic>> temp = componentContentDocs
-          .where((element) => element['type'] == ComponentType.Temperature.name)
-          .toList();
-
-      temperatureContent = temp.isEmpty ? '' : temp.first['content'] ?? '';
-
-      List<Map<String, dynamic>> dropdown = componentContentDocs
-          .where((element) => element['type'] == ComponentType.Dropdown.name)
-          .toList();
-
-      dropdownContent = dropdown.isEmpty ? '' : dropdown.first['content'] ?? '';
-
-      List<Map<String, dynamic>> textField = componentContentDocs
-          .where((element) => element['type'] == ComponentType.TextField.name)
-          .toList();
-
+      speechToTextContent =
+          _getContent(componentContentDocs, ComponentType.SpeechToText);
+      noteContent = _getContent(componentContentDocs, ComponentType.Note);
+      temperatureContent =
+          _getContent(componentContentDocs, ComponentType.Temperature);
+      dropdownContent =
+          _getContent(componentContentDocs, ComponentType.Dropdown);
       textFieldContent =
-          textField.isEmpty ? '' : textField.first['content'] ?? '';
-
-      List<Map<String, dynamic>> industrialFair = componentContentDocs
-          .where(
-              (element) => element['type'] == ComponentType.industrialFair.name)
-          .toList();
-
+          _getContent(componentContentDocs, ComponentType.TextField);
       industrialFairContent =
-          industrialFair.isEmpty ? '' : industrialFair.first['content'] ?? '';
-
-      List<Map<String, dynamic>> multipleChoice = componentContentDocs
-          .where(
-              (element) => element['type'] == ComponentType.MultipleChoice.name)
-          .toList();
-
+          _getContent(componentContentDocs, ComponentType.industrialFair);
       multipleChoiceContent =
-          multipleChoice.isEmpty ? '' : multipleChoice.first['content'] ?? '';
+          _getContent(componentContentDocs, ComponentType.MultipleChoice);
     }
 
-    List<dynamic> leadRow = [
+    final leadRow = [
       leadData.firstName ?? '',
       leadData.lastName ?? '',
       leadData.email ?? '',
@@ -132,13 +97,38 @@ Future<void> exportLeadsDocsAsCSV(
     rows.add(leadRow);
   }
 
-  String csv = const ListToCsvConverter().convert(rows);
-  final String dir = (await getApplicationDocumentsDirectory()).path;
-  final String path = '$dir/leads.csv';
-  final File file = File(path);
-  await file.writeAsString(csv);
+  final csv = const ListToCsvConverter().convert(rows);
+
+  final pickedDirectory = await FlutterFileDialog.pickDirectory();
+
+  if (pickedDirectory != null) {
+    final filePath = await _saveFile(csv, pickedDirectory);
+    print(filePath);
+  }
 
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(content: Text('CSV file exported successfully')),
+  );
+}
+
+String _getContent(
+    List<Map<String, dynamic>> componentContentDocs, ComponentType type) {
+  final content = componentContentDocs
+      .where((element) => element['type'] == type.name)
+      .toList();
+  return content.isEmpty ? '' : content.first['content'] ?? '';
+}
+
+Future<String?> _saveFile(String csv, DirectoryLocation pickedDirectory) async {
+  final filePath = await getDownloadsDirectory();
+  if (filePath == null) return null;
+  final path = '${filePath.path!}/leads.csv';
+  final leadFile = File(path);
+  return await FlutterFileDialog.saveFileToDirectory(
+    directory: pickedDirectory,
+    data: leadFile.readAsBytesSync(),
+    mimeType: "leads/csv",
+    fileName: "leads.csv",
+    replace: true,
   );
 }

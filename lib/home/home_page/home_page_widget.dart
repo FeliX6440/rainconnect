@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -1269,7 +1270,22 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                     .locationFieldController,
                                                                 focusNode: _model
                                                                     .locationFieldFocusNode,
-                                                                autofocus: true,
+                                                                onChanged: (_) =>
+                                                                    EasyDebounce
+                                                                        .debounce(
+                                                                  '_model.locationFieldController',
+                                                                  const Duration(
+                                                                      milliseconds:
+                                                                          2000),
+                                                                  () async {
+                                                                    setState(
+                                                                        () {
+                                                                      _model.resetState = _model
+                                                                          .locationFieldController
+                                                                          .text;
+                                                                    });
+                                                                  },
+                                                                ),
                                                                 obscureText:
                                                                     false,
                                                                 decoration:

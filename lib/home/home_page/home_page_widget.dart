@@ -1348,10 +1348,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                         context),
                                                               ),
                                                             ),
-                                                            if ((_model
-                                                                    .locationFieldFocusNode
-                                                                    ?.hasFocus ??
-                                                                false))
+                                                            if (_model.locationFieldController
+                                                                        .text !=
+                                                                    '')
                                                               Padding(
                                                                 padding: const EdgeInsetsDirectional
                                                                     .fromSTEB(

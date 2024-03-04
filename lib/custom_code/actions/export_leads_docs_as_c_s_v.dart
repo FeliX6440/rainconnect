@@ -120,10 +120,13 @@ String _getContent(
 }
 
 Future<String?> _saveFile(String csv, DirectoryLocation pickedDirectory) async {
-  final filePath = await getDownloadsDirectory();
-  if (filePath == null) return null;
-  final path = '${filePath.path!}/leads.csv';
+  final filePath = await getApplicationDocumentsDirectory();
+  if (filePath == null) {
+    return null;
+  }
+  final path = '${filePath.path}/leads.csv';
   final leadFile = File(path);
+  await leadFile.writeAsString(csv);
   return await FlutterFileDialog.saveFileToDirectory(
     directory: pickedDirectory,
     data: leadFile.readAsBytesSync(),

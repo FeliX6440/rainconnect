@@ -992,6 +992,16 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             .primaryText,
                                       ),
                                     ),
+                                    Text(
+                                      'Current location: ${homePageTeamsRecord.leadLocation}',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Manrope',
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -1241,7 +1251,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                           20.0,
                                                                           10.0),
                                                               child: Text(
-                                                                'Enter a location for all users',
+                                                                'Set/Change  location for all users',
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
@@ -1276,7 +1286,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                   '_model.locationFieldController',
                                                                   const Duration(
                                                                       milliseconds:
-                                                                          2000),
+                                                                          300),
                                                                   () async {
                                                                     setState(
                                                                         () {

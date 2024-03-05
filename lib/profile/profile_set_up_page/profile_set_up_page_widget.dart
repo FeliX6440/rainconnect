@@ -176,12 +176,13 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                                 size: 24.0,
                               ),
                               onPressed: () async {
-                                final selectedMedia = await selectMedia(
+                                final selectedMedia =
+                                    await selectMediaWithSourceBottomSheet(
+                                  context: context,
                                   maxWidth: 1000.00,
                                   maxHeight: 1000.00,
+                                  allowPhoto: true,
                                   includeBlurHash: true,
-                                  mediaSource: MediaSource.photoGallery,
-                                  multiImage: false,
                                 );
                                 if (selectedMedia != null &&
                                     selectedMedia.every((m) =>

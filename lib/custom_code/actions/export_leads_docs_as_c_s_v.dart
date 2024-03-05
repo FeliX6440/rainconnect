@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 import 'dart:io';
-
 import 'package:path_provider/path_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:csv/csv.dart';
@@ -39,6 +38,7 @@ Future<void> exportLeadsDocsAsCSV(
       'TextField',
       'Industrial Fair',
       'Multiple Choice',
+      'Place of encounter',
     ]
   ];
 
@@ -57,6 +57,7 @@ Future<void> exportLeadsDocsAsCSV(
     String textFieldContent = '';
     String industrialFairContent = '';
     String multipleChoiceContent = '';
+    String placeOfEncounterContent = '';
 
     if (componentContentDocs.isNotEmpty) {
       speechToTextContent =
@@ -72,6 +73,8 @@ Future<void> exportLeadsDocsAsCSV(
           _getContent(componentContentDocs, ComponentType.industrialFair);
       multipleChoiceContent =
           _getContent(componentContentDocs, ComponentType.MultipleChoice);
+      placeOfEncounterContent =
+          _getContent(componentContentDocs, ComponentType.placeOfEncounter);
     }
 
     final leadRow = [
@@ -92,6 +95,7 @@ Future<void> exportLeadsDocsAsCSV(
       textFieldContent,
       industrialFairContent,
       multipleChoiceContent,
+      placeOfEncounterContent
     ];
 
     rows.add(leadRow);

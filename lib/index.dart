@@ -30,8 +30,6 @@ export '/profile/manage_members/manage_members_widget.dart'
     show ManageMembersWidget;
 export '/checkoutcart_copy/checkoutcart_copy_widget.dart'
     show CheckoutcartCopyWidget;
-export '/profile/email_template_editor/email_template_editor_widget.dart'
-    show EmailTemplateEditorWidget;
 export '/profile/email_templates_list/email_templates_list_widget.dart'
     show EmailTemplatesListWidget;
 export '/marketplace/component_marketplace_list/component_marketplace_list_widget.dart'
@@ -40,5 +38,5 @@ export '/checkoutcart_copy_copy/checkoutcart_copy_copy_widget.dart'
     show CheckoutcartCopyCopyWidget;
 export '/profile/edit_profile_page/edit_profile_page_widget.dart'
     show EditProfilePageWidget;
-export '/profile/email_template_editor_copy/email_template_editor_copy_widget.dart'
-    show EmailTemplateEditorCopyWidget;
+export '/profile/email_template_editor/email_template_editor_widget.dart'
+    show EmailTemplateEditorWidget;

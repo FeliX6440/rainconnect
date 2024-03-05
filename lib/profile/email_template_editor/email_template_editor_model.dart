@@ -4,21 +4,37 @@ import 'package:flutter/material.dart';
 
 class EmailTemplateEditorModel
     extends FlutterFlowModel<EmailTemplateEditorWidget> {
+  ///  Local state fields for this page.
+
+  List<String> templateValues = [
+    '{email}',
+    '{first_name}',
+    '{last_name}',
+    '{city}',
+    '{country}',
+    '{gender}',
+    '{industry}',
+    '{language}',
+    '{phone}',
+    '{photoUrl}',
+    '{positionRole}',
+    '{street}',
+    '{website}',
+    '{zipCode}',
+    '{company}'
+  ];
+  void addToTemplateValues(String item) => templateValues.add(item);
+  void removeFromTemplateValues(String item) => templateValues.remove(item);
+  void removeAtIndexFromTemplateValues(int index) =>
+      templateValues.removeAt(index);
+  void insertAtIndexInTemplateValues(int index, String item) =>
+      templateValues.insert(index, item);
+  void updateTemplateValuesAtIndex(int index, Function(String) updateFn) =>
+      templateValues[index] = updateFn(templateValues[index]);
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode1;
-  TextEditingController? textController1;
-  String? Function(BuildContext, String?)? textController1Validator;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode2;
-  TextEditingController? textController2;
-  String? Function(BuildContext, String?)? textController2Validator;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode3;
-  TextEditingController? textController3;
-  String? Function(BuildContext, String?)? textController3Validator;
 
   /// Initialization and disposal methods.
 
@@ -28,14 +44,6 @@ class EmailTemplateEditorModel
   @override
   void dispose() {
     unfocusNode.dispose();
-    textFieldFocusNode1?.dispose();
-    textController1?.dispose();
-
-    textFieldFocusNode2?.dispose();
-    textController2?.dispose();
-
-    textFieldFocusNode3?.dispose();
-    textController3?.dispose();
   }
 
   /// Action blocks are added here.

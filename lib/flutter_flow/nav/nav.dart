@@ -235,11 +235,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const CheckoutcartCopyWidget(),
         ),
         FFRoute(
-          name: 'EmailTemplateEditor',
-          path: '/emailTemplateEditor',
-          builder: (context, params) => const EmailTemplateEditorWidget(),
-        ),
-        FFRoute(
           name: 'EmailTemplatesList',
           path: '/emailTemplatesList',
           builder: (context, params) => EmailTemplatesListWidget(
@@ -266,13 +261,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const EditProfilePageWidget(),
         ),
         FFRoute(
-          name: 'EmailTemplateEditorCopy',
-          path: '/emailTemplateEditorCopy',
+          name: 'EmailTemplateEditor',
+          path: '/emailTemplateEditor',
           asyncParams: {
             'emailTemp': getDoc(['teams', 'email_templates'],
                 EmailTemplatesRecord.fromSnapshot),
           },
-          builder: (context, params) => EmailTemplateEditorCopyWidget(
+          builder: (context, params) => EmailTemplateEditorWidget(
             teamDocRef: params.getParam(
                 'teamDocRef', ParamType.DocumentReference, false, ['teams']),
             emailTemp: params.getParam('emailTemp', ParamType.Document),

@@ -147,66 +147,91 @@ class _EmailTemplatesListWidgetState extends State<EmailTemplatesListWidget>
                           return Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 1.0),
-                            child: Container(
-                              width: 100.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                boxShadow: [
-                                  BoxShadow(
-                                    blurRadius: 0.0,
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    offset: const Offset(0.0, 1.0),
-                                  )
-                                ],
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    12.0, 0.0, 0.0, 0.0),
-                                            child: Text(
-                                              listViewEmailTemplatesRecord
-                                                  .subject,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.pushNamed(
+                                  'EmailTemplateEditor',
+                                  queryParameters: {
+                                    'teamDocRef': serializeParam(
+                                      widget.teamDocRef,
+                                      ParamType.DocumentReference,
                                     ),
-                                    Card(
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    'emailTemp': serializeParam(
+                                      listViewEmailTemplatesRecord,
+                                      ParamType.Document,
+                                    ),
+                                  }.withoutNulls,
+                                  extra: <String, dynamic>{
+                                    'emailTemp': listViewEmailTemplatesRecord,
+                                  },
+                                );
+                              },
+                              child: Container(
+                                width: 100.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 0.0,
                                       color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      elevation: 1.0,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(40.0),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Icon(
-                                          Icons.keyboard_arrow_right_rounded,
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          size: 24.0,
+                                          .alternate,
+                                      offset: const Offset(0.0, 1.0),
+                                    )
+                                  ],
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      12.0, 0.0, 0.0, 0.0),
+                                              child: Text(
+                                                listViewEmailTemplatesRecord
+                                                    .subject,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyLarge,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                      Card(
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
+                                        elevation: 1.0,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(40.0),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Icon(
+                                            Icons.keyboard_arrow_right_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 24.0,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -228,7 +253,7 @@ class _EmailTemplatesListWidgetState extends State<EmailTemplatesListWidget>
                       child: FFButtonWidget(
                         onPressed: () async {
                           context.pushNamed(
-                            'EmailTemplateEditorCopy',
+                            'EmailTemplateEditor',
                             queryParameters: {
                               'teamDocRef': serializeParam(
                                 widget.teamDocRef,

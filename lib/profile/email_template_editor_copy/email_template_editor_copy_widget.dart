@@ -15,9 +15,11 @@ class EmailTemplateEditorCopyWidget extends StatefulWidget {
   const EmailTemplateEditorCopyWidget({
     super.key,
     required this.teamDocRef,
+    this.emailTemp,
   });
 
   final DocumentReference? teamDocRef;
+  final EmailTemplatesRecord? emailTemp;
 
   @override
   State<EmailTemplateEditorCopyWidget> createState() =>
@@ -124,6 +126,7 @@ class _EmailTemplateEditorCopyWidgetState
                     width: double.infinity,
                     height: 400.0,
                     valuePlaceHolder: _model.templateValues,
+                    initialEmailTemplate: widget.emailTemp,
                   ),
                 ),
                 Padding(
@@ -170,19 +173,28 @@ class _EmailTemplateEditorCopyWidgetState
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 12.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      await EmailTemplatesRecord.createDoc(widget.teamDocRef!)
-                          .set({
-                        ...createEmailTemplatesRecordData(
+                      if (widget.emailTemp != null) {
+                        await widget.emailTemp!.reference
+                            .update(createEmailTemplatesRecordData(
                           subject: FFAppState().emailSubjectHolder,
                           body: FFAppState().emailBodyHolder,
-                        ),
-                        ...mapToFirestore(
-                          {
-                            'created_at': FieldValue.serverTimestamp(),
-                          },
-                        ),
-                      });
-                      context.safePop();
+                        ));
+                        context.safePop();
+                      } else {
+                        await EmailTemplatesRecord.createDoc(widget.teamDocRef!)
+                            .set({
+                          ...createEmailTemplatesRecordData(
+                            subject: FFAppState().emailSubjectHolder,
+                            body: FFAppState().emailBodyHolder,
+                          ),
+                          ...mapToFirestore(
+                            {
+                              'created_at': FieldValue.serverTimestamp(),
+                            },
+                          ),
+                        });
+                        context.safePop();
+                      }
                     },
                     text: 'Save Template',
                     options: FFButtonOptions(

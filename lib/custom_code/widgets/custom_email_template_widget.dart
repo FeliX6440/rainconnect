@@ -17,11 +17,13 @@ class CustomEmailTemplateWidget extends StatefulWidget {
     this.width,
     this.height,
     required this.valuePlaceHolder,
+    this.initialEmailTemplate,
   });
 
   final double? width;
   final double? height;
   final List<String> valuePlaceHolder;
+  final EmailTemplatesRecord? initialEmailTemplate;
 
   @override
   State<CustomEmailTemplateWidget> createState() =>

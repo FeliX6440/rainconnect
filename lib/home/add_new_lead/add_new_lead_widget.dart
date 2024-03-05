@@ -1748,7 +1748,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       lastName: _model.lastNameController.text,
                                       positionRole:
                                           _model.positionController.text,
-                                      gender: Gender.female.name,
+                                      gender: _model.genderMWController.text,
                                       language: _model.languageController.text,
                                       phone: _model.phoneController.text,
                                       website: _model.websiteController.text,
@@ -1779,7 +1779,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       lastName: _model.lastNameController.text,
                                       positionRole:
                                           _model.positionController.text,
-                                      gender: Gender.female.name,
+                                      gender: _model.genderMWController.text,
                                       language: _model.languageController.text,
                                       phone: _model.phoneController.text,
                                       website: _model.websiteController.text,

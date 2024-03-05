@@ -268,9 +268,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'EmailTemplateEditorCopy',
           path: '/emailTemplateEditorCopy',
+          asyncParams: {
+            'emailTemp': getDoc(['teams', 'email_templates'],
+                EmailTemplatesRecord.fromSnapshot),
+          },
           builder: (context, params) => EmailTemplateEditorCopyWidget(
             teamDocRef: params.getParam(
                 'teamDocRef', ParamType.DocumentReference, false, ['teams']),
+            emailTemp: params.getParam('emailTemp', ParamType.Document),
           ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),

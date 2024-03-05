@@ -1,12 +1,10 @@
 import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import 'email_template_editor_model.dart';
 export 'email_template_editor_model.dart';
@@ -26,45 +24,15 @@ class EmailTemplateEditorWidget extends StatefulWidget {
       _EmailTemplateEditorWidgetState();
 }
 
-class _EmailTemplateEditorWidgetState extends State<EmailTemplateEditorWidget>
-    with TickerProviderStateMixin {
+class _EmailTemplateEditorWidgetState extends State<EmailTemplateEditorWidget> {
   late EmailTemplateEditorModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  final animationsMap = {
-    'containerOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: const Offset(0.0, 110.0),
-          end: const Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-  };
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => EmailTemplateEditorModel());
-
-    setupAnimations(
-      animationsMap.values.where((anim) =>
-          anim.trigger == AnimationTrigger.onActionTrigger ||
-          !anim.applyInitialState),
-      this,
-    );
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -121,53 +89,13 @@ class _EmailTemplateEditorWidgetState extends State<EmailTemplateEditorWidget>
               children: [
                 SizedBox(
                   width: double.infinity,
-                  height: 400.0,
+                  height: 350.0,
                   child: custom_widgets.CustomEmailTemplateWidget(
                     width: double.infinity,
-                    height: 400.0,
+                    height: 350.0,
                     valuePlaceHolder: _model.templateValues,
                     initialEmailTemplate: widget.emailTemp,
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                  child: Container(
-                    width: double.infinity,
-                    constraints: const BoxConstraints(
-                      maxWidth: 500.0,
-                    ),
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      borderRadius: BorderRadius.circular(12.0),
-                      border: Border.all(
-                        color: FlutterFlowTheme.of(context).alternate,
-                        width: 2.0,
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Icon(
-                            Icons.attach_file,
-                            color: FlutterFlowTheme.of(context).primary,
-                            size: 32.0,
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                16.0, 0.0, 0.0, 0.0),
-                            child: Text(
-                              'Upload Attachment',
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.of(context).bodyMedium,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ).animateOnPageLoad(
-                      animationsMap['containerOnPageLoadAnimation']!),
                 ),
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 12.0),

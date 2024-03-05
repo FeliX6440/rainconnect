@@ -1736,6 +1736,16 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             .primaryText,
                                       ),
                                     ),
+                                    Text(
+                                      'Current location: ${homePageTeamsRecord.leadLocation}',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Manrope',
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    ),
                                   ],
                                 ),
                               ),

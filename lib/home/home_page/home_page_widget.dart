@@ -919,18 +919,19 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 ),
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(
-                                          10.0, 10.0, 0.0, 10.0),
+                                          0.0, 10.0, 0.0, 10.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,
                                         hoverColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
-                                          await launchURL('rainconnect.de');
+                                          await launchURL(
+                                              'https://rainconnect.de');
                                         },
                                         child: RichText(
                                           textScaleFactor:
@@ -977,6 +978,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   fontSize: 12.0,
                                                 ),
                                           ),
+                                          textAlign: TextAlign.center,
                                         ),
                                       ),
                                     ),

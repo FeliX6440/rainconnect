@@ -107,91 +107,96 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           automaticallyImplyLeading: false,
-          leading: Visibility(
-            visible: _model.pageIndex != 1,
-            child: FlutterFlowIconButton(
-              borderColor: Colors.transparent,
-              borderRadius: 30.0,
-              borderWidth: 1.0,
-              buttonSize: 60.0,
-              icon: Icon(
-                Icons.arrow_back_rounded,
-                color: FlutterFlowTheme.of(context).primaryText,
-                size: 30.0,
-              ),
-              onPressed: () async {
-                if (_model.pageIndex == 0) {
-                  context.safePop();
-                } else {
-                  await _model.pageViewController?.previousPage(
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.ease,
-                  );
-                  setState(() {
-                    _model.isPreviouse = true;
-                  });
-                  if ((_model.leadResponse?.reference != null) &&
-                      _model.isPreviouse) {
-                    _model.previouseLeadDoc = await LeadsRecord.getDocumentOnce(
-                        _model.leadResponse!.reference);
-                    setState(() {
-                      _model.firstNameController?.text =
-                          _model.previouseLeadDoc!.firstName;
-                    });
-                    setState(() {
-                      _model.lastNameController?.text =
-                          _model.previouseLeadDoc!.lastName;
-                    });
-                    setState(() {
-                      _model.positionController?.text =
-                          _model.previouseLeadDoc!.positionRole;
-                    });
-                    setState(() {
-                      _model.languageController?.text =
-                          _model.previouseLeadDoc!.language;
-                    });
-                    setState(() {
-                      _model.genderMWController?.text =
-                          _model.previouseLeadDoc!.gender;
-                    });
-                    setState(() {
-                      _model.phoneController?.text =
-                          _model.previouseLeadDoc!.phone;
-                    });
-                    setState(() {
-                      _model.emailController?.text =
-                          _model.previouseLeadDoc!.email;
-                    });
-                    setState(() {
-                      _model.websiteController?.text =
-                          _model.previouseLeadDoc!.website;
-                    });
-                    setState(() {
-                      _model.cityController?.text =
-                          _model.previouseLeadDoc!.city;
-                    });
-                    setState(() {
-                      _model.zipController?.text =
-                          _model.previouseLeadDoc!.zipCode;
-                    });
-                    setState(() {
-                      _model.streetandNumController?.text =
-                          _model.previouseLeadDoc!.street;
-                    });
-                    setState(() {
-                      _model.countryController?.text =
-                          _model.previouseLeadDoc!.country;
-                    });
-                    setState(() {
-                      _model.companyController?.text =
-                          _model.previouseLeadDoc!.company;
-                    });
-                  }
-                }
-
-                setState(() {});
-              },
+          leading: FlutterFlowIconButton(
+            borderColor: Colors.transparent,
+            borderRadius: 30.0,
+            borderWidth: 1.0,
+            buttonSize: 60.0,
+            icon: Icon(
+              Icons.arrow_back_rounded,
+              color: FlutterFlowTheme.of(context).primaryText,
+              size: 30.0,
             ),
+            onPressed: () async {
+              if (_model.pageIndex == 0) {
+                context.safePop();
+              } else if (_model.pageIndex == 1) {
+                await _model.pageViewController?.previousPage(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.ease,
+                );
+                if (_model.leadResponse?.reference != null) {
+                  await _model.leadResponse!.reference.delete();
+                  context.safePop();
+                }
+              } else {
+                await _model.pageViewController?.previousPage(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.ease,
+                );
+                setState(() {
+                  _model.isPreviouse = true;
+                });
+                if ((_model.leadResponse?.reference != null) &&
+                    _model.isPreviouse) {
+                  _model.previouseLeadDoc = await LeadsRecord.getDocumentOnce(
+                      _model.leadResponse!.reference);
+                  setState(() {
+                    _model.firstNameController?.text =
+                        _model.previouseLeadDoc!.firstName;
+                  });
+                  setState(() {
+                    _model.lastNameController?.text =
+                        _model.previouseLeadDoc!.lastName;
+                  });
+                  setState(() {
+                    _model.positionController?.text =
+                        _model.previouseLeadDoc!.positionRole;
+                  });
+                  setState(() {
+                    _model.languageController?.text =
+                        _model.previouseLeadDoc!.language;
+                  });
+                  setState(() {
+                    _model.genderMWController?.text =
+                        _model.previouseLeadDoc!.gender;
+                  });
+                  setState(() {
+                    _model.phoneController?.text =
+                        _model.previouseLeadDoc!.phone;
+                  });
+                  setState(() {
+                    _model.emailController?.text =
+                        _model.previouseLeadDoc!.email;
+                  });
+                  setState(() {
+                    _model.websiteController?.text =
+                        _model.previouseLeadDoc!.website;
+                  });
+                  setState(() {
+                    _model.cityController?.text = _model.previouseLeadDoc!.city;
+                  });
+                  setState(() {
+                    _model.zipController?.text =
+                        _model.previouseLeadDoc!.zipCode;
+                  });
+                  setState(() {
+                    _model.streetandNumController?.text =
+                        _model.previouseLeadDoc!.street;
+                  });
+                  setState(() {
+                    _model.countryController?.text =
+                        _model.previouseLeadDoc!.country;
+                  });
+                  setState(() {
+                    _model.companyController?.text =
+                        _model.previouseLeadDoc!.company;
+                  });
+                }
+              }
+
+              setState(() {});
+            },
           ),
           title: Text(
             'New Lead',

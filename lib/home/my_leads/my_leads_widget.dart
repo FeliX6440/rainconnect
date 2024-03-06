@@ -136,7 +136,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                         ),
                         obscureText: false,
                         decoration: InputDecoration(
-                          labelText: 'Search for patients...',
+                          labelText: 'Search for leads...',
                           labelStyle: FlutterFlowTheme.of(context).labelMedium,
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -229,7 +229,12 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                           int textCount = snapshot.data!;
                           return Text(
                             _model.simpleSearchResults.isNotEmpty
-                                ? _model.simpleSearchResults.length.toString()
+                                ? _model.simpleSearchResults
+                                    .where((e) =>
+                                        e.leadCollectedBy == widget.teamDocRef)
+                                    .toList()
+                                    .length
+                                    .toString()
                                 : textCount.toString(),
                             style: FlutterFlowTheme.of(context).bodyMedium,
                           );

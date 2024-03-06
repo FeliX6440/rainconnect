@@ -1475,38 +1475,63 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                     FFButtonWidget(
                                                                   onPressed:
                                                                       () async {
-                                                                    await homePageTeamsRecord.reference
-                                                                        .update(
-                                                                            createTeamsRecordData(
-                                                                      leadLocation: _model
-                                                                          .locationFieldController
-                                                                          .text,
-                                                                    ));
-                                                                    setState(
-                                                                        () {
-                                                                      _model
-                                                                          .locationFieldController
-                                                                          ?.clear();
-                                                                    });
-                                                                    ScaffoldMessenger.of(
-                                                                            context)
-                                                                        .showSnackBar(
-                                                                      SnackBar(
-                                                                        content:
-                                                                            Text(
-                                                                          'Location is saved',
-                                                                          style:
-                                                                              TextStyle(
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                    var confirmDialogResponse =
+                                                                        await showDialog<bool>(
+                                                                              context: context,
+                                                                              builder: (alertDialogContext) {
+                                                                                return AlertDialog(
+                                                                                  title: const Text('Change location'),
+                                                                                  content: const Text('Changing location will override the current location'),
+                                                                                  actions: [
+                                                                                    TextButton(
+                                                                                      onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                      child: const Text('Cancel'),
+                                                                                    ),
+                                                                                    TextButton(
+                                                                                      onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                      child: const Text('Confirm'),
+                                                                                    ),
+                                                                                  ],
+                                                                                );
+                                                                              },
+                                                                            ) ??
+                                                                            false;
+                                                                    if (confirmDialogResponse) {
+                                                                      await homePageTeamsRecord.reference
+                                                                          .update(
+                                                                              createTeamsRecordData(
+                                                                        leadLocation: _model
+                                                                            .locationFieldController
+                                                                            .text,
+                                                                      ));
+                                                                      setState(
+                                                                          () {
+                                                                        _model
+                                                                            .locationFieldController
+                                                                            ?.clear();
+                                                                      });
+                                                                      ScaffoldMessenger.of(
+                                                                              context)
+                                                                          .showSnackBar(
+                                                                        SnackBar(
+                                                                          content:
+                                                                              Text(
+                                                                            'Location is saved',
+                                                                            style:
+                                                                                TextStyle(
+                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                            ),
                                                                           ),
+                                                                          duration:
+                                                                              const Duration(milliseconds: 4000),
+                                                                          backgroundColor:
+                                                                              FlutterFlowTheme.of(context).secondary,
                                                                         ),
-                                                                        duration:
-                                                                            const Duration(milliseconds: 4000),
-                                                                        backgroundColor:
-                                                                            FlutterFlowTheme.of(context).secondary,
-                                                                      ),
-                                                                    );
+                                                                      );
+                                                                    } else {
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    }
                                                                   },
                                                                   text: 'Save',
                                                                   options:

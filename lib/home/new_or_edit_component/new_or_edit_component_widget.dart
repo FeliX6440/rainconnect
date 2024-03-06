@@ -768,6 +768,40 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                     ),
                   ),
                 ),
+                if (widget.component != null)
+                  Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        if (widget.component != null) {
+                          await widget.component!.reference.delete();
+                          context.safePop();
+                        }
+                      },
+                      text: 'DeleteComponent',
+                      options: FFButtonOptions(
+                        width: double.infinity,
+                        height: 40.0,
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            24.0, 0.0, 24.0, 0.0),
+                        iconPadding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: FlutterFlowTheme.of(context).error,
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Manrope',
+                                  color: Colors.white,
+                                ),
+                        elevation: 3.0,
+                        borderSide: const BorderSide(
+                          color: Colors.transparent,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),

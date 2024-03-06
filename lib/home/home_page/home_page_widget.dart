@@ -1528,9 +1528,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                               FlutterFlowTheme.of(context).secondary,
                                                                         ),
                                                                       );
-                                                                    } else {
-                                                                      Navigator.pop(
-                                                                          context);
                                                                     }
                                                                   },
                                                                   text: 'Save',

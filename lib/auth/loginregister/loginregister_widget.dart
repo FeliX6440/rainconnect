@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import 'loginregister_model.dart';
@@ -570,11 +569,6 @@ class _LoginregisterWidgetState extends State<LoginregisterWidget>
                                                                     .regPassControllerValidator
                                                                     .asValidator(
                                                                         context),
-                                                                inputFormatters: [
-                                                                  FilteringTextInputFormatter
-                                                                      .allow(RegExp(
-                                                                          '^(?=.*[A-Z])(?=.*\\d).{8,}\$'))
-                                                                ],
                                                               ),
                                                             ),
                                                           ),
@@ -718,11 +712,6 @@ class _LoginregisterWidgetState extends State<LoginregisterWidget>
                                                                     .regConfirmPassControllerValidator
                                                                     .asValidator(
                                                                         context),
-                                                                inputFormatters: [
-                                                                  FilteringTextInputFormatter
-                                                                      .allow(RegExp(
-                                                                          '^(?=.*[A-Z])(?=.*\\d).{8,}\$'))
-                                                                ],
                                                               ),
                                                             ),
                                                           ),

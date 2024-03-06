@@ -146,37 +146,39 @@ class _EmailTemplateEditorWidgetState extends State<EmailTemplateEditorWidget> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 12.0),
-                  child: FFButtonWidget(
-                    onPressed: () async {
-                      if (widget.emailTemp != null) {
-                        await widget.emailTemp!.reference.delete();
-                        context.safePop();
-                      }
-                    },
-                    text: 'Delete Template',
-                    options: FFButtonOptions(
-                      width: double.infinity,
-                      height: 48.0,
-                      padding: const EdgeInsets.all(0.0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).error,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Manrope',
-                                color: Colors.white,
-                              ),
-                      elevation: 4.0,
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                        width: 1.0,
+                if (widget.emailTemp != null)
+                  Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 12.0),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        if (widget.emailTemp != null) {
+                          await widget.emailTemp!.reference.delete();
+                          context.safePop();
+                        }
+                      },
+                      text: 'Delete Template',
+                      options: FFButtonOptions(
+                        width: double.infinity,
+                        height: 48.0,
+                        padding: const EdgeInsets.all(0.0),
+                        iconPadding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: FlutterFlowTheme.of(context).error,
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Manrope',
+                                  color: Colors.white,
+                                ),
+                        elevation: 4.0,
+                        borderSide: const BorderSide(
+                          color: Colors.transparent,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(60.0),
                       ),
-                      borderRadius: BorderRadius.circular(60.0),
                     ),
                   ),
-                ),
               ],
             ),
           ),

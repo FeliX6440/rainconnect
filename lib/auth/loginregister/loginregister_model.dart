@@ -50,6 +50,8 @@ class LoginregisterModel extends FlutterFlowModel<LoginregisterWidget> {
   TextEditingController? regConfirmPassController;
   late bool regConfirmPassVisibility;
   String? Function(BuildContext, String?)? regConfirmPassControllerValidator;
+  // Stores action output result for [Custom Action - checkPasswordFeild] action in Button widget.
+  bool? passwordResult;
   // State field(s) for emailAddress widget.
   FocusNode? emailAddressFocusNode;
   TextEditingController? emailAddressController;
@@ -77,9 +79,6 @@ class LoginregisterModel extends FlutterFlowModel<LoginregisterWidget> {
 
     return null;
   }
-
-  // Stores action output result for [Custom Action - checkPasswordFeild] action in Button widget.
-  bool? passwordResult;
 
   /// Initialization and disposal methods.
 

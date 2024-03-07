@@ -741,63 +741,101 @@ class _LoginregisterWidgetState extends State<LoginregisterWidget>
                                                                     .validate()) {
                                                               return;
                                                             }
-                                                            GoRouter.of(context)
-                                                                .prepareAuthEvent();
-                                                            if (_model
-                                                                    .regPassController
-                                                                    .text !=
-                                                                _model
-                                                                    .regConfirmPassController
-                                                                    .text) {
-                                                              ScaffoldMessenger
-                                                                      .of(context)
-                                                                  .showSnackBar(
-                                                                const SnackBar(
-                                                                  content: Text(
-                                                                    'Passwords don\'t match!',
-                                                                  ),
-                                                                ),
-                                                              );
-                                                              return;
-                                                            }
-
-                                                            final user =
-                                                                await authManager
-                                                                    .createAccountWithEmail(
-                                                              context,
-                                                              _model
-                                                                  .regEmailController
-                                                                  .text,
+                                                            _model.passwordResult =
+                                                                await actions
+                                                                    .checkPasswordFeild(
                                                               _model
                                                                   .regPassController
                                                                   .text,
                                                             );
-                                                            if (user == null) {
-                                                              return;
-                                                            }
+                                                            if (_model
+                                                                .passwordResult!) {
+                                                              GoRouter.of(
+                                                                      context)
+                                                                  .prepareAuthEvent();
+                                                              if (_model
+                                                                      .regPassController
+                                                                      .text !=
+                                                                  _model
+                                                                      .regConfirmPassController
+                                                                      .text) {
+                                                                ScaffoldMessenger.of(
+                                                                        context)
+                                                                    .showSnackBar(
+                                                                  const SnackBar(
+                                                                    content:
+                                                                        Text(
+                                                                      'Passwords don\'t match!',
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                                return;
+                                                              }
 
-                                                            await UsersRecord
-                                                                .collection
-                                                                .doc(user.uid)
-                                                                .update({
-                                                              ...createUsersRecordData(
-                                                                email: _model
+                                                              final user =
+                                                                  await authManager
+                                                                      .createAccountWithEmail(
+                                                                context,
+                                                                _model
                                                                     .regEmailController
                                                                     .text,
-                                                              ),
-                                                              ...mapToFirestore(
-                                                                {
-                                                                  'created_time':
-                                                                      FieldValue
-                                                                          .serverTimestamp(),
-                                                                },
-                                                              ),
-                                                            });
+                                                                _model
+                                                                    .regPassController
+                                                                    .text,
+                                                              );
+                                                              if (user ==
+                                                                  null) {
+                                                                return;
+                                                              }
 
-                                                            context.goNamedAuth(
-                                                                'ProfileSetUpPage',
-                                                                context
-                                                                    .mounted);
+                                                              await UsersRecord
+                                                                  .collection
+                                                                  .doc(user.uid)
+                                                                  .update({
+                                                                ...createUsersRecordData(
+                                                                  email: _model
+                                                                      .regEmailController
+                                                                      .text,
+                                                                ),
+                                                                ...mapToFirestore(
+                                                                  {
+                                                                    'created_time':
+                                                                        FieldValue
+                                                                            .serverTimestamp(),
+                                                                  },
+                                                                ),
+                                                              });
+
+                                                              context.goNamedAuth(
+                                                                  'ProfileSetUpPage',
+                                                                  context
+                                                                      .mounted);
+                                                            } else {
+                                                              ScaffoldMessenger
+                                                                      .of(context)
+                                                                  .showSnackBar(
+                                                                SnackBar(
+                                                                  content: Text(
+                                                                    'Password must contain at least 8 characters, at least 1 uppercase letter, at least one number',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryText,
+                                                                    ),
+                                                                  ),
+                                                                  duration: const Duration(
+                                                                      milliseconds:
+                                                                          4000),
+                                                                  backgroundColor:
+                                                                      FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondary,
+                                                                ),
+                                                              );
+                                                            }
+
+                                                            setState(() {});
                                                           },
                                                           text: 'Get Started',
                                                           options:
@@ -1266,65 +1304,28 @@ class _LoginregisterWidgetState extends State<LoginregisterWidget>
                                                                     .validate()) {
                                                               return;
                                                             }
-                                                            _model.passwordResult =
-                                                                await actions
-                                                                    .checkPasswordFeild(
+                                                            GoRouter.of(context)
+                                                                .prepareAuthEvent();
+
+                                                            final user =
+                                                                await authManager
+                                                                    .signInWithEmail(
+                                                              context,
                                                               _model
-                                                                  .regPassController
+                                                                  .emailAddressController
+                                                                  .text,
+                                                              _model
+                                                                  .passwordController
                                                                   .text,
                                                             );
-                                                            if (_model
-                                                                .passwordResult!) {
-                                                              GoRouter.of(
-                                                                      context)
-                                                                  .prepareAuthEvent();
-
-                                                              final user =
-                                                                  await authManager
-                                                                      .signInWithEmail(
-                                                                context,
-                                                                _model
-                                                                    .emailAddressController
-                                                                    .text,
-                                                                _model
-                                                                    .passwordController
-                                                                    .text,
-                                                              );
-                                                              if (user ==
-                                                                  null) {
-                                                                return;
-                                                              }
-
-                                                              context.goNamedAuth(
-                                                                  'HomePage',
-                                                                  context
-                                                                      .mounted);
-                                                            } else {
-                                                              ScaffoldMessenger
-                                                                      .of(context)
-                                                                  .showSnackBar(
-                                                                SnackBar(
-                                                                  content: Text(
-                                                                    'Password must contains at least 8 characters, at least 1 uppercase letter, at least one number',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryText,
-                                                                    ),
-                                                                  ),
-                                                                  duration: const Duration(
-                                                                      milliseconds:
-                                                                          4000),
-                                                                  backgroundColor:
-                                                                      FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondary,
-                                                                ),
-                                                              );
+                                                            if (user == null) {
+                                                              return;
                                                             }
 
-                                                            setState(() {});
+                                                            context.goNamedAuth(
+                                                                'HomePage',
+                                                                context
+                                                                    .mounted);
                                                           },
                                                           text: 'Sign In',
                                                           options:

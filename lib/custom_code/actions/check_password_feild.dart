@@ -12,12 +12,6 @@ import 'package:flutter/material.dart';
 
 Future<bool> checkPasswordFeild(String value) async {
   // Add your function code here!
-
-  bool result = false;
-  if (value.contains(RegExp(r'^(?=.*[A-Z])(?=.*\d).{8,}$'))) {
-    result = true;
-  } else {
-    result = false;
-  }
-  return result;
+  bool isValidPassword = value.contains(RegExp(r'^(?=.*[A-Z])(?=.*\d).{8,}$'));
+  return isValidPassword;
 }

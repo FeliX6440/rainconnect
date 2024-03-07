@@ -8,7 +8,6 @@ import '/flutter_flow/form_field_controller.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:provider/provider.dart';
 import 'temperature_bottom_sheet_model.dart';
 export 'temperature_bottom_sheet_model.dart';
 
@@ -77,8 +76,6 @@ class _TemperatureBottomSheetWidgetState
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Container(
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).primaryBackground,

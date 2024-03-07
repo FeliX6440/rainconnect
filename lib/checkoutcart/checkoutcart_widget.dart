@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'checkoutcart_model.dart';
 export 'checkoutcart_model.dart';
 
@@ -36,8 +35,6 @@ class _CheckoutcartWidgetState extends State<CheckoutcartWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -51,7 +48,7 @@ class _CheckoutcartWidgetState extends State<CheckoutcartWidget> {
           icon: Icon(
             Icons.arrow_back_rounded,
             color: FlutterFlowTheme.of(context).secondaryText,
-            size: 24.0,
+            size: 25.0,
           ),
           onPressed: () async {
             context.pop();
@@ -177,10 +174,10 @@ class _CheckoutcartWidgetState extends State<CheckoutcartWidget> {
                                                                     0.0,
                                                                     0.0),
                                                         child: RichText(
-                                                          textScaleFactor:
+                                                          textScaler:
                                                               MediaQuery.of(
                                                                       context)
-                                                                  .textScaleFactor,
+                                                                  .textScaler,
                                                           text: TextSpan(
                                                             children: const [
                                                               TextSpan(

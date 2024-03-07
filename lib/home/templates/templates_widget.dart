@@ -9,7 +9,6 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:provider/provider.dart';
 import 'templates_model.dart';
 export 'templates_model.dart';
 
@@ -66,8 +65,6 @@ class _TemplatesWidgetState extends State<TemplatesWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -300,7 +297,8 @@ class _TemplatesWidgetState extends State<TemplatesWidget> {
                               curve: Curves.easeInOut,
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                color: _model.mouseRegionHovered? const Color(0xFFF1F4F8)
+                                color: _model.mouseRegionHovered
+                                    ? const Color(0xFFF1F4F8)
                                     : Colors.white,
                               ),
                               child: Padding(

@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 't_t_s_details_and_edit_model.dart';
 export 't_t_s_details_and_edit_model.dart';
 
@@ -54,8 +53,6 @@ class _TTSDetailsAndEditWidgetState extends State<TTSDetailsAndEditWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Material(
       color: Colors.transparent,
       elevation: 5.0,

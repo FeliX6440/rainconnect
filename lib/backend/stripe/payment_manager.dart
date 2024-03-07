@@ -245,17 +245,32 @@ Future<StripePaymentResponse> showWebPaymentSheet(
                     const SizedBox(height: 20.0),
                     FFButtonWidget(
                       onPressed: () async {
-                        final response = await Stripe.instance.confirmPayment(
-                          paymentIntentClientSecret: paymentIntentSecret,
-                          data: const PaymentMethodParams.card(
-                            paymentMethodData: PaymentMethodData(),
-                          ),
-                          options: const PaymentMethodOptions(),
-                        );
-                        if (response.status == PaymentIntentsStatus.Succeeded) {
+                        try {
+                          final response = await Stripe.instance.confirmPayment(
+                            paymentIntentClientSecret: paymentIntentSecret,
+                            data: const PaymentMethodParams.card(
+                              paymentMethodData: PaymentMethodData(),
+                            ),
+                            options: const PaymentMethodOptions(),
+                          );
+                          if (response.status ==
+                              PaymentIntentsStatus.Succeeded) {
+                            Navigator.pop(
+                              context,
+                              StripePaymentResponse(paymentId: paymentId),
+                            );
+                          }
+                        } catch (e) {
+                          if (e is StripeException &&
+                              e.error.code == FailureCode.Canceled) {
+                            Navigator.pop(
+                              context,
+                              const StripePaymentResponse(),
+                            );
+                          }
                           Navigator.pop(
                             context,
-                            StripePaymentResponse(paymentId: paymentId),
+                            StripePaymentResponse(errorMessage: '$e'),
                           );
                         }
                       },

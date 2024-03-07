@@ -17,7 +17,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:provider/provider.dart';
 import 'lead_detail_view_model.dart';
 export 'lead_detail_view_model.dart';
 
@@ -55,8 +54,6 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return StreamBuilder<LeadsRecord>(
       stream: LeadsRecord.getDocument(widget.leadDoc!.reference),
       builder: (context, snapshot) {

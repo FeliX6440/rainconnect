@@ -10,7 +10,6 @@ import '/profile/components/add_team_member_bottom_sheet/add_team_member_bottom_
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:provider/provider.dart';
 import 'manage_members_model.dart';
 export 'manage_members_model.dart';
 
@@ -53,8 +52,6 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return StreamBuilder<TeamsRecord>(
       stream: TeamsRecord.getDocument(widget.teamRef!),
       builder: (context, snapshot) {

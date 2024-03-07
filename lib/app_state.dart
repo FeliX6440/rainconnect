@@ -67,13 +67,13 @@ class FFAppState extends ChangeNotifier {
 
   List<TemplateStruct> _templates = [
     TemplateStruct.fromSerializableMap(jsonDecode(
-        '{"name":"Speech to text","description":"Take Notes, Summarize and Translate your Thoughts on the go"}')),
+        '{\"name\":\"Speech to text\",\"description\":\"Take Notes, Summarize and Translate your Thoughts on the go\"}')),
     TemplateStruct.fromSerializableMap(jsonDecode(
-        '{"name":"Business card reader","description":"Standard Contact Card with integrated Business Card Reader"}')),
+        '{\"name\":\"Business card reader\",\"description\":\"Standard Contact Card with integrated Business Card Reader\"}')),
     TemplateStruct.fromSerializableMap(jsonDecode(
-        '{"name":"Lead temperature","description":"Set your Lead priority and always Know who is more important"}')),
+        '{\"name\":\"Lead temperature\",\"description\":\"Set your Lead priority and always Know who is more important\"}')),
     TemplateStruct.fromSerializableMap(jsonDecode(
-        '{"name":"Note","description":"Simple Text field to take notes"}'))
+        '{\"name\":\"Note\",\"description\":\"Simple Text field to take notes\"}'))
   ];
   List<TemplateStruct> get templates => _templates;
   set templates(List<TemplateStruct> value) {

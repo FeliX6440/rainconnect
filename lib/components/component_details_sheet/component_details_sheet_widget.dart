@@ -9,7 +9,6 @@ import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'component_details_sheet_model.dart';
 export 'component_details_sheet_model.dart';
 
@@ -61,8 +60,6 @@ class _ComponentDetailsSheetWidgetState
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Material(
       color: Colors.transparent,
       elevation: 5.0,
@@ -821,9 +818,11 @@ class _ComponentDetailsSheetWidgetState
                                         hoverColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
-                                          if (columnComponentContentRecord.listContent
+                                          if (columnComponentContentRecord
+                                              .listContent
                                               .contains(listValueItem)) {
-                                            await columnComponentContentRecord.reference
+                                            await columnComponentContentRecord
+                                                .reference
                                                 .update({
                                               ...mapToFirestore(
                                                 {
@@ -834,7 +833,8 @@ class _ComponentDetailsSheetWidgetState
                                               ),
                                             });
                                           } else {
-                                            await columnComponentContentRecord.reference
+                                            await columnComponentContentRecord
+                                                .reference
                                                 .update({
                                               ...mapToFirestore(
                                                 {

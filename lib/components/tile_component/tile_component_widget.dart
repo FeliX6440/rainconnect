@@ -9,7 +9,6 @@ import '/bottomsheet/text_field_bottom_sheet/text_field_bottom_sheet_widget.dart
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'tile_component_model.dart';
 export 'tile_component_model.dart';
 
@@ -55,8 +54,6 @@ class _TileComponentWidgetState extends State<TileComponentWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
       child: Container(

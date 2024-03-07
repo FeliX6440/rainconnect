@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:provider/provider.dart';
 import 'loginregister_model.dart';
 export 'loginregister_model.dart';
 
@@ -131,8 +130,6 @@ class _LoginregisterWidgetState extends State<LoginregisterWidget>
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -816,7 +813,7 @@ class _LoginregisterWidgetState extends State<LoginregisterWidget>
                                                                   .showSnackBar(
                                                                 SnackBar(
                                                                   content: Text(
-                                                                    'Password must contain at least 8 characters, at least 1 uppercase letter, at least one number',
+                                                                    'Password must contain at least 8 characters, at least 1 uppercase letter, at least one number and one special charracter',
                                                                     style:
                                                                         TextStyle(
                                                                       color: FlutterFlowTheme.of(

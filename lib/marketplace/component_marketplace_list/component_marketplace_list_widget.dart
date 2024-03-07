@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:provider/provider.dart';
 import 'component_marketplace_list_model.dart';
 export 'component_marketplace_list_model.dart';
 
@@ -48,8 +47,6 @@ class _ComponentMarketplaceListWidgetState
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -67,7 +64,7 @@ class _ComponentMarketplaceListWidgetState
             icon: Icon(
               Icons.arrow_back_rounded,
               color: FlutterFlowTheme.of(context).primaryText,
-              size: 24.0,
+              size: 25.0,
             ),
             onPressed: () async {
               context.pop();
@@ -183,9 +180,8 @@ class _ComponentMarketplaceListWidgetState
                                               CrossAxisAlignment.start,
                                           children: [
                                             RichText(
-                                              textScaleFactor:
-                                                  MediaQuery.of(context)
-                                                      .textScaleFactor,
+                                              textScaler: MediaQuery.of(context)
+                                                  .textScaler,
                                               text: TextSpan(
                                                 children: [
                                                   TextSpan(

@@ -14,7 +14,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:provider/provider.dart';
 import 'profile_set_up_page_model.dart';
 export 'profile_set_up_page_model.dart';
 
@@ -97,8 +96,6 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)

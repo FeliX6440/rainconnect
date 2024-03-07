@@ -8,7 +8,6 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:provider/provider.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
 
@@ -75,8 +74,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return AuthUserStreamWidget(
       builder: (context) => StreamBuilder<List<TeamsRecord>>(
         stream: queryTeamsRecord(
@@ -281,7 +278,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       curve: Curves.easeInOut,
                                       width: double.infinity,
                                       decoration: BoxDecoration(
-                                        color: _model.mouseRegionHovered2? const Color(0xFFF1F4F8)
+                                        color: _model.mouseRegionHovered2
+                                            ? const Color(0xFFF1F4F8)
                                             : Colors.white,
                                       ),
                                       child: Padding(
@@ -370,7 +368,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         curve: Curves.easeInOut,
                                         width: double.infinity,
                                         decoration: BoxDecoration(
-                                          color: _model.mouseRegionHovered3? const Color(0xFFF1F4F8)
+                                          color: _model.mouseRegionHovered3
+                                              ? const Color(0xFFF1F4F8)
                                               : Colors.white,
                                         ),
                                         child: Padding(
@@ -476,7 +475,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         curve: Curves.easeInOut,
                                         width: double.infinity,
                                         decoration: BoxDecoration(
-                                          color: _model.mouseRegionHovered4? const Color(0xFFF1F4F8)
+                                          color: _model.mouseRegionHovered4
+                                              ? const Color(0xFFF1F4F8)
                                               : Colors.white,
                                         ),
                                         child: Padding(
@@ -565,7 +565,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         curve: Curves.easeInOut,
                                         width: double.infinity,
                                         decoration: BoxDecoration(
-                                          color: _model.mouseRegionHovered5? const Color(0xFFF1F4F8)
+                                          color: _model.mouseRegionHovered5
+                                              ? const Color(0xFFF1F4F8)
                                               : Colors.white,
                                         ),
                                         child: Padding(
@@ -652,7 +653,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         curve: Curves.easeInOut,
                                         width: double.infinity,
                                         decoration: BoxDecoration(
-                                          color: _model.mouseRegionHovered6? const Color(0xFFF1F4F8)
+                                          color: _model.mouseRegionHovered6
+                                              ? const Color(0xFFF1F4F8)
                                               : Colors.white,
                                         ),
                                         child: Padding(
@@ -722,7 +724,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       curve: Curves.easeInOut,
                                       width: double.infinity,
                                       decoration: BoxDecoration(
-                                        color: _model.mouseRegionHovered7? const Color(0xFFF1F4F8)
+                                        color: _model.mouseRegionHovered7
+                                            ? const Color(0xFFF1F4F8)
                                             : Colors.white,
                                       ),
                                       child: Padding(
@@ -822,7 +825,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         curve: Curves.easeInOut,
                                         width: double.infinity,
                                         decoration: BoxDecoration(
-                                          color: _model.mouseRegionHovered8? const Color(0xFFF1F4F8)
+                                          color: _model.mouseRegionHovered8
+                                              ? const Color(0xFFF1F4F8)
                                               : Colors.white,
                                         ),
                                         child: Padding(
@@ -934,9 +938,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               'https://rainconnect.de');
                                         },
                                         child: RichText(
-                                          textScaleFactor:
-                                              MediaQuery.of(context)
-                                                  .textScaleFactor,
+                                          textScaler:
+                                              MediaQuery.of(context).textScaler,
                                           text: TextSpan(
                                             children: [
                                               TextSpan(
@@ -1497,7 +1500,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                             ) ??
                                                                             false;
                                                                     if (confirmDialogResponse) {
-                                                                      await homePageTeamsRecord.reference
+                                                                      await homePageTeamsRecord
+                                                                          .reference
                                                                           .update(
                                                                               createTeamsRecordData(
                                                                         leadLocation: _model

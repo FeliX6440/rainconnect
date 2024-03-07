@@ -8,7 +8,6 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:provider/provider.dart';
 import 'package:text_search/text_search.dart';
 import 'my_leads_model.dart';
 export 'my_leads_model.dart';
@@ -51,8 +50,6 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -120,7 +117,8 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                             record.website,
                                             record.email,
                                             record.gender,
-                                            record.company]),
+                                            record.company
+                                          ]),
                                         )
                                         .toList(),
                                   )

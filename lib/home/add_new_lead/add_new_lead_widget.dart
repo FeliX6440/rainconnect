@@ -1,3 +1,5 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/backend/schema/enums/enums.dart';
@@ -7,10 +9,10 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'add_new_lead_model.dart';
 export 'add_new_lead_model.dart';
 
@@ -92,8 +94,6 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -397,8 +397,122 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                             onPressed: ((_model.uploadedLocalFile1.bytes?.isEmpty ??
                                         true))
                                 ? null
-                                : () {
-                                    print('Button pressed ...');
+                                : () async {
+                                    _model.apiResulttoj =
+                                        await BusinessCardReaderEndPointCall
+                                            .call(
+                                      imageByte:
+                                          functions.convertImageFileToByte64(
+                                              _model.uploadedLocalFile1),
+                                      userId: currentUserUid,
+                                    );
+                                    if ((_model.apiResulttoj?.succeeded ??
+                                        true)) {
+                                      setState(() {
+                                        _model.firstNameController?.text =
+                                            functions.makeNullEmptyString(
+                                                BusinessCardReaderEndPointCall
+                                                    .firstName(
+                                          (_model.apiResulttoj?.jsonBody ?? ''),
+                                        )!);
+                                      });
+                                      setState(() {
+                                        _model.lastNameController?.text =
+                                            functions.makeNullEmptyString(
+                                                BusinessCardReaderEndPointCall
+                                                    .lastName(
+                                          (_model.apiResulttoj?.jsonBody ?? ''),
+                                        )!);
+                                      });
+                                      setState(() {
+                                        _model.positionController?.text =
+                                            functions.makeNullEmptyString(
+                                                BusinessCardReaderEndPointCall
+                                                    .positionRole(
+                                          (_model.apiResulttoj?.jsonBody ?? ''),
+                                        )!);
+                                      });
+                                      setState(() {
+                                        _model.phoneController?.text =
+                                            functions.makeNullEmptyString(
+                                                BusinessCardReaderEndPointCall
+                                                    .phone(
+                                          (_model.apiResulttoj?.jsonBody ?? ''),
+                                        )!);
+                                      });
+                                      setState(() {
+                                        _model.emailController?.text =
+                                            functions.makeNullEmptyString(
+                                                BusinessCardReaderEndPointCall
+                                                    .email(
+                                          (_model.apiResulttoj?.jsonBody ?? ''),
+                                        )!);
+                                      });
+                                      setState(() {
+                                        _model.websiteController?.text =
+                                            functions.makeNullEmptyString(
+                                                BusinessCardReaderEndPointCall
+                                                    .website(
+                                          (_model.apiResulttoj?.jsonBody ?? ''),
+                                        )!);
+                                      });
+                                      setState(() {
+                                        _model.zipController?.text =
+                                            functions.makeNullEmptyString(
+                                                BusinessCardReaderEndPointCall
+                                                    .zipCode(
+                                          (_model.apiResulttoj?.jsonBody ?? ''),
+                                        )!);
+                                      });
+                                      setState(() {
+                                        _model.streetandNumController?.text =
+                                            functions.makeNullEmptyString(
+                                                BusinessCardReaderEndPointCall
+                                                    .street(
+                                          (_model.apiResulttoj?.jsonBody ?? ''),
+                                        )!);
+                                      });
+                                      setState(() {
+                                        _model.countryController?.text =
+                                            functions.makeNullEmptyString(
+                                                BusinessCardReaderEndPointCall
+                                                    .country(
+                                          (_model.apiResulttoj?.jsonBody ?? ''),
+                                        )!);
+                                      });
+                                      setState(() {
+                                        _model.cityController?.text =
+                                            functions.makeNullEmptyString(
+                                                BusinessCardReaderEndPointCall
+                                                    .city(
+                                          (_model.apiResulttoj?.jsonBody ?? ''),
+                                        )!);
+                                      });
+                                      setState(() {
+                                        _model.companyController?.text = '';
+                                      });
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Error reading card',
+                                            style: TextStyle(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                            ),
+                                          ),
+                                          duration:
+                                              const Duration(milliseconds: 4000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondary,
+                                        ),
+                                      );
+                                    }
+
+                                    setState(() {});
                                   },
                             text: 'Scan',
                             options: FFButtonOptions(
@@ -421,6 +535,8 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                 width: 1.0,
                               ),
                               borderRadius: BorderRadius.circular(8.0),
+                              disabledColor:
+                                  FlutterFlowTheme.of(context).secondaryText,
                             ),
                           ),
                         ),

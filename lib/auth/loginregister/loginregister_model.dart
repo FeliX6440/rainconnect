@@ -78,6 +78,9 @@ class LoginregisterModel extends FlutterFlowModel<LoginregisterWidget> {
     return null;
   }
 
+  // Stores action output result for [Custom Action - checkPasswordFeild] action in Button widget.
+  bool? passwordResult;
+
   /// Initialization and disposal methods.
 
   @override

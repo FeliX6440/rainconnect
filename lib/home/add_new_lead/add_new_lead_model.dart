@@ -1,4 +1,3 @@
-import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'add_new_lead_widget.dart' show AddNewLeadWidget;
@@ -12,6 +11,8 @@ class AddNewLeadModel extends FlutterFlowModel<AddNewLeadWidget> {
   int pageIndex = 0;
 
   bool isPreviouse = false;
+
+  String? componentValue;
 
   ///  State fields for stateful widgets in this page.
 
@@ -30,8 +31,6 @@ class AddNewLeadModel extends FlutterFlowModel<AddNewLeadWidget> {
   FFUploadedFile uploadedLocalFile1 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
 
-  // Stores action output result for [Backend Call - API (BusinessCardReaderEndPoint)] action in Button widget.
-  ApiCallResponse? apiResult40d;
   bool isDataUploading2 = false;
   FFUploadedFile uploadedLocalFile2 =
       FFUploadedFile(bytes: Uint8List.fromList([]));

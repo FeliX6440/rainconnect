@@ -18,10 +18,12 @@ class TileComponentWidget extends StatefulWidget {
     super.key,
     this.component,
     required this.lead,
+    required this.getContentValue,
   });
 
   final TeamComponentsRecord? component;
   final DocumentReference? lead;
+  final Future Function(String value)? getContentValue;
 
   @override
   State<TileComponentWidget> createState() => _TileComponentWidgetState();

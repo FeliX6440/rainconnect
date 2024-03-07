@@ -1,5 +1,3 @@
-import '/auth/firebase_auth/auth_util.dart';
-import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/backend/schema/enums/enums.dart';
@@ -9,7 +7,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -397,130 +394,12 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 30.0, 0.0, 0.0),
                           child: FFButtonWidget(
-                            onPressed: () async {
-                              _model.apiResult40d =
-                                  await BusinessCardReaderEndPointCall.call(
-                                imageByte: functions.convertImageFileToByte64(
-                                    _model.uploadedLocalFile1),
-                                userId: currentUserUid,
-                              );
-                              if ((_model.apiResult40d?.succeeded ?? true)) {
-                                setState(() {
-                                  _model.firstNameController?.text =
-                                      functions.makeNullEmptyString(
-                                          BusinessCardReaderEndPointCall
-                                              .firstName(
-                                    (_model.apiResult40d?.jsonBody ?? ''),
-                                  )!);
-                                });
-                                setState(() {
-                                  _model.lastNameController?.text =
-                                      functions.makeNullEmptyString(
-                                          BusinessCardReaderEndPointCall
-                                              .lastName(
-                                    (_model.apiResult40d?.jsonBody ?? ''),
-                                  )!);
-                                });
-                                setState(() {
-                                  _model.positionController?.text =
-                                      functions.makeNullEmptyString(
-                                          BusinessCardReaderEndPointCall
-                                              .positionRole(
-                                    (_model.apiResult40d?.jsonBody ?? ''),
-                                  )!);
-                                });
-                                setState(() {
-                                  _model.phoneController?.text =
-                                      functions.makeNullEmptyString(
-                                          BusinessCardReaderEndPointCall.phone(
-                                    (_model.apiResult40d?.jsonBody ?? ''),
-                                  )!);
-                                });
-                                setState(() {
-                                  _model.emailController?.text =
-                                      functions.makeNullEmptyString(
-                                          BusinessCardReaderEndPointCall.email(
-                                    (_model.apiResult40d?.jsonBody ?? ''),
-                                  )!);
-                                });
-                                setState(() {
-                                  _model.websiteController?.text =
-                                      functions.makeNullEmptyString(
-                                          BusinessCardReaderEndPointCall
-                                              .website(
-                                    (_model.apiResult40d?.jsonBody ?? ''),
-                                  )!);
-                                });
-                                setState(() {
-                                  _model.cityController?.text =
-                                      functions.makeNullEmptyString(
-                                          BusinessCardReaderEndPointCall.city(
-                                    (_model.apiResult40d?.jsonBody ?? ''),
-                                  )!);
-                                });
-                                setState(() {
-                                  _model.zipController?.text =
-                                      functions.makeNullEmptyString(
-                                          BusinessCardReaderEndPointCall
-                                              .zipCode(
-                                    (_model.apiResult40d?.jsonBody ?? ''),
-                                  )!);
-                                });
-                                setState(() {
-                                  _model.streetandNumController?.text =
-                                      '${functions.makeNullEmptyString(BusinessCardReaderEndPointCall.street(
-                                    (_model.apiResult40d?.jsonBody ?? ''),
-                                  )!)} ${functions.makeNullEmptyString(getJsonField(
-                                    (_model.apiResult40d?.jsonBody ?? ''),
-                                    r'''$["data"]["field"]["house_number"]''',
-                                  ).toString())}';
-                                });
-                                setState(() {
-                                  _model.countryController?.text =
-                                      functions.makeNullEmptyString(
-                                          BusinessCardReaderEndPointCall
-                                              .country(
-                                    (_model.apiResult40d?.jsonBody ?? ''),
-                                  )!);
-                                });
-                                setState(() {
-                                  _model.companyController?.text =
-                                      functions.makeNullEmptyString(
-                                          BusinessCardReaderEndPointCall
-                                              .company(
-                                    (_model.apiResult40d?.jsonBody ?? ''),
-                                  )!);
-                                });
-                                setState(() {
-                                  _model.industryController?.text = functions
-                                      .makeNullEmptyString(getJsonField(
-                                    (_model.apiResult40d?.jsonBody ?? ''),
-                                    r'''$["result"]["data"]["industry"]''',
-                                  ).toString());
-                                });
-                                await _model.pageViewController?.nextPage(
-                                  duration: const Duration(milliseconds: 300),
-                                  curve: Curves.ease,
-                                );
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'Error reading card',
-                                      style: TextStyle(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                      ),
-                                    ),
-                                    duration: const Duration(milliseconds: 4000),
-                                    backgroundColor:
-                                        FlutterFlowTheme.of(context).secondary,
-                                  ),
-                                );
-                              }
-
-                              setState(() {});
-                            },
+                            onPressed: ((_model.uploadedLocalFile1.bytes?.isEmpty ??
+                                        true))
+                                ? null
+                                : () {
+                                    print('Button pressed ...');
+                                  },
                             text: 'Scan',
                             options: FFButtonOptions(
                               width: double.infinity,
@@ -1919,6 +1798,11 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                             'Key3l4_${listViewIndex}_of_${listViewTeamComponentsRecordList.length}'),
                                         component: listViewTeamComponentsRecord,
                                         lead: _model.leadResponse!.reference,
+                                        getContentValue: (value) async {
+                                          setState(() {
+                                            _model.componentValue = '';
+                                          });
+                                        },
                                       ),
                                     );
                                   },

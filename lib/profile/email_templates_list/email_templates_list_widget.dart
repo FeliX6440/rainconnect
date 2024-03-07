@@ -210,6 +210,22 @@ class _EmailTemplatesListWidgetState extends State<EmailTemplatesListWidget>
                                           ],
                                         ),
                                       ),
+                                      FlutterFlowIconButton(
+                                        borderRadius: 20.0,
+                                        borderWidth: 0.0,
+                                        buttonSize: 40.0,
+                                        icon: Icon(
+                                          Icons.delete,
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          size: 24.0,
+                                        ),
+                                        onPressed: () async {
+                                          await listViewEmailTemplatesRecord
+                                              .reference
+                                              .delete();
+                                        },
+                                      ),
                                       Card(
                                         clipBehavior:
                                             Clip.antiAliasWithSaveLayer,

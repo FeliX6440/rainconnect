@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
@@ -1265,28 +1266,65 @@ class _LoginregisterWidgetState extends State<LoginregisterWidget>
                                                                     .validate()) {
                                                               return;
                                                             }
-                                                            GoRouter.of(context)
-                                                                .prepareAuthEvent();
-
-                                                            final user =
-                                                                await authManager
-                                                                    .signInWithEmail(
-                                                              context,
+                                                            _model.passwordResult =
+                                                                await actions
+                                                                    .checkPasswordFeild(
                                                               _model
-                                                                  .emailAddressController
-                                                                  .text,
-                                                              _model
-                                                                  .passwordController
+                                                                  .regPassController
                                                                   .text,
                                                             );
-                                                            if (user == null) {
-                                                              return;
+                                                            if (_model
+                                                                .passwordResult!) {
+                                                              GoRouter.of(
+                                                                      context)
+                                                                  .prepareAuthEvent();
+
+                                                              final user =
+                                                                  await authManager
+                                                                      .signInWithEmail(
+                                                                context,
+                                                                _model
+                                                                    .emailAddressController
+                                                                    .text,
+                                                                _model
+                                                                    .passwordController
+                                                                    .text,
+                                                              );
+                                                              if (user ==
+                                                                  null) {
+                                                                return;
+                                                              }
+
+                                                              context.goNamedAuth(
+                                                                  'HomePage',
+                                                                  context
+                                                                      .mounted);
+                                                            } else {
+                                                              ScaffoldMessenger
+                                                                      .of(context)
+                                                                  .showSnackBar(
+                                                                SnackBar(
+                                                                  content: Text(
+                                                                    'Password must contains at least 8 characters, at least 1 uppercase letter, at least one number',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryText,
+                                                                    ),
+                                                                  ),
+                                                                  duration: const Duration(
+                                                                      milliseconds:
+                                                                          4000),
+                                                                  backgroundColor:
+                                                                      FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondary,
+                                                                ),
+                                                              );
                                                             }
 
-                                                            context.goNamedAuth(
-                                                                'HomePage',
-                                                                context
-                                                                    .mounted);
+                                                            setState(() {});
                                                           },
                                                           text: 'Sign In',
                                                           options:

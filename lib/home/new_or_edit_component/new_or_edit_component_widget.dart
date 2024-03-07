@@ -109,7 +109,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
             },
           ),
           title: Text(
-            'EDIT / CREATE Component',
+            widget.component != null ? 'Edit Component' : 'Create Component',
             style: FlutterFlowTheme.of(context).headlineSmall,
           ),
           actions: const [],

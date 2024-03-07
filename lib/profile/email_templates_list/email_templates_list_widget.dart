@@ -218,9 +218,44 @@ class _EmailTemplatesListWidgetState extends State<EmailTemplatesListWidget>
                                           size: 24.0,
                                         ),
                                         onPressed: () async {
-                                          await listViewEmailTemplatesRecord
-                                              .reference
-                                              .delete();
+                                          var confirmDialogResponse =
+                                              await showDialog<bool>(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return AlertDialog(
+                                                        title: const Text(
+                                                            'Delete Template'),
+                                                        content: const Text(
+                                                            'Are you sure you want to delete the template'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext,
+                                                                    false),
+                                                            child:
+                                                                const Text('Cancel'),
+                                                          ),
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext,
+                                                                    true),
+                                                            child:
+                                                                const Text('Confirm'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  ) ??
+                                                  false;
+                                          if (confirmDialogResponse) {
+                                            await listViewEmailTemplatesRecord
+                                                .reference
+                                                .delete();
+                                            context.safePop();
+                                          }
                                         },
                                       ),
                                       Card(

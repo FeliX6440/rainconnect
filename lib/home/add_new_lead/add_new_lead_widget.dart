@@ -489,8 +489,17 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                         )!);
                                       });
                                       setState(() {
-                                        _model.companyController?.text = '';
+                                        _model.companyController?.text =
+                                            functions.makeNullEmptyString(
+                                                BusinessCardReaderEndPointCall
+                                                    .company(
+                                          (_model.apiResulttoj?.jsonBody ?? ''),
+                                        )!);
                                       });
+                                      await _model.pageViewController?.nextPage(
+                                        duration: const Duration(milliseconds: 300),
+                                        curve: Curves.ease,
+                                      );
                                     } else {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(

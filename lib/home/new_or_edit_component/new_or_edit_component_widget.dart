@@ -778,7 +778,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                   return AlertDialog(
                                     title: const Text('Delete component'),
                                     content: const Text(
-                                        'Are you sure you want to delete the component'),
+                                        'Are you sure you want to delete the component?'),
                                     actions: [
                                       TextButton(
                                         onPressed: () => Navigator.pop(

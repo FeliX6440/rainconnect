@@ -66,6 +66,10 @@ String trimFilter2(String text) {
 String fillSubjectPlaceHolder(
   LeadsRecord leadDoc,
   String subjectValue,
+  String userDisplayName,
+  String userEmail,
+  String userJobTitle,
+  String userPhone,
 ) {
   final String subject = subjectValue
       .replaceAll('{email}', leadDoc.email)
@@ -82,13 +86,21 @@ String fillSubjectPlaceHolder(
       .replaceAll('{street}', leadDoc.street)
       .replaceAll('{website}', leadDoc.website)
       .replaceAll('{zipCode}', leadDoc.zipCode)
-      .replaceAll('{company}', leadDoc.company);
+      .replaceAll('{company}', leadDoc.company)
+      .replaceAll('{u_display_name}', userDisplayName)
+      .replaceAll('{u_email}', userEmail)
+      .replaceAll('{u_job_title}', userJobTitle)
+      .replaceAll('{u_phone}', userPhone);
   return subject;
 }
 
 String fillEmailBodyTemplate(
   String bodyValue,
   LeadsRecord leadDoc,
+  String userDisplayNamw,
+  String userEmail,
+  String userJobTitle,
+  String userPhone,
 ) {
   final String body = bodyValue
       .replaceAll('{email}', leadDoc.email)
@@ -105,6 +117,10 @@ String fillEmailBodyTemplate(
       .replaceAll('{street}', leadDoc.street)
       .replaceAll('{website}', leadDoc.website)
       .replaceAll('{zipCode}', leadDoc.zipCode)
-      .replaceAll('{company}', leadDoc.company);
+      .replaceAll('{company}', leadDoc.company)
+      .replaceAll('{u_display_name}', userDisplayNamw)
+      .replaceAll('{u_email}', userEmail)
+      .replaceAll('{u_job_title}', userJobTitle)
+      .replaceAll('{u_phone}', userPhone);
   return body;
 }

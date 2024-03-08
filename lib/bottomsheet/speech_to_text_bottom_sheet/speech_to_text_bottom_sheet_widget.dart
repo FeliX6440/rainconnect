@@ -90,6 +90,26 @@ class _SpeechToTextBottomSheetWidgetState
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    Navigator.pop(context);
+                  },
+                  child: Icon(
+                    Icons.clear_sharp,
+                    color: FlutterFlowTheme.of(context).secondaryText,
+                    size: 30.0,
+                  ),
+                ),
+              ],
+            ),
             SizedBox(
               width: double.infinity,
               height: 400.0,

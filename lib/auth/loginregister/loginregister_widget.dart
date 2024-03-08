@@ -730,14 +730,6 @@ class _LoginregisterWidgetState extends State<LoginregisterWidget>
                                                                     16.0),
                                                         child: FFButtonWidget(
                                                           onPressed: () async {
-                                                            if (_model.formKey2
-                                                                        .currentState ==
-                                                                    null ||
-                                                                !_model.formKey2
-                                                                    .currentState!
-                                                                    .validate()) {
-                                                              return;
-                                                            }
                                                             _model.passwordResult =
                                                                 await actions
                                                                     .checkPasswordFeild(
@@ -813,7 +805,7 @@ class _LoginregisterWidgetState extends State<LoginregisterWidget>
                                                                   .showSnackBar(
                                                                 SnackBar(
                                                                   content: Text(
-                                                                    'Password must contain at least 8 characters, at least 1 uppercase letter, at least one number and one special charracter',
+                                                                    'Password must contain at least 8 characters, at least 1 uppercase letter and at least one number',
                                                                     style:
                                                                         TextStyle(
                                                                       color: FlutterFlowTheme.of(

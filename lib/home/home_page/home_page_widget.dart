@@ -548,16 +548,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
                                         context.pushNamed(
-                                          'Templates',
+                                          'CustomComponentPage',
                                           queryParameters: {
-                                            'teamDoc': serializeParam(
-                                              homePageTeamsRecord,
-                                              ParamType.Document,
+                                            'teamDocRef': serializeParam(
+                                              homePageTeamsRecord?.reference,
+                                              ParamType.DocumentReference,
                                             ),
                                           }.withoutNulls,
-                                          extra: <String, dynamic>{
-                                            'teamDoc': homePageTeamsRecord,
-                                          },
                                         );
                                       },
                                       child: AnimatedContainer(

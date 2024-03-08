@@ -283,7 +283,7 @@ class _TemplatesWidgetState extends State<TemplatesWidget> {
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               context.pushNamed(
-                                'CustomComponentPage',
+                                'NewOrEditComponent',
                                 queryParameters: {
                                   'teamDocRef': serializeParam(
                                     widget.teamDoc?.reference,

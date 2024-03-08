@@ -772,8 +772,33 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                     child: FFButtonWidget(
                       onPressed: () async {
                         if (widget.component != null) {
-                          await widget.component!.reference.delete();
-                          context.safePop();
+                          var confirmDialogResponse = await showDialog<bool>(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    title: const Text('Delete component'),
+                                    content: const Text(
+                                        'Are you sure you want to delete the component'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(
+                                            alertDialogContext, false),
+                                        child: const Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(
+                                            alertDialogContext, true),
+                                        child: const Text('Confirm'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ) ??
+                              false;
+                          if (confirmDialogResponse) {
+                            await widget.component!.reference.delete();
+                            context.safePop();
+                          }
                         }
                       },
                       text: 'DeleteComponent',

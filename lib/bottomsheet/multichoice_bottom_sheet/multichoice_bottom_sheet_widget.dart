@@ -187,6 +187,7 @@ class _MultichoiceBottomSheetWidgetState
                       {
                         'created_at': FieldValue.serverTimestamp(),
                         'list_content': _model.selectedValue,
+                        'list_options': widget.componentDoc?.listValue,
                       },
                     ),
                   });

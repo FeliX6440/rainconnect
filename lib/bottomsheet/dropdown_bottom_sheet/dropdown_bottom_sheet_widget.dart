@@ -135,6 +135,7 @@ class _DropdownBottomSheetWidgetState extends State<DropdownBottomSheetWidget> {
                     ...mapToFirestore(
                       {
                         'created_at': FieldValue.serverTimestamp(),
+                        'list_options': widget.teamComponentDoc?.listValue,
                       },
                     ),
                   });

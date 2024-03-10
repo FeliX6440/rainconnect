@@ -432,7 +432,8 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                   'lead_collected_by',
                                   isEqualTo: widget.teamDocRef,
                                 )
-                                .orderBy('created_at', descending: true),
+                                .orderBy('created_at', descending: true)
+                                .orderBy('location'),
                           ),
                           padding: EdgeInsets.zero,
                           reverse: false,
@@ -598,6 +599,64 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                                     ),
                                                   ),
                                                 ],
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 5.0, 0.0),
+                                            child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                var confirmDialogResponse =
+                                                    await showDialog<bool>(
+                                                          context: context,
+                                                          builder:
+                                                              (alertDialogContext) {
+                                                            return AlertDialog(
+                                                              title: const Text(
+                                                                  'Delete Lead'),
+                                                              content: const Text(
+                                                                  'Are you sure you want to delete the delete'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext,
+                                                                          false),
+                                                                  child: const Text(
+                                                                      'Cancel'),
+                                                                ),
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext,
+                                                                          true),
+                                                                  child: const Text(
+                                                                      'Confirm'),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        ) ??
+                                                        false;
+                                                if (confirmDialogResponse) {
+                                                  await listViewLeadsRecord
+                                                      .reference
+                                                      .delete();
+                                                }
+                                              },
+                                              child: Icon(
+                                                Icons.delete,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                size: 24.0,
                                               ),
                                             ),
                                           ),

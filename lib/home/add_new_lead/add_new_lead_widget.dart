@@ -1772,6 +1772,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       leadCollectedBy:
                                           widget.teamDoc?.reference,
                                       photoUrl: _model.uploadedFileUrl2,
+                                      location: widget.teamDoc?.leadLocation,
                                     ),
                                     ...mapToFirestore(
                                       {
@@ -1803,6 +1804,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       leadCollectedBy:
                                           widget.teamDoc?.reference,
                                       photoUrl: _model.uploadedFileUrl2,
+                                      location: widget.teamDoc?.leadLocation,
                                     ),
                                     ...mapToFirestore(
                                       {

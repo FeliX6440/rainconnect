@@ -607,7 +607,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                           await teamComponentsRecordReference1.set({
                             ...createTeamComponentsRecordData(
                               name: _model.textController1.text,
-                              isStarter: false,
+                              isStarter: true,
                               description: '',
                               type: ComponentType.Dropdown,
                               isCustom: true,
@@ -623,7 +623,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                               TeamComponentsRecord.getDocumentFromData({
                             ...createTeamComponentsRecordData(
                               name: _model.textController1.text,
-                              isStarter: false,
+                              isStarter: true,
                               description: '',
                               type: ComponentType.Dropdown,
                               isCustom: true,
@@ -642,7 +642,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                           await teamComponentsRecordReference2.set({
                             ...createTeamComponentsRecordData(
                               name: _model.textController1.text,
-                              isStarter: false,
+                              isStarter: true,
                               description: '',
                               type: ComponentType.TextField,
                               isCustom: true,
@@ -657,7 +657,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                               TeamComponentsRecord.getDocumentFromData({
                             ...createTeamComponentsRecordData(
                               name: _model.textController1.text,
-                              isStarter: false,
+                              isStarter: true,
                               description: '',
                               type: ComponentType.TextField,
                               isCustom: true,
@@ -675,7 +675,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                           await teamComponentsRecordReference3.set({
                             ...createTeamComponentsRecordData(
                               name: _model.textController1.text,
-                              isStarter: false,
+                              isStarter: true,
                               description: '',
                               type: ComponentType.MultipleChoice,
                               isCustom: true,
@@ -691,7 +691,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                               TeamComponentsRecord.getDocumentFromData({
                             ...createTeamComponentsRecordData(
                               name: _model.textController1.text,
-                              isStarter: false,
+                              isStarter: true,
                               description: '',
                               type: ComponentType.MultipleChoice,
                               isCustom: true,

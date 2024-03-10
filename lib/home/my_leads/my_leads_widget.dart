@@ -183,77 +183,78 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                   ),
                 ],
               ),
-              Container(
-                width: double.infinity,
-                height: 60.0,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                ),
-                child: StreamBuilder<List<LeadsRecord>>(
-                  stream: queryLeadsRecord(
-                    queryBuilder: (leadsRecord) =>
-                        leadsRecord.whereIn('id', _model.selectedLeads),
+              if (_model.selectedLeads.isNotEmpty)
+                Container(
+                  width: double.infinity,
+                  height: 60.0,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
                   ),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 30.0,
-                          height: 30.0,
-                          child: SpinKitFadingFour(
-                            color: FlutterFlowTheme.of(context).primary,
-                            size: 30.0,
+                  child: StreamBuilder<List<LeadsRecord>>(
+                    stream: queryLeadsRecord(
+                      queryBuilder: (leadsRecord) =>
+                          leadsRecord.whereIn('id', _model.selectedLeads),
+                    ),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 30.0,
+                            height: 30.0,
+                            child: SpinKitFadingFour(
+                              color: FlutterFlowTheme.of(context).primary,
+                              size: 30.0,
+                            ),
                           ),
-                        ),
-                      );
-                    }
-                    List<LeadsRecord> rowLeadsRecordList = snapshot.data!;
-                    return SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: List.generate(rowLeadsRecordList.length,
-                            (rowIndex) {
-                          final rowLeadsRecord = rowLeadsRecordList[rowIndex];
-                          return Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 10.0, 0.0),
-                            child: Material(
-                              color: Colors.transparent,
-                              elevation: 2.0,
-                              shape: const CircleBorder(),
-                              child: Container(
-                                width: 45.0,
-                                height: 45.0,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Align(
-                                  alignment: const AlignmentDirectional(0.0, 0.0),
-                                  child: Text(
-                                    (String lastName) {
-                                      return lastName[0];
-                                    }(rowLeadsRecord.lastName),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Manrope',
-                                          fontWeight: FontWeight.w600,
-                                        ),
+                        );
+                      }
+                      List<LeadsRecord> rowLeadsRecordList = snapshot.data!;
+                      return SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: List.generate(rowLeadsRecordList.length,
+                              (rowIndex) {
+                            final rowLeadsRecord = rowLeadsRecordList[rowIndex];
+                            return Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 10.0, 0.0),
+                              child: Material(
+                                color: Colors.transparent,
+                                elevation: 2.0,
+                                shape: const CircleBorder(),
+                                child: Container(
+                                  width: 45.0,
+                                  height: 45.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Align(
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
+                                    child: Text(
+                                      (String lastName) {
+                                        return lastName[0];
+                                      }(rowLeadsRecord.lastName),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Manrope',
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          );
-                        }),
-                      ),
-                    );
-                  },
+                            );
+                          }),
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
               InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,

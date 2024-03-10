@@ -540,7 +540,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                   'lead_collected_by',
                                   isEqualTo: widget.teamDocRef,
                                 )
-                                .orderBy('location', descending: true),
+                                .orderBy('location'),
                           ),
                           padding: EdgeInsets.zero,
                           reverse: false,

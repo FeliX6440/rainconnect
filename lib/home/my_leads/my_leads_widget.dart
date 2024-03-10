@@ -312,6 +312,28 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                         },
                       ),
                     ),
+                    Theme(
+                      data: ThemeData(
+                        checkboxTheme: CheckboxThemeData(
+                          visualDensity: VisualDensity.compact,
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                        ),
+                        unselectedWidgetColor:
+                            FlutterFlowTheme.of(context).secondaryText,
+                      ),
+                      child: Checkbox(
+                        value: _model.checkboxValue ??= _model.isDeletedEnable,
+                        onChanged: (newValue) async {
+                          setState(() => _model.checkboxValue = newValue!);
+                        },
+                        activeColor: FlutterFlowTheme.of(context).primary,
+                        checkColor: FlutterFlowTheme.of(context).info,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -616,37 +638,42 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
-                                          ToggleIcon(
-                                            onPressed: () async {
-                                              setState(
-                                                () => _model.selectedLeads.contains(
-                                                        listViewLeadsRecord.id)
-                                                    ? _model
-                                                        .removeFromSelectedLeads(
-                                                            listViewLeadsRecord
-                                                                .id)
-                                                    : _model.addToSelectedLeads(
-                                                        listViewLeadsRecord.id),
-                                              );
-                                            },
-                                            value: _model.selectedLeads
-                                                .contains(
-                                                    listViewLeadsRecord.id),
-                                            onIcon: Icon(
-                                              Icons.check_box,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              size: 25.0,
+                                          if (_model.isDeletedEnable)
+                                            ToggleIcon(
+                                              onPressed: () async {
+                                                setState(
+                                                  () => _model.selectedLeads
+                                                          .contains(
+                                                              listViewLeadsRecord
+                                                                  .id)
+                                                      ? _model
+                                                          .removeFromSelectedLeads(
+                                                              listViewLeadsRecord
+                                                                  .id)
+                                                      : _model
+                                                          .addToSelectedLeads(
+                                                              listViewLeadsRecord
+                                                                  .id),
+                                                );
+                                              },
+                                              value: _model.selectedLeads
+                                                  .contains(
+                                                      listViewLeadsRecord.id),
+                                              onIcon: Icon(
+                                                Icons.check_box,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                size: 25.0,
+                                              ),
+                                              offIcon: Icon(
+                                                Icons.check_box_outline_blank,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                size: 25.0,
+                                              ),
                                             ),
-                                            offIcon: Icon(
-                                              Icons.check_box_outline_blank,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              size: 25.0,
-                                            ),
-                                          ),
                                           ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(40.0),
@@ -738,64 +765,6 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                                     ),
                                                   ),
                                                 ],
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 5.0, 0.0),
-                                            child: InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                var confirmDialogResponse =
-                                                    await showDialog<bool>(
-                                                          context: context,
-                                                          builder:
-                                                              (alertDialogContext) {
-                                                            return AlertDialog(
-                                                              title: const Text(
-                                                                  'Delete Lead'),
-                                                              content: const Text(
-                                                                  'Are you sure you want to delete the delete'),
-                                                              actions: [
-                                                                TextButton(
-                                                                  onPressed: () =>
-                                                                      Navigator.pop(
-                                                                          alertDialogContext,
-                                                                          false),
-                                                                  child: const Text(
-                                                                      'Cancel'),
-                                                                ),
-                                                                TextButton(
-                                                                  onPressed: () =>
-                                                                      Navigator.pop(
-                                                                          alertDialogContext,
-                                                                          true),
-                                                                  child: const Text(
-                                                                      'Confirm'),
-                                                                ),
-                                                              ],
-                                                            );
-                                                          },
-                                                        ) ??
-                                                        false;
-                                                if (confirmDialogResponse) {
-                                                  await listViewLeadsRecord
-                                                      .reference
-                                                      .delete();
-                                                }
-                                              },
-                                              child: Icon(
-                                                Icons.delete,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .error,
-                                                size: 24.0,
                                               ),
                                             ),
                                           ),

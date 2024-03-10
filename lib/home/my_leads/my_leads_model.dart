@@ -29,8 +29,6 @@ class MyLeadsModel extends FlutterFlowModel<MyLeadsWidget> {
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
   List<LeadsRecord> simpleSearchResults = [];
-  // State field(s) for Checkbox widget.
-  bool? checkboxValue;
   // State field(s) for ListView widget.
 
   PagingController<DocumentSnapshot?, LeadsRecord>? listViewPagingController2;

@@ -312,28 +312,6 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                         },
                       ),
                     ),
-                    Theme(
-                      data: ThemeData(
-                        checkboxTheme: CheckboxThemeData(
-                          visualDensity: VisualDensity.compact,
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4.0),
-                          ),
-                        ),
-                        unselectedWidgetColor:
-                            FlutterFlowTheme.of(context).secondaryText,
-                      ),
-                      child: Checkbox(
-                        value: _model.checkboxValue ??= _model.isDeletedEnable,
-                        onChanged: (newValue) async {
-                          setState(() => _model.checkboxValue = newValue!);
-                        },
-                        activeColor: FlutterFlowTheme.of(context).primary,
-                        checkColor: FlutterFlowTheme.of(context).info,
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -563,7 +541,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                   isEqualTo: widget.teamDocRef,
                                 )
                                 .orderBy('created_at', descending: true)
-                                .orderBy('location'),
+                                .orderBy('location', descending: true),
                           ),
                           padding: EdgeInsets.zero,
                           reverse: false,
@@ -638,42 +616,37 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
-                                          if (_model.isDeletedEnable)
-                                            ToggleIcon(
-                                              onPressed: () async {
-                                                setState(
-                                                  () => _model.selectedLeads
-                                                          .contains(
-                                                              listViewLeadsRecord
-                                                                  .id)
-                                                      ? _model
-                                                          .removeFromSelectedLeads(
-                                                              listViewLeadsRecord
-                                                                  .id)
-                                                      : _model
-                                                          .addToSelectedLeads(
-                                                              listViewLeadsRecord
-                                                                  .id),
-                                                );
-                                              },
-                                              value: _model.selectedLeads
-                                                  .contains(
-                                                      listViewLeadsRecord.id),
-                                              onIcon: Icon(
-                                                Icons.check_box,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                size: 25.0,
-                                              ),
-                                              offIcon: Icon(
-                                                Icons.check_box_outline_blank,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                size: 25.0,
-                                              ),
+                                          ToggleIcon(
+                                            onPressed: () async {
+                                              setState(
+                                                () => _model.selectedLeads.contains(
+                                                        listViewLeadsRecord.id)
+                                                    ? _model
+                                                        .removeFromSelectedLeads(
+                                                            listViewLeadsRecord
+                                                                .id)
+                                                    : _model.addToSelectedLeads(
+                                                        listViewLeadsRecord.id),
+                                              );
+                                            },
+                                            value: _model.selectedLeads
+                                                .contains(
+                                                    listViewLeadsRecord.id),
+                                            onIcon: Icon(
+                                              Icons.check_box,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              size: 25.0,
                                             ),
+                                            offIcon: Icon(
+                                              Icons.check_box_outline_blank,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              size: 25.0,
+                                            ),
+                                          ),
                                           ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(40.0),
@@ -724,7 +697,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                                                       0.0),
                                                           child: Text(
                                                             listViewLeadsRecord
-                                                                .phone
+                                                                .location
                                                                 .maybeHandleOverflow(
                                                               maxChars: 11,
                                                               replacement: '…',

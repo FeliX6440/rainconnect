@@ -1,6 +1,7 @@
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
@@ -182,6 +183,77 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                   ),
                 ],
               ),
+              Container(
+                width: double.infinity,
+                height: 60.0,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                ),
+                child: StreamBuilder<List<LeadsRecord>>(
+                  stream: queryLeadsRecord(
+                    queryBuilder: (leadsRecord) =>
+                        leadsRecord.whereIn('id', _model.selectedLeads),
+                  ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 30.0,
+                          height: 30.0,
+                          child: SpinKitFadingFour(
+                            color: FlutterFlowTheme.of(context).primary,
+                            size: 30.0,
+                          ),
+                        ),
+                      );
+                    }
+                    List<LeadsRecord> rowLeadsRecordList = snapshot.data!;
+                    return SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: List.generate(rowLeadsRecordList.length,
+                            (rowIndex) {
+                          final rowLeadsRecord = rowLeadsRecordList[rowIndex];
+                          return Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 10.0, 0.0),
+                            child: Material(
+                              color: Colors.transparent,
+                              elevation: 2.0,
+                              shape: const CircleBorder(),
+                              child: Container(
+                                width: 45.0,
+                                height: 45.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Align(
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
+                                  child: Text(
+                                    (String lastName) {
+                                      return lastName[0];
+                                    }(rowLeadsRecord.lastName),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Manrope',
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                      ),
+                    );
+                  },
+                ),
+              ),
               InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,
@@ -303,6 +375,41 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
+                                            ToggleIcon(
+                                              onPressed: () async {
+                                                setState(
+                                                  () => _model.selectedLeads
+                                                          .contains(
+                                                              searchedLeadItem
+                                                                  .id)
+                                                      ? _model
+                                                          .removeFromSelectedLeads(
+                                                              searchedLeadItem
+                                                                  .id)
+                                                      : _model
+                                                          .addToSelectedLeads(
+                                                              searchedLeadItem
+                                                                  .id),
+                                                );
+                                              },
+                                              value: _model.selectedLeads
+                                                  .contains(
+                                                      searchedLeadItem.id),
+                                              onIcon: Icon(
+                                                Icons.check_box,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                size: 25.0,
+                                              ),
+                                              offIcon: Icon(
+                                                Icons.check_box_outline_blank,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                size: 25.0,
+                                              ),
+                                            ),
                                             ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(40.0),
@@ -508,6 +615,37 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
+                                          ToggleIcon(
+                                            onPressed: () async {
+                                              setState(
+                                                () => _model.selectedLeads.contains(
+                                                        listViewLeadsRecord.id)
+                                                    ? _model
+                                                        .removeFromSelectedLeads(
+                                                            listViewLeadsRecord
+                                                                .id)
+                                                    : _model.addToSelectedLeads(
+                                                        listViewLeadsRecord.id),
+                                              );
+                                            },
+                                            value: _model.selectedLeads
+                                                .contains(
+                                                    listViewLeadsRecord.id),
+                                            onIcon: Icon(
+                                              Icons.check_box,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              size: 25.0,
+                                            ),
+                                            offIcon: Icon(
+                                              Icons.check_box_outline_blank,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              size: 25.0,
+                                            ),
+                                          ),
                                           ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(40.0),
@@ -700,16 +838,31 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                 padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 40.0),
                 child: FFButtonWidget(
                   onPressed: () async {
-                    _model.teamDocs = await queryLeadsRecordOnce(
-                      queryBuilder: (leadsRecord) => leadsRecord.where(
-                        'lead_collected_by',
-                        isEqualTo: widget.teamDocRef,
-                      ),
-                    );
-                    await actions.exportLeadsDocsAsCSV(
-                      context,
-                      _model.teamDocs!.toList(),
-                    );
+                    if (_model.selectedLeads.isNotEmpty) {
+                      _model.selectedLeadList = await queryLeadsRecordOnce(
+                        queryBuilder: (leadsRecord) => leadsRecord
+                            .where(
+                              'lead_collected_by',
+                              isEqualTo: widget.teamDocRef,
+                            )
+                            .whereIn('id', _model.selectedLeads),
+                      );
+                      await actions.exportLeadsDocsAsCSV(
+                        context,
+                        _model.selectedLeadList!.toList(),
+                      );
+                    } else {
+                      _model.teamLeads = await queryLeadsRecordOnce(
+                        queryBuilder: (leadsRecord) => leadsRecord.where(
+                          'lead_collected_by',
+                          isEqualTo: widget.teamDocRef,
+                        ),
+                      );
+                      await actions.exportLeadsDocsAsCSV(
+                        context,
+                        _model.teamLeads!.toList(),
+                      );
+                    }
 
                     setState(() {});
                   },

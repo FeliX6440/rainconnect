@@ -1812,6 +1812,11 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       },
                                     ),
                                   }, leadsRecordReference);
+
+                                  await _model.leadResponse!.reference
+                                      .update(createLeadsRecordData(
+                                    id: _model.leadResponse?.reference.id,
+                                  ));
                                   await _model.pageViewController?.nextPage(
                                     duration: const Duration(milliseconds: 300),
                                     curve: Curves.ease,

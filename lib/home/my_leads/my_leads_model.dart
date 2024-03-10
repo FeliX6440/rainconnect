@@ -9,6 +9,16 @@ class MyLeadsModel extends FlutterFlowModel<MyLeadsWidget> {
 
   int leadCount = 0;
 
+  List<String> selectedLeads = [];
+  void addToSelectedLeads(String item) => selectedLeads.add(item);
+  void removeFromSelectedLeads(String item) => selectedLeads.remove(item);
+  void removeAtIndexFromSelectedLeads(int index) =>
+      selectedLeads.removeAt(index);
+  void insertAtIndexInSelectedLeads(int index, String item) =>
+      selectedLeads.insert(index, item);
+  void updateSelectedLeadsAtIndex(int index, Function(String) updateFn) =>
+      selectedLeads[index] = updateFn(selectedLeads[index]);
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -23,7 +33,9 @@ class MyLeadsModel extends FlutterFlowModel<MyLeadsWidget> {
   Query? listViewPagingQuery2;
 
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
-  List<LeadsRecord>? teamDocs;
+  List<LeadsRecord>? selectedLeadList;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  List<LeadsRecord>? teamLeads;
 
   /// Initialization and disposal methods.
 

@@ -1,13 +1,8 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'user_right_card_model.dart';
 export 'user_right_card_model.dart';
 
@@ -52,13 +47,13 @@ class _UserRightCardWidgetState extends State<UserRightCardWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 8.0),
+      padding: const EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 8.0),
       child: Container(
         width: double.infinity,
         height: 60.0,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               blurRadius: 4.0,
               color: Color(0x32000000),
@@ -68,7 +63,7 @@ class _UserRightCardWidgetState extends State<UserRightCardWidget> {
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,7 +79,7 @@ class _UserRightCardWidgetState extends State<UserRightCardWidget> {
               ),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -112,8 +107,8 @@ class _UserRightCardWidgetState extends State<UserRightCardWidget> {
                       value: _model.switchValue ??= widget.teamDoc!.admins
                           .contains(widget.userDoc?.reference),
                       onChanged: (newValue) async {
-                        setState(() => _model.switchValue = newValue!);
-                        if (newValue!) {
+                        setState(() => _model.switchValue = newValue);
+                        if (newValue) {
                           await widget.teamDoc!.reference.update({
                             ...mapToFirestore(
                               {
@@ -173,19 +168,19 @@ class _UserRightCardWidgetState extends State<UserRightCardWidget> {
                               context: context,
                               builder: (alertDialogContext) {
                                 return AlertDialog(
-                                  title: Text('Delete user'),
+                                  title: const Text('Delete user'),
                                   content: Text(
                                       'Are you sure you want to remove ${widget.userDoc?.displayName}from the team'),
                                   actions: [
                                     TextButton(
                                       onPressed: () => Navigator.pop(
                                           alertDialogContext, false),
-                                      child: Text('Cancel'),
+                                      child: const Text('Cancel'),
                                     ),
                                     TextButton(
                                       onPressed: () => Navigator.pop(
                                           alertDialogContext, true),
-                                      child: Text('Confirm'),
+                                      child: const Text('Confirm'),
                                     ),
                                   ],
                                 );

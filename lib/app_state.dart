@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
-import '/backend/schema/enums/enums.dart';
-import 'backend/api_requests/api_manager.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
 class FFAppState extends ChangeNotifier {
@@ -35,37 +32,37 @@ class FFAppState extends ChangeNotifier {
     'Italian'
   ];
   List<String> get languageList => _languageList;
-  set languageList(List<String> _value) {
-    _languageList = _value;
+  set languageList(List<String> value) {
+    _languageList = value;
   }
 
-  void addToLanguageList(String _value) {
-    _languageList.add(_value);
+  void addToLanguageList(String value) {
+    _languageList.add(value);
   }
 
-  void removeFromLanguageList(String _value) {
-    _languageList.remove(_value);
+  void removeFromLanguageList(String value) {
+    _languageList.remove(value);
   }
 
-  void removeAtIndexFromLanguageList(int _index) {
-    _languageList.removeAt(_index);
+  void removeAtIndexFromLanguageList(int index) {
+    _languageList.removeAt(index);
   }
 
   void updateLanguageListAtIndex(
-    int _index,
+    int index,
     String Function(String) updateFn,
   ) {
-    _languageList[_index] = updateFn(_languageList[_index]);
+    _languageList[index] = updateFn(_languageList[index]);
   }
 
-  void insertAtIndexInLanguageList(int _index, String _value) {
-    _languageList.insert(_index, _value);
+  void insertAtIndexInLanguageList(int index, String value) {
+    _languageList.insert(index, value);
   }
 
   String _audioTextResult = '';
   String get audioTextResult => _audioTextResult;
-  set audioTextResult(String _value) {
-    _audioTextResult = _value;
+  set audioTextResult(String value) {
+    _audioTextResult = value;
   }
 
   List<TemplateStruct> _templates = [
@@ -79,89 +76,89 @@ class FFAppState extends ChangeNotifier {
         '{\"name\":\"Note\",\"description\":\"Simple Text field to take notes\"}'))
   ];
   List<TemplateStruct> get templates => _templates;
-  set templates(List<TemplateStruct> _value) {
-    _templates = _value;
+  set templates(List<TemplateStruct> value) {
+    _templates = value;
   }
 
-  void addToTemplates(TemplateStruct _value) {
-    _templates.add(_value);
+  void addToTemplates(TemplateStruct value) {
+    _templates.add(value);
   }
 
-  void removeFromTemplates(TemplateStruct _value) {
-    _templates.remove(_value);
+  void removeFromTemplates(TemplateStruct value) {
+    _templates.remove(value);
   }
 
-  void removeAtIndexFromTemplates(int _index) {
-    _templates.removeAt(_index);
+  void removeAtIndexFromTemplates(int index) {
+    _templates.removeAt(index);
   }
 
   void updateTemplatesAtIndex(
-    int _index,
+    int index,
     TemplateStruct Function(TemplateStruct) updateFn,
   ) {
-    _templates[_index] = updateFn(_templates[_index]);
+    _templates[index] = updateFn(_templates[index]);
   }
 
-  void insertAtIndexInTemplates(int _index, TemplateStruct _value) {
-    _templates.insert(_index, _value);
+  void insertAtIndexInTemplates(int index, TemplateStruct value) {
+    _templates.insert(index, value);
   }
 
   bool _componentSwitchState = false;
   bool get componentSwitchState => _componentSwitchState;
-  set componentSwitchState(bool _value) {
-    _componentSwitchState = _value;
+  set componentSwitchState(bool value) {
+    _componentSwitchState = value;
   }
 
   List<String> _industryFairContent = [];
   List<String> get industryFairContent => _industryFairContent;
-  set industryFairContent(List<String> _value) {
-    _industryFairContent = _value;
+  set industryFairContent(List<String> value) {
+    _industryFairContent = value;
   }
 
-  void addToIndustryFairContent(String _value) {
-    _industryFairContent.add(_value);
+  void addToIndustryFairContent(String value) {
+    _industryFairContent.add(value);
   }
 
-  void removeFromIndustryFairContent(String _value) {
-    _industryFairContent.remove(_value);
+  void removeFromIndustryFairContent(String value) {
+    _industryFairContent.remove(value);
   }
 
-  void removeAtIndexFromIndustryFairContent(int _index) {
-    _industryFairContent.removeAt(_index);
+  void removeAtIndexFromIndustryFairContent(int index) {
+    _industryFairContent.removeAt(index);
   }
 
   void updateIndustryFairContentAtIndex(
-    int _index,
+    int index,
     String Function(String) updateFn,
   ) {
-    _industryFairContent[_index] = updateFn(_industryFairContent[_index]);
+    _industryFairContent[index] = updateFn(_industryFairContent[index]);
   }
 
-  void insertAtIndexInIndustryFairContent(int _index, String _value) {
-    _industryFairContent.insert(_index, _value);
+  void insertAtIndexInIndustryFairContent(int index, String value) {
+    _industryFairContent.insert(index, value);
   }
 
   String _salesPersonContent = '';
   String get salesPersonContent => _salesPersonContent;
-  set salesPersonContent(String _value) {
-    _salesPersonContent = _value;
+  set salesPersonContent(String value) {
+    _salesPersonContent = value;
   }
 
   String _selectedIndustrialFair = '';
   String get selectedIndustrialFair => _selectedIndustrialFair;
-  set selectedIndustrialFair(String _value) {
-    _selectedIndustrialFair = _value;
+  set selectedIndustrialFair(String value) {
+    _selectedIndustrialFair = value;
   }
 
   String _emailSubjectHolder = '';
   String get emailSubjectHolder => _emailSubjectHolder;
-  set emailSubjectHolder(String _value) {
-    _emailSubjectHolder = _value;
+  set emailSubjectHolder(String value) {
+    _emailSubjectHolder = value;
   }
 
   String _emailBodyHolder = '';
   String get emailBodyHolder => _emailBodyHolder;
-  set emailBodyHolder(String _value) {
-    _emailBodyHolder = _value;
+  set emailBodyHolder(String value) {
+    _emailBodyHolder = value;
   }
 }

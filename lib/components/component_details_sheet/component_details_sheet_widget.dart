@@ -1,4 +1,3 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -7,12 +6,9 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'component_details_sheet_model.dart';
 export 'component_details_sheet_model.dart';
 
@@ -67,7 +63,7 @@ class _ComponentDetailsSheetWidgetState
     return Material(
       color: Colors.transparent,
       elevation: 5.0,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
@@ -79,7 +75,7 @@ class _ComponentDetailsSheetWidgetState
         width: double.infinity,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(0.0),
             bottomRight: Radius.circular(0.0),
             topLeft: Radius.circular(16.0),
@@ -90,7 +86,7 @@ class _ComponentDetailsSheetWidgetState
           builder: (context) {
             if (widget.type == ComponentType.TextField) {
               return Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
                 child: StreamBuilder<List<ComponentContentRecord>>(
                   stream: queryComponentContentRecord(
                     queryBuilder: (componentContentRecord) =>
@@ -133,7 +129,7 @@ class _ComponentDetailsSheetWidgetState
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 12.0, 0.0, 0.0),
                           child: Container(
                             width: 50.0,
@@ -146,7 +142,7 @@ class _ComponentDetailsSheetWidgetState
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 16.0, 16.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -177,7 +173,7 @@ class _ComponentDetailsSheetWidgetState
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               8.0, 10.0, 8.0, 0.0),
                           child: TextFormField(
                             controller: _model.textController1 ??=
@@ -230,7 +226,7 @@ class _ComponentDetailsSheetWidgetState
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 20.0, 0.0, 0.0),
                           child: FFButtonWidget(
                             onPressed: () async {
@@ -244,9 +240,9 @@ class _ComponentDetailsSheetWidgetState
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 40.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context).primary,
                               textStyle: FlutterFlowTheme.of(context)
@@ -256,7 +252,7 @@ class _ComponentDetailsSheetWidgetState
                                     color: Colors.white,
                                   ),
                               elevation: 3.0,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
@@ -271,7 +267,7 @@ class _ComponentDetailsSheetWidgetState
               );
             } else if (widget.type == ComponentType.Note) {
               return Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
                 child: StreamBuilder<List<ComponentContentRecord>>(
                   stream: queryComponentContentRecord(
                     queryBuilder: (componentContentRecord) =>
@@ -314,7 +310,7 @@ class _ComponentDetailsSheetWidgetState
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 12.0, 0.0, 0.0),
                           child: Container(
                             width: 50.0,
@@ -327,7 +323,7 @@ class _ComponentDetailsSheetWidgetState
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 16.0, 16.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -359,7 +355,7 @@ class _ComponentDetailsSheetWidgetState
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               8.0, 10.0, 8.0, 0.0),
                           child: TextFormField(
                             controller: _model.textController2 ??=
@@ -412,7 +408,7 @@ class _ComponentDetailsSheetWidgetState
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 20.0, 0.0, 0.0),
                           child: FFButtonWidget(
                             onPressed: () async {
@@ -426,9 +422,9 @@ class _ComponentDetailsSheetWidgetState
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 40.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context).primary,
                               textStyle: FlutterFlowTheme.of(context)
@@ -438,7 +434,7 @@ class _ComponentDetailsSheetWidgetState
                                     color: Colors.white,
                                   ),
                               elevation: 3.0,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
@@ -453,7 +449,7 @@ class _ComponentDetailsSheetWidgetState
               );
             } else if (widget.type == ComponentType.Dropdown) {
               return Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
                 child: StreamBuilder<List<ComponentContentRecord>>(
                   stream: queryComponentContentRecord(
                     queryBuilder: (componentContentRecord) =>
@@ -496,7 +492,7 @@ class _ComponentDetailsSheetWidgetState
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 12.0, 0.0, 0.0),
                           child: Container(
                             width: 50.0,
@@ -509,7 +505,7 @@ class _ComponentDetailsSheetWidgetState
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 16.0, 16.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -524,7 +520,7 @@ class _ComponentDetailsSheetWidgetState
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 30.0, 0.0, 0.0),
                           child: FlutterFlowDropDown<String>(
                             controller: _model.dropDownValueController1 ??=
@@ -550,7 +546,7 @@ class _ComponentDetailsSheetWidgetState
                             borderColor: FlutterFlowTheme.of(context).alternate,
                             borderWidth: 2.0,
                             borderRadius: 8.0,
-                            margin: EdgeInsetsDirectional.fromSTEB(
+                            margin: const EdgeInsetsDirectional.fromSTEB(
                                 16.0, 4.0, 16.0, 4.0),
                             hidesUnderline: true,
                             isOverButton: true,
@@ -559,11 +555,11 @@ class _ComponentDetailsSheetWidgetState
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 20.0, 0.0, 0.0),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              await columnComponentContentRecord!.reference
+                              await columnComponentContentRecord.reference
                                   .update(createComponentContentRecordData(
                                 content: _model.dropDownValue1,
                               ));
@@ -573,9 +569,9 @@ class _ComponentDetailsSheetWidgetState
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 40.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context).primary,
                               textStyle: FlutterFlowTheme.of(context)
@@ -585,7 +581,7 @@ class _ComponentDetailsSheetWidgetState
                                     color: Colors.white,
                                   ),
                               elevation: 3.0,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
@@ -600,7 +596,7 @@ class _ComponentDetailsSheetWidgetState
               );
             } else if (widget.type == ComponentType.Temperature) {
               return Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
                 child: StreamBuilder<List<ComponentContentRecord>>(
                   stream: queryComponentContentRecord(
                     queryBuilder: (componentContentRecord) =>
@@ -643,7 +639,7 @@ class _ComponentDetailsSheetWidgetState
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 12.0, 0.0, 0.0),
                           child: Container(
                             width: 50.0,
@@ -656,7 +652,7 @@ class _ComponentDetailsSheetWidgetState
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 16.0, 16.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -671,7 +667,7 @@ class _ComponentDetailsSheetWidgetState
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 30.0, 0.0, 0.0),
                           child: FlutterFlowDropDown<String>(
                             controller: _model.dropDownValueController2 ??=
@@ -679,7 +675,7 @@ class _ComponentDetailsSheetWidgetState
                               _model.dropDownValue2 ??=
                                   columnComponentContentRecord?.content,
                             ),
-                            options: ['Cold', 'Warm', 'Hot'],
+                            options: const ['Cold', 'Warm', 'Hot'],
                             onChanged: (val) =>
                                 setState(() => _model.dropDownValue2 = val),
                             width: double.infinity,
@@ -697,7 +693,7 @@ class _ComponentDetailsSheetWidgetState
                             borderColor: FlutterFlowTheme.of(context).alternate,
                             borderWidth: 2.0,
                             borderRadius: 8.0,
-                            margin: EdgeInsetsDirectional.fromSTEB(
+                            margin: const EdgeInsetsDirectional.fromSTEB(
                                 16.0, 4.0, 16.0, 4.0),
                             hidesUnderline: true,
                             isOverButton: true,
@@ -706,7 +702,7 @@ class _ComponentDetailsSheetWidgetState
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 20.0, 0.0, 0.0),
                           child: FFButtonWidget(
                             onPressed: () async {
@@ -720,9 +716,9 @@ class _ComponentDetailsSheetWidgetState
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 40.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context).primary,
                               textStyle: FlutterFlowTheme.of(context)
@@ -732,7 +728,7 @@ class _ComponentDetailsSheetWidgetState
                                     color: Colors.white,
                                   ),
                               elevation: 3.0,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
@@ -747,7 +743,7 @@ class _ComponentDetailsSheetWidgetState
               );
             } else if (widget.type == ComponentType.MultipleChoice) {
               return Padding(
-                padding: EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(15.0),
                 child: StreamBuilder<List<ComponentContentRecord>>(
                   stream: queryComponentContentRecord(
                     queryBuilder: (componentContentRecord) =>
@@ -792,13 +788,13 @@ class _ComponentDetailsSheetWidgetState
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 20.0, 0.0, 20.0),
                           child: Builder(
                             builder: (context) {
                               final listValue = columnComponentContentRecord
                                       ?.listOptions
-                                      ?.toList() ??
+                                      .toList() ??
                                   [];
                               return Wrap(
                                 spacing: 10.0,
@@ -822,10 +818,10 @@ class _ComponentDetailsSheetWidgetState
                                         hoverColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
-                                          if (columnComponentContentRecord!
+                                          if (columnComponentContentRecord
                                               .listContent
                                               .contains(listValueItem)) {
-                                            await columnComponentContentRecord!
+                                            await columnComponentContentRecord
                                                 .reference
                                                 .update({
                                               ...mapToFirestore(
@@ -837,7 +833,7 @@ class _ComponentDetailsSheetWidgetState
                                               ),
                                             });
                                           } else {
-                                            await columnComponentContentRecord!
+                                            await columnComponentContentRecord
                                                 .reference
                                                 .update({
                                               ...mapToFirestore(
@@ -875,10 +871,10 @@ class _ComponentDetailsSheetWidgetState
                                                   BorderRadius.circular(15.0),
                                             ),
                                             child: Align(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         10.0, 0.0, 10.0, 0.0),
                                                 child: Text(
@@ -906,9 +902,9 @@ class _ComponentDetailsSheetWidgetState
                           text: 'Continue',
                           options: FFButtonOptions(
                             height: 40.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 24.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             color: FlutterFlowTheme.of(context).primary,
                             textStyle: FlutterFlowTheme.of(context)
@@ -918,7 +914,7 @@ class _ComponentDetailsSheetWidgetState
                                   color: Colors.white,
                                 ),
                             elevation: 3.0,
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Colors.transparent,
                               width: 1.0,
                             ),

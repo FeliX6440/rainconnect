@@ -3,9 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'settings_model.dart';
 export 'settings_model.dart';
 
@@ -61,7 +58,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
           'Settings Page',
           style: FlutterFlowTheme.of(context).headlineSmall,
         ),
-        actions: [],
+        actions: const [],
         centerTitle: false,
         elevation: 0.0,
       ),
@@ -69,7 +66,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -83,11 +80,11 @@ class _SettingsWidgetState extends State<SettingsWidget> {
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
             child: SwitchListTile.adaptive(
               value: _model.switchListTileValue1 ??= true,
               onChanged: (newValue) async {
-                setState(() => _model.switchListTileValue1 = newValue!);
+                setState(() => _model.switchListTileValue1 = newValue);
               },
               title: Text(
                 'Push Notifications',
@@ -100,7 +97,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                 'Receive Push notifications from our application on a semi regular basis.',
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Manrope',
-                      color: Color(0xFF8B97A2),
+                      color: const Color(0xFF8B97A2),
                     ),
               ),
               tileColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -109,13 +106,13 @@ class _SettingsWidgetState extends State<SettingsWidget> {
               dense: false,
               controlAffinity: ListTileControlAffinity.trailing,
               contentPadding:
-                  EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 12.0),
+                  const EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 12.0),
             ),
           ),
           SwitchListTile.adaptive(
             value: _model.switchListTileValue2 ??= true,
             onChanged: (newValue) async {
-              setState(() => _model.switchListTileValue2 = newValue!);
+              setState(() => _model.switchListTileValue2 = newValue);
             },
             title: Text(
               'Email Notifications',
@@ -128,7 +125,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
               'Receive email notifications from our marketing team about new features.',
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontFamily: 'Manrope',
-                    color: Color(0xFF8B97A2),
+                    color: const Color(0xFF8B97A2),
                   ),
             ),
             tileColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -137,12 +134,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
             dense: false,
             controlAffinity: ListTileControlAffinity.trailing,
             contentPadding:
-                EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 12.0),
+                const EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 12.0),
           ),
           SwitchListTile.adaptive(
             value: _model.switchListTileValue3 ??= true,
             onChanged: (newValue) async {
-              setState(() => _model.switchListTileValue3 = newValue!);
+              setState(() => _model.switchListTileValue3 = newValue);
             },
             title: Text(
               'Microphone Services',
@@ -155,7 +152,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
               'Allow Microphone Access to Unlock the Speech to Text Components functionality',
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontFamily: 'Manrope',
-                    color: Color(0xFF8B97A2),
+                    color: const Color(0xFF8B97A2),
                   ),
             ),
             tileColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -164,12 +161,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
             dense: false,
             controlAffinity: ListTileControlAffinity.trailing,
             contentPadding:
-                EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 12.0),
+                const EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 12.0),
           ),
           SwitchListTile.adaptive(
             value: _model.switchListTileValue4 ??= true,
             onChanged: (newValue) async {
-              setState(() => _model.switchListTileValue4 = newValue!);
+              setState(() => _model.switchListTileValue4 = newValue);
             },
             title: Text(
               'Camera Access',
@@ -182,7 +179,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
               'Allow Camera Access to Unlock the ability to scan Business Cards',
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontFamily: 'Manrope',
-                    color: Color(0xFF8B97A2),
+                    color: const Color(0xFF8B97A2),
                   ),
             ),
             tileColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -191,10 +188,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
             dense: false,
             controlAffinity: ListTileControlAffinity.trailing,
             contentPadding:
-                EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 12.0),
+                const EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 12.0),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 20.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 20.0, 0.0),
             child: FFButtonWidget(
               onPressed: () async {
                 context.pop();
@@ -203,15 +200,15 @@ class _SettingsWidgetState extends State<SettingsWidget> {
               options: FFButtonOptions(
                 width: double.infinity,
                 height: 50.0,
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                 color: FlutterFlowTheme.of(context).primaryText,
                 textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                       fontFamily: 'Manrope',
                       color: Colors.white,
                     ),
                 elevation: 3.0,
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Colors.transparent,
                   width: 1.0,
                 ),

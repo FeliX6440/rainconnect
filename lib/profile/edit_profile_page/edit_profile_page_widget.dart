@@ -6,11 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'edit_profile_page_model.dart';
 export 'edit_profile_page_model.dart';
 
@@ -88,39 +84,38 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
                   fontSize: 22.0,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 2.0,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Container(
+                SizedBox(
                   width: double.infinity,
                   height: 150.0,
                   child: Stack(
                     children: [
                       Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 20.0, 0.0, 0.0),
                           child: AuthUserStreamWidget(
                             builder: (context) => Container(
                               width: 120.0,
                               height: 120.0,
                               clipBehavior: Clip.antiAlias,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                               ),
                               child: Image.network(
-                                _model.uploadedFileUrl != null &&
-                                        _model.uploadedFileUrl != ''
+                                _model.uploadedFileUrl != ''
                                     ? _model.uploadedFileUrl
                                     : currentUserPhoto,
                                 fit: BoxFit.cover,
@@ -130,7 +125,7 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(0.28, 0.92),
+                        alignment: const AlignmentDirectional(0.28, 0.92),
                         child: FlutterFlowIconButton(
                           borderColor: FlutterFlowTheme.of(context).primary,
                           borderRadius: 20.0,
@@ -210,7 +205,7 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
                   ),
                 ),
                 AuthUserStreamWidget(
-                  builder: (context) => Container(
+                  builder: (context) => SizedBox(
                     width: double.infinity,
                     child: TextFormField(
                       controller: _model.fullNameController,
@@ -256,7 +251,7 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
                         filled: true,
                         fillColor:
                             FlutterFlowTheme.of(context).secondaryBackground,
-                        contentPadding: EdgeInsets.all(18.0),
+                        contentPadding: const EdgeInsets.all(18.0),
                       ),
                       style: FlutterFlowTheme.of(context).titleMedium.override(
                             fontFamily: 'Manrope',
@@ -269,9 +264,9 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                   child: AuthUserStreamWidget(
-                    builder: (context) => Container(
+                    builder: (context) => SizedBox(
                       width: double.infinity,
                       child: TextFormField(
                         controller: _model.jobController,
@@ -318,7 +313,7 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
                           filled: true,
                           fillColor:
                               FlutterFlowTheme.of(context).secondaryBackground,
-                          contentPadding: EdgeInsets.all(18.0),
+                          contentPadding: const EdgeInsets.all(18.0),
                         ),
                         style: FlutterFlowTheme.of(context)
                             .titleMedium
@@ -334,9 +329,9 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                   child: AuthUserStreamWidget(
-                    builder: (context) => Container(
+                    builder: (context) => SizedBox(
                       width: double.infinity,
                       child: TextFormField(
                         controller: _model.phoneController,
@@ -385,7 +380,7 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
                           filled: true,
                           fillColor:
                               FlutterFlowTheme.of(context).secondaryBackground,
-                          contentPadding: EdgeInsets.all(18.0),
+                          contentPadding: const EdgeInsets.all(18.0),
                         ),
                         style: FlutterFlowTheme.of(context)
                             .titleMedium
@@ -402,10 +397,10 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
                   ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
+                  alignment: const AlignmentDirectional(0.0, 0.0),
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 16.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 16.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         await currentUserReference!
@@ -413,8 +408,7 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
                           displayName: _model.fullNameController.text,
                           jobTitle: _model.jobController.text,
                           phoneNumber: _model.phoneController.text,
-                          photoUrl: _model.uploadedFileUrl != null &&
-                                  _model.uploadedFileUrl != ''
+                          photoUrl: _model.uploadedFileUrl != ''
                               ? _model.uploadedFileUrl
                               : currentUserPhoto,
                         ));
@@ -425,9 +419,9 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
                         width: 230.0,
                         height: 52.0,
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
@@ -435,7 +429,7 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
                                   color: Colors.white,
                                 ),
                         elevation: 3.0,
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
                         ),

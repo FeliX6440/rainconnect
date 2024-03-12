@@ -3,12 +3,8 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/profile/components/edit_single_profile_doc/edit_single_profile_doc_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'account_settings_model.dart';
 export 'account_settings_model.dart';
 
@@ -70,24 +66,24 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
               context.pop();
             },
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 0.0,
         ),
         body: Align(
-          alignment: AlignmentDirectional(0.0, 0.0),
+          alignment: const AlignmentDirectional(0.0, 0.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Container(
+              SizedBox(
                 width: 140.0,
                 child: Stack(
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                         child: Container(
                           width: 100.0,
                           height: 100.0,
@@ -97,7 +93,7 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                             shape: BoxShape.circle,
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(2.0),
+                            padding: const EdgeInsets.all(2.0),
                             child: AuthUserStreamWidget(
                               builder: (context) => ClipRRect(
                                 borderRadius: BorderRadius.circular(50.0),
@@ -117,7 +113,7 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 12.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 12.0),
                 child: AuthUserStreamWidget(
                   builder: (context) => Text(
                     currentUserDisplayName,
@@ -137,20 +133,20 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                     ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 32.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 32.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     if (widget.teamDoc?.admins
-                            ?.contains(currentUserReference) ??
+                            .contains(currentUserReference) ??
                         true)
                       Expanded(
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 12.0),
                               child: Container(
                                 width: 44.0,
@@ -160,9 +156,9 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                                       .secondaryBackground,
                                   shape: BoxShape.circle,
                                 ),
-                                alignment: AlignmentDirectional(0.0, 0.0),
+                                alignment: const AlignmentDirectional(0.0, 0.0),
                                 child: Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
                                   child: Icon(
                                     Icons.payments_outlined,
                                     color: FlutterFlowTheme.of(context)
@@ -193,7 +189,7 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 12.0),
                               child: Container(
                                 width: 44.0,
@@ -203,7 +199,7 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                                       .secondaryBackground,
                                   shape: BoxShape.circle,
                                 ),
-                                alignment: AlignmentDirectional(0.0, 0.0),
+                                alignment: const AlignmentDirectional(0.0, 0.0),
                                 child: Icon(
                                   Icons.help_outline_outlined,
                                   color:
@@ -230,14 +226,14 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                   height: 400.0,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         blurRadius: 3.0,
                         color: Color(0x33000000),
                         offset: Offset(0.0, -1.0),
                       )
                     ],
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(0.0),
                       bottomRight: Radius.circular(0.0),
                       topLeft: Radius.circular(16.0),
@@ -250,14 +246,14 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 16.0, 16.0, 0.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 12.0),
                                 child: Text(
                                   'Settings',
@@ -267,7 +263,7 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                               ),
                               Builder(
                                 builder: (context) => Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 8.0),
                                   child: InkWell(
                                     splashColor: Colors.transparent,
@@ -282,7 +278,7 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                                             elevation: 0,
                                             insetPadding: EdgeInsets.zero,
                                             backgroundColor: Colors.transparent,
-                                            alignment: AlignmentDirectional(
+                                            alignment: const AlignmentDirectional(
                                                     0.0, 0.0)
                                                 .resolve(
                                                     Directionality.of(context)),
@@ -295,7 +291,7 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                                                   : FocusScope.of(context)
                                                       .unfocus(),
                                               child:
-                                                  EditSingleProfileDocWidget(),
+                                                  const EditSingleProfileDocWidget(),
                                             ),
                                           );
                                         },
@@ -308,7 +304,7 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 8.0, 16.0, 8.0),
                                           child: Icon(
                                             Icons.work_outline,
@@ -320,7 +316,7 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                                         Expanded(
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 12.0, 0.0),
                                             child: Text(
                                               'Phone Number',
@@ -351,17 +347,17 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                                 ),
                               ),
                               if (widget.teamDoc?.admins
-                                      ?.contains(currentUserReference) ??
+                                      .contains(currentUserReference) ??
                                   true)
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 8.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 8.0, 16.0, 8.0),
                                         child: Icon(
                                           Icons.money_rounded,
@@ -373,7 +369,7 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                                       Expanded(
                                         child: Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 12.0, 0.0),
                                           child: Text(
                                             'Currency',
@@ -399,7 +395,7 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                                   ),
                                 ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 8.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -414,7 +410,7 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 8.0, 16.0, 8.0),
                                         child: Icon(
                                           Icons.edit,
@@ -426,7 +422,7 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                                       Expanded(
                                         child: Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 12.0, 0.0),
                                           child: Text(
                                             'Profile Settings',
@@ -453,10 +449,10 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                                 ),
                               ),
                               if (widget.teamDoc?.admins
-                                      ?.contains(currentUserReference) ??
+                                      .contains(currentUserReference) ??
                                   true)
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 8.0),
                                   child: InkWell(
                                     splashColor: Colors.transparent,
@@ -473,7 +469,7 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 8.0, 16.0, 8.0),
                                           child: Icon(
                                             Icons.receipt_long_rounded,
@@ -485,7 +481,7 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                                         Expanded(
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 12.0, 0.0),
                                             child: Text(
                                               'Billing',
@@ -507,14 +503,14 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                                   ),
                                 ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 8.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 8.0, 16.0, 8.0),
                                       child: Icon(
                                         Icons.login_rounded,
@@ -525,7 +521,7 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                                     ),
                                     Expanded(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 12.0, 0.0),
                                         child: Text(
                                           'Delete my Data & my Teams Data',
@@ -545,17 +541,17 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                                 ),
                               ),
                               if (widget.teamDoc?.admins
-                                      ?.contains(currentUserReference) ??
+                                      .contains(currentUserReference) ??
                                   true)
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 8.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 8.0, 16.0, 8.0),
                                         child: Icon(
                                           Icons.cancel_outlined,
@@ -567,7 +563,7 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
                                       Expanded(
                                         child: Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 12.0, 0.0),
                                           child: Text(
                                             'Cancel my Account (AND TEAM) Subscription',

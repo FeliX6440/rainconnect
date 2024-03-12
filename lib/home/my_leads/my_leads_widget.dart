@@ -1,22 +1,14 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collection/collection.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:provider/provider.dart';
 import 'package:text_search/text_search.dart';
 import 'my_leads_model.dart';
 export 'my_leads_model.dart';
@@ -87,7 +79,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
             'Search Leads',
             style: FlutterFlowTheme.of(context).headlineSmall,
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 0.0,
         ),
@@ -103,13 +95,13 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                   Expanded(
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 0.0),
                       child: TextFormField(
                         controller: _model.textController,
                         focusNode: _model.textFieldFocusNode,
                         onChanged: (_) => EasyDebounce.debounce(
                           '_model.textController',
-                          Duration(milliseconds: 1000),
+                          const Duration(milliseconds: 1000),
                           () async {
                             await queryLeadsRecordOnce()
                                 .then(
@@ -119,14 +111,14 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                         .map(
                                           (record) =>
                                               TextSearchItem.fromTerms(record, [
-                                            record.firstName!,
-                                            record.lastName!,
-                                            record.positionRole!,
-                                            record.phone!,
-                                            record.website!,
-                                            record.email!,
-                                            record.gender!,
-                                            record.company!
+                                            record.firstName,
+                                            record.lastName,
+                                            record.positionRole,
+                                            record.phone,
+                                            record.website,
+                                            record.email,
+                                            record.gender,
+                                            record.company
                                           ]),
                                         )
                                         .toList(),
@@ -226,7 +218,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                               (rowIndex) {
                             final rowLeadsRecord = rowLeadsRecordList[rowIndex];
                             return Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 10.0, 0.0),
                               child: Material(
                                 color: Colors.transparent,
@@ -241,7 +233,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                     shape: BoxShape.circle,
                                   ),
                                   child: Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Text(
                                       (String lastName) {
                                         return lastName[0];
@@ -275,7 +267,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 0.0, 0.0),
                       child: Text(
                         'Leads matching search:',
                         style: FlutterFlowTheme.of(context).labelMedium,
@@ -283,7 +275,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(4.0, 12.0, 16.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(4.0, 12.0, 16.0, 0.0),
                       child: FutureBuilder<int>(
                         future: queryLeadsRecordCount(
                           queryBuilder: (leadsRecord) => leadsRecord.where(
@@ -329,7 +321,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                     if (_model.simpleSearchResults.isNotEmpty) {
                       return Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
                         child: Builder(
                           builder: (context) {
                             final searchedLead = _model.simpleSearchResults
@@ -344,7 +336,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                 final searchedLeadItem =
                                     searchedLead[searchedLeadIndex];
                                 return Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 1.0),
                                   child: InkWell(
                                     splashColor: Colors.transparent,
@@ -375,12 +367,12 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                             blurRadius: 0.0,
                                             color: FlutterFlowTheme.of(context)
                                                 .alternate,
-                                            offset: Offset(0.0, 1.0),
+                                            offset: const Offset(0.0, 1.0),
                                           )
                                         ],
                                       ),
                                       child: Padding(
-                                        padding: EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.all(8.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
@@ -437,7 +429,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(12.0, 0.0,
                                                                 0.0, 0.0),
                                                     child: Text(
@@ -450,7 +442,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 4.0,
                                                                 0.0, 0.0),
                                                     child: Row(
@@ -459,7 +451,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       12.0,
                                                                       0.0,
@@ -475,7 +467,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                                         ),
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       4.0,
                                                                       0.0,
@@ -514,7 +506,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                                     BorderRadius.circular(40.0),
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsets.all(4.0),
+                                                padding: const EdgeInsets.all(4.0),
                                                 child: Icon(
                                                   Icons
                                                       .keyboard_arrow_right_rounded,
@@ -539,7 +531,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                     } else {
                       return Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 20.0),
+                            const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 20.0),
                         child: PagedListView<DocumentSnapshot<Object?>?,
                             LeadsRecord>(
                           pagingController: _model.setListViewController2(
@@ -583,7 +575,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                   .listViewPagingController2!
                                   .itemList![listViewIndex];
                               return Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 1.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -614,12 +606,12 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                           blurRadius: 0.0,
                                           color: FlutterFlowTheme.of(context)
                                               .alternate,
-                                          offset: Offset(0.0, 1.0),
+                                          offset: const Offset(0.0, 1.0),
                                         )
                                       ],
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.all(8.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -666,7 +658,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                           ),
                                           Expanded(
                                             child: Container(
-                                              decoration: BoxDecoration(),
+                                              decoration: const BoxDecoration(),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
                                                 crossAxisAlignment:
@@ -674,7 +666,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(12.0, 0.0,
                                                                 0.0, 0.0),
                                                     child: Text(
@@ -687,7 +679,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 4.0,
                                                                 0.0, 0.0),
                                                     child: Row(
@@ -696,7 +688,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       12.0,
                                                                       0.0,
@@ -716,7 +708,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                                         ),
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       4.0,
                                                                       0.0,
@@ -759,7 +751,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                                   BorderRadius.circular(40.0),
                                             ),
                                             child: Padding(
-                                              padding: EdgeInsets.all(4.0),
+                                              padding: const EdgeInsets.all(4.0),
                                               child: Icon(
                                                 Icons
                                                     .keyboard_arrow_right_rounded,
@@ -785,7 +777,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 40.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 40.0),
                 child: FFButtonWidget(
                   onPressed: () async {
                     if (_model.selectedLeads.isNotEmpty) {
@@ -821,16 +813,16 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                     width: double.infinity,
                     height: 40.0,
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                     iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).primary,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                           fontFamily: 'Manrope',
                           color: Colors.white,
                         ),
                     elevation: 3.0,
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.transparent,
                       width: 1.0,
                     ),

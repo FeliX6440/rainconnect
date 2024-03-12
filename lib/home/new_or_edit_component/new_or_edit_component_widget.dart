@@ -565,7 +565,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                     _model.choiceOptionController?.clear();
                                   });
                                 },
-                                text: 'Save Option',
+                                text: 'add option',
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 40.0,
@@ -599,146 +599,151 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      if (widget.component == null) {
-                        if (_model.componentTypeValue == 'Dropdown') {
-                          var teamComponentsRecordReference1 =
-                              TeamComponentsRecord.createDoc(
-                                  widget.teamDocRef!);
-                          await teamComponentsRecordReference1.set({
-                            ...createTeamComponentsRecordData(
-                              name: _model.textController1.text,
-                              isStarter: true,
-                              description: '',
-                              type: ComponentType.Dropdown,
-                              isCustom: true,
-                            ),
-                            ...mapToFirestore(
-                              {
-                                'list_value': _model.addedOptionsForDropDown,
-                                'added_at': FieldValue.serverTimestamp(),
-                              },
-                            ),
-                          });
-                          _model.result1 =
-                              TeamComponentsRecord.getDocumentFromData({
-                            ...createTeamComponentsRecordData(
-                              name: _model.textController1.text,
-                              isStarter: true,
-                              description: '',
-                              type: ComponentType.Dropdown,
-                              isCustom: true,
-                            ),
-                            ...mapToFirestore(
-                              {
-                                'list_value': _model.addedOptionsForDropDown,
-                                'added_at': DateTime.now(),
-                              },
-                            ),
-                          }, teamComponentsRecordReference1);
-                        } else if (_model.componentTypeValue == 'TextField') {
-                          var teamComponentsRecordReference2 =
-                              TeamComponentsRecord.createDoc(
-                                  widget.teamDocRef!);
-                          await teamComponentsRecordReference2.set({
-                            ...createTeamComponentsRecordData(
-                              name: _model.textController1.text,
-                              isStarter: true,
-                              description: '',
-                              type: ComponentType.TextField,
-                              isCustom: true,
-                            ),
-                            ...mapToFirestore(
-                              {
-                                'added_at': FieldValue.serverTimestamp(),
-                              },
-                            ),
-                          });
-                          _model.result2 =
-                              TeamComponentsRecord.getDocumentFromData({
-                            ...createTeamComponentsRecordData(
-                              name: _model.textController1.text,
-                              isStarter: true,
-                              description: '',
-                              type: ComponentType.TextField,
-                              isCustom: true,
-                            ),
-                            ...mapToFirestore(
-                              {
-                                'added_at': DateTime.now(),
-                              },
-                            ),
-                          }, teamComponentsRecordReference2);
+                      if (_model.textController1.text != '') {
+                        if (widget.component == null) {
+                          if (_model.componentTypeValue == 'Dropdown') {
+                            var teamComponentsRecordReference1 =
+                                TeamComponentsRecord.createDoc(
+                                    widget.teamDocRef!);
+                            await teamComponentsRecordReference1.set({
+                              ...createTeamComponentsRecordData(
+                                name: _model.textController1.text,
+                                isStarter: true,
+                                description: '',
+                                type: ComponentType.Dropdown,
+                                isCustom: true,
+                              ),
+                              ...mapToFirestore(
+                                {
+                                  'list_value': _model.addedOptionsForDropDown,
+                                  'added_at': FieldValue.serverTimestamp(),
+                                },
+                              ),
+                            });
+                            _model.result1 =
+                                TeamComponentsRecord.getDocumentFromData({
+                              ...createTeamComponentsRecordData(
+                                name: _model.textController1.text,
+                                isStarter: true,
+                                description: '',
+                                type: ComponentType.Dropdown,
+                                isCustom: true,
+                              ),
+                              ...mapToFirestore(
+                                {
+                                  'list_value': _model.addedOptionsForDropDown,
+                                  'added_at': DateTime.now(),
+                                },
+                              ),
+                            }, teamComponentsRecordReference1);
+                          } else if (_model.componentTypeValue == 'TextField') {
+                            var teamComponentsRecordReference2 =
+                                TeamComponentsRecord.createDoc(
+                                    widget.teamDocRef!);
+                            await teamComponentsRecordReference2.set({
+                              ...createTeamComponentsRecordData(
+                                name: _model.textController1.text,
+                                isStarter: true,
+                                description: '',
+                                type: ComponentType.TextField,
+                                isCustom: true,
+                              ),
+                              ...mapToFirestore(
+                                {
+                                  'added_at': FieldValue.serverTimestamp(),
+                                },
+                              ),
+                            });
+                            _model.result2 =
+                                TeamComponentsRecord.getDocumentFromData({
+                              ...createTeamComponentsRecordData(
+                                name: _model.textController1.text,
+                                isStarter: true,
+                                description: '',
+                                type: ComponentType.TextField,
+                                isCustom: true,
+                              ),
+                              ...mapToFirestore(
+                                {
+                                  'added_at': DateTime.now(),
+                                },
+                              ),
+                            }, teamComponentsRecordReference2);
+                          } else {
+                            var teamComponentsRecordReference3 =
+                                TeamComponentsRecord.createDoc(
+                                    widget.teamDocRef!);
+                            await teamComponentsRecordReference3.set({
+                              ...createTeamComponentsRecordData(
+                                name: _model.textController1.text,
+                                isStarter: true,
+                                description: '',
+                                type: ComponentType.MultipleChoice,
+                                isCustom: true,
+                              ),
+                              ...mapToFirestore(
+                                {
+                                  'list_value':
+                                      _model.addedOptionForMultiChoice,
+                                  'added_at': FieldValue.serverTimestamp(),
+                                },
+                              ),
+                            });
+                            _model.result3 =
+                                TeamComponentsRecord.getDocumentFromData({
+                              ...createTeamComponentsRecordData(
+                                name: _model.textController1.text,
+                                isStarter: true,
+                                description: '',
+                                type: ComponentType.MultipleChoice,
+                                isCustom: true,
+                              ),
+                              ...mapToFirestore(
+                                {
+                                  'list_value':
+                                      _model.addedOptionForMultiChoice,
+                                  'added_at': DateTime.now(),
+                                },
+                              ),
+                            }, teamComponentsRecordReference3);
+                          }
                         } else {
-                          var teamComponentsRecordReference3 =
-                              TeamComponentsRecord.createDoc(
-                                  widget.teamDocRef!);
-                          await teamComponentsRecordReference3.set({
-                            ...createTeamComponentsRecordData(
-                              name: _model.textController1.text,
-                              isStarter: true,
-                              description: '',
-                              type: ComponentType.MultipleChoice,
-                              isCustom: true,
-                            ),
-                            ...mapToFirestore(
-                              {
-                                'list_value': _model.addedOptionForMultiChoice,
-                                'added_at': FieldValue.serverTimestamp(),
-                              },
-                            ),
-                          });
-                          _model.result3 =
-                              TeamComponentsRecord.getDocumentFromData({
-                            ...createTeamComponentsRecordData(
-                              name: _model.textController1.text,
-                              isStarter: true,
-                              description: '',
-                              type: ComponentType.MultipleChoice,
-                              isCustom: true,
-                            ),
-                            ...mapToFirestore(
-                              {
-                                'list_value': _model.addedOptionForMultiChoice,
-                                'added_at': DateTime.now(),
-                              },
-                            ),
-                          }, teamComponentsRecordReference3);
-                        }
-                      } else {
-                        if (_model.componentTypeValue == 'Dropdown') {
-                          await widget.component!.reference.update({
-                            ...createTeamComponentsRecordData(
+                          if (_model.componentTypeValue == 'Dropdown') {
+                            await widget.component!.reference.update({
+                              ...createTeamComponentsRecordData(
+                                name: _model.textController1.text,
+                                type: ComponentType.Dropdown,
+                              ),
+                              ...mapToFirestore(
+                                {
+                                  'list_value': _model.addedOptionsForDropDown,
+                                },
+                              ),
+                            });
+                          } else if (_model.componentTypeValue == 'TextField') {
+                            await widget.component!.reference
+                                .update(createTeamComponentsRecordData(
                               name: _model.textController1.text,
                               type: ComponentType.Dropdown,
-                            ),
-                            ...mapToFirestore(
-                              {
-                                'list_value': _model.addedOptionsForDropDown,
-                              },
-                            ),
-                          });
-                        } else if (_model.componentTypeValue == 'TextField') {
-                          await widget.component!.reference
-                              .update(createTeamComponentsRecordData(
-                            name: _model.textController1.text,
-                            type: ComponentType.Dropdown,
-                          ));
-                        } else {
-                          await widget.component!.reference.update({
-                            ...createTeamComponentsRecordData(
-                              name: _model.textController1.text,
-                              type: ComponentType.MultipleChoice,
-                            ),
-                            ...mapToFirestore(
-                              {
-                                'list_value': _model.addedOptionForMultiChoice,
-                              },
-                            ),
-                          });
+                            ));
+                          } else {
+                            await widget.component!.reference.update({
+                              ...createTeamComponentsRecordData(
+                                name: _model.textController1.text,
+                                type: ComponentType.MultipleChoice,
+                              ),
+                              ...mapToFirestore(
+                                {
+                                  'list_value':
+                                      _model.addedOptionForMultiChoice,
+                                },
+                              ),
+                            });
+                          }
                         }
-                      }
 
-                      context.safePop();
+                        context.safePop();
+                      }
 
                       setState(() {});
                     },
@@ -750,7 +755,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                           const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                       iconPadding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
+                      color: FlutterFlowTheme.of(context).primaryText,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
                                 fontFamily: 'Manrope',

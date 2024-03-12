@@ -33,6 +33,20 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
+          "fieldPath": "is_starter",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "added_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "team_components",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
           "fieldPath": "name",
           "order": "ASCENDING"
         },

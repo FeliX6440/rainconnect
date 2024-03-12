@@ -1886,10 +1886,12 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                               stream: queryTeamComponentsRecord(
                                 parent: widget.teamDoc?.reference,
                                 queryBuilder: (teamComponentsRecord) =>
-                                    teamComponentsRecord.where(
-                                  'is_starter',
-                                  isEqualTo: true,
-                                ),
+                                    teamComponentsRecord
+                                        .where(
+                                          'is_starter',
+                                          isEqualTo: true,
+                                        )
+                                        .orderBy('added_at'),
                               ),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.

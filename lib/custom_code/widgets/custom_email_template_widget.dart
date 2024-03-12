@@ -66,7 +66,8 @@ class _CustomEmailTemplateWidgetState extends State<CustomEmailTemplateWidget> {
   }
 
   List<String> _userFields = [
-    '{u_display_name}',
+    '{u_first_name}',
+    '{u_last_name}',
     '{u_email}',
     '{u_job_title}',
     '{u_phone}'

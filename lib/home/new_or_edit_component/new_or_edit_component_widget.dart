@@ -599,7 +599,9 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      if (_model.textController1.text != '') {
+                      if ((_model.textController1.text != '') &&
+                          (_model.componentTypeValue != null &&
+                              _model.componentTypeValue != '')) {
                         if (widget.component == null) {
                           if (_model.componentTypeValue == 'Dropdown') {
                             var teamComponentsRecordReference1 =

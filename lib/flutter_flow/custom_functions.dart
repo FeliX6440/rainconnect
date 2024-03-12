@@ -87,7 +87,8 @@ String fillSubjectPlaceHolder(
       .replaceAll('{website}', leadDoc.website)
       .replaceAll('{zipCode}', leadDoc.zipCode)
       .replaceAll('{company}', leadDoc.company)
-      .replaceAll('{u_display_name}', userDisplayName)
+      .replaceAll('{u_first_name}', userDisplayName.split(' ').first)
+      .replaceAll('{u_last_name}', userDisplayName.split(' ').last)
       .replaceAll('{u_email}', userEmail)
       .replaceAll('{u_job_title}', userJobTitle)
       .replaceAll('{u_phone}', userPhone);
@@ -97,7 +98,7 @@ String fillSubjectPlaceHolder(
 String fillEmailBodyTemplate(
   String bodyValue,
   LeadsRecord leadDoc,
-  String userDisplayNamw,
+  String userDisplayName,
   String userEmail,
   String userJobTitle,
   String userPhone,
@@ -118,7 +119,8 @@ String fillEmailBodyTemplate(
       .replaceAll('{website}', leadDoc.website)
       .replaceAll('{zipCode}', leadDoc.zipCode)
       .replaceAll('{company}', leadDoc.company)
-      .replaceAll('{u_display_name}', userDisplayNamw)
+      .replaceAll('{u_first_name}', userDisplayName.split(' ').first)
+      .replaceAll('{u_last_name}', userDisplayName.split(' ').last)
       .replaceAll('{u_email}', userEmail)
       .replaceAll('{u_job_title}', userJobTitle)
       .replaceAll('{u_phone}', userPhone);

@@ -125,7 +125,7 @@ class _SpeechToTextWidgetState extends State<SpeechToTextWidget> {
 
   @override
   void initState() {
-    OpenAI.apiKey = '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';
+    OpenAI.apiKey = '';
     _recorder = AudioRecorder();
     _dio = Dio();
     Future.microtask(() async {

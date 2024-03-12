@@ -5,7 +5,11 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'add_team_member_bottom_sheet_model.dart';
 export 'add_team_member_bottom_sheet_model.dart';
@@ -37,8 +41,8 @@ class _AddTeamMemberBottomSheetWidgetState
           curve: Curves.easeInOut,
           delay: 250.ms,
           duration: 600.ms,
-          begin: const Offset(0.0, 70.0),
-          end: const Offset(0.0, 0.0),
+          begin: Offset(0.0, 70.0),
+          end: Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -79,12 +83,12 @@ class _AddTeamMemberBottomSheetWidgetState
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      constraints: const BoxConstraints(
+      constraints: BoxConstraints(
         maxWidth: 670.0,
       ),
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
             blurRadius: 3.0,
             color: Color(0x33000000),
@@ -106,14 +110,14 @@ class _AddTeamMemberBottomSheetWidgetState
               key: _model.formKey,
               autovalidateMode: AutovalidateMode.always,
               child: Padding(
-                padding: const EdgeInsets.all(24.0),
+                padding: EdgeInsets.all(24.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -124,7 +128,7 @@ class _AddTeamMemberBottomSheetWidgetState
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 4.0),
                                   child: Text(
                                     'Add team member',
@@ -133,7 +137,7 @@ class _AddTeamMemberBottomSheetWidgetState
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 8.0),
                                   child: Text(
                                     'Please enter the information below to add a project.',
@@ -163,7 +167,7 @@ class _AddTeamMemberBottomSheetWidgetState
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
                       child: TextFormField(
                         controller: _model.emailController,
                         focusNode: _model.emailFocusNode,
@@ -221,13 +225,13 @@ class _AddTeamMemberBottomSheetWidgetState
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 4.0, 0.0),
                             child: FFButtonWidget(
                               onPressed: () async {
@@ -237,7 +241,7 @@ class _AddTeamMemberBottomSheetWidgetState
                                     query: {
                                       'subject': 'Project invitation',
                                       'body':
-                                          '$currentUserDisplayName invite you to join the team using the id: ${widget.teamID}',
+                                          '${currentUserDisplayName} invite you to join the team using the id: ${widget.teamID}',
                                     }
                                         .entries
                                         .map((MapEntry<String, String> e) =>
@@ -252,7 +256,7 @@ class _AddTeamMemberBottomSheetWidgetState
                                             .primaryText,
                                       ),
                                     ),
-                                    duration: const Duration(milliseconds: 4000),
+                                    duration: Duration(milliseconds: 4000),
                                     backgroundColor:
                                         FlutterFlowTheme.of(context).secondary,
                                   ),
@@ -262,9 +266,9 @@ class _AddTeamMemberBottomSheetWidgetState
                               text: 'Send invite code',
                               options: FFButtonOptions(
                                 height: 50.0,
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     32.0, 0.0, 32.0, 0.0),
-                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).primary,
                                 textStyle: FlutterFlowTheme.of(context)
@@ -274,7 +278,7 @@ class _AddTeamMemberBottomSheetWidgetState
                                       color: Colors.white,
                                     ),
                                 elevation: 2.0,
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                   color: Colors.transparent,
                                   width: 1.0,
                                 ),

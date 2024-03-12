@@ -1,14 +1,20 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
 import '/components/template_tile_component/template_tile_component_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'templates_model.dart';
 export 'templates_model.dart';
 
@@ -93,7 +99,7 @@ class _TemplatesWidgetState extends State<TemplatesWidget> {
             'My Components',
             style: FlutterFlowTheme.of(context).headlineSmall,
           ),
-          actions: const [],
+          actions: [],
           centerTitle: false,
           elevation: 0.0,
         ),
@@ -104,12 +110,15 @@ class _TemplatesWidgetState extends State<TemplatesWidget> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(16.0),
                 child: Container(
-                  width: 300.0,
+                  width: double.infinity,
+                  constraints: BoxConstraints(
+                    maxHeight: 550.0,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
                         blurRadius: 4.0,
                         color: Color(0x33000000),
@@ -120,20 +129,20 @@ class _TemplatesWidgetState extends State<TemplatesWidget> {
                   ),
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 12.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 12.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 0.0, 4.0),
                           child: Text(
                             'My Components',
                             style:
                                 FlutterFlowTheme.of(context).bodyLarge.override(
                                       fontFamily: 'Plus Jakarta Sans',
-                                      color: const Color(0xFF14181B),
+                                      color: Color(0xFF14181B),
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -144,7 +153,7 @@ class _TemplatesWidgetState extends State<TemplatesWidget> {
                           focusNode: _model.textFieldFocusNode,
                           onChanged: (_) => EasyDebounce.debounce(
                             '_model.textController',
-                            const Duration(milliseconds: 1000),
+                            Duration(milliseconds: 1000),
                             () => setState(() {}),
                           ),
                           obscureText: false,
@@ -154,7 +163,7 @@ class _TemplatesWidgetState extends State<TemplatesWidget> {
                                 .labelMedium
                                 .override(
                                   fontFamily: 'Plus Jakarta Sans',
-                                  color: const Color(0xFF57636C),
+                                  color: Color(0xFF57636C),
                                   fontSize: 14.0,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -162,55 +171,55 @@ class _TemplatesWidgetState extends State<TemplatesWidget> {
                                 .labelMedium
                                 .override(
                                   fontFamily: 'Plus Jakarta Sans',
-                                  color: const Color(0xFF57636C),
+                                  color: Color(0xFF57636C),
                                   fontSize: 14.0,
                                   fontWeight: FontWeight.w500,
                                 ),
                             enabledBorder: UnderlineInputBorder(
-                              borderSide: const BorderSide(
+                              borderSide: BorderSide(
                                 color: Color(0xFFE0E3E7),
                                 width: 2.0,
                               ),
                               borderRadius: BorderRadius.circular(0.0),
                             ),
                             focusedBorder: UnderlineInputBorder(
-                              borderSide: const BorderSide(
+                              borderSide: BorderSide(
                                 color: Color(0xFF4B39EF),
                                 width: 2.0,
                               ),
                               borderRadius: BorderRadius.circular(0.0),
                             ),
                             errorBorder: UnderlineInputBorder(
-                              borderSide: const BorderSide(
+                              borderSide: BorderSide(
                                 color: Color(0xFFFF5963),
                                 width: 2.0,
                               ),
                               borderRadius: BorderRadius.circular(0.0),
                             ),
                             focusedErrorBorder: UnderlineInputBorder(
-                              borderSide: const BorderSide(
+                              borderSide: BorderSide(
                                 color: Color(0xFFFF5963),
                                 width: 2.0,
                               ),
                               borderRadius: BorderRadius.circular(0.0),
                             ),
-                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 0.0, 0.0),
-                            prefixIcon: const Icon(
+                            prefixIcon: Icon(
                               Icons.search_rounded,
                             ),
                           ),
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Plus Jakarta Sans',
-                                    color: const Color(0xFF14181B),
+                                    color: Color(0xFF14181B),
                                     fontSize: 14.0,
                                     fontWeight: FontWeight.w500,
                                   ),
                           validator: _model.textControllerValidator
                               .asValidator(context),
                         ),
-                        const Divider(
+                        Divider(
                           height: 1.0,
                           thickness: 1.0,
                           color: Color(0xFFE0E3E7),
@@ -263,19 +272,13 @@ class _TemplatesWidgetState extends State<TemplatesWidget> {
                             );
                           },
                         ),
-                        const Divider(
+                        Divider(
                           thickness: 1.0,
                           color: Color(0xFFE0E3E7),
                         ),
                         MouseRegion(
                           opaque: false,
                           cursor: SystemMouseCursors.click ?? MouseCursor.defer,
-                          onEnter: ((event) async {
-                            setState(() => _model.mouseRegionHovered = true);
-                          }),
-                          onExit: ((event) async {
-                            setState(() => _model.mouseRegionHovered = false);
-                          }),
                           child: InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
@@ -293,22 +296,22 @@ class _TemplatesWidgetState extends State<TemplatesWidget> {
                               );
                             },
                             child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 150),
+                              duration: Duration(milliseconds: 150),
                               curve: Curves.easeInOut,
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                color: _model.mouseRegionHovered
-                                    ? const Color(0xFFF1F4F8)
+                                color: _model.mouseRegionHovered!
+                                    ? Color(0xFFF1F4F8)
                                     : Colors.white,
                               ),
                               child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 8.0, 0.0, 8.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           12.0, 0.0, 0.0, 0.0),
                                       child: Icon(
                                         Icons.add_circle,
@@ -319,7 +322,7 @@ class _TemplatesWidgetState extends State<TemplatesWidget> {
                                     ),
                                     Expanded(
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             12.0, 0.0, 12.0, 0.0),
                                         child: Text(
                                           'Add Custom Component',
@@ -341,6 +344,12 @@ class _TemplatesWidgetState extends State<TemplatesWidget> {
                               ),
                             ),
                           ),
+                          onEnter: ((event) async {
+                            setState(() => _model.mouseRegionHovered = true);
+                          }),
+                          onExit: ((event) async {
+                            setState(() => _model.mouseRegionHovered = false);
+                          }),
                         ),
                       ],
                     ),

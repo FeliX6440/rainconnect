@@ -1,9 +1,14 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'edit_lead_page_model.dart';
 export 'edit_lead_page_model.dart';
 
@@ -111,7 +116,7 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: const Icon(
+            icon: Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -128,24 +133,24 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                   fontSize: 22.0,
                 ),
           ),
-          actions: const [],
+          actions: [],
           centerTitle: true,
           elevation: 2.0,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Align(
-                    alignment: const AlignmentDirectional(0.0, 0.0),
+                    alignment: AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
-                      child: SizedBox(
+                          EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
+                      child: Container(
                         width: double.infinity,
                         child: TextFormField(
                           controller: _model.firstNameController,
@@ -191,7 +196,7 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                               ),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 15.0, 10.0, 15.0),
                           ),
                           style:
@@ -207,11 +212,11 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                     ),
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0.0, 0.0),
+                    alignment: AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
-                      child: SizedBox(
+                          EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
+                      child: Container(
                         width: double.infinity,
                         child: TextFormField(
                           controller: _model.lastNameController,
@@ -257,7 +262,7 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                               ),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 15.0, 10.0, 15.0),
                           ),
                           style:
@@ -273,11 +278,11 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                     ),
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0.0, 0.0),
+                    alignment: AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
-                      child: SizedBox(
+                          EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
+                      child: Container(
                         width: double.infinity,
                         child: TextFormField(
                           controller: _model.positionController,
@@ -323,7 +328,7 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                               ),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 15.0, 10.0, 15.0),
                           ),
                           style:
@@ -339,11 +344,11 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                     ),
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0.0, 0.0),
+                    alignment: AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
-                      child: SizedBox(
+                          EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
+                      child: Container(
                         width: double.infinity,
                         child: TextFormField(
                           controller: _model.languageController,
@@ -389,7 +394,7 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                               ),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 15.0, 10.0, 15.0),
                           ),
                           style:
@@ -405,11 +410,11 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                     ),
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0.0, 0.0),
+                    alignment: AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
-                      child: SizedBox(
+                          EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
+                      child: Container(
                         width: double.infinity,
                         child: TextFormField(
                           controller: _model.genderMWController,
@@ -455,7 +460,7 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                               ),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 15.0, 10.0, 15.0),
                           ),
                           style:
@@ -475,11 +480,11 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                     color: FlutterFlowTheme.of(context).primary,
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0.0, 0.0),
+                    alignment: AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
-                      child: SizedBox(
+                          EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
+                      child: Container(
                         width: double.infinity,
                         child: TextFormField(
                           controller: _model.phoneController,
@@ -525,7 +530,7 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                               ),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 15.0, 10.0, 15.0),
                           ),
                           style:
@@ -541,11 +546,11 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                     ),
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0.0, 0.0),
+                    alignment: AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
-                      child: SizedBox(
+                          EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
+                      child: Container(
                         width: double.infinity,
                         child: TextFormField(
                           controller: _model.emailController,
@@ -591,7 +596,7 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                               ),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 15.0, 10.0, 15.0),
                           ),
                           style:
@@ -607,11 +612,11 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                     ),
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0.0, 0.0),
+                    alignment: AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
-                      child: SizedBox(
+                          EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
+                      child: Container(
                         width: double.infinity,
                         child: TextFormField(
                           controller: _model.websiteController,
@@ -657,7 +662,7 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                               ),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 15.0, 10.0, 15.0),
                           ),
                           style:
@@ -677,11 +682,11 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                     color: FlutterFlowTheme.of(context).primary,
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0.0, 0.0),
+                    alignment: AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
-                      child: SizedBox(
+                          EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
+                      child: Container(
                         width: double.infinity,
                         child: TextFormField(
                           controller: _model.cityController,
@@ -727,7 +732,7 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                               ),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 15.0, 10.0, 15.0),
                           ),
                           style:
@@ -743,11 +748,11 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                     ),
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0.0, 0.0),
+                    alignment: AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
-                      child: SizedBox(
+                          EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
+                      child: Container(
                         width: double.infinity,
                         child: TextFormField(
                           controller: _model.zipController,
@@ -793,7 +798,7 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                               ),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 15.0, 10.0, 15.0),
                           ),
                           style:
@@ -809,11 +814,11 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                     ),
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0.0, 0.0),
+                    alignment: AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
-                      child: SizedBox(
+                          EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
+                      child: Container(
                         width: double.infinity,
                         child: TextFormField(
                           controller: _model.streetandNumController,
@@ -859,7 +864,7 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                               ),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 15.0, 10.0, 15.0),
                           ),
                           style:
@@ -875,11 +880,11 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                     ),
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0.0, 0.0),
+                    alignment: AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
-                      child: SizedBox(
+                          EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
+                      child: Container(
                         width: double.infinity,
                         child: TextFormField(
                           controller: _model.countryController,
@@ -925,7 +930,7 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                               ),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 15.0, 10.0, 15.0),
                           ),
                           style:
@@ -945,11 +950,11 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                     color: FlutterFlowTheme.of(context).primary,
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0.0, 0.0),
+                    alignment: AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
-                      child: SizedBox(
+                          EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
+                      child: Container(
                         width: double.infinity,
                         child: TextFormField(
                           controller: _model.companyController,
@@ -995,7 +1000,7 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                               ),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 15.0, 10.0, 15.0),
                           ),
                           style:
@@ -1011,11 +1016,11 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                     ),
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0.0, 0.0),
+                    alignment: AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
-                      child: SizedBox(
+                          EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
+                      child: Container(
                         width: double.infinity,
                         child: TextFormField(
                           controller: _model.industryController,
@@ -1061,7 +1066,7 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                               ),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 15.0, 10.0, 15.0),
                           ),
                           style:
@@ -1078,7 +1083,7 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         await widget.leadDoc!.reference
@@ -1103,10 +1108,10 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                       options: FFButtonOptions(
                         width: double.infinity,
                         height: 40.0,
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
@@ -1114,7 +1119,7 @@ class _EditLeadPageWidgetState extends State<EditLeadPageWidget> {
                                   color: Colors.white,
                                 ),
                         elevation: 3.0,
-                        borderSide: const BorderSide(
+                        borderSide: BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
                         ),

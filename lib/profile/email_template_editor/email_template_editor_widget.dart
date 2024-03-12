@@ -1,10 +1,14 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/widgets/index.dart' as custom_widgets;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'email_template_editor_model.dart';
 export 'email_template_editor_model.dart';
@@ -76,18 +80,18 @@ class _EmailTemplateEditorWidgetState extends State<EmailTemplateEditorWidget> {
             'Editor',
             style: FlutterFlowTheme.of(context).titleLarge,
           ),
-          actions: const [],
+          actions: [],
           centerTitle: false,
           elevation: 0.0,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                SizedBox(
+                Container(
                   width: double.infinity,
                   height: 350.0,
                   child: custom_widgets.CustomEmailTemplateWidget(
@@ -98,7 +102,7 @@ class _EmailTemplateEditorWidgetState extends State<EmailTemplateEditorWidget> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 12.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 12.0),
                   child: FFButtonWidget(
                     onPressed: () async {
                       if (widget.emailTemp != null) {
@@ -128,9 +132,9 @@ class _EmailTemplateEditorWidgetState extends State<EmailTemplateEditorWidget> {
                     options: FFButtonOptions(
                       width: double.infinity,
                       height: 48.0,
-                      padding: const EdgeInsets.all(0.0),
+                      padding: EdgeInsets.all(0.0),
                       iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       color: FlutterFlowTheme.of(context).primary,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
@@ -138,7 +142,7 @@ class _EmailTemplateEditorWidgetState extends State<EmailTemplateEditorWidget> {
                                 color: Colors.white,
                               ),
                       elevation: 4.0,
-                      borderSide: const BorderSide(
+                      borderSide: BorderSide(
                         color: Colors.transparent,
                         width: 1.0,
                       ),
@@ -149,7 +153,7 @@ class _EmailTemplateEditorWidgetState extends State<EmailTemplateEditorWidget> {
                 if (widget.emailTemp != null)
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 12.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 12.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         if (widget.emailTemp != null) {
@@ -157,19 +161,19 @@ class _EmailTemplateEditorWidgetState extends State<EmailTemplateEditorWidget> {
                                 context: context,
                                 builder: (alertDialogContext) {
                                   return AlertDialog(
-                                    title: const Text('Delete Template'),
-                                    content: const Text(
+                                    title: Text('Delete Template'),
+                                    content: Text(
                                         'Are you sure you want to delete the template'),
                                     actions: [
                                       TextButton(
                                         onPressed: () => Navigator.pop(
                                             alertDialogContext, false),
-                                        child: const Text('Cancel'),
+                                        child: Text('Cancel'),
                                       ),
                                       TextButton(
                                         onPressed: () => Navigator.pop(
                                             alertDialogContext, true),
-                                        child: const Text('Confirm'),
+                                        child: Text('Confirm'),
                                       ),
                                     ],
                                   );
@@ -186,9 +190,9 @@ class _EmailTemplateEditorWidgetState extends State<EmailTemplateEditorWidget> {
                       options: FFButtonOptions(
                         width: double.infinity,
                         height: 48.0,
-                        padding: const EdgeInsets.all(0.0),
+                        padding: EdgeInsets.all(0.0),
                         iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).error,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
@@ -196,7 +200,7 @@ class _EmailTemplateEditorWidgetState extends State<EmailTemplateEditorWidget> {
                                   color: Colors.white,
                                 ),
                         elevation: 4.0,
-                        borderSide: const BorderSide(
+                        borderSide: BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
                         ),

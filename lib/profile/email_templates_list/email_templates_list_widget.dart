@@ -1,10 +1,16 @@
 import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'email_templates_list_model.dart';
 export 'email_templates_list_model.dart';
 
@@ -72,7 +78,7 @@ class _EmailTemplatesListWidgetState extends State<EmailTemplatesListWidget>
             'Email Templates',
             style: FlutterFlowTheme.of(context).headlineSmall,
           ),
-          actions: const [],
+          actions: [],
           centerTitle: false,
           elevation: 0.0,
         ),
@@ -94,7 +100,7 @@ class _EmailTemplatesListWidgetState extends State<EmailTemplatesListWidget>
                   children: [
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 0.0, 0.0),
                       child: Text(
                         'Maximum Templates',
                         style: FlutterFlowTheme.of(context).labelMedium,
@@ -102,7 +108,7 @@ class _EmailTemplatesListWidgetState extends State<EmailTemplatesListWidget>
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(4.0, 12.0, 16.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(4.0, 12.0, 16.0, 0.0),
                       child: Text(
                         '10',
                         style: FlutterFlowTheme.of(context).bodyMedium,
@@ -113,7 +119,7 @@ class _EmailTemplatesListWidgetState extends State<EmailTemplatesListWidget>
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
                   child: StreamBuilder<List<EmailTemplatesRecord>>(
                     stream: queryEmailTemplatesRecord(
                       parent: widget.teamDocRef,
@@ -142,7 +148,7 @@ class _EmailTemplatesListWidgetState extends State<EmailTemplatesListWidget>
                           final listViewEmailTemplatesRecord =
                               listViewEmailTemplatesRecordList[listViewIndex];
                           return Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 1.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
@@ -177,12 +183,12 @@ class _EmailTemplatesListWidgetState extends State<EmailTemplatesListWidget>
                                       blurRadius: 0.0,
                                       color: FlutterFlowTheme.of(context)
                                           .alternate,
-                                      offset: const Offset(0.0, 1.0),
+                                      offset: Offset(0.0, 1.0),
                                     )
                                   ],
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: EdgeInsets.all(8.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
@@ -193,7 +199,7 @@ class _EmailTemplatesListWidgetState extends State<EmailTemplatesListWidget>
                                               CrossAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       12.0, 0.0, 0.0, 0.0),
                                               child: Text(
@@ -224,9 +230,9 @@ class _EmailTemplatesListWidgetState extends State<EmailTemplatesListWidget>
                                                     builder:
                                                         (alertDialogContext) {
                                                       return AlertDialog(
-                                                        title: const Text(
+                                                        title: Text(
                                                             'Delete Template'),
-                                                        content: const Text(
+                                                        content: Text(
                                                             'Are you sure you want to delete the template'),
                                                         actions: [
                                                           TextButton(
@@ -235,7 +241,7 @@ class _EmailTemplatesListWidgetState extends State<EmailTemplatesListWidget>
                                                                     alertDialogContext,
                                                                     false),
                                                             child:
-                                                                const Text('Cancel'),
+                                                                Text('Cancel'),
                                                           ),
                                                           TextButton(
                                                             onPressed: () =>
@@ -243,7 +249,7 @@ class _EmailTemplatesListWidgetState extends State<EmailTemplatesListWidget>
                                                                     alertDialogContext,
                                                                     true),
                                                             child:
-                                                                const Text('Confirm'),
+                                                                Text('Confirm'),
                                                           ),
                                                         ],
                                                       );
@@ -269,7 +275,7 @@ class _EmailTemplatesListWidgetState extends State<EmailTemplatesListWidget>
                                               BorderRadius.circular(40.0),
                                         ),
                                         child: Padding(
-                                          padding: const EdgeInsets.all(4.0),
+                                          padding: EdgeInsets.all(4.0),
                                           child: Icon(
                                             Icons.keyboard_arrow_right_rounded,
                                             color: FlutterFlowTheme.of(context)
@@ -291,13 +297,13 @@ class _EmailTemplatesListWidgetState extends State<EmailTemplatesListWidget>
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 12.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 12.0),
                       child: FFButtonWidget(
                         onPressed: () async {
                           context.pushNamed(
@@ -314,8 +320,8 @@ class _EmailTemplatesListWidgetState extends State<EmailTemplatesListWidget>
                         options: FFButtonOptions(
                           width: double.infinity,
                           height: 48.0,
-                          padding: const EdgeInsets.all(0.0),
-                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsets.all(0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           color: FlutterFlowTheme.of(context).primary,
                           textStyle:
@@ -324,7 +330,7 @@ class _EmailTemplatesListWidgetState extends State<EmailTemplatesListWidget>
                                     color: Colors.white,
                                   ),
                           elevation: 4.0,
-                          borderSide: const BorderSide(
+                          borderSide: BorderSide(
                             color: Colors.transparent,
                             width: 1.0,
                           ),

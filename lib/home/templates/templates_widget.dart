@@ -107,9 +107,7 @@ class _TemplatesWidgetState extends State<TemplatesWidget> {
                 padding: const EdgeInsets.all(16.0),
                 child: Container(
                   width: double.infinity,
-                  constraints: const BoxConstraints(
-                    maxHeight: 550.0,
-                  ),
+                  height: MediaQuery.sizeOf(context).height * 0.8,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     boxShadow: const [
@@ -218,53 +216,58 @@ class _TemplatesWidgetState extends State<TemplatesWidget> {
                           thickness: 1.0,
                           color: Color(0xFFE0E3E7),
                         ),
-                        StreamBuilder<List<TeamComponentsRecord>>(
-                          stream: queryTeamComponentsRecord(
-                            parent: widget.teamDoc?.reference,
-                            queryBuilder: (teamComponentsRecord) =>
-                                teamComponentsRecord
-                                    .whereIn(
-                                        'name',
-                                        functions.searchTextInFirestore(
-                                            _model.textController.text))
-                                    .orderBy('added_at'),
-                          ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 30.0,
-                                  height: 30.0,
-                                  child: SpinKitFadingFour(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    size: 30.0,
+                        Container(
+                          height: MediaQuery.sizeOf(context).height * 0.62,
+                          decoration: const BoxDecoration(),
+                          child: StreamBuilder<List<TeamComponentsRecord>>(
+                            stream: queryTeamComponentsRecord(
+                              parent: widget.teamDoc?.reference,
+                              queryBuilder: (teamComponentsRecord) =>
+                                  teamComponentsRecord
+                                      .whereIn(
+                                          'name',
+                                          functions.searchTextInFirestore(
+                                              _model.textController.text))
+                                      .orderBy('added_at'),
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 30.0,
+                                    height: 30.0,
+                                    child: SpinKitFadingFour(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      size: 30.0,
+                                    ),
                                   ),
-                                ),
-                              );
-                            }
-                            List<TeamComponentsRecord>
-                                listViewTeamComponentsRecordList =
-                                snapshot.data!;
-                            return ListView.builder(
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              itemCount:
-                                  listViewTeamComponentsRecordList.length,
-                              itemBuilder: (context, listViewIndex) {
-                                final listViewTeamComponentsRecord =
-                                    listViewTeamComponentsRecordList[
-                                        listViewIndex];
-                                return TemplateTileComponentWidget(
-                                  key: Key(
-                                      'Keyeq5_${listViewIndex}_of_${listViewTeamComponentsRecordList.length}'),
-                                  component: listViewTeamComponentsRecord,
-                                  teamDocRef: widget.teamDoc!.reference,
                                 );
-                              },
-                            );
-                          },
+                              }
+                              List<TeamComponentsRecord>
+                                  listViewTeamComponentsRecordList =
+                                  snapshot.data!;
+                              return ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount:
+                                    listViewTeamComponentsRecordList.length,
+                                itemBuilder: (context, listViewIndex) {
+                                  final listViewTeamComponentsRecord =
+                                      listViewTeamComponentsRecordList[
+                                          listViewIndex];
+                                  return TemplateTileComponentWidget(
+                                    key: Key(
+                                        'Keyeq5_${listViewIndex}_of_${listViewTeamComponentsRecordList.length}'),
+                                    component: listViewTeamComponentsRecord,
+                                    teamDocRef: widget.teamDoc!.reference,
+                                  );
+                                },
+                              );
+                            },
+                          ),
                         ),
                         const Divider(
                           thickness: 1.0,
@@ -299,6 +302,7 @@ class _TemplatesWidgetState extends State<TemplatesWidget> {
                               duration: const Duration(milliseconds: 150),
                               curve: Curves.easeInOut,
                               width: double.infinity,
+                              height: 40.0,
                               decoration: BoxDecoration(
                                 color: _model.mouseRegionHovered
                                     ? const Color(0xFFF1F4F8)

@@ -1877,7 +1877,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                     child: Stack(
                       children: [
                         Container(
-                          height: MediaQuery.sizeOf(context).height * 0.78,
+                          height: MediaQuery.sizeOf(context).height * 0.74,
                           decoration: const BoxDecoration(),
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
@@ -1949,7 +1949,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                           alignment: const AlignmentDirectional(0.0, 1.0),
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                15.0, 0.0, 15.0, 30.0),
+                                15.0, 0.0, 15.0, 10.0),
                             child: FFButtonWidget(
                               onPressed: () async {
                                 await ComponentContentRecord.collection

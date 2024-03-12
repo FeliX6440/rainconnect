@@ -2,11 +2,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'checkoutcart_copy_model.dart';
 export 'checkoutcart_copy_model.dart';
 
@@ -58,28 +54,28 @@ class _CheckoutcartCopyWidgetState extends State<CheckoutcartCopyWidget> {
             context.pop();
           },
         ),
-        actions: [],
+        actions: const [],
         centerTitle: false,
         elevation: 0.0,
       ),
       body: Align(
-        alignment: AlignmentDirectional(0.0, -1.0),
+        alignment: const AlignmentDirectional(0.0, -1.0),
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
               Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
+                alignment: const AlignmentDirectional(0.0, 0.0),
                 child: Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 16.0),
+                      const EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 16.0),
                   child: Container(
-                    constraints: BoxConstraints(
+                    constraints: const BoxConstraints(
                       maxWidth: 770.0,
                     ),
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                           blurRadius: 4.0,
                           color: Color(0x33000000),
@@ -89,7 +85,7 @@ class _CheckoutcartCopyWidgetState extends State<CheckoutcartCopyWidget> {
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,7 +95,7 @@ class _CheckoutcartCopyWidgetState extends State<CheckoutcartCopyWidget> {
                             style: FlutterFlowTheme.of(context).titleLarge,
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 4.0, 0.0, 12.0),
                             child: Text(
                               'You are about to add a new Seat to your Team.',
@@ -107,7 +103,7 @@ class _CheckoutcartCopyWidgetState extends State<CheckoutcartCopyWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 12.0),
                             child: ListView(
                               padding: EdgeInsets.zero,
@@ -124,7 +120,7 @@ class _CheckoutcartCopyWidgetState extends State<CheckoutcartCopyWidget> {
                                         blurRadius: 0.0,
                                         color: FlutterFlowTheme.of(context)
                                             .alternate,
-                                        offset: Offset(0.0, 1.0),
+                                        offset: const Offset(0.0, 1.0),
                                       )
                                     ],
                                     borderRadius: BorderRadius.circular(14.0),
@@ -133,7 +129,7 @@ class _CheckoutcartCopyWidgetState extends State<CheckoutcartCopyWidget> {
                                     ),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsets.all(10.0),
+                                    padding: const EdgeInsets.all(10.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
@@ -141,7 +137,7 @@ class _CheckoutcartCopyWidgetState extends State<CheckoutcartCopyWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 4.0, 0.0, 12.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -149,7 +145,7 @@ class _CheckoutcartCopyWidgetState extends State<CheckoutcartCopyWidget> {
                                               Expanded(
                                                 flex: 3,
                                                 child: Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           8.0, 0.0, 4.0, 0.0),
                                                   child: Column(
@@ -171,7 +167,7 @@ class _CheckoutcartCopyWidgetState extends State<CheckoutcartCopyWidget> {
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     4.0,
@@ -183,7 +179,7 @@ class _CheckoutcartCopyWidgetState extends State<CheckoutcartCopyWidget> {
                                                                       context)
                                                                   .textScaler,
                                                           text: TextSpan(
-                                                            children: [
+                                                            children: const [
                                                               TextSpan(
                                                                 text:
                                                                     'Amount:1',
@@ -207,7 +203,7 @@ class _CheckoutcartCopyWidgetState extends State<CheckoutcartCopyWidget> {
                                                 ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         8.0, 0.0, 0.0, 0.0),
                                                 child: Text(
@@ -229,7 +225,7 @@ class _CheckoutcartCopyWidgetState extends State<CheckoutcartCopyWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 12.0, 0.0, 0.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
@@ -241,7 +237,7 @@ class _CheckoutcartCopyWidgetState extends State<CheckoutcartCopyWidget> {
                                       FlutterFlowTheme.of(context).titleLarge,
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 8.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -249,7 +245,7 @@ class _CheckoutcartCopyWidgetState extends State<CheckoutcartCopyWidget> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 8.0, 0.0, 8.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -299,7 +295,7 @@ class _CheckoutcartCopyWidgetState extends State<CheckoutcartCopyWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                 child: FFButtonWidget(
                   onPressed: () {
                     print('Button pressed ...');
@@ -308,13 +304,13 @@ class _CheckoutcartCopyWidgetState extends State<CheckoutcartCopyWidget> {
                   options: FFButtonOptions(
                     width: double.infinity,
                     height: 50.0,
-                    padding: EdgeInsets.all(0.0),
+                    padding: const EdgeInsets.all(0.0),
                     iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).primaryText,
                     textStyle: FlutterFlowTheme.of(context).titleSmall,
                     elevation: 2.0,
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.transparent,
                       width: 1.0,
                     ),

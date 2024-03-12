@@ -53,6 +53,10 @@ class _MultichoiceBottomSheetWidgetState
               .where(
                 'type',
                 isEqualTo: ComponentType.MultipleChoice.serialize(),
+              )
+              .where(
+                'component_name',
+                isEqualTo: widget.componentDoc?.name,
               ),
           singleRecord: true,
         ).then((s) => s.firstOrNull);
@@ -182,6 +186,7 @@ class _MultichoiceBottomSheetWidgetState
                     ...createComponentContentRecordData(
                       leadRef: widget.leadDocRef,
                       type: ComponentType.MultipleChoice,
+                      componentName: widget.componentDoc?.name,
                     ),
                     ...mapToFirestore(
                       {

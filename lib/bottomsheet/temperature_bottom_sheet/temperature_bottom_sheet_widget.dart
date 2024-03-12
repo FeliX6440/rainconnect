@@ -15,12 +15,12 @@ class TemperatureBottomSheetWidget extends StatefulWidget {
   const TemperatureBottomSheetWidget({
     super.key,
     required this.leadDocRef,
-    this.componentDocRef,
+    required this.componentDoc,
     required this.isEdit,
   });
 
   final DocumentReference? leadDocRef;
-  final DocumentReference? componentDocRef;
+  final TeamComponentsRecord? componentDoc;
   final bool? isEdit;
 
   @override
@@ -55,6 +55,10 @@ class _TemperatureBottomSheetWidgetState
               .where(
                 'type',
                 isEqualTo: ComponentType.Temperature.serialize(),
+              )
+              .where(
+                'component_name',
+                isEqualTo: widget.componentDoc?.name,
               ),
           singleRecord: true,
         ).then((s) => s.firstOrNull);
@@ -134,6 +138,7 @@ class _TemperatureBottomSheetWidgetState
                         leadRef: widget.leadDocRef,
                         type: ComponentType.Temperature,
                         content: _model.tempValue,
+                        componentName: widget.componentDoc?.name,
                       ),
                       ...mapToFirestore(
                         {
@@ -142,7 +147,7 @@ class _TemperatureBottomSheetWidgetState
                       ),
                     });
 
-                    await widget.componentDocRef!.update({
+                    await widget.componentDoc!.reference.update({
                       ...mapToFirestore(
                         {
                           'contain_leads':

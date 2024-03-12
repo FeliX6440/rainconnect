@@ -13,12 +13,12 @@ class NoteBottomSheetWidget extends StatefulWidget {
   const NoteBottomSheetWidget({
     super.key,
     required this.leadDocRef,
-    this.coomponentDocRef,
+    this.coomponentDoc,
     required this.isEdit,
   });
 
   final DocumentReference? leadDocRef;
-  final DocumentReference? coomponentDocRef;
+  final TeamComponentsRecord? coomponentDoc;
   final bool? isEdit;
 
   @override
@@ -51,6 +51,10 @@ class _NoteBottomSheetWidgetState extends State<NoteBottomSheetWidget> {
               .where(
                 'type',
                 isEqualTo: ComponentType.Note.serialize(),
+              )
+              .where(
+                'component_name',
+                isEqualTo: widget.coomponentDoc?.name,
               ),
           singleRecord: true,
         ).then((s) => s.firstOrNull);
@@ -151,6 +155,7 @@ class _NoteBottomSheetWidgetState extends State<NoteBottomSheetWidget> {
                         leadRef: widget.leadDocRef,
                         type: ComponentType.Note,
                         content: _model.noteController.text,
+                        componentName: widget.coomponentDoc?.name,
                       ),
                       ...mapToFirestore(
                         {
@@ -159,7 +164,7 @@ class _NoteBottomSheetWidgetState extends State<NoteBottomSheetWidget> {
                       ),
                     });
 
-                    await widget.coomponentDocRef!.update({
+                    await widget.coomponentDoc!.reference.update({
                       ...mapToFirestore(
                         {
                           'contain_leads':

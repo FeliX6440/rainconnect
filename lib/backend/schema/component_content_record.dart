@@ -45,6 +45,11 @@ class ComponentContentRecord extends FirestoreRecord {
   List<String> get listContent => _listContent ?? const [];
   bool hasListContent() => _listContent != null;
 
+  // "component_name" field.
+  String? _componentName;
+  String get componentName => _componentName ?? '';
+  bool hasComponentName() => _componentName != null;
+
   void _initializeFields() {
     _leadRef = snapshotData['lead_ref'] as DocumentReference?;
     _type = deserializeEnum<ComponentType>(snapshotData['type']);
@@ -52,6 +57,7 @@ class ComponentContentRecord extends FirestoreRecord {
     _createdAt = snapshotData['created_at'] as DateTime?;
     _listOptions = getDataList(snapshotData['list_options']);
     _listContent = getDataList(snapshotData['list_content']);
+    _componentName = snapshotData['component_name'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -94,6 +100,7 @@ Map<String, dynamic> createComponentContentRecordData({
   ComponentType? type,
   String? content,
   DateTime? createdAt,
+  String? componentName,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -101,6 +108,7 @@ Map<String, dynamic> createComponentContentRecordData({
       'type': type,
       'content': content,
       'created_at': createdAt,
+      'component_name': componentName,
     }.withoutNulls,
   );
 
@@ -119,7 +127,8 @@ class ComponentContentRecordDocumentEquality
         e1?.content == e2?.content &&
         e1?.createdAt == e2?.createdAt &&
         listEquality.equals(e1?.listOptions, e2?.listOptions) &&
-        listEquality.equals(e1?.listContent, e2?.listContent);
+        listEquality.equals(e1?.listContent, e2?.listContent) &&
+        e1?.componentName == e2?.componentName;
   }
 
   @override
@@ -129,7 +138,8 @@ class ComponentContentRecordDocumentEquality
         e?.content,
         e?.createdAt,
         e?.listOptions,
-        e?.listContent
+        e?.listContent,
+        e?.componentName
       ]);
 
   @override

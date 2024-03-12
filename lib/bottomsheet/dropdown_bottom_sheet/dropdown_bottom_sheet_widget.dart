@@ -54,6 +54,10 @@ class _DropdownBottomSheetWidgetState extends State<DropdownBottomSheetWidget> {
               .where(
                 'type',
                 isEqualTo: ComponentType.Dropdown.serialize(),
+              )
+              .where(
+                'component_name',
+                isEqualTo: widget.teamComponentDoc?.name,
               ),
           singleRecord: true,
         ).then((s) => s.firstOrNull);
@@ -131,6 +135,7 @@ class _DropdownBottomSheetWidgetState extends State<DropdownBottomSheetWidget> {
                       leadRef: widget.leadDocRef,
                       type: ComponentType.Dropdown,
                       content: _model.dropDownValue,
+                      componentName: widget.teamComponentDoc?.name,
                     ),
                     ...mapToFirestore(
                       {

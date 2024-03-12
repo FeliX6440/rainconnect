@@ -1877,7 +1877,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                     child: Stack(
                       children: [
                         Container(
-                          height: MediaQuery.sizeOf(context).height * 0.74,
+                          height: MediaQuery.sizeOf(context).height * 0.72,
                           decoration: const BoxDecoration(),
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(

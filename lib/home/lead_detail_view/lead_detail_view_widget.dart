@@ -1357,6 +1357,8 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                                             return 'Temperature';
                                                                           }
                                                                         }(),
+                                                                        componentName:
+                                                                            columnTeamComponentsRecord.name,
                                                                       ),
                                                                     ),
                                                                   ),
@@ -1483,8 +1485,8 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                                           NoteBottomSheetWidget(
                                                                         leadDocRef:
                                                                             leadDetailViewLeadsRecord.reference,
-                                                                        coomponentDocRef:
-                                                                            columnTeamComponentsRecord.reference,
+                                                                        coomponentDoc:
+                                                                            columnTeamComponentsRecord,
                                                                         isEdit:
                                                                             false,
                                                                       ),
@@ -1687,8 +1689,8 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                                           TemperatureBottomSheetWidget(
                                                                         leadDocRef:
                                                                             leadDetailViewLeadsRecord.reference,
-                                                                        componentDocRef:
-                                                                            columnTeamComponentsRecord.reference,
+                                                                        componentDoc:
+                                                                            columnTeamComponentsRecord,
                                                                         isEdit:
                                                                             false,
                                                                       ),

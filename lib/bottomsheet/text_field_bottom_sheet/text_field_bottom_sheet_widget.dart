@@ -53,6 +53,10 @@ class _TextFieldBottomSheetWidgetState
               .where(
                 'type',
                 isEqualTo: ComponentType.TextField.serialize(),
+              )
+              .where(
+                'component_name',
+                isEqualTo: widget.teamComponentDoc?.name,
               ),
           singleRecord: true,
         ).then((s) => s.firstOrNull);
@@ -152,6 +156,7 @@ class _TextFieldBottomSheetWidgetState
                         leadRef: widget.leadDocRef,
                         type: ComponentType.TextField,
                         content: _model.textController.text,
+                        componentName: widget.teamComponentDoc?.name,
                       ),
                       ...mapToFirestore(
                         {

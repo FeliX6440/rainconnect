@@ -88,7 +88,7 @@ class _TileComponentWidgetState extends State<TileComponentWidget> {
                           height: MediaQuery.sizeOf(context).height * 0.4,
                           child: NoteBottomSheetWidget(
                             leadDocRef: widget.lead!,
-                            coomponentDocRef: widget.component?.reference,
+                            coomponentDoc: widget.component,
                             isEdit: widget.component!.containLeads
                                 .contains(widget.lead),
                           ),
@@ -174,7 +174,7 @@ class _TileComponentWidgetState extends State<TileComponentWidget> {
                           height: MediaQuery.sizeOf(context).height * 0.4,
                           child: TemperatureBottomSheetWidget(
                             leadDocRef: widget.lead!,
-                            componentDocRef: widget.component?.reference,
+                            componentDoc: widget.component!,
                             isEdit: widget.component!.containLeads
                                 .contains(widget.lead),
                           ),

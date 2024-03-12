@@ -18,11 +18,13 @@ class ComponentDetailsSheetWidget extends StatefulWidget {
     required this.headText,
     required this.leadRef,
     required this.type,
+    required this.componentName,
   });
 
   final String? headText;
   final DocumentReference? leadRef;
   final ComponentType? type;
+  final String? componentName;
 
   @override
   State<ComponentDetailsSheetWidget> createState() =>
@@ -98,6 +100,10 @@ class _ComponentDetailsSheetWidgetState
                             .where(
                               'type',
                               isEqualTo: ComponentType.TextField.serialize(),
+                            )
+                            .where(
+                              'component_name',
+                              isEqualTo: widget.componentName,
                             ),
                     singleRecord: true,
                   ),
@@ -279,6 +285,10 @@ class _ComponentDetailsSheetWidgetState
                             .where(
                               'type',
                               isEqualTo: ComponentType.Note.serialize(),
+                            )
+                            .where(
+                              'component_name',
+                              isEqualTo: widget.componentName,
                             ),
                     singleRecord: true,
                   ),
@@ -461,6 +471,10 @@ class _ComponentDetailsSheetWidgetState
                             .where(
                               'type',
                               isEqualTo: ComponentType.Dropdown.serialize(),
+                            )
+                            .where(
+                              'component_name',
+                              isEqualTo: widget.componentName,
                             ),
                     singleRecord: true,
                   ),
@@ -608,6 +622,10 @@ class _ComponentDetailsSheetWidgetState
                             .where(
                               'type',
                               isEqualTo: ComponentType.Temperature.serialize(),
+                            )
+                            .where(
+                              'component_name',
+                              isEqualTo: widget.componentName,
                             ),
                     singleRecord: true,
                   ),
@@ -756,6 +774,10 @@ class _ComponentDetailsSheetWidgetState
                               'type',
                               isEqualTo:
                                   ComponentType.MultipleChoice.serialize(),
+                            )
+                            .where(
+                              'component_name',
+                              isEqualTo: widget.componentName,
                             ),
                     singleRecord: true,
                   ),

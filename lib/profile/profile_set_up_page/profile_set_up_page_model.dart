@@ -12,10 +12,14 @@ class ProfileSetUpPageModel extends FlutterFlowModel<ProfileSetUpPageWidget> {
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl = '';
 
-  // State field(s) for fullName widget.
-  FocusNode? fullNameFocusNode;
-  TextEditingController? fullNameController;
-  String? Function(BuildContext, String?)? fullNameControllerValidator;
+  // State field(s) for firstName widget.
+  FocusNode? firstNameFocusNode;
+  TextEditingController? firstNameController;
+  String? Function(BuildContext, String?)? firstNameControllerValidator;
+  // State field(s) for lastName widget.
+  FocusNode? lastNameFocusNode;
+  TextEditingController? lastNameController;
+  String? Function(BuildContext, String?)? lastNameControllerValidator;
   // State field(s) for job widget.
   FocusNode? jobFocusNode;
   TextEditingController? jobController;
@@ -45,8 +49,11 @@ class ProfileSetUpPageModel extends FlutterFlowModel<ProfileSetUpPageWidget> {
   @override
   void dispose() {
     unfocusNode.dispose();
-    fullNameFocusNode?.dispose();
-    fullNameController?.dispose();
+    firstNameFocusNode?.dispose();
+    firstNameController?.dispose();
+
+    lastNameFocusNode?.dispose();
+    lastNameController?.dispose();
 
     jobFocusNode?.dispose();
     jobController?.dispose();

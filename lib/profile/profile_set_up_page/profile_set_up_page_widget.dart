@@ -65,8 +65,11 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
       });
     });
 
-    _model.fullNameController ??= TextEditingController();
-    _model.fullNameFocusNode ??= FocusNode();
+    _model.firstNameController ??= TextEditingController();
+    _model.firstNameFocusNode ??= FocusNode();
+
+    _model.lastNameController ??= TextEditingController();
+    _model.lastNameFocusNode ??= FocusNode();
 
     _model.jobController ??= TextEditingController();
     _model.jobFocusNode ??= FocusNode();
@@ -248,11 +251,11 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                     SizedBox(
                       width: double.infinity,
                       child: TextFormField(
-                        controller: _model.fullNameController,
-                        focusNode: _model.fullNameFocusNode,
+                        controller: _model.firstNameController,
+                        focusNode: _model.firstNameFocusNode,
                         obscureText: false,
                         decoration: InputDecoration(
-                          labelText: 'First and Last Name',
+                          labelText: 'First name',
                           labelStyle: FlutterFlowTheme.of(context)
                               .titleMedium
                               .override(
@@ -301,8 +304,72 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                               color: FlutterFlowTheme.of(context).primaryText,
                               fontSize: 14.0,
                             ),
-                        validator: _model.fullNameControllerValidator
+                        validator: _model.firstNameControllerValidator
                             .asValidator(context),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: TextFormField(
+                          controller: _model.lastNameController,
+                          focusNode: _model.lastNameFocusNode,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Last name',
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .titleMedium
+                                .override(
+                                  fontFamily: 'Manrope',
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  fontSize: 16.0,
+                                ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).alternate,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(14.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).primary,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(14.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(14.0),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(14.0),
+                            ),
+                            filled: true,
+                            fillColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            contentPadding: const EdgeInsets.all(18.0),
+                          ),
+                          style: FlutterFlowTheme.of(context)
+                              .titleMedium
+                              .override(
+                                fontFamily: 'Manrope',
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                fontSize: 14.0,
+                              ),
+                          validator: _model.lastNameControllerValidator
+                              .asValidator(context),
+                        ),
                       ),
                     ),
                     Padding(
@@ -623,8 +690,9 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                             0.0, 10.0, 0.0, 16.0),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            if ((_model.fullNameController.text != '') &&
-                                (_model.jobController.text != '')) {
+                            if ((_model.firstNameController.text != '') &&
+                                (_model.jobController.text != '') &&
+                                (_model.lastNameController.text != '')) {
                               if (_model.isInviteValue!) {
                                 _model.teamDoc = await queryTeamsRecordOnce(
                                   queryBuilder: (teamsRecord) =>
@@ -653,7 +721,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                                     await currentUserReference!.update({
                                       ...createUsersRecordData(
                                         displayName:
-                                            _model.fullNameController.text,
+                                            '${_model.firstNameController.text} ${_model.lastNameController.text}',
                                         photoUrl:
                                             _model.uploadedFileUrl != ''
                                                 ? _model.uploadedFileUrl
@@ -805,7 +873,8 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
 
                                 await currentUserReference!.update({
                                   ...createUsersRecordData(
-                                    displayName: _model.fullNameController.text,
+                                    displayName:
+                                        '${_model.firstNameController.text} ${_model.lastNameController.text}',
                                     photoUrl: _model.uploadedFileUrl != ''
                                         ? _model.uploadedFileUrl
                                         : random_data.randomImageUrl(
@@ -831,7 +900,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                    'Full name and job title are required',
+                                    'First name, last name and job title are required',
                                     style: TextStyle(
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,

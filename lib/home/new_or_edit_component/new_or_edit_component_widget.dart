@@ -743,6 +743,20 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                         }
 
                         context.safePop();
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Component name can not be empty',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
+                            ),
+                            duration: const Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).secondary,
+                          ),
+                        );
                       }
 
                       setState(() {});

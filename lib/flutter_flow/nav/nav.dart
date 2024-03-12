@@ -1,14 +1,23 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:go_router/go_router.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/backend/schema/enums/enums.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
+import '/main.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/lat_lng.dart';
+import '/flutter_flow/place.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'serialization_util.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -73,29 +82,29 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const HomePageWidget() : const LoginregisterWidget(),
+          appStateNotifier.loggedIn ? HomePageWidget() : LoginregisterWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) => appStateNotifier.loggedIn
-              ? const HomePageWidget()
-              : const LoginregisterWidget(),
+              ? HomePageWidget()
+              : LoginregisterWidget(),
         ),
         FFRoute(
           name: 'loginregister',
           path: '/loginregister',
-          builder: (context, params) => const LoginregisterWidget(),
+          builder: (context, params) => LoginregisterWidget(),
         ),
         FFRoute(
           name: 'ForgotPassword',
           path: '/forgotPassword',
-          builder: (context, params) => const ForgotPasswordWidget(),
+          builder: (context, params) => ForgotPasswordWidget(),
         ),
         FFRoute(
           name: 'HomePage',
           path: '/homePage',
-          builder: (context, params) => const HomePageWidget(),
+          builder: (context, params) => HomePageWidget(),
         ),
         FFRoute(
           name: 'MyLeads',
@@ -147,7 +156,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'ProfileSetUpPage',
           path: '/profileSetUpPage',
-          builder: (context, params) => const ProfileSetUpPageWidget(),
+          builder: (context, params) => ProfileSetUpPageWidget(),
         ),
         FFRoute(
           name: 'SpeechToTextNotesPage',
@@ -203,22 +212,22 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Billing',
           path: '/billing',
-          builder: (context, params) => const BillingWidget(),
+          builder: (context, params) => BillingWidget(),
         ),
         FFRoute(
           name: 'checkoutcart',
           path: '/checkout',
-          builder: (context, params) => const CheckoutcartWidget(),
+          builder: (context, params) => CheckoutcartWidget(),
         ),
         FFRoute(
           name: 'checkout',
           path: '/checkoutn',
-          builder: (context, params) => const CheckoutWidget(),
+          builder: (context, params) => CheckoutWidget(),
         ),
         FFRoute(
           name: 'settings',
           path: '/settings',
-          builder: (context, params) => const SettingsWidget(),
+          builder: (context, params) => SettingsWidget(),
         ),
         FFRoute(
           name: 'ManageMembers',
@@ -232,7 +241,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'checkoutcartCopy',
           path: '/checkoutf',
-          builder: (context, params) => const CheckoutcartCopyWidget(),
+          builder: (context, params) => CheckoutcartCopyWidget(),
         ),
         FFRoute(
           name: 'EmailTemplatesList',
@@ -253,12 +262,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'checkoutcartCopyCopy',
           path: '/checkoutff',
-          builder: (context, params) => const CheckoutcartCopyCopyWidget(),
+          builder: (context, params) => CheckoutcartCopyCopyWidget(),
         ),
         FFRoute(
           name: 'EditProfilePage',
           path: '/editProfilePage',
-          builder: (context, params) => const EditProfilePageWidget(),
+          builder: (context, params) => EditProfilePageWidget(),
         ),
         FFRoute(
           name: 'EmailTemplateEditor',
@@ -505,7 +514,7 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() => TransitionInfo(hasTransition: false);
 }
 
 class RootPageContext {

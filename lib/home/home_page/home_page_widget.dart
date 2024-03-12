@@ -4,10 +4,15 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
 
@@ -40,8 +45,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
           curve: Curves.easeInOut,
           delay: 100.ms,
           duration: 600.ms,
-          begin: const Offset(0.0, 60.0),
-          end: const Offset(0.0, 0.0),
+          begin: Offset(0.0, 60.0),
+          end: Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -79,7 +84,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
         stream: queryTeamsRecord(
           queryBuilder: (teamsRecord) => teamsRecord.whereIn(
               'id',
-              (currentUserDocument?.teamRefs.toList() ?? [])
+              (currentUserDocument?.teamRefs?.toList() ?? [])
                   .map((e) => e.id)
                   .toList()),
           singleRecord: true,
@@ -131,17 +136,17 @@ class _HomePageWidgetState extends State<HomePageWidget>
               drawer: Drawer(
                 elevation: 18.0,
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 20.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 20.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(16.0),
+                        padding: EdgeInsets.all(16.0),
                         child: Container(
                           width: 300.0,
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            boxShadow: const [
+                            boxShadow: [
                               BoxShadow(
                                 blurRadius: 4.0,
                                 color: Color(0x33000000),
@@ -151,14 +156,14 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             borderRadius: BorderRadius.circular(12.0),
                           ),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 12.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       12.0, 12.0, 0.0, 8.0),
                                   child: Text(
                                     'Options',
@@ -167,7 +172,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         .labelMedium
                                         .override(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: const Color(0xFF57636C),
+                                          color: Color(0xFF57636C),
                                           fontSize: 14.0,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -177,14 +182,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   opaque: false,
                                   cursor:
                                       MouseCursor.defer ?? MouseCursor.defer,
-                                  onEnter: ((event) async {
-                                    setState(() =>
-                                        _model.mouseRegionHovered1 = true);
-                                  }),
-                                  onExit: ((event) async {
-                                    setState(() =>
-                                        _model.mouseRegionHovered1 = false);
-                                  }),
                                   child: InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
@@ -206,16 +203,16 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     },
                                     child: Container(
                                       width: double.infinity,
-                                      decoration: const BoxDecoration(
+                                      decoration: BoxDecoration(
                                         color: Colors.white,
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 8.0, 0.0, 8.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            const Padding(
+                                            Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       12.0, 0.0, 0.0, 0.0),
@@ -227,7 +224,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             ),
                                             Expanded(
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         12.0, 0.0, 0.0, 0.0),
                                                 child: Text(
@@ -239,7 +236,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                         fontFamily:
                                                             'Plus Jakarta Sans',
                                                         color:
-                                                            const Color(0xFF14181B),
+                                                            Color(0xFF14181B),
                                                         fontSize: 14.0,
                                                         fontWeight:
                                                             FontWeight.w500,
@@ -252,19 +249,19 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       ),
                                     ),
                                   ),
+                                  onEnter: ((event) async {
+                                    setState(() =>
+                                        _model.mouseRegionHovered1 = true);
+                                  }),
+                                  onExit: ((event) async {
+                                    setState(() =>
+                                        _model.mouseRegionHovered1 = false);
+                                  }),
                                 ),
                                 MouseRegion(
                                   opaque: false,
                                   cursor: SystemMouseCursors.basic ??
                                       MouseCursor.defer,
-                                  onEnter: ((event) async {
-                                    setState(() =>
-                                        _model.mouseRegionHovered2 = true);
-                                  }),
-                                  onExit: ((event) async {
-                                    setState(() =>
-                                        _model.mouseRegionHovered2 = false);
-                                  }),
                                   child: InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
@@ -274,21 +271,21 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       context.pushNamed('settings');
                                     },
                                     child: AnimatedContainer(
-                                      duration: const Duration(milliseconds: 150),
+                                      duration: Duration(milliseconds: 150),
                                       curve: Curves.easeInOut,
                                       width: double.infinity,
                                       decoration: BoxDecoration(
-                                        color: _model.mouseRegionHovered2
-                                            ? const Color(0xFFF1F4F8)
+                                        color: _model.mouseRegionHovered2!
+                                            ? Color(0xFFF1F4F8)
                                             : Colors.white,
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 8.0, 0.0, 8.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            const Padding(
+                                            Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       12.0, 0.0, 0.0, 0.0),
@@ -300,7 +297,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             ),
                                             Expanded(
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         12.0, 0.0, 0.0, 0.0),
                                                 child: Text(
@@ -312,7 +309,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                         fontFamily:
                                                             'Plus Jakarta Sans',
                                                         color:
-                                                            const Color(0xFF14181B),
+                                                            Color(0xFF14181B),
                                                         fontSize: 14.0,
                                                         fontWeight:
                                                             FontWeight.w500,
@@ -325,22 +322,22 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       ),
                                     ),
                                   ),
+                                  onEnter: ((event) async {
+                                    setState(() =>
+                                        _model.mouseRegionHovered2 = true);
+                                  }),
+                                  onExit: ((event) async {
+                                    setState(() =>
+                                        _model.mouseRegionHovered2 = false);
+                                  }),
                                 ),
                                 MouseRegion(
                                   opaque: false,
                                   cursor: SystemMouseCursors.click ??
                                       MouseCursor.defer,
-                                  onEnter: ((event) async {
-                                    setState(() =>
-                                        _model.mouseRegionHovered3 = true);
-                                  }),
-                                  onExit: ((event) async {
-                                    setState(() =>
-                                        _model.mouseRegionHovered3 = false);
-                                  }),
                                   child: Visibility(
                                     visible: homePageTeamsRecord?.admins
-                                            .contains(currentUserReference) ??
+                                            ?.contains(currentUserReference) ??
                                         true,
                                     child: InkWell(
                                       splashColor: Colors.transparent,
@@ -353,7 +350,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           queryParameters: {
                                             'membersCount': serializeParam(
                                               homePageTeamsRecord
-                                                  ?.members.length,
+                                                  ?.members?.length,
                                               ParamType.int,
                                             ),
                                             'teamRef': serializeParam(
@@ -364,22 +361,22 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         );
                                       },
                                       child: AnimatedContainer(
-                                        duration: const Duration(milliseconds: 150),
+                                        duration: Duration(milliseconds: 150),
                                         curve: Curves.easeInOut,
                                         width: double.infinity,
                                         decoration: BoxDecoration(
-                                          color: _model.mouseRegionHovered3
-                                              ? const Color(0xFFF1F4F8)
+                                          color: _model.mouseRegionHovered3!
+                                              ? Color(0xFFF1F4F8)
                                               : Colors.white,
                                         ),
                                         child: Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 8.0, 0.0, 8.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              const Padding(
+                                              Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         12.0, 0.0, 0.0, 0.0),
@@ -391,7 +388,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               ),
                                               Expanded(
                                                 child: Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           12.0, 0.0, 0.0, 0.0),
                                                   child: Text(
@@ -403,7 +400,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                           fontFamily:
                                                               'Plus Jakarta Sans',
                                                           color:
-                                                              const Color(0xFF14181B),
+                                                              Color(0xFF14181B),
                                                           fontSize: 14.0,
                                                           fontWeight:
                                                               FontWeight.w500,
@@ -417,13 +414,21 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       ),
                                     ),
                                   ),
+                                  onEnter: ((event) async {
+                                    setState(() =>
+                                        _model.mouseRegionHovered3 = true);
+                                  }),
+                                  onExit: ((event) async {
+                                    setState(() =>
+                                        _model.mouseRegionHovered3 = false);
+                                  }),
                                 ),
-                                const Divider(
+                                Divider(
                                   thickness: 1.0,
                                   color: Color(0xFFE0E3E7),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       12.0, 4.0, 0.0, 8.0),
                                   child: Text(
                                     'Platform',
@@ -432,7 +437,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         .labelMedium
                                         .override(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: const Color(0xFF57636C),
+                                          color: Color(0xFF57636C),
                                           fontSize: 14.0,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -442,17 +447,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   opaque: false,
                                   cursor: SystemMouseCursors.click ??
                                       MouseCursor.defer,
-                                  onEnter: ((event) async {
-                                    setState(() =>
-                                        _model.mouseRegionHovered4 = true);
-                                  }),
-                                  onExit: ((event) async {
-                                    setState(() =>
-                                        _model.mouseRegionHovered4 = false);
-                                  }),
                                   child: Visibility(
                                     visible: homePageTeamsRecord?.admins
-                                            .contains(currentUserReference) ??
+                                            ?.contains(currentUserReference) ??
                                         true,
                                     child: InkWell(
                                       splashColor: Colors.transparent,
@@ -471,22 +468,22 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         );
                                       },
                                       child: AnimatedContainer(
-                                        duration: const Duration(milliseconds: 150),
+                                        duration: Duration(milliseconds: 150),
                                         curve: Curves.easeInOut,
                                         width: double.infinity,
                                         decoration: BoxDecoration(
-                                          color: _model.mouseRegionHovered4
-                                              ? const Color(0xFFF1F4F8)
+                                          color: _model.mouseRegionHovered4!
+                                              ? Color(0xFFF1F4F8)
                                               : Colors.white,
                                         ),
                                         child: Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 8.0, 0.0, 8.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              const Padding(
+                                              Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         12.0, 0.0, 0.0, 0.0),
@@ -498,7 +495,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               ),
                                               Expanded(
                                                 child: Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           12.0, 0.0, 0.0, 0.0),
                                                   child: Text(
@@ -510,7 +507,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                           fontFamily:
                                                               'Plus Jakarta Sans',
                                                           color:
-                                                              const Color(0xFF14181B),
+                                                              Color(0xFF14181B),
                                                           fontSize: 14.0,
                                                           fontWeight:
                                                               FontWeight.w500,
@@ -524,22 +521,22 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       ),
                                     ),
                                   ),
+                                  onEnter: ((event) async {
+                                    setState(() =>
+                                        _model.mouseRegionHovered4 = true);
+                                  }),
+                                  onExit: ((event) async {
+                                    setState(() =>
+                                        _model.mouseRegionHovered4 = false);
+                                  }),
                                 ),
                                 MouseRegion(
                                   opaque: false,
                                   cursor: SystemMouseCursors.click ??
                                       MouseCursor.defer,
-                                  onEnter: ((event) async {
-                                    setState(() =>
-                                        _model.mouseRegionHovered5 = true);
-                                  }),
-                                  onExit: ((event) async {
-                                    setState(() =>
-                                        _model.mouseRegionHovered5 = false);
-                                  }),
                                   child: Visibility(
                                     visible: homePageTeamsRecord?.admins
-                                            .contains(currentUserReference) ??
+                                            ?.contains(currentUserReference) ??
                                         true,
                                     child: InkWell(
                                       splashColor: Colors.transparent,
@@ -558,22 +555,22 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         );
                                       },
                                       child: AnimatedContainer(
-                                        duration: const Duration(milliseconds: 150),
+                                        duration: Duration(milliseconds: 150),
                                         curve: Curves.easeInOut,
                                         width: double.infinity,
                                         decoration: BoxDecoration(
-                                          color: _model.mouseRegionHovered5
-                                              ? const Color(0xFFF1F4F8)
+                                          color: _model.mouseRegionHovered5!
+                                              ? Color(0xFFF1F4F8)
                                               : Colors.white,
                                         ),
                                         child: Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 8.0, 0.0, 8.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              const Padding(
+                                              Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         12.0, 0.0, 0.0, 0.0),
@@ -586,7 +583,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               ),
                                               Expanded(
                                                 child: Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           12.0, 0.0, 0.0, 0.0),
                                                   child: Text(
@@ -598,7 +595,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                           fontFamily:
                                                               'Plus Jakarta Sans',
                                                           color:
-                                                              const Color(0xFF14181B),
+                                                              Color(0xFF14181B),
                                                           fontSize: 14.0,
                                                           fontWeight:
                                                               FontWeight.w500,
@@ -612,22 +609,22 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       ),
                                     ),
                                   ),
+                                  onEnter: ((event) async {
+                                    setState(() =>
+                                        _model.mouseRegionHovered5 = true);
+                                  }),
+                                  onExit: ((event) async {
+                                    setState(() =>
+                                        _model.mouseRegionHovered5 = false);
+                                  }),
                                 ),
                                 MouseRegion(
                                   opaque: false,
                                   cursor: SystemMouseCursors.click ??
                                       MouseCursor.defer,
-                                  onEnter: ((event) async {
-                                    setState(() =>
-                                        _model.mouseRegionHovered6 = true);
-                                  }),
-                                  onExit: ((event) async {
-                                    setState(() =>
-                                        _model.mouseRegionHovered6 = false);
-                                  }),
                                   child: Visibility(
                                     visible: homePageTeamsRecord?.admins
-                                            .contains(currentUserReference) ??
+                                            ?.contains(currentUserReference) ??
                                         true,
                                     child: InkWell(
                                       splashColor: Colors.transparent,
@@ -646,22 +643,22 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         );
                                       },
                                       child: AnimatedContainer(
-                                        duration: const Duration(milliseconds: 150),
+                                        duration: Duration(milliseconds: 150),
                                         curve: Curves.easeInOut,
                                         width: double.infinity,
                                         decoration: BoxDecoration(
-                                          color: _model.mouseRegionHovered6
-                                              ? const Color(0xFFF1F4F8)
+                                          color: _model.mouseRegionHovered6!
+                                              ? Color(0xFFF1F4F8)
                                               : Colors.white,
                                         ),
                                         child: Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 8.0, 0.0, 8.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              const Padding(
+                                              Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         12.0, 0.0, 0.0, 0.0),
@@ -674,7 +671,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               ),
                                               Expanded(
                                                 child: Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           12.0, 0.0, 0.0, 0.0),
                                                   child: Text(
@@ -686,7 +683,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                           fontFamily:
                                                               'Plus Jakarta Sans',
                                                           color:
-                                                              const Color(0xFF14181B),
+                                                              Color(0xFF14181B),
                                                           fontSize: 14.0,
                                                           fontWeight:
                                                               FontWeight.w500,
@@ -700,38 +697,38 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       ),
                                     ),
                                   ),
+                                  onEnter: ((event) async {
+                                    setState(() =>
+                                        _model.mouseRegionHovered6 = true);
+                                  }),
+                                  onExit: ((event) async {
+                                    setState(() =>
+                                        _model.mouseRegionHovered6 = false);
+                                  }),
                                 ),
                                 MouseRegion(
                                   opaque: false,
                                   cursor: SystemMouseCursors.click ??
                                       MouseCursor.defer,
-                                  onEnter: ((event) async {
-                                    setState(() =>
-                                        _model.mouseRegionHovered7 = true);
-                                  }),
-                                  onExit: ((event) async {
-                                    setState(() =>
-                                        _model.mouseRegionHovered7 = false);
-                                  }),
                                   child: Visibility(
                                     visible: !homePageTeamsRecord!.admins
                                         .contains(currentUserReference),
                                     child: AnimatedContainer(
-                                      duration: const Duration(milliseconds: 150),
+                                      duration: Duration(milliseconds: 150),
                                       curve: Curves.easeInOut,
                                       width: double.infinity,
                                       decoration: BoxDecoration(
-                                        color: _model.mouseRegionHovered7
-                                            ? const Color(0xFFF1F4F8)
+                                        color: _model.mouseRegionHovered7!
+                                            ? Color(0xFFF1F4F8)
                                             : Colors.white,
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 8.0, 0.0, 8.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            const Padding(
+                                            Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       12.0, 0.0, 0.0, 0.0),
@@ -743,7 +740,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             ),
                                             Expanded(
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         12.0, 0.0, 0.0, 0.0),
                                                 child: Text(
@@ -755,7 +752,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                         fontFamily:
                                                             'Plus Jakarta Sans',
                                                         color:
-                                                            const Color(0xFF14181B),
+                                                            Color(0xFF14181B),
                                                         fontSize: 14.0,
                                                         fontWeight:
                                                             FontWeight.w500,
@@ -768,21 +765,21 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       ),
                                     ),
                                   ),
+                                  onEnter: ((event) async {
+                                    setState(() =>
+                                        _model.mouseRegionHovered7 = true);
+                                  }),
+                                  onExit: ((event) async {
+                                    setState(() =>
+                                        _model.mouseRegionHovered7 = false);
+                                  }),
                                 ),
                                 MouseRegion(
                                   opaque: false,
                                   cursor: SystemMouseCursors.click ??
                                       MouseCursor.defer,
-                                  onEnter: ((event) async {
-                                    setState(() =>
-                                        _model.mouseRegionHovered8 = true);
-                                  }),
-                                  onExit: ((event) async {
-                                    setState(() =>
-                                        _model.mouseRegionHovered8 = false);
-                                  }),
                                   child: Visibility(
-                                    visible: !homePageTeamsRecord.admins
+                                    visible: !homePageTeamsRecord!.admins
                                         .contains(currentUserReference),
                                     child: InkWell(
                                       splashColor: Colors.transparent,
@@ -790,7 +787,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        await homePageTeamsRecord.reference
+                                        await homePageTeamsRecord!.reference
                                             .update({
                                           ...mapToFirestore(
                                             {
@@ -807,34 +804,34 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             {
                                               'team_refs':
                                                   FieldValue.arrayRemove([
-                                                homePageTeamsRecord.reference
+                                                homePageTeamsRecord?.reference
                                               ]),
                                               'teams_admin':
                                                   FieldValue.arrayRemove([
-                                                homePageTeamsRecord.reference
+                                                homePageTeamsRecord?.reference
                                               ]),
                                             },
                                           ),
                                         });
                                       },
                                       child: AnimatedContainer(
-                                        duration: const Duration(milliseconds: 150),
+                                        duration: Duration(milliseconds: 150),
                                         curve: Curves.easeInOut,
                                         width: double.infinity,
                                         decoration: BoxDecoration(
-                                          color: _model.mouseRegionHovered8
-                                              ? const Color(0xFFF1F4F8)
+                                          color: _model.mouseRegionHovered8!
+                                              ? Color(0xFFF1F4F8)
                                               : Colors.white,
                                         ),
                                         child: Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 8.0, 0.0, 8.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         12.0, 0.0, 0.0, 0.0),
                                                 child: Icon(
@@ -847,7 +844,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               ),
                                               Expanded(
                                                 child: Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           12.0, 0.0, 0.0, 0.0),
                                                   child: Text(
@@ -874,13 +871,21 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       ),
                                     ),
                                   ),
+                                  onEnter: ((event) async {
+                                    setState(() =>
+                                        _model.mouseRegionHovered8 = true);
+                                  }),
+                                  onExit: ((event) async {
+                                    setState(() =>
+                                        _model.mouseRegionHovered8 = false);
+                                  }),
                                 ),
-                                const Divider(
+                                Divider(
                                   thickness: 1.0,
                                   color: Color(0xFFE0E3E7),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       24.0, 4.0, 24.0, 0.0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
@@ -896,21 +901,21 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     options: FFButtonOptions(
                                       width: double.infinity,
                                       height: 40.0,
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 0.0),
                                       iconPadding:
-                                          const EdgeInsetsDirectional.fromSTEB(
+                                          EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 0.0, 0.0),
                                       color: Colors.white,
                                       textStyle: FlutterFlowTheme.of(context)
                                           .bodyLarge
                                           .override(
                                             fontFamily: 'Plus Jakarta Sans',
-                                            color: const Color(0xFF14181B),
+                                            color: Color(0xFF14181B),
                                             fontSize: 16.0,
                                             fontWeight: FontWeight.w500,
                                           ),
-                                      borderSide: const BorderSide(
+                                      borderSide: BorderSide(
                                         color: Color(0xFFE0E3E7),
                                         width: 1.0,
                                       ),
@@ -923,7 +928,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 10.0, 0.0, 10.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
@@ -962,7 +967,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       TextDecoration.underline,
                                                 ),
                                               ),
-                                              const TextSpan(
+                                              TextSpan(
                                                 text:
                                                     ' for our Imprint, \nData security policy and more…',
                                                 style: TextStyle(),
@@ -997,24 +1002,24 @@ class _HomePageWidgetState extends State<HomePageWidget>
                 top: true,
                 child: Builder(
                   builder: (context) {
-                    if (homePageTeamsRecord.members
-                            .contains(currentUserReference) ??
+                    if (homePageTeamsRecord?.members
+                            ?.contains(currentUserReference) ??
                         false) {
                       return SingleChildScrollView(
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 30.0, 0.0, 0.0),
                               child: Container(
                                 width: double.infinity,
-                                decoration: const BoxDecoration(),
+                                decoration: BoxDecoration(),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     ClipRRect(
-                                      borderRadius: const BorderRadius.only(
+                                      borderRadius: BorderRadius.only(
                                         bottomLeft: Radius.circular(100.0),
                                         bottomRight: Radius.circular(100.0),
                                         topLeft: Radius.circular(100.0),
@@ -1028,7 +1033,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 10.0, 0.0, 0.0),
                                       child: Text(
                                         currentUserDisplayName,
@@ -1075,7 +1080,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               ),
                                         ),
                                         Text(
-                                          homePageTeamsRecord.leadLocation,
+                                          homePageTeamsRecord!.leadLocation,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -1095,27 +1100,27 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             ),
                             Builder(
                               builder: (context) {
-                                if (homePageTeamsRecord.members
-                                        .contains(currentUserReference) ??
+                                if (homePageTeamsRecord?.members
+                                        ?.contains(currentUserReference) ??
                                     false) {
                                   return Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         15.0, 0.0, 15.0, 0.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 9.0),
                                           child: Container(
                                             width: double.infinity,
-                                            decoration: const BoxDecoration(),
+                                            decoration: BoxDecoration(),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 5.0, 0.0, 0.0),
                                                   child: Container(
@@ -1133,8 +1138,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         Column(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            if (homePageTeamsRecord.admins
-                                                    .contains(
+                                            if (homePageTeamsRecord?.admins
+                                                    ?.contains(
                                                         currentUserReference) ??
                                                 true)
                                               Column(
@@ -1142,7 +1147,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 10.0,
                                                                 0.0, 10.0),
                                                     child: FFButtonWidget(
@@ -1165,7 +1170,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                         );
                                                       },
                                                       text: 'Select Components',
-                                                      icon: const Icon(
+                                                      icon: Icon(
                                                         Icons.edit_note_rounded,
                                                         size: 15.0,
                                                       ),
@@ -1173,14 +1178,14 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                         width: double.infinity,
                                                         height: 50.0,
                                                         padding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     24.0,
                                                                     0.0,
                                                                     24.0,
                                                                     0.0),
                                                         iconPadding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
@@ -1215,7 +1220,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 0.0, 10.0),
                                                     child: FFButtonWidget(
@@ -1226,14 +1231,14 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                             'membersCount':
                                                                 serializeParam(
                                                               homePageTeamsRecord
-                                                                  .members
-                                                                  .length,
+                                                                  ?.members
+                                                                  ?.length,
                                                               ParamType.int,
                                                             ),
                                                             'teamRef':
                                                                 serializeParam(
                                                               homePageTeamsRecord
-                                                                  .reference,
+                                                                  ?.reference,
                                                               ParamType
                                                                   .DocumentReference,
                                                             ),
@@ -1241,7 +1246,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                         );
                                                       },
                                                       text: 'Manage Team',
-                                                      icon: const Icon(
+                                                      icon: Icon(
                                                         Icons
                                                             .admin_panel_settings_outlined,
                                                         size: 15.0,
@@ -1250,14 +1255,14 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                         width: double.infinity,
                                                         height: 50.0,
                                                         padding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     24.0,
                                                                     0.0,
                                                                     24.0,
                                                                     0.0),
                                                         iconPadding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
@@ -1292,7 +1297,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 5.0,
                                                                 0.0, 20.0),
                                                     child: Material(
@@ -1331,7 +1336,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                           children: [
                                                             Padding(
                                                               padding:
-                                                                  const EdgeInsetsDirectional
+                                                                  EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           20.0,
                                                                           20.0,
@@ -1355,7 +1360,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                             ),
                                                             Padding(
                                                               padding:
-                                                                  const EdgeInsetsDirectional
+                                                                  EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           15.0,
                                                                           0.0,
@@ -1371,7 +1376,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                     EasyDebounce
                                                                         .debounce(
                                                                   '_model.locationFieldController',
-                                                                  const Duration(
+                                                                  Duration(
                                                                       milliseconds:
                                                                           300),
                                                                   () async {
@@ -1463,9 +1468,12 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                             ),
                                                             if (_model.locationFieldController
                                                                         .text !=
+                                                                    null &&
+                                                                _model.locationFieldController
+                                                                        .text !=
                                                                     '')
                                                               Padding(
-                                                                padding: const EdgeInsetsDirectional
+                                                                padding: EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         15.0,
                                                                         0.0,
@@ -1480,16 +1488,16 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                               context: context,
                                                                               builder: (alertDialogContext) {
                                                                                 return AlertDialog(
-                                                                                  title: const Text('Change location'),
-                                                                                  content: const Text('Changing location will override the current location'),
+                                                                                  title: Text('Change location'),
+                                                                                  content: Text('Changing location will override the current location'),
                                                                                   actions: [
                                                                                     TextButton(
                                                                                       onPressed: () => Navigator.pop(alertDialogContext, false),
-                                                                                      child: const Text('Cancel'),
+                                                                                      child: Text('Cancel'),
                                                                                     ),
                                                                                     TextButton(
                                                                                       onPressed: () => Navigator.pop(alertDialogContext, true),
-                                                                                      child: const Text('Confirm'),
+                                                                                      child: Text('Confirm'),
                                                                                     ),
                                                                                   ],
                                                                                 );
@@ -1497,7 +1505,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                             ) ??
                                                                             false;
                                                                     if (confirmDialogResponse) {
-                                                                      await homePageTeamsRecord
+                                                                      await homePageTeamsRecord!
                                                                           .reference
                                                                           .update(
                                                                               createTeamsRecordData(
@@ -1524,7 +1532,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                             ),
                                                                           ),
                                                                           duration:
-                                                                              const Duration(milliseconds: 4000),
+                                                                              Duration(milliseconds: 4000),
                                                                           backgroundColor:
                                                                               FlutterFlowTheme.of(context).secondary,
                                                                         ),
@@ -1538,14 +1546,14 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                         .infinity,
                                                                     height:
                                                                         40.0,
-                                                                    padding: const EdgeInsetsDirectional
+                                                                    padding: EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             24.0,
                                                                             0.0,
                                                                             24.0,
                                                                             0.0),
                                                                     iconPadding:
-                                                                        const EdgeInsetsDirectional.fromSTEB(
+                                                                        EdgeInsetsDirectional.fromSTEB(
                                                                             0.0,
                                                                             0.0,
                                                                             0.0,
@@ -1565,7 +1573,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                     elevation:
                                                                         3.0,
                                                                     borderSide:
-                                                                        const BorderSide(
+                                                                        BorderSide(
                                                                       color: Colors
                                                                           .transparent,
                                                                       width:
@@ -1587,7 +1595,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 ],
                                               ),
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 0.0, 0.0, 10.0),
                                               child: FFButtonWidget(
@@ -1598,7 +1606,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       'teamDocRef':
                                                           serializeParam(
                                                         homePageTeamsRecord
-                                                            .reference,
+                                                            ?.reference,
                                                         ParamType
                                                             .DocumentReference,
                                                       ),
@@ -1606,18 +1614,18 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   );
                                                 },
                                                 text: 'Collected Leads',
-                                                icon: const Icon(
+                                                icon: Icon(
                                                   Icons.groups,
                                                   size: 15.0,
                                                 ),
                                                 options: FFButtonOptions(
                                                   width: double.infinity,
                                                   height: 50.0,
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           24.0, 0.0, 24.0, 0.0),
                                                   iconPadding:
-                                                      const EdgeInsetsDirectional
+                                                      EdgeInsetsDirectional
                                                           .fromSTEB(0.0, 0.0,
                                                               0.0, 0.0),
                                                   color: FlutterFlowTheme.of(
@@ -1631,7 +1639,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                         color: Colors.white,
                                                       ),
                                                   elevation: 3.0,
-                                                  borderSide: const BorderSide(
+                                                  borderSide: BorderSide(
                                                     color: Colors.transparent,
                                                     width: 1.0,
                                                   ),
@@ -1650,7 +1658,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 20.0, 0.0, 50.0),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
@@ -1659,7 +1667,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 width: double.infinity,
                                                 decoration: BoxDecoration(
                                                   borderRadius:
-                                                      const BorderRadius.only(
+                                                      BorderRadius.only(
                                                     bottomLeft:
                                                         Radius.circular(50.0),
                                                     bottomRight:
@@ -1677,7 +1685,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   ),
                                                 ),
                                                 child: Padding(
-                                                  padding: const EdgeInsets.all(10.0),
+                                                  padding: EdgeInsets.all(10.0),
                                                   child: FFButtonWidget(
                                                     onPressed: () async {
                                                       context.pushNamed(
@@ -1691,7 +1699,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                           'isIndustryMode':
                                                               serializeParam(
                                                             homePageTeamsRecord
-                                                                .templateMode,
+                                                                ?.templateMode,
                                                             ParamType.bool,
                                                           ),
                                                         }.withoutNulls,
@@ -1703,21 +1711,21 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       );
                                                     },
                                                     text: 'Add Lead',
-                                                    icon: const Icon(
+                                                    icon: Icon(
                                                       Icons.add,
                                                       size: 15.0,
                                                     ),
                                                     options: FFButtonOptions(
                                                       height: 45.0,
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   24.0,
                                                                   0.0,
                                                                   24.0,
                                                                   0.0),
                                                       iconPadding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -1738,7 +1746,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                     .white,
                                                               ),
                                                       elevation: 3.0,
-                                                      borderSide: const BorderSide(
+                                                      borderSide: BorderSide(
                                                         color:
                                                             Colors.transparent,
                                                         width: 1.0,
@@ -1758,7 +1766,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   );
                                 } else {
                                   return Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         15.0, 0.0, 15.0, 0.0),
                                     child: Container(
                                       width: double.infinity,
@@ -1771,7 +1779,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       ),
                                       child: Align(
                                         alignment:
-                                            const AlignmentDirectional(0.0, 0.0),
+                                            AlignmentDirectional(0.0, 0.0),
                                         child: Text(
                                           'Waiting for response from team admin',
                                           style: FlutterFlowTheme.of(context)
@@ -1792,16 +1800,16 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 30.0, 0.0, 0.0),
                               child: Container(
                                 width: double.infinity,
-                                decoration: const BoxDecoration(),
+                                decoration: BoxDecoration(),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     ClipRRect(
-                                      borderRadius: const BorderRadius.only(
+                                      borderRadius: BorderRadius.only(
                                         bottomLeft: Radius.circular(100.0),
                                         bottomRight: Radius.circular(100.0),
                                         topLeft: Radius.circular(100.0),
@@ -1815,7 +1823,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 10.0, 0.0, 0.0),
                                       child: Text(
                                         currentUserDisplayName,
@@ -1862,7 +1870,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               ),
                                         ),
                                         Text(
-                                          homePageTeamsRecord.leadLocation,
+                                          homePageTeamsRecord!.leadLocation,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -1884,7 +1892,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       15.0, 0.0, 15.0, 0.0),
                                   child: Container(
                                     width: double.infinity,
@@ -1895,7 +1903,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     child: Align(
-                                      alignment: const AlignmentDirectional(0.0, 0.0),
+                                      alignment: AlignmentDirectional(0.0, 0.0),
                                       child: Text(
                                         'Waiting for response from team admin',
                                         style: FlutterFlowTheme.of(context)

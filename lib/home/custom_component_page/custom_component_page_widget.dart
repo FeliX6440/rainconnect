@@ -4,8 +4,11 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'custom_component_page_model.dart';
 export 'custom_component_page_model.dart';
 
@@ -72,19 +75,19 @@ class _CustomComponentPageWidgetState extends State<CustomComponentPageWidget> {
             'My Components',
             style: FlutterFlowTheme.of(context).headlineSmall,
           ),
-          actions: const [],
+          actions: [],
           centerTitle: false,
           elevation: 0.0,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                   child: Material(
                     color: Colors.transparent,
                     elevation: 5.0,
@@ -101,7 +104,7 @@ class _CustomComponentPageWidgetState extends State<CustomComponentPageWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 16.0, 16.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -112,7 +115,7 @@ class _CustomComponentPageWidgetState extends State<CustomComponentPageWidget> {
                                       .headlineSmall
                                       .override(
                                         fontFamily: 'Outfit',
-                                        color: const Color(0xFF14181B),
+                                        color: Color(0xFF14181B),
                                         fontSize: 24.0,
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -121,7 +124,7 @@ class _CustomComponentPageWidgetState extends State<CustomComponentPageWidget> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 32.0),
                             child: FutureBuilder<List<TeamComponentsRecord>>(
                               future: queryTeamComponentsRecordOnce(
@@ -169,7 +172,7 @@ class _CustomComponentPageWidgetState extends State<CustomComponentPageWidget> {
                                         listViewTeamComponentsRecordList[
                                             listViewIndex];
                                     return Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           16.0, 12.0, 16.0, 0.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
@@ -202,13 +205,13 @@ class _CustomComponentPageWidgetState extends State<CustomComponentPageWidget> {
                                             borderRadius:
                                                 BorderRadius.circular(8.0),
                                             border: Border.all(
-                                              color: const Color(0xFFE0E3E7),
+                                              color: Color(0xFFE0E3E7),
                                               width: 2.0,
                                             ),
                                           ),
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     16.0, 12.0, 8.0, 12.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -226,13 +229,13 @@ class _CustomComponentPageWidgetState extends State<CustomComponentPageWidget> {
                                                         fontFamily:
                                                             'Plus Jakarta Sans',
                                                         color:
-                                                            const Color(0xFF14181B),
+                                                            Color(0xFF14181B),
                                                         fontSize: 16.0,
                                                         fontWeight:
                                                             FontWeight.normal,
                                                       ),
                                                 ),
-                                                const Icon(
+                                                Icon(
                                                   Icons.chevron_right_rounded,
                                                   color: Color(0xFF7C8791),
                                                   size: 24.0,
@@ -254,7 +257,7 @@ class _CustomComponentPageWidgetState extends State<CustomComponentPageWidget> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
                       context.pushNamed(
@@ -268,7 +271,7 @@ class _CustomComponentPageWidgetState extends State<CustomComponentPageWidget> {
                       );
                     },
                     text: 'Add New Component',
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.add_rounded,
                       size: 15.0,
                     ),
@@ -276,9 +279,9 @@ class _CustomComponentPageWidgetState extends State<CustomComponentPageWidget> {
                       width: double.infinity,
                       height: 40.0,
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                       iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       color: FlutterFlowTheme.of(context).primary,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
@@ -286,7 +289,7 @@ class _CustomComponentPageWidgetState extends State<CustomComponentPageWidget> {
                                 color: Colors.white,
                               ),
                       elevation: 3.0,
-                      borderSide: const BorderSide(
+                      borderSide: BorderSide(
                         color: Colors.transparent,
                         width: 1.0,
                       ),

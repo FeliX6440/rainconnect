@@ -5,7 +5,11 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'billing_model.dart';
 export 'billing_model.dart';
 
@@ -38,8 +42,8 @@ class _BillingWidgetState extends State<BillingWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: const Offset(0.0, 20.0),
-          end: const Offset(0.0, 0.0),
+          begin: Offset(0.0, 20.0),
+          end: Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -58,8 +62,8 @@ class _BillingWidgetState extends State<BillingWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: const Offset(0.0, 20.0),
-          end: const Offset(0.0, 0.0),
+          begin: Offset(0.0, 20.0),
+          end: Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -78,8 +82,8 @@ class _BillingWidgetState extends State<BillingWidget>
           curve: Curves.easeInOut,
           delay: 400.ms,
           duration: 600.ms,
-          begin: const Offset(0.0, 60.0),
-          end: const Offset(0.0, 0.0),
+          begin: Offset(0.0, 60.0),
+          end: Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -97,8 +101,8 @@ class _BillingWidgetState extends State<BillingWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: const Offset(0.0, 80.0),
-          end: const Offset(0.0, 0.0),
+          begin: Offset(0.0, 80.0),
+          end: Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -116,8 +120,8 @@ class _BillingWidgetState extends State<BillingWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: const Offset(0.0, 80.0),
-          end: const Offset(0.0, 0.0),
+          begin: Offset(0.0, 80.0),
+          end: Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -161,7 +165,7 @@ class _BillingWidgetState extends State<BillingWidget>
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
                 child: FlutterFlowIconButton(
                   borderRadius: 20.0,
                   borderWidth: 1.0,
@@ -185,21 +189,21 @@ class _BillingWidgetState extends State<BillingWidget>
               ),
             ],
           ),
-          actions: const [],
+          actions: [],
           centerTitle: false,
           elevation: 0.0,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(1.0, 0.0, 0.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(1.0, 0.0, 0.0, 0.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 0.0),
                     child: Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
@@ -211,7 +215,7 @@ class _BillingWidgetState extends State<BillingWidget>
                         ),
                       ),
                       child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 12.0, 16.0, 12.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -222,7 +226,7 @@ class _BillingWidgetState extends State<BillingWidget>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 4.0, 0.0, 0.0),
                                   child: Text(
                                     'Monthly Cost',
@@ -232,7 +236,7 @@ class _BillingWidgetState extends State<BillingWidget>
                                       'textOnPageLoadAnimation1']!),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 12.0, 0.0, 0.0),
                                   child: Text(
                                     '450,68€',
@@ -255,9 +259,9 @@ class _BillingWidgetState extends State<BillingWidget>
                               text: 'Get Receipt',
                               options: FFButtonOptions(
                                 height: 48.0,
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     24.0, 0.0, 24.0, 0.0),
-                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).primary,
                                 textStyle:
@@ -277,10 +281,10 @@ class _BillingWidgetState extends State<BillingWidget>
                     ),
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(-1.0, 0.0),
+                    alignment: AlignmentDirectional(-1.0, 0.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 8.0),
+                          EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 8.0),
                       child: Text(
                         'Cost Breakdown',
                         style: FlutterFlowTheme.of(context).labelMedium,
@@ -293,7 +297,7 @@ class _BillingWidgetState extends State<BillingWidget>
                     children: [
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
                         child: Container(
                           width: double.infinity,
                           height: 60.0,
@@ -304,12 +308,12 @@ class _BillingWidgetState extends State<BillingWidget>
                               BoxShadow(
                                 blurRadius: 0.0,
                                 color: FlutterFlowTheme.of(context).alternate,
-                                offset: const Offset(0.0, 1.0),
+                                offset: Offset(0.0, 1.0),
                               )
                             ],
                           ),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 8.0, 16.0, 8.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -329,7 +333,7 @@ class _BillingWidgetState extends State<BillingWidget>
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         12.0, 0.0, 0.0, 0.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -346,7 +350,7 @@ class _BillingWidgetState extends State<BillingWidget>
                                         Expanded(
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 4.0, 0.0, 0.0),
                                             child: Text(
                                               'Cost Per User/ Month: 19,99€',
@@ -377,7 +381,7 @@ class _BillingWidgetState extends State<BillingWidget>
                       ),
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
                         child: Container(
                           width: double.infinity,
                           height: 60.0,
@@ -388,12 +392,12 @@ class _BillingWidgetState extends State<BillingWidget>
                               BoxShadow(
                                 blurRadius: 0.0,
                                 color: FlutterFlowTheme.of(context).alternate,
-                                offset: const Offset(0.0, 1.0),
+                                offset: Offset(0.0, 1.0),
                               )
                             ],
                           ),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 8.0, 16.0, 8.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -413,7 +417,7 @@ class _BillingWidgetState extends State<BillingWidget>
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         12.0, 0.0, 0.0, 0.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -430,7 +434,7 @@ class _BillingWidgetState extends State<BillingWidget>
                                         Expanded(
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 4.0, 0.0, 0.0),
                                             child: Text(
                                               'Cost Per User/ Month: 14,99€',
@@ -461,7 +465,7 @@ class _BillingWidgetState extends State<BillingWidget>
                       ),
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
                         child: Container(
                           width: double.infinity,
                           height: 60.0,
@@ -472,12 +476,12 @@ class _BillingWidgetState extends State<BillingWidget>
                               BoxShadow(
                                 blurRadius: 0.0,
                                 color: FlutterFlowTheme.of(context).alternate,
-                                offset: const Offset(0.0, 1.0),
+                                offset: Offset(0.0, 1.0),
                               )
                             ],
                           ),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 8.0, 16.0, 8.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -497,7 +501,7 @@ class _BillingWidgetState extends State<BillingWidget>
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         12.0, 0.0, 0.0, 0.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -514,7 +518,7 @@ class _BillingWidgetState extends State<BillingWidget>
                                         Expanded(
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 4.0, 0.0, 0.0),
                                             child: Text(
                                               'Cost Per User/ Month: 9,99€',
@@ -545,7 +549,7 @@ class _BillingWidgetState extends State<BillingWidget>
                       ),
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
                         child: Container(
                           width: double.infinity,
                           height: 60.0,
@@ -556,12 +560,12 @@ class _BillingWidgetState extends State<BillingWidget>
                               BoxShadow(
                                 blurRadius: 0.0,
                                 color: FlutterFlowTheme.of(context).alternate,
-                                offset: const Offset(0.0, 1.0),
+                                offset: Offset(0.0, 1.0),
                               )
                             ],
                           ),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 8.0, 16.0, 8.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -581,7 +585,7 @@ class _BillingWidgetState extends State<BillingWidget>
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         12.0, 0.0, 0.0, 0.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -598,7 +602,7 @@ class _BillingWidgetState extends State<BillingWidget>
                                         Expanded(
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 4.0, 0.0, 0.0),
                                             child: Text(
                                               'Cost Per User/ Month: 4,99€',
@@ -629,7 +633,7 @@ class _BillingWidgetState extends State<BillingWidget>
                       ),
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
                         child: Container(
                           width: double.infinity,
                           height: 60.0,
@@ -640,12 +644,12 @@ class _BillingWidgetState extends State<BillingWidget>
                               BoxShadow(
                                 blurRadius: 0.0,
                                 color: FlutterFlowTheme.of(context).alternate,
-                                offset: const Offset(0.0, 1.0),
+                                offset: Offset(0.0, 1.0),
                               )
                             ],
                           ),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 8.0, 16.0, 8.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -671,7 +675,7 @@ class _BillingWidgetState extends State<BillingWidget>
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         12.0, 0.0, 0.0, 0.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -688,7 +692,7 @@ class _BillingWidgetState extends State<BillingWidget>
                                         Expanded(
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 4.0, 0.0, 0.0),
                                             child: Text(
                                               'Additional Components you bought',
@@ -720,10 +724,10 @@ class _BillingWidgetState extends State<BillingWidget>
                     ],
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(-1.0, 0.0),
+                    alignment: AlignmentDirectional(-1.0, 0.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 8.0),
+                          EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 8.0),
                       child: Text(
                         'Total Users: 31, Avg User Cost: 14,53€',
                         style:
@@ -737,20 +741,20 @@ class _BillingWidgetState extends State<BillingWidget>
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
+                        EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 10.0, 0.0, 10.0),
                             child: Container(
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
-                                boxShadow: const [
+                                boxShadow: [
                                   BoxShadow(
                                     blurRadius: 4.0,
                                     color: Color(0x33000000),
@@ -762,12 +766,12 @@ class _BillingWidgetState extends State<BillingWidget>
                                   color: FlutterFlowTheme.of(context).alternate,
                                 ),
                               ),
-                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.all(10.0),
+                                    padding: EdgeInsets.all(10.0),
                                     child: Text(
                                       'INVOICE 01.01.2024',
                                       style: FlutterFlowTheme.of(context)
@@ -798,7 +802,7 @@ class _BillingWidgetState extends State<BillingWidget>
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
-                              boxShadow: const [
+                              boxShadow: [
                                 BoxShadow(
                                   blurRadius: 4.0,
                                   color: Color(0x33000000),
@@ -810,12 +814,12 @@ class _BillingWidgetState extends State<BillingWidget>
                                 color: FlutterFlowTheme.of(context).alternate,
                               ),
                             ),
-                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(10.0),
+                                  padding: EdgeInsets.all(10.0),
                                   child: Text(
                                     'INVOICE 01.02.2024',
                                     style:
@@ -845,7 +849,7 @@ class _BillingWidgetState extends State<BillingWidget>
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
-                              boxShadow: const [
+                              boxShadow: [
                                 BoxShadow(
                                   blurRadius: 4.0,
                                   color: Color(0x33000000),
@@ -857,12 +861,12 @@ class _BillingWidgetState extends State<BillingWidget>
                                 color: FlutterFlowTheme.of(context).alternate,
                               ),
                             ),
-                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(10.0),
+                                  padding: EdgeInsets.all(10.0),
                                   child: Text(
                                     'INVOICE 01.03.2024',
                                     style:
@@ -888,13 +892,13 @@ class _BillingWidgetState extends State<BillingWidget>
                               ],
                             ),
                           ),
-                        ].divide(const SizedBox(width: 10.0)),
+                        ].divide(SizedBox(width: 10.0)),
                       ),
                     ),
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
                     child: Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
@@ -906,7 +910,7 @@ class _BillingWidgetState extends State<BillingWidget>
                         ),
                       ),
                       child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             10.0, 10.0, 10.0, 10.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,

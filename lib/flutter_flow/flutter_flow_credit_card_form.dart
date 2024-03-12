@@ -10,7 +10,7 @@ CreditCardModel emptyCreditCard() => CreditCardModel('', '', '', '', false);
 
 class FlutterFlowCreditCardForm extends StatefulWidget {
   const FlutterFlowCreditCardForm({
-    super.key,
+    Key? key,
     required this.formKey,
     required this.creditCardModel,
     this.obscureNumber = false,
@@ -20,7 +20,7 @@ class FlutterFlowCreditCardForm extends StatefulWidget {
     this.inputDecoration = const InputDecoration(
       border: OutlineInputBorder(),
     ),
-  });
+  }) : super(key: key);
 
   final GlobalKey<FormState> formKey;
   final CreditCardModel creditCardModel;

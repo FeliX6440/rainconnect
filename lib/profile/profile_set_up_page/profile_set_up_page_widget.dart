@@ -10,10 +10,14 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/random_data_util.dart' as random_data;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'profile_set_up_page_model.dart';
 export 'profile_set_up_page_model.dart';
 
@@ -46,8 +50,8 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
           curve: Curves.easeInOut,
           delay: 100.ms,
           duration: 600.ms,
-          begin: const Offset(0.0, 60.0),
-          end: const Offset(0.0, 0.0),
+          begin: Offset(0.0, 60.0),
+          end: Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -117,7 +121,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                   fontSize: 22.0,
                 ),
           ),
-          actions: const [],
+          actions: [],
           centerTitle: false,
           elevation: 2.0,
         ),
@@ -125,33 +129,34 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
           top: true,
           child: Container(
             height: double.infinity,
-            decoration: const BoxDecoration(),
+            decoration: BoxDecoration(),
             child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    SizedBox(
+                    Container(
                       width: double.infinity,
                       height: 150.0,
                       child: Stack(
                         children: [
                           Align(
-                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0.0, 0.0),
                             child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 20.0, 0.0, 0.0),
                               child: Container(
                                 width: 120.0,
                                 height: 120.0,
                                 clipBehavior: Clip.antiAlias,
-                                decoration: const BoxDecoration(
+                                decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                 ),
                                 child: Image.network(
-                                  _model.uploadedFileUrl != ''
+                                  _model.uploadedFileUrl != null &&
+                                          _model.uploadedFileUrl != ''
                                       ? _model.uploadedFileUrl
                                       : random_data.randomImageUrl(
                                           100,
@@ -163,7 +168,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                             ),
                           ),
                           Align(
-                            alignment: const AlignmentDirectional(0.28, 0.92),
+                            alignment: AlignmentDirectional(0.28, 0.92),
                             child: FlutterFlowIconButton(
                               borderColor: FlutterFlowTheme.of(context).primary,
                               borderRadius: 20.0,
@@ -248,7 +253,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                         ],
                       ),
                     ),
-                    SizedBox(
+                    Container(
                       width: double.infinity,
                       child: TextFormField(
                         controller: _model.firstNameController,
@@ -295,7 +300,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                           filled: true,
                           fillColor:
                               FlutterFlowTheme.of(context).secondaryBackground,
-                          contentPadding: const EdgeInsets.all(18.0),
+                          contentPadding: EdgeInsets.all(18.0),
                         ),
                         style: FlutterFlowTheme.of(context)
                             .titleMedium
@@ -310,8 +315,8 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                      child: SizedBox(
+                          EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                      child: Container(
                         width: double.infinity,
                         child: TextFormField(
                           controller: _model.lastNameController,
@@ -358,7 +363,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                             filled: true,
                             fillColor: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
-                            contentPadding: const EdgeInsets.all(18.0),
+                            contentPadding: EdgeInsets.all(18.0),
                           ),
                           style: FlutterFlowTheme.of(context)
                               .titleMedium
@@ -374,8 +379,8 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                      child: SizedBox(
+                          EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                      child: Container(
                         width: double.infinity,
                         child: TextFormField(
                           controller: _model.jobController,
@@ -422,7 +427,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                             filled: true,
                             fillColor: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
-                            contentPadding: const EdgeInsets.all(18.0),
+                            contentPadding: EdgeInsets.all(18.0),
                           ),
                           style: FlutterFlowTheme.of(context)
                               .titleMedium
@@ -438,8 +443,8 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                      child: SizedBox(
+                          EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                      child: Container(
                         width: double.infinity,
                         child: TextFormField(
                           controller: _model.phoneController,
@@ -488,7 +493,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                             filled: true,
                             fillColor: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
-                            contentPadding: const EdgeInsets.all(18.0),
+                            contentPadding: EdgeInsets.all(18.0),
                           ),
                           style: FlutterFlowTheme.of(context)
                               .titleMedium
@@ -505,7 +510,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 37.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 37.0, 0.0, 0.0),
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
@@ -518,14 +523,14 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                           ),
                         ),
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 20.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     8.0, 12.0, 8.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -533,7 +538,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           12.0, 0.0, 0.0, 0.0),
                                       child: Text(
                                         _model.isInviteValue!
@@ -547,7 +552,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                                       value: _model.isInviteValue ??= false,
                                       onChanged: (newValue) async {
                                         setState(() =>
-                                            _model.isInviteValue = newValue);
+                                            _model.isInviteValue = newValue!);
                                       },
                                       activeColor:
                                           FlutterFlowTheme.of(context).primary,
@@ -567,7 +572,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                                 builder: (context) {
                                   if (_model.isInviteValue ?? false) {
                                     return Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           20.0, 0.0, 20.0, 10.0),
                                       child: Text(
                                         'Be the essential part of a working Team - an Admin will need to invite you to use the App for you to be able to collect new Customer Data.\n\nEnter a Team ID to Get Started',
@@ -581,7 +586,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                                     );
                                   } else {
                                     return Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           20.0, 0.0, 20.0, 10.0),
                                       child: Text(
                                         _model.isInviteValue!
@@ -600,9 +605,9 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                               ),
                               if (_model.isInviteValue ?? true)
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       20.0, 0.0, 20.0, 0.0),
-                                  child: SizedBox(
+                                  child: Container(
                                     width: double.infinity,
                                     child: TextFormField(
                                       controller: _model.inviteIdController,
@@ -661,7 +666,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                                         filled: true,
                                         fillColor: FlutterFlowTheme.of(context)
                                             .secondaryBackground,
-                                        contentPadding: const EdgeInsets.all(12.0),
+                                        contentPadding: EdgeInsets.all(12.0),
                                       ),
                                       style: FlutterFlowTheme.of(context)
                                           .titleMedium
@@ -684,15 +689,18 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                           animationsMap['containerOnPageLoadAnimation']!),
                     ),
                     Align(
-                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      alignment: AlignmentDirectional(0.0, 0.0),
                       child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             0.0, 10.0, 0.0, 16.0),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            if ((_model.firstNameController.text != '') &&
-                                (_model.jobController.text != '') &&
-                                (_model.lastNameController.text != '')) {
+                            if ((_model.firstNameController.text != null &&
+                                    _model.firstNameController.text != '') &&
+                                (_model.jobController.text != null &&
+                                    _model.jobController.text != '') &&
+                                (_model.lastNameController.text != null &&
+                                    _model.lastNameController.text != '')) {
                               if (_model.isInviteValue!) {
                                 _model.teamDoc = await queryTeamsRecordOnce(
                                   queryBuilder: (teamsRecord) =>
@@ -723,7 +731,8 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                                         displayName:
                                             '${_model.firstNameController.text} ${_model.lastNameController.text}',
                                         photoUrl:
-                                            _model.uploadedFileUrl != ''
+                                            _model.uploadedFileUrl != null &&
+                                                    _model.uploadedFileUrl != ''
                                                 ? _model.uploadedFileUrl
                                                 : random_data.randomImageUrl(
                                                     500,
@@ -755,7 +764,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                                                 .primaryText,
                                           ),
                                         ),
-                                        duration: const Duration(milliseconds: 4000),
+                                        duration: Duration(milliseconds: 4000),
                                         backgroundColor:
                                             FlutterFlowTheme.of(context)
                                                 .secondary,
@@ -772,7 +781,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                                               .primaryText,
                                         ),
                                       ),
-                                      duration: const Duration(milliseconds: 4000),
+                                      duration: Duration(milliseconds: 4000),
                                       backgroundColor:
                                           FlutterFlowTheme.of(context)
                                               .secondary,
@@ -875,7 +884,8 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                                   ...createUsersRecordData(
                                     displayName:
                                         '${_model.firstNameController.text} ${_model.lastNameController.text}',
-                                    photoUrl: _model.uploadedFileUrl != ''
+                                    photoUrl: _model.uploadedFileUrl != null &&
+                                            _model.uploadedFileUrl != ''
                                         ? _model.uploadedFileUrl
                                         : random_data.randomImageUrl(
                                             500,
@@ -906,7 +916,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                                           .primaryText,
                                     ),
                                   ),
-                                  duration: const Duration(milliseconds: 4000),
+                                  duration: Duration(milliseconds: 4000),
                                   backgroundColor:
                                       FlutterFlowTheme.of(context).secondary,
                                 ),
@@ -919,9 +929,9 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                           options: FFButtonOptions(
                             width: 230.0,
                             height: 52.0,
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
-                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             color: FlutterFlowTheme.of(context).primary,
                             textStyle: FlutterFlowTheme.of(context)
@@ -931,7 +941,7 @@ class _ProfileSetUpPageWidgetState extends State<ProfileSetUpPageWidget>
                                   color: Colors.white,
                                 ),
                             elevation: 3.0,
-                            borderSide: const BorderSide(
+                            borderSide: BorderSide(
                               color: Colors.transparent,
                               width: 1.0,
                             ),

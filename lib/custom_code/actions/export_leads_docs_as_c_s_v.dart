@@ -120,7 +120,14 @@ String _getContent(
   final content = componentContentDocs
       .where((element) => element['type'] == type.name)
       .toList();
-  return content.isEmpty ? '' : content.first['content'] ?? '';
+  return content.isEmpty
+      ? ''
+      : type == ComponentType.MultipleChoice
+          ? content.first['list_content']
+              .toString()
+              .replaceFirst('[', '')
+              .replaceFirst(']', '')
+          : content.first['content'] ?? '';
 }
 
 Future<String?> _saveFile(String csv, DirectoryLocation pickedDirectory) async {

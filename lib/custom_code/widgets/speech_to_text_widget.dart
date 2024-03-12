@@ -223,27 +223,50 @@ class _SpeechToTextWidgetState extends State<SpeechToTextWidget> {
                 height: widget.recordButtonHeight,
                 width: widget.recordButtonWidth,
                 child: AvatarGlow(
-                  glowBorderRadius: BorderRadius.circular(5),
-                  glowColor: widget.glowColor,
-                  glowShape: BoxShape.rectangle,
-                  animate: _isAnimate,
-                  curve: Curves.linear,
-                  glowCount: 1,
-                  glowRadiusFactor: 0.2,
-                  child: Card(
-                    child: Center(
-                      child: _isAnimate
-                          ? const Icon(
-                              Icons.mic,
-                              size: 35,
-                            )
-                          : const Icon(
-                              Icons.mic_off,
-                              size: 35,
+                    glowBorderRadius: BorderRadius.circular(5),
+                    glowColor: widget.glowColor,
+                    glowShape: BoxShape.rectangle,
+                    animate: _isAnimate,
+                    curve: Curves.linear,
+                    glowCount: 1,
+                    glowRadiusFactor: 0.2,
+                    child: Stack(
+                      children: [
+                        Card(
+                          child: Center(
+                            child: _isAnimate
+                                ? const Icon(
+                                    Icons.mic,
+                                    size: 35,
+                                  )
+                                : const Icon(
+                                    Icons.mic_off,
+                                    size: 35,
+                                  ),
+                          ),
+                        ),
+                        Positioned(
+                          right: 10,
+                          bottom: 10,
+                          child: Visibility(
+                            visible: _isAnimate,
+                            child: AvatarGlow(
+                              glowBorderRadius: BorderRadius.circular(20),
+                              glowColor: Colors.red,
+                              glowShape: BoxShape.rectangle,
+                              animate: _isAnimate,
+                              curve: Curves.linear,
+                              glowCount: 2,
+                              glowRadiusFactor: 0.6,
+                              child: CircleAvatar(
+                                radius: 6,
+                                backgroundColor: Colors.red,
+                              ),
                             ),
-                    ),
-                  ),
-                ),
+                          ),
+                        )
+                      ],
+                    )),
               ),
             ),
           ),
@@ -268,8 +291,9 @@ class _SpeechToTextWidgetState extends State<SpeechToTextWidget> {
                       color: widget.glowColor,
                     )),
                 enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(width: 2, color: Colors.grey)),
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  borderSide: BorderSide(width: 2, color: Colors.grey),
+                ),
               ),
             ),
           ),
@@ -388,17 +412,3 @@ class AppButton extends StatelessWidget {
     );
   }
 }
-
-// OpenAI.apiKey = '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';
-
-//   OpenAIAudioModel transcription = OpenAI.instance.audio.createTranscription(
-//     file: File(file),
-//     model: "whisper-1",
-//     responseFormat: OpenAIAudioResponseFormat.text,
-//   );
-//   FFAppState().update(
-//     () {
-//       FFAppState().audioTextResult =
-//           FFAppState().audioTextResult + transcription.text;
-//     },
-//   );

@@ -765,7 +765,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                                         12.0,
                                                                         0.0),
                                                             child: Text(
-                                                              'Salesperson',
+                                                              'Location',
                                                               textAlign:
                                                                   TextAlign
                                                                       .start,

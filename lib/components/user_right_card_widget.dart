@@ -96,122 +96,130 @@ class _UserRightCardWidgetState extends State<UserRightCardWidget> {
                     ),
                   ),
                 ),
-                Text(
-                  widget.teamDoc!.admins.contains(widget.userDoc?.reference)
-                      ? 'Amin'
-                      : 'User',
-                  style: FlutterFlowTheme.of(context).bodyMedium,
-                ),
-                Switch.adaptive(
-                  value: _model.switchValue ??= widget.teamDoc!.admins
-                      .contains(widget.userDoc?.reference),
-                  onChanged: (newValue) async {
-                    setState(() => _model.switchValue = newValue);
-                    if (newValue) {
-                      await widget.teamDoc!.reference.update({
-                        ...mapToFirestore(
-                          {
-                            'admins': FieldValue.arrayUnion(
-                                [widget.userDoc?.reference]),
-                          },
-                        ),
-                      });
+                if (widget.userDoc?.reference != widget.teamDoc?.creatorRef)
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        widget.teamDoc!.admins
+                                .contains(widget.userDoc?.reference)
+                            ? 'Amin'
+                            : 'User',
+                        style: FlutterFlowTheme.of(context).bodyMedium,
+                      ),
+                      Switch.adaptive(
+                        value: _model.switchValue ??= widget.teamDoc!.admins
+                            .contains(widget.userDoc?.reference),
+                        onChanged: (newValue) async {
+                          setState(() => _model.switchValue = newValue);
+                          if (newValue) {
+                            await widget.teamDoc!.reference.update({
+                              ...mapToFirestore(
+                                {
+                                  'admins': FieldValue.arrayUnion(
+                                      [widget.userDoc?.reference]),
+                                },
+                              ),
+                            });
 
-                      await widget.userDoc!.reference.update({
-                        ...mapToFirestore(
-                          {
-                            'teams_admin': FieldValue.arrayUnion(
-                                [widget.teamDoc?.reference]),
-                          },
-                        ),
-                      });
-                    } else {
-                      await widget.userDoc!.reference.update({
-                        ...mapToFirestore(
-                          {
-                            'teams_admin': FieldValue.arrayRemove(
-                                [widget.teamDoc?.reference]),
-                          },
-                        ),
-                      });
+                            await widget.userDoc!.reference.update({
+                              ...mapToFirestore(
+                                {
+                                  'teams_admin': FieldValue.arrayUnion(
+                                      [widget.teamDoc?.reference]),
+                                },
+                              ),
+                            });
+                          } else {
+                            await widget.userDoc!.reference.update({
+                              ...mapToFirestore(
+                                {
+                                  'teams_admin': FieldValue.arrayRemove(
+                                      [widget.teamDoc?.reference]),
+                                },
+                              ),
+                            });
 
-                      await widget.teamDoc!.reference.update({
-                        ...mapToFirestore(
-                          {
-                            'admins': FieldValue.arrayRemove(
-                                [widget.userDoc?.reference]),
-                          },
+                            await widget.teamDoc!.reference.update({
+                              ...mapToFirestore(
+                                {
+                                  'admins': FieldValue.arrayRemove(
+                                      [widget.userDoc?.reference]),
+                                },
+                              ),
+                            });
+                          }
+                        },
+                        activeColor: FlutterFlowTheme.of(context).primary,
+                        activeTrackColor: FlutterFlowTheme.of(context).accent1,
+                        inactiveTrackColor:
+                            FlutterFlowTheme.of(context).alternate,
+                        inactiveThumbColor:
+                            FlutterFlowTheme.of(context).secondaryText,
+                      ),
+                      FlutterFlowIconButton(
+                        borderColor: FlutterFlowTheme.of(context).primaryText,
+                        borderRadius: 20.0,
+                        borderWidth: 3.0,
+                        buttonSize: 35.0,
+                        icon: Icon(
+                          Icons.person_remove,
+                          color: FlutterFlowTheme.of(context).primaryText,
+                          size: 20.0,
                         ),
-                      });
-                    }
-                  },
-                  activeColor: FlutterFlowTheme.of(context).primary,
-                  activeTrackColor: FlutterFlowTheme.of(context).accent1,
-                  inactiveTrackColor: FlutterFlowTheme.of(context).alternate,
-                  inactiveThumbColor:
-                      FlutterFlowTheme.of(context).secondaryText,
-                ),
-                FlutterFlowIconButton(
-                  borderColor: FlutterFlowTheme.of(context).primaryText,
-                  borderRadius: 20.0,
-                  borderWidth: 3.0,
-                  buttonSize: 35.0,
-                  icon: Icon(
-                    Icons.person_remove,
-                    color: FlutterFlowTheme.of(context).primaryText,
-                    size: 20.0,
+                        onPressed: () async {
+                          var confirmDialogResponse = await showDialog<bool>(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    title: const Text('Delete user'),
+                                    content: Text(
+                                        'Are you sure you want to remove ${widget.userDoc?.displayName}from the team'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(
+                                            alertDialogContext, false),
+                                        child: const Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(
+                                            alertDialogContext, true),
+                                        child: const Text('Confirm'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ) ??
+                              false;
+                          if (confirmDialogResponse) {
+                            await widget.userDoc!.reference.update({
+                              ...mapToFirestore(
+                                {
+                                  'teams_admin': FieldValue.arrayRemove(
+                                      [widget.teamDoc?.reference]),
+                                  'team_requests_sent': FieldValue.arrayRemove(
+                                      [widget.teamDoc?.reference]),
+                                  'team_refs': FieldValue.arrayRemove(
+                                      [widget.teamDoc?.reference]),
+                                },
+                              ),
+                            });
+
+                            await widget.teamDoc!.reference.update({
+                              ...mapToFirestore(
+                                {
+                                  'members': FieldValue.arrayRemove(
+                                      [widget.userDoc?.reference]),
+                                  'admins': FieldValue.arrayRemove(
+                                      [widget.userDoc?.reference]),
+                                },
+                              ),
+                            });
+                          }
+                        },
+                      ),
+                    ],
                   ),
-                  onPressed: () async {
-                    var confirmDialogResponse = await showDialog<bool>(
-                          context: context,
-                          builder: (alertDialogContext) {
-                            return AlertDialog(
-                              title: const Text('Delete user'),
-                              content: Text(
-                                  'Are you sure you want to remove ${widget.userDoc?.displayName}from the team'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(alertDialogContext, false),
-                                  child: const Text('Cancel'),
-                                ),
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(alertDialogContext, true),
-                                  child: const Text('Confirm'),
-                                ),
-                              ],
-                            );
-                          },
-                        ) ??
-                        false;
-                    if (confirmDialogResponse) {
-                      await widget.userDoc!.reference.update({
-                        ...mapToFirestore(
-                          {
-                            'teams_admin': FieldValue.arrayRemove(
-                                [widget.teamDoc?.reference]),
-                            'team_requests_sent': FieldValue.arrayRemove(
-                                [widget.teamDoc?.reference]),
-                            'team_refs': FieldValue.arrayRemove(
-                                [widget.teamDoc?.reference]),
-                          },
-                        ),
-                      });
-
-                      await widget.teamDoc!.reference.update({
-                        ...mapToFirestore(
-                          {
-                            'members': FieldValue.arrayRemove(
-                                [widget.userDoc?.reference]),
-                            'admins': FieldValue.arrayRemove(
-                                [widget.userDoc?.reference]),
-                          },
-                        ),
-                      });
-                    }
-                  },
-                ),
               ],
             ),
           ),

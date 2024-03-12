@@ -376,10 +376,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                                         );
                                       }
                                       List<UsersRecord> columnUsersRecordList =
-                                          snapshot.data!
-                                              .where((u) =>
-                                                  u.uid != currentUserUid)
-                                              .toList();
+                                          snapshot.data!;
                                       return Column(
                                         key: const ValueKey('admin list'),
                                         mainAxisSize: MainAxisSize.max,

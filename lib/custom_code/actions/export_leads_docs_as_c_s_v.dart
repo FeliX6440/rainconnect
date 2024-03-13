@@ -23,30 +23,30 @@ Future exportLeadsDocsAsCSV(
 ) async {
   // Add your function code here!
   final firestore = FirebaseFirestore.instance;
-  final rows = [
-    [
-      'First Name',
-      'Last Name',
-      'Email',
-      'Gender',
-      'Phone',
-      'Company',
-      'City',
-      'Country',
-      'Language',
-      'Industry',
-      'Speech to Text',
-      'Note',
-      'Temperature',
-      'Dropdown',
-      'TextField',
-      'Industrial Fair',
-      'Multiple Choice',
-      'Place of encounter',
-    ]
+
+  final subRow = [
+    'First Name',
+    'Last Name',
+    'Email',
+    'Gender',
+    'Phone',
+    'Company',
+    'City',
+    'Country',
+    'Language',
+    'Industry',
+    'location',
+    'Speech to Text',
+    'Note',
+    'Temperature',
+    ...archives
+        .map((archive) => archive.componentName)
+        .toList(), // Add archive component names to subRow
   ];
+  final rows = [subRow];
 
   for (final leadData in leadDocs) {
+    // subRow.add(value)
     final componentContentQuery = await firestore
         .collection('component_content')
         .where('lead_ref', isEqualTo: leadData.reference);
@@ -57,28 +57,21 @@ Future exportLeadsDocsAsCSV(
     String speechToTextContent = '';
     String noteContent = '';
     String temperatureContent = '';
-    String dropdownContent = '';
-    String textFieldContent = '';
-    String industrialFairContent = '';
-    String multipleChoiceContent = '';
-    String placeOfEncounterContent = '';
 
     if (componentContentDocs.isNotEmpty) {
-      speechToTextContent =
-          _getContent(componentContentDocs, ComponentType.SpeechToText);
-      noteContent = _getContent(componentContentDocs, ComponentType.Note);
-      temperatureContent =
-          _getContent(componentContentDocs, ComponentType.Temperature);
-      dropdownContent =
-          _getContent(componentContentDocs, ComponentType.Dropdown);
-      textFieldContent =
-          _getContent(componentContentDocs, ComponentType.TextField);
-      industrialFairContent =
-          _getContent(componentContentDocs, ComponentType.industrialFair);
-      multipleChoiceContent =
-          _getContent(componentContentDocs, ComponentType.MultipleChoice);
-      placeOfEncounterContent =
-          _getContent(componentContentDocs, ComponentType.placeOfEncounter);
+      print(componentContentDocs);
+      speechToTextContent = _getContent(
+        componentContentDocs,
+        type: 'SpeechToText',
+      );
+      noteContent = _getContent(
+        componentContentDocs,
+        type: 'Note',
+      );
+      temperatureContent = _getContent(
+        componentContentDocs,
+        type: 'Temperature',
+      );
     }
 
     final leadRow = [
@@ -92,14 +85,14 @@ Future exportLeadsDocsAsCSV(
       leadData.country ?? '',
       leadData.language ?? '',
       leadData.industry ?? '',
+      leadData.location ?? '',
       speechToTextContent,
       noteContent,
       temperatureContent,
-      dropdownContent,
-      textFieldContent,
-      industrialFairContent,
-      multipleChoiceContent,
-      placeOfEncounterContent
+      ...archives
+          .map((archive) =>
+              _getCustomContent(componentContentDocs, archive.componentName))
+          .toList(), // Add archive component content to leadRow
     ];
 
     rows.add(leadRow);
@@ -119,14 +112,30 @@ Future exportLeadsDocsAsCSV(
   );
 }
 
-String _getContent(
-    List<Map<String, dynamic>> componentContentDocs, ComponentType type) {
+String _getContent(List<Map<String, dynamic>> componentContentDocs,
+    {String? type}) {
+  final content =
+      componentContentDocs.where((element) => element['type'] == type).toList();
+  return content.isEmpty
+      ? ''
+      : type == 'MultipleChoice'
+          ? content.first['list_content']
+              .toString()
+              .replaceFirst('[', '')
+              .replaceFirst(']', '')
+          : content.first['content'] ?? '';
+}
+
+String _getCustomContent(
+  List<Map<String, dynamic>> componentContentDocs,
+  String name,
+) {
   final content = componentContentDocs
-      .where((element) => element['type'] == type.name)
+      .where((element) => element['component_name'] == name)
       .toList();
   return content.isEmpty
       ? ''
-      : type == ComponentType.MultipleChoice
+      : content.first['type'] == 'MultipleChoice'
           ? content.first['list_content']
               .toString()
               .replaceFirst('[', '')
@@ -136,9 +145,7 @@ String _getContent(
 
 Future<String?> _saveFile(String csv, DirectoryLocation pickedDirectory) async {
   final filePath = await getApplicationDocumentsDirectory();
-  if (filePath == null) {
-    return null;
-  }
+
   final path = '${filePath.path}/leads.csv';
   final leadFile = File(path);
   await leadFile.writeAsString(csv);

@@ -118,15 +118,6 @@ class _UserRightCardWidgetState extends State<UserRightCardWidget> {
                             ),
                           });
                         } else {
-                          await widget.userDoc!.reference.update({
-                            ...mapToFirestore(
-                              {
-                                'teams_admin': FieldValue.arrayRemove(
-                                    [widget.teamDoc?.reference]),
-                              },
-                            ),
-                          });
-
                           await widget.teamDoc!.reference.update({
                             ...mapToFirestore(
                               {

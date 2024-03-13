@@ -10,6 +10,7 @@ import '/profile/components/add_team_member_bottom_sheet/add_team_member_bottom_
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'manage_members_model.dart';
 export 'manage_members_model.dart';
 
@@ -336,9 +337,11 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                             child: Container(
                               height: 380.0,
                               decoration: const BoxDecoration(),
-                              child: FutureBuilder<List<UsersRecord>>(
-                                future: queryUsersRecordOnce(
-                                  queryBuilder: (usersRecord) => usersRecord
+                              child: PagedListView<DocumentSnapshot<Object?>?,
+                                  UsersRecord>(
+                                key: const ValueKey('admin list'),
+                                pagingController: _model.setListViewController1(
+                                  UsersRecord.collection
                                       .whereIn(
                                           'uid',
                                           manageMembersTeamsRecord.members
@@ -357,44 +360,50 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                                                 : null,
                                       ),
                                 ),
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: 30.0,
-                                        height: 30.0,
-                                        child: SpinKitFadingFour(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                          size: 30.0,
-                                        ),
+                                padding: EdgeInsets.zero,
+                                reverse: false,
+                                scrollDirection: Axis.vertical,
+                                builderDelegate:
+                                    PagedChildBuilderDelegate<UsersRecord>(
+                                  // Customize what your widget looks like when it's loading the first page.
+                                  firstPageProgressIndicatorBuilder: (_) =>
+                                      Center(
+                                    child: SizedBox(
+                                      width: 30.0,
+                                      height: 30.0,
+                                      child: SpinKitFadingFour(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        size: 30.0,
                                       ),
-                                    );
-                                  }
-                                  List<UsersRecord> columnUsersRecordList =
-                                      snapshot.data!;
-                                  return SingleChildScrollView(
-                                    child: Column(
-                                      key: const ValueKey('admin list'),
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.stretch,
-                                      children: List.generate(
-                                          columnUsersRecordList.length,
-                                          (columnIndex) {
-                                        final columnUsersRecord =
-                                            columnUsersRecordList[columnIndex];
-                                        return UserRightCardWidget(
-                                          key: Key(
-                                              'Keylf9_${columnIndex}_of_${columnUsersRecordList.length}'),
-                                          teamDoc: manageMembersTeamsRecord,
-                                          userDoc: columnUsersRecord,
-                                        );
-                                      }),
                                     ),
-                                  );
-                                },
+                                  ),
+                                  // Customize what your widget looks like when it's loading another page.
+                                  newPageProgressIndicatorBuilder: (_) =>
+                                      Center(
+                                    child: SizedBox(
+                                      width: 30.0,
+                                      height: 30.0,
+                                      child: SpinKitFadingFour(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        size: 30.0,
+                                      ),
+                                    ),
+                                  ),
+
+                                  itemBuilder: (context, _, listViewIndex) {
+                                    final listViewUsersRecord = _model
+                                        .listViewPagingController1!
+                                        .itemList![listViewIndex];
+                                    return UserRightCardWidget(
+                                      key: Key(
+                                          'Keylf9_${listViewIndex}_of_${_model.listViewPagingController1!.itemList!.length}'),
+                                      teamDoc: manageMembersTeamsRecord,
+                                      userDoc: listViewUsersRecord,
+                                    );
+                                  },
+                                ),
                               ),
                             ),
                           ),

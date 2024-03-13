@@ -68,6 +68,7 @@ class _SpeechToTextWidgetState extends State<SpeechToTextWidget> {
   String _audioPath = '';
   bool _transcribing = false;
   String _initialFieldValue = '';
+  String _initialFieldSpeechValue = '';
   bool _isDocLoading = false;
 
   Future<void> _translateWord() async {
@@ -125,7 +126,7 @@ class _SpeechToTextWidgetState extends State<SpeechToTextWidget> {
 
   @override
   void initState() {
-    OpenAI.apiKey = '';
+    OpenAI.apiKey = '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';
     _recorder = AudioRecorder();
     _dio = Dio();
     Future.microtask(() async {
@@ -205,6 +206,10 @@ class _SpeechToTextWidgetState extends State<SpeechToTextWidget> {
                           );
                           _textEditingController.text =
                               _textEditingController.text + transcription.text;
+                          if (_initialFieldSpeechValue.isEmpty) {
+                            _initialFieldSpeechValue = transcription.text;
+                          }
+
                           setState(() {
                             _transcribing = false;
                           });
@@ -373,7 +378,9 @@ class _SpeechToTextWidgetState extends State<SpeechToTextWidget> {
                   color: widget.resetButtonColor,
                   title: 'Reset',
                   onTap: () {
-                    _textEditingController.text = _initialFieldValue;
+                    _textEditingController.text = _initialFieldValue.isEmpty
+                        ? _initialFieldSpeechValue
+                        : _initialFieldValue;
                   },
                   isLoading: false,
                 ),

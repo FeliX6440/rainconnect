@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -7,8 +8,12 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/custom_code/actions/index.dart' as actions;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'new_or_edit_component_model.dart';
 export 'new_or_edit_component_model.dart';
 
@@ -110,19 +115,19 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
             widget.component != null ? 'Edit Component' : 'Create Component',
             style: FlutterFlowTheme.of(context).headlineSmall,
           ),
-          actions: const [],
+          actions: [],
           centerTitle: false,
           elevation: 0.0,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(15.0, 10.0, 15.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(15.0, 10.0, 15.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
                   child: TextFormField(
                     controller: _model.textController1,
                     focusNode: _model.textFieldFocusNode,
@@ -176,7 +181,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                               ? widget.component?.type?.name
                               : '',
                     ),
-                    options: const ['TextField', 'MultipleChoice', 'Dropdown'],
+                    options: ['TextField', 'MultipleChoice', 'Dropdown'],
                     onChanged: (val) async {
                       setState(() => _model.componentTypeValue = val);
                       setState(() {
@@ -197,14 +202,14 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                     borderWidth: 2.0,
                     borderRadius: 8.0,
                     margin:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 4.0),
+                        EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 4.0),
                     hidesUnderline: true,
                     isOverButton: true,
                     isSearchable: false,
                     isMultiSelect: false,
                   ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                   child: Builder(
                     builder: (context) {
                       if (_model.selectedComponent == 'Dropdown') {
@@ -224,7 +229,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                       final dropdownItem =
                                           dropdown[dropdownIndex];
                                       return Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 10.0, 0.0),
                                         child: Container(
                                           height: 35.0,
@@ -236,7 +241,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                           ),
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     10.0, 0.0, 10.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -248,7 +253,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                                       .bodyMedium,
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           10.0, 0.0, 0.0, 0.0),
                                                   child: InkWell(
@@ -288,7 +293,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                               },
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 10.0, 0.0, 0.0),
                               child: TextFormField(
                                 controller: _model.optionsController,
@@ -338,7 +343,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 20.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
@@ -354,9 +359,9 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 40.0,
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       24.0, 0.0, 24.0, 0.0),
-                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context).primary,
                                   textStyle: FlutterFlowTheme.of(context)
@@ -366,7 +371,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                         color: Colors.white,
                                       ),
                                   elevation: 3.0,
-                                  borderSide: const BorderSide(
+                                  borderSide: BorderSide(
                                     color: Colors.transparent,
                                     width: 1.0,
                                   ),
@@ -438,7 +443,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                       final multichoiceItem =
                                           multichoice[multichoiceIndex];
                                       return Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 10.0, 0.0),
                                         child: Container(
                                           height: 35.0,
@@ -450,7 +455,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                           ),
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     10.0, 0.0, 10.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -462,7 +467,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                                       .bodyMedium,
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           10.0, 0.0, 0.0, 0.0),
                                                   child: InkWell(
@@ -502,7 +507,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                               },
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 10.0, 0.0, 0.0),
                               child: TextFormField(
                                 controller: _model.choiceOptionController,
@@ -554,7 +559,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 10.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
@@ -570,9 +575,9 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 40.0,
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       24.0, 0.0, 24.0, 0.0),
-                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context).primary,
                                   textStyle: FlutterFlowTheme.of(context)
@@ -582,7 +587,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                         color: Colors.white,
                                       ),
                                   elevation: 3.0,
-                                  borderSide: const BorderSide(
+                                  borderSide: BorderSide(
                                     color: Colors.transparent,
                                     width: 1.0,
                                   ),
@@ -597,10 +602,11 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      if ((_model.textController1.text != '') &&
+                      if ((_model.textController1.text != null &&
+                              _model.textController1.text != '') &&
                           (_model.componentTypeValue != null &&
                               _model.componentTypeValue != '')) {
                         if (widget.component == null) {
@@ -726,7 +732,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                         .primaryText,
                                   ),
                                 ),
-                                duration: const Duration(milliseconds: 4000),
+                                duration: Duration(milliseconds: 4000),
                                 backgroundColor:
                                     FlutterFlowTheme.of(context).secondary,
                               ),
@@ -784,7 +790,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                         .primaryText,
                                   ),
                                 ),
-                                duration: const Duration(milliseconds: 4000),
+                                duration: Duration(milliseconds: 4000),
                                 backgroundColor:
                                     FlutterFlowTheme.of(context).secondary,
                               ),
@@ -800,7 +806,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                 color: FlutterFlowTheme.of(context).primaryText,
                               ),
                             ),
-                            duration: const Duration(milliseconds: 4000),
+                            duration: Duration(milliseconds: 4000),
                             backgroundColor:
                                 FlutterFlowTheme.of(context).secondary,
                           ),
@@ -814,9 +820,9 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                       width: double.infinity,
                       height: 40.0,
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                       iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       color: FlutterFlowTheme.of(context).primaryText,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
@@ -824,7 +830,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                 color: Colors.white,
                               ),
                       elevation: 3.0,
-                      borderSide: const BorderSide(
+                      borderSide: BorderSide(
                         color: Colors.transparent,
                         width: 1.0,
                       ),
@@ -835,7 +841,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                 if (widget.component != null)
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         if (widget.component != null) {
@@ -843,19 +849,19 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                 context: context,
                                 builder: (alertDialogContext) {
                                   return AlertDialog(
-                                    title: const Text('Delete component'),
-                                    content: const Text(
+                                    title: Text('Delete component'),
+                                    content: Text(
                                         'Are you sure you want to delete the component?'),
                                     actions: [
                                       TextButton(
                                         onPressed: () => Navigator.pop(
                                             alertDialogContext, false),
-                                        child: const Text('Cancel'),
+                                        child: Text('Cancel'),
                                       ),
                                       TextButton(
                                         onPressed: () => Navigator.pop(
                                             alertDialogContext, true),
-                                        child: const Text('Confirm'),
+                                        child: Text('Confirm'),
                                       ),
                                     ],
                                   );
@@ -884,10 +890,10 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                       options: FFButtonOptions(
                         width: double.infinity,
                         height: 40.0,
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).error,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
@@ -895,7 +901,7 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                   color: Colors.white,
                                 ),
                         elevation: 3.0,
-                        borderSide: const BorderSide(
+                        borderSide: BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
                         ),

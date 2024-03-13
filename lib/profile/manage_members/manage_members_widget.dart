@@ -7,9 +7,12 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/profile/components/add_team_member_bottom_sheet/add_team_member_bottom_sheet_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'manage_members_model.dart';
 export 'manage_members_model.dart';
 
@@ -131,7 +134,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                 'Manage Members',
                 style: FlutterFlowTheme.of(context).headlineSmall,
               ),
-              actions: const [],
+              actions: [],
               centerTitle: false,
               elevation: 0.0,
             ),
@@ -144,7 +147,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             24.0, 15.0, 5.0, 5.0),
                         child: Text(
                           'Total Members:',
@@ -153,7 +156,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                       ),
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 5.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 5.0),
                         child: Text(
                           valueOrDefault<String>(
                             widget.membersCount?.toString(),
@@ -166,7 +169,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 15.0),
+                        EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 15.0),
                     child: Container(
                       width: double.infinity,
                       height: 500.0,
@@ -178,14 +181,14 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 15.0, 15.0, 15.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Expanded(
                                   child: Autocomplete<String>(
-                                    initialValue: const TextEditingValue(),
+                                    initialValue: TextEditingValue(),
                                     optionsBuilder: (textEditingValue) {
                                       if (textEditingValue.text == '') {
                                         return const Iterable<String>.empty();
@@ -207,7 +210,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                                         onSelected: onSelected,
                                         textStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium,
-                                        textHighlightStyle: const TextStyle(),
+                                        textHighlightStyle: TextStyle(),
                                         elevation: 4.0,
                                         optionBackgroundColor:
                                             FlutterFlowTheme.of(context)
@@ -244,7 +247,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                                         onEditingComplete: onEditingComplete,
                                         onChanged: (_) => EasyDebounce.debounce(
                                           '_model.textController',
-                                          const Duration(milliseconds: 500),
+                                          Duration(milliseconds: 500),
                                           () => setState(() {}),
                                         ),
                                         obscureText: false,
@@ -309,7 +312,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       12.0, 0.0, 0.0, 0.0),
                                   child: FlutterFlowIconButton(
                                     borderColor: Colors.transparent,
@@ -331,11 +334,11 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 10.0, 0.0, 0.0),
                             child: Container(
                               height: 380.0,
-                              decoration: const BoxDecoration(),
+                              decoration: BoxDecoration(),
                               child: FutureBuilder<List<UsersRecord>>(
                                 future: queryUsersRecordOnce(
                                   queryBuilder: (usersRecord) => usersRecord
@@ -376,7 +379,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                                       snapshot.data!;
                                   return SingleChildScrollView(
                                     child: Column(
-                                      key: const ValueKey('admin list'),
+                                      key: ValueKey('admin list'),
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.stretch,
@@ -404,7 +407,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 15.0),
+                        EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 15.0),
                     child: Container(
                       width: double.infinity,
                       height: MediaQuery.sizeOf(context).height * 0.08,
@@ -413,14 +416,14 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                         borderRadius: BorderRadius.circular(14.0),
                       ),
                       child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             10.0, 0.0, 10.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 10.0, 0.0),
                               child: Text(
                                 'Total : ${manageMembersTeamsRecord.memberLimit.toString()} Seats',
@@ -438,9 +441,9 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                               text: 'New Seat',
                               options: FFButtonOptions(
                                 height: 40.0,
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     24.0, 0.0, 24.0, 0.0),
-                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).primary,
                                 textStyle: FlutterFlowTheme.of(context)
@@ -450,7 +453,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                                       color: Colors.white,
                                     ),
                                 elevation: 3.0,
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                   color: Colors.transparent,
                                   width: 1.0,
                                 ),
@@ -464,7 +467,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
                     child: Text(
                       'Team member limit: ${manageMembersTeamsRecord.memberLimit.toString()}',
                       style: FlutterFlowTheme.of(context).labelMedium.override(
@@ -475,17 +478,17 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(24.0, 15.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(24.0, 15.0, 0.0, 0.0),
                     child: Text(
                       'Requests to join Team',
                       style: FlutterFlowTheme.of(context).labelMedium,
                     ),
                   ),
                   Container(
-                    decoration: const BoxDecoration(),
+                    decoration: BoxDecoration(),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 44.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 80.0),
                       child: FutureBuilder<List<UsersRecord>>(
                         future: queryUsersRecordOnce(
                           queryBuilder: (usersRecord) => usersRecord.whereIn(
@@ -518,7 +521,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                               .where((u) => u.uid != currentUserUid)
                               .toList();
                           return ListView.builder(
-                            key: const ValueKey('request'),
+                            key: ValueKey('request'),
                             padding: EdgeInsets.zero,
                             primary: false,
                             shrinkWrap: true,
@@ -531,7 +534,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                                 visible: listViewUsersRecord.reference !=
                                     manageMembersTeamsRecord.creatorRef,
                                 child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       16.0, 4.0, 16.0, 8.0),
                                   child: Container(
                                     width: double.infinity,
@@ -539,7 +542,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
-                                      boxShadow: const [
+                                      boxShadow: [
                                         BoxShadow(
                                           blurRadius: 4.0,
                                           color: Color(0x32000000),
@@ -549,7 +552,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           8.0, 0.0, 8.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -568,7 +571,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                                           ),
                                           Expanded(
                                             child: Padding(
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       12.0, 0.0, 0.0, 0.0),
                                               child: Column(
@@ -591,7 +594,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     4.0,
@@ -613,7 +616,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                                           ),
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 10.0, 0.0),
                                             child: FFButtonWidget(
                                               onPressed: () async {
@@ -640,11 +643,11 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                                               options: FFButtonOptions(
                                                 width: 70.0,
                                                 height: 36.0,
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 0.0, 0.0),
                                                 iconPadding:
-                                                    const EdgeInsetsDirectional
+                                                    EdgeInsetsDirectional
                                                         .fromSTEB(
                                                             0.0, 0.0, 0.0, 0.0),
                                                 color:
@@ -661,7 +664,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                                                               FontWeight.normal,
                                                         ),
                                                 elevation: 2.0,
-                                                borderSide: const BorderSide(
+                                                borderSide: BorderSide(
                                                   color: Colors.transparent,
                                                   width: 1.0,
                                                 ),

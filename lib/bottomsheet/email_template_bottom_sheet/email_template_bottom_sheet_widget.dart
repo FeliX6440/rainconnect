@@ -1,10 +1,16 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'email_template_bottom_sheet_model.dart';
 export 'email_template_bottom_sheet_model.dart';
@@ -55,7 +61,7 @@ class _EmailTemplateBottomSheetWidgetState
     return Container(
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).primaryBackground,
-        borderRadius: const BorderRadius.only(
+        borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(15.0),
@@ -63,7 +69,7 @@ class _EmailTemplateBottomSheetWidgetState
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: EdgeInsets.all(15.0),
         child: FutureBuilder<List<EmailTemplatesRecord>>(
           future: queryEmailTemplatesRecordOnce(
             parent: widget.teamDocRef,
@@ -92,7 +98,7 @@ class _EmailTemplateBottomSheetWidgetState
                 final listViewEmailTemplatesRecord =
                     listViewEmailTemplatesRecordList[listViewIndex];
                 return Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
                   child: InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
@@ -134,12 +140,12 @@ class _EmailTemplateBottomSheetWidgetState
                           BoxShadow(
                             blurRadius: 0.0,
                             color: FlutterFlowTheme.of(context).alternate,
-                            offset: const Offset(0.0, 1.0),
+                            offset: Offset(0.0, 1.0),
                           )
                         ],
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
@@ -149,7 +155,7 @@ class _EmailTemplateBottomSheetWidgetState
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         12.0, 0.0, 0.0, 0.0),
                                     child: Text(
                                       listViewEmailTemplatesRecord.subject,
@@ -169,7 +175,7 @@ class _EmailTemplateBottomSheetWidgetState
                                 borderRadius: BorderRadius.circular(40.0),
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.all(4.0),
+                                padding: EdgeInsets.all(4.0),
                                 child: Icon(
                                   Icons.keyboard_arrow_right_rounded,
                                   color: FlutterFlowTheme.of(context)

@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 
 class OnDeleteOfLeadFunctionCloudFunctionCallResponse {
   OnDeleteOfLeadFunctionCloudFunctionCallResponse({

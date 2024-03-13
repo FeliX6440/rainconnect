@@ -1874,58 +1874,51 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 20.0, 0.0, 0.0),
-                                  child: FFButtonWidget(
-                                    onPressed: () async {
-                                      await currentUserReference!.update({
-                                        ...mapToFirestore(
-                                          {
-                                            'team_requests_sent':
-                                                FieldValue.arrayUnion([
-                                              homePageTeamsRecord.reference
-                                            ]),
-                                            'team_refs': FieldValue.arrayUnion([
-                                              homePageTeamsRecord.reference
-                                            ]),
-                                          },
-                                        ),
-                                      });
-
-                                      await homePageTeamsRecord.reference
-                                          .update({
-                                        ...mapToFirestore(
-                                          {
-                                            'requests': FieldValue.arrayUnion(
-                                                [currentUserReference]),
-                                          },
-                                        ),
-                                      });
-                                    },
-                                    text: 'Rejoin the team',
-                                    options: FFButtonOptions(
-                                      height: 40.0,
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          24.0, 0.0, 24.0, 0.0),
-                                      iconPadding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            fontFamily: 'Manrope',
-                                            color: Colors.white,
-                                          ),
-                                      elevation: 3.0,
-                                      borderSide: const BorderSide(
-                                        color: Colors.transparent,
-                                        width: 1.0,
+                                FFButtonWidget(
+                                  onPressed: () async {
+                                    await currentUserReference!.update({
+                                      ...mapToFirestore(
+                                        {
+                                          'team_requests_sent':
+                                              FieldValue.arrayUnion([
+                                            homePageTeamsRecord.reference
+                                          ]),
+                                          'team_refs': FieldValue.arrayUnion(
+                                              [homePageTeamsRecord.reference]),
+                                        },
                                       ),
-                                      borderRadius: BorderRadius.circular(8.0),
+                                    });
+
+                                    await homePageTeamsRecord.reference
+                                        .update({
+                                      ...mapToFirestore(
+                                        {
+                                          'requests': FieldValue.arrayUnion(
+                                              [currentUserReference]),
+                                        },
+                                      ),
+                                    });
+                                  },
+                                  text: 'Button',
+                                  options: FFButtonOptions(
+                                    height: 40.0,
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        24.0, 0.0, 24.0, 0.0),
+                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          fontFamily: 'Manrope',
+                                          color: Colors.white,
+                                        ),
+                                    elevation: 3.0,
+                                    borderSide: const BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1.0,
                                     ),
+                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
                               ],

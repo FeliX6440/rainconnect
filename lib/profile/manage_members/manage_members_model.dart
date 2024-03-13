@@ -78,7 +78,7 @@ class ManageMembersModel extends FlutterFlowModel<ManageMembersWidget> {
           nextPageMarker: nextPageMarker,
           streamSubscriptions: listViewStreamSubscriptions1,
           controller: controller,
-          pageSize: 25,
+          pageSize: 10,
           isStream: true,
         ),
       );

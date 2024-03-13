@@ -11,13 +11,17 @@ import 'package:flutter/material.dart';
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 import 'dart:io';
-import 'package:path_provider/path_provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:csv/csv.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
+import 'package:path_provider/path_provider.dart';
 
-Future<void> exportLeadsDocsAsCSV(
-    BuildContext context, List<LeadsRecord> leadDocs) async {
+Future exportLeadsDocsAsCSV(
+  BuildContext context,
+  List<LeadsRecord> leadDocs,
+  List<ArchiveComponentRecord> archives,
+) async {
+  // Add your function code here!
   final firestore = FirebaseFirestore.instance;
   final rows = [
     [

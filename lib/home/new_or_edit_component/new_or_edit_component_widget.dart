@@ -753,6 +753,8 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                 ),
                               });
                             }
+
+                            context.safePop();
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
@@ -802,9 +804,9 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                               ),
                             });
                           }
-                        }
 
-                        context.safePop();
+                          context.safePop();
+                        }
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(

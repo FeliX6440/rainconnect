@@ -109,6 +109,15 @@ class _UserRightCardWidgetState extends State<UserRightCardWidget> {
                       onChanged: (newValue) async {
                         setState(() => _model.switchValue = newValue);
                         if (newValue) {
+                          await widget.teamDoc!.reference.update({
+                            ...mapToFirestore(
+                              {
+                                'admins': FieldValue.arrayUnion(
+                                    [widget.userDoc?.reference]),
+                              },
+                            ),
+                          });
+
                           await widget.userDoc!.reference.update({
                             ...mapToFirestore(
                               {
@@ -118,6 +127,15 @@ class _UserRightCardWidgetState extends State<UserRightCardWidget> {
                             ),
                           });
                         } else {
+                          await widget.userDoc!.reference.update({
+                            ...mapToFirestore(
+                              {
+                                'teams_admin': FieldValue.arrayRemove(
+                                    [widget.teamDoc?.reference]),
+                              },
+                            ),
+                          });
+
                           await widget.teamDoc!.reference.update({
                             ...mapToFirestore(
                               {

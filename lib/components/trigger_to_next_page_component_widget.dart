@@ -2,9 +2,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'trigger_to_next_page_component_model.dart';
 export 'trigger_to_next_page_component_model.dart';
 
@@ -49,7 +46,7 @@ class _TriggerToNextPageComponentWidgetState
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
+      padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
       child: Container(
         width: double.infinity,
         height: 100.0,
@@ -58,7 +55,7 @@ class _TriggerToNextPageComponentWidgetState
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: Align(
-          alignment: AlignmentDirectional(0.0, 0.0),
+          alignment: const AlignmentDirectional(0.0, 0.0),
           child: Text(
             'Waiting for response from team admin',
             style: FlutterFlowTheme.of(context).bodyMedium,

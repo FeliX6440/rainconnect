@@ -15,11 +15,8 @@ import '/components/edit_single_lead_content_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'lead_detail_view_model.dart';
 export 'lead_detail_view_model.dart';
 
@@ -101,23 +98,23 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                   context.safePop();
                 },
               ),
-              actions: [],
+              actions: const [],
               centerTitle: false,
               elevation: 0.0,
             ),
             body: Align(
-              alignment: AlignmentDirectional(0.0, 0.0),
+              alignment: const AlignmentDirectional(0.0, 0.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Container(
+                  SizedBox(
                     width: 140.0,
                     child: Stack(
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 12.0, 0.0, 0.0),
                             child: Container(
                               width: 100.0,
@@ -128,7 +125,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                 shape: BoxShape.circle,
                               ),
                               child: Padding(
-                                padding: EdgeInsets.all(2.0),
+                                padding: const EdgeInsets.all(2.0),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(50.0),
                                   child: Image.network(
@@ -143,9 +140,9 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(1.0, 0.0),
+                          alignment: const AlignmentDirectional(1.0, 0.0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 12.0, 0.0, 0.0),
                             child: ClipOval(
                               child: Container(
@@ -162,7 +159,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                   ),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(4.0),
+                                  padding: const EdgeInsets.all(4.0),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(50.0),
                                     child: Image.network(
@@ -182,7 +179,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 12.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 12.0),
                     child: Text(
                       '${leadDetailViewLeadsRecord.firstName} ${leadDetailViewLeadsRecord.lastName}',
                       textAlign: TextAlign.center,
@@ -202,7 +199,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 32.0),
+                        const EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 32.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -212,7 +209,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 12.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -237,7 +234,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                           child: Padding(
                                             padding: MediaQuery.viewInsetsOf(
                                                 context),
-                                            child: Container(
+                                            child: SizedBox(
                                               height: MediaQuery.sizeOf(context)
                                                       .height *
                                                   0.5,
@@ -263,7 +260,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                           .secondaryBackground,
                                       shape: BoxShape.circle,
                                     ),
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Icon(
                                       Icons.email_outlined,
                                       color: FlutterFlowTheme.of(context)
@@ -283,13 +280,13 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                         ),
                         Expanded(
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 4.0, 0.0, 4.0, 0.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 12.0),
                                   child: InkWell(
                                     splashColor: Colors.transparent,
@@ -318,7 +315,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                             .secondaryBackground,
                                         shape: BoxShape.circle,
                                       ),
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Icon(
                                         Icons.mode_edit_outlined,
                                         color: FlutterFlowTheme.of(context)
@@ -343,7 +340,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 12.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -368,7 +365,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                           child: Padding(
                                             padding: MediaQuery.viewInsetsOf(
                                                 context),
-                                            child: Container(
+                                            child: SizedBox(
                                               height: MediaQuery.sizeOf(context)
                                                       .height *
                                                   0.25,
@@ -390,7 +387,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                           .secondaryBackground,
                                       shape: BoxShape.circle,
                                     ),
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Icon(
                                       Icons.close_rounded,
                                       color: FlutterFlowTheme.of(context).error,
@@ -416,14 +413,14 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                       height: 400.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             blurRadius: 3.0,
                             color: Color(0x33000000),
                             offset: Offset(0.0, -1.0),
                           )
                         ],
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(0.0),
                           bottomRight: Radius.circular(0.0),
                           topLeft: Radius.circular(16.0),
@@ -436,7 +433,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   16.0, 16.0, 16.0, 0.0),
                               child: SingleChildScrollView(
                                 child: Column(
@@ -444,7 +441,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 12.0),
                                       child: Text(
                                         'Details',
@@ -458,7 +455,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                             TemplateMode.industry) {
                                           return Builder(
                                             builder: (context) => Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 8.0),
                                               child: StreamBuilder<
                                                   List<ComponentContentRecord>>(
@@ -532,7 +529,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                             backgroundColor:
                                                                 Colors
                                                                     .transparent,
-                                                            alignment: AlignmentDirectional(
+                                                            alignment: const AlignmentDirectional(
                                                                     0.0, 0.0)
                                                                 .resolve(
                                                                     Directionality.of(
@@ -553,7 +550,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                               child:
                                                                   EditIndustrialFairComponentWidget(
                                                                 componentContentDoc:
-                                                                    rowComponentContentRecord!,
+                                                                    rowComponentContentRecord,
                                                               ),
                                                             ),
                                                           );
@@ -570,7 +567,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       0.0,
                                                                       8.0,
@@ -588,7 +585,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                         Expanded(
                                                           child: Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         0.0,
@@ -631,7 +628,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                         } else {
                                           return Builder(
                                             builder: (context) => Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 8.0),
                                               child: StreamBuilder<
                                                   List<ComponentContentRecord>>(
@@ -705,7 +702,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                             backgroundColor:
                                                                 Colors
                                                                     .transparent,
-                                                            alignment: AlignmentDirectional(
+                                                            alignment: const AlignmentDirectional(
                                                                     0.0, 0.0)
                                                                 .resolve(
                                                                     Directionality.of(
@@ -726,7 +723,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                               child:
                                                                   EditSalePersonComponentContentWidget(
                                                                 componentContentDoc:
-                                                                    rowComponentContentRecord!,
+                                                                    rowComponentContentRecord,
                                                               ),
                                                             ),
                                                           );
@@ -743,7 +740,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       0.0,
                                                                       8.0,
@@ -761,7 +758,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                         Expanded(
                                                           child: Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         0.0,
@@ -806,7 +803,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                     ),
                                     Builder(
                                       builder: (context) => Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 8.0),
                                         child: InkWell(
                                           splashColor: Colors.transparent,
@@ -823,7 +820,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                   backgroundColor:
                                                       Colors.transparent,
                                                   alignment:
-                                                      AlignmentDirectional(
+                                                      const AlignmentDirectional(
                                                               0.0, 0.0)
                                                           .resolve(
                                                               Directionality.of(
@@ -854,7 +851,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                 MainAxisAlignment.start,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 8.0, 16.0, 8.0),
                                                 child: Icon(
@@ -867,7 +864,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                               ),
                                               Expanded(
                                                 child: Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 12.0, 0.0),
                                                   child: Text(
@@ -899,7 +896,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                     ),
                                     Builder(
                                       builder: (context) => Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 8.0),
                                         child: InkWell(
                                           splashColor: Colors.transparent,
@@ -916,7 +913,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                   backgroundColor:
                                                       Colors.transparent,
                                                   alignment:
-                                                      AlignmentDirectional(
+                                                      const AlignmentDirectional(
                                                               0.0, 0.0)
                                                           .resolve(
                                                               Directionality.of(
@@ -947,7 +944,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                 MainAxisAlignment.start,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 8.0, 16.0, 8.0),
                                                 child: Icon(
@@ -960,7 +957,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                               ),
                                               Expanded(
                                                 child: Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 12.0, 0.0),
                                                   child: Text(
@@ -993,7 +990,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                     ),
                                     Builder(
                                       builder: (context) => Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 8.0),
                                         child: InkWell(
                                           splashColor: Colors.transparent,
@@ -1010,7 +1007,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                   backgroundColor:
                                                       Colors.transparent,
                                                   alignment:
-                                                      AlignmentDirectional(
+                                                      const AlignmentDirectional(
                                                               0.0, 0.0)
                                                           .resolve(
                                                               Directionality.of(
@@ -1041,7 +1038,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                 MainAxisAlignment.start,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 8.0, 16.0, 8.0),
                                                 child: Icon(
@@ -1054,7 +1051,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                               ),
                                               Expanded(
                                                 child: Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 12.0, 0.0),
                                                   child: Text(
@@ -1087,7 +1084,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                     ),
                                     Builder(
                                       builder: (context) => Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 8.0),
                                         child: InkWell(
                                           splashColor: Colors.transparent,
@@ -1104,7 +1101,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                   backgroundColor:
                                                       Colors.transparent,
                                                   alignment:
-                                                      AlignmentDirectional(
+                                                      const AlignmentDirectional(
                                                               0.0, 0.0)
                                                           .resolve(
                                                               Directionality.of(
@@ -1135,7 +1132,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                 MainAxisAlignment.start,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 8.0, 16.0, 8.0),
                                                 child: Icon(
@@ -1148,7 +1145,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                               ),
                                               Expanded(
                                                 child: Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 12.0, 0.0),
                                                   child: Text(
@@ -1180,7 +1177,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 40.0),
                                       child: FutureBuilder<
                                           List<TeamComponentsRecord>>(
@@ -1199,7 +1196,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
                                           if (!snapshot.hasData) {
-                                            return Center(
+                                            return const Center(
                                               child: SizedBox(
                                                 width: 40.0,
                                                 height: 40.0,
@@ -1234,7 +1231,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                               .reference)) {
                                                     return Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -1281,7 +1278,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                                         .viewInsetsOf(
                                                                             context),
                                                                     child:
-                                                                        Container(
+                                                                        SizedBox(
                                                                       height:
                                                                           MediaQuery.sizeOf(context).height *
                                                                               0.6,
@@ -1329,7 +1326,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                                         .viewInsetsOf(
                                                                             context),
                                                                     child:
-                                                                        Container(
+                                                                        SizedBox(
                                                                       height:
                                                                           MediaQuery.sizeOf(context).height *
                                                                               0.4,
@@ -1381,7 +1378,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                           children: [
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           8.0,
@@ -1399,7 +1396,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                             Expanded(
                                                               child: Padding(
                                                                 padding:
-                                                                    EdgeInsetsDirectional
+                                                                    const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             0.0,
                                                                             0.0,
@@ -1457,7 +1454,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                               isScrollControlled:
                                                                   true,
                                                               backgroundColor:
-                                                                  Color(
+                                                                  const Color(
                                                                       0x00F1F4F8),
                                                               enableDrag: false,
                                                               context: context,
@@ -1480,7 +1477,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                                         .viewInsetsOf(
                                                                             context),
                                                                     child:
-                                                                        Container(
+                                                                        SizedBox(
                                                                       height:
                                                                           MediaQuery.sizeOf(context).height *
                                                                               0.4,
@@ -1508,7 +1505,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                               isScrollControlled:
                                                                   true,
                                                               backgroundColor:
-                                                                  Color(
+                                                                  const Color(
                                                                       0x00F1F4F8),
                                                               enableDrag: false,
                                                               context: context,
@@ -1531,7 +1528,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                                         .viewInsetsOf(
                                                                             context),
                                                                     child:
-                                                                        Container(
+                                                                        SizedBox(
                                                                       height:
                                                                           MediaQuery.sizeOf(context).height *
                                                                               0.4,
@@ -1559,7 +1556,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                               isScrollControlled:
                                                                   true,
                                                               backgroundColor:
-                                                                  Color(
+                                                                  const Color(
                                                                       0x00F1F4F8),
                                                               enableDrag: false,
                                                               context: context,
@@ -1582,7 +1579,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                                         .viewInsetsOf(
                                                                             context),
                                                                     child:
-                                                                        Container(
+                                                                        SizedBox(
                                                                       height:
                                                                           MediaQuery.sizeOf(context).height *
                                                                               0.4,
@@ -1610,7 +1607,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                               isScrollControlled:
                                                                   true,
                                                               backgroundColor:
-                                                                  Color(
+                                                                  const Color(
                                                                       0x00F1F4F8),
                                                               enableDrag: false,
                                                               context: context,
@@ -1633,7 +1630,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                                         .viewInsetsOf(
                                                                             context),
                                                                     child:
-                                                                        Container(
+                                                                        SizedBox(
                                                                       height:
                                                                           MediaQuery.sizeOf(context).height *
                                                                               0.4,
@@ -1684,7 +1681,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                                         .viewInsetsOf(
                                                                             context),
                                                                     child:
-                                                                        Container(
+                                                                        SizedBox(
                                                                       height:
                                                                           MediaQuery.sizeOf(context).height *
                                                                               0.4,
@@ -1709,7 +1706,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                               isScrollControlled:
                                                                   true,
                                                               backgroundColor:
-                                                                  Color(
+                                                                  const Color(
                                                                       0x00F1F4F8),
                                                               enableDrag: false,
                                                               context: context,
@@ -1732,7 +1729,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                                         .viewInsetsOf(
                                                                             context),
                                                                     child:
-                                                                        Container(
+                                                                        SizedBox(
                                                                       height:
                                                                           MediaQuery.sizeOf(context).height *
                                                                               0.6,
@@ -1756,7 +1753,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                         },
                                                         child:
                                                             AnimatedContainer(
-                                                          duration: Duration(
+                                                          duration: const Duration(
                                                               milliseconds:
                                                                   150),
                                                           curve:
@@ -1764,12 +1761,12 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                           width:
                                                               double.infinity,
                                                           decoration:
-                                                              BoxDecoration(
+                                                              const BoxDecoration(
                                                             color: Colors.white,
                                                           ),
                                                           child: Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         8.0,
@@ -1791,7 +1788,7 @@ class _LeadDetailViewWidgetState extends State<LeadDetailViewWidget> {
                                                                 Expanded(
                                                                   child:
                                                                       Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             12.0,
                                                                             0.0,

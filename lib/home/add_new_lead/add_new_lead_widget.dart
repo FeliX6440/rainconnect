@@ -10,12 +10,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'add_new_lead_model.dart';
 export 'add_new_lead_model.dart';
 
@@ -122,7 +119,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                 context.safePop();
               } else if (_model.pageIndex == 1) {
                 await _model.pageViewController?.previousPage(
-                  duration: Duration(milliseconds: 300),
+                  duration: const Duration(milliseconds: 300),
                   curve: Curves.ease,
                 );
                 if (_model.leadResponse?.reference != null) {
@@ -131,7 +128,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                 }
               } else {
                 await _model.pageViewController?.previousPage(
-                  duration: Duration(milliseconds: 300),
+                  duration: const Duration(milliseconds: 300),
                   curve: Curves.ease,
                 );
                 setState(() {
@@ -210,7 +207,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                 if (_model.pageIndex == 2)
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 15.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 15.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         if (_model.leadResponse?.reference != null) {
@@ -221,10 +218,10 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                       text: 'Cancel',
                       options: FFButtonOptions(
                         height: 40.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
@@ -232,7 +229,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                   color: Colors.white,
                                 ),
                         elevation: 3.0,
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
                         ),
@@ -248,11 +245,11 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 40.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 40.0),
               child: PageView(
                 physics: const NeverScrollableScrollPhysics(),
                 controller: _model.pageViewController ??=
@@ -266,14 +263,14 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                 children: [
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 20.0),
                           child: Text(
                             'Business card scan',
@@ -345,8 +342,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                               ),
                               child: Builder(
                                 builder: (context) {
-                                  if (_model.uploadedLocalFile1 == null ||
-                                      (_model.uploadedLocalFile1.bytes
+                                  if ((_model.uploadedLocalFile1.bytes
                                               ?.isEmpty ??
                                           true)) {
                                     return Column(
@@ -362,7 +358,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 10.0, 0.0, 0.0),
                                           child: Text(
                                             'Tap to upload your card for\n scanning',
@@ -395,11 +391,10 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 30.0, 0.0, 0.0),
                           child: FFButtonWidget(
-                            onPressed: (_model.uploadedLocalFile1 == null ||
-                                    (_model.uploadedLocalFile1.bytes?.isEmpty ??
+                            onPressed: ((_model.uploadedLocalFile1.bytes?.isEmpty ??
                                         true))
                                 ? null
                                 : () async {
@@ -502,7 +497,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                         )!);
                                       });
                                       await _model.pageViewController?.nextPage(
-                                        duration: Duration(milliseconds: 300),
+                                        duration: const Duration(milliseconds: 300),
                                         curve: Curves.ease,
                                       );
                                     } else {
@@ -518,7 +513,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                             ),
                                           ),
                                           duration:
-                                              Duration(milliseconds: 4000),
+                                              const Duration(milliseconds: 4000),
                                           backgroundColor:
                                               FlutterFlowTheme.of(context)
                                                   .secondary,
@@ -532,9 +527,9 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 40.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context).primary,
                               textStyle: FlutterFlowTheme.of(context)
@@ -544,7 +539,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                     color: Colors.white,
                                   ),
                               elevation: 3.0,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
@@ -555,12 +550,12 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 30.0, 0.0, 0.0),
                           child: FFButtonWidget(
                             onPressed: () async {
                               await _model.pageViewController?.nextPage(
-                                duration: Duration(milliseconds: 300),
+                                duration: const Duration(milliseconds: 300),
                                 curve: Curves.ease,
                               );
                             },
@@ -568,9 +563,9 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 40.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context).primary,
                               textStyle: FlutterFlowTheme.of(context)
@@ -580,7 +575,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                     color: Colors.white,
                                   ),
                               elevation: 3.0,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
@@ -593,28 +588,27 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
                     child: SingleChildScrollView(
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Container(
+                          SizedBox(
                             width: 120.0,
                             height: 115.0,
                             child: Stack(
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
                                   child: Container(
                                     width: 120.0,
                                     height: 120.0,
                                     clipBehavior: Clip.antiAlias,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                     ),
                                     child: Image.network(
-                                      _model.uploadedFileUrl2 != null &&
-                                              _model.uploadedFileUrl2 != ''
+                                      _model.uploadedFileUrl2 != ''
                                           ? _model.uploadedFileUrl2
                                           : 'https://picsum.photos/seed/496/600',
                                       fit: BoxFit.cover,
@@ -622,7 +616,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(1.12, 1.04),
+                                  alignment: const AlignmentDirectional(1.12, 1.04),
                                   child: FlutterFlowIconButton(
                                     borderColor:
                                         FlutterFlowTheme.of(context).primary,
@@ -705,11 +699,11 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                             style: FlutterFlowTheme.of(context).titleLarge,
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 5.0, 0.0, 5.0),
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
                                   controller: _model.firstNameController,
@@ -760,7 +754,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
+                                        const EdgeInsetsDirectional.fromSTEB(
                                             10.0, 15.0, 10.0, 15.0),
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -777,11 +771,11 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 5.0, 0.0, 5.0),
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
                                   controller: _model.lastNameController,
@@ -832,7 +826,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
+                                        const EdgeInsetsDirectional.fromSTEB(
                                             10.0, 15.0, 10.0, 15.0),
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -849,11 +843,11 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 5.0, 0.0, 5.0),
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
                                   controller: _model.positionController,
@@ -904,7 +898,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
+                                        const EdgeInsetsDirectional.fromSTEB(
                                             10.0, 15.0, 10.0, 15.0),
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -921,11 +915,11 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 5.0, 0.0, 5.0),
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
                                   controller: _model.languageController,
@@ -976,7 +970,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
+                                        const EdgeInsetsDirectional.fromSTEB(
                                             10.0, 15.0, 10.0, 15.0),
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -993,11 +987,11 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 5.0, 0.0, 5.0),
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
                                   controller: _model.genderMWController,
@@ -1048,7 +1042,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
+                                        const EdgeInsetsDirectional.fromSTEB(
                                             10.0, 15.0, 10.0, 15.0),
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -1069,11 +1063,11 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                             color: FlutterFlowTheme.of(context).primary,
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 5.0, 0.0, 5.0),
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
                                   controller: _model.phoneController,
@@ -1124,7 +1118,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
+                                        const EdgeInsetsDirectional.fromSTEB(
                                             10.0, 15.0, 10.0, 15.0),
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -1141,11 +1135,11 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 5.0, 0.0, 5.0),
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
                                   controller: _model.emailController,
@@ -1196,7 +1190,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
+                                        const EdgeInsetsDirectional.fromSTEB(
                                             10.0, 15.0, 10.0, 15.0),
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -1213,11 +1207,11 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 5.0, 0.0, 5.0),
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
                                   controller: _model.websiteController,
@@ -1268,7 +1262,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
+                                        const EdgeInsetsDirectional.fromSTEB(
                                             10.0, 15.0, 10.0, 15.0),
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -1289,11 +1283,11 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                             color: FlutterFlowTheme.of(context).primary,
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 5.0, 0.0, 5.0),
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
                                   controller: _model.cityController,
@@ -1344,7 +1338,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
+                                        const EdgeInsetsDirectional.fromSTEB(
                                             10.0, 15.0, 10.0, 15.0),
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -1361,11 +1355,11 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 5.0, 0.0, 5.0),
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
                                   controller: _model.zipController,
@@ -1416,7 +1410,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
+                                        const EdgeInsetsDirectional.fromSTEB(
                                             10.0, 15.0, 10.0, 15.0),
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -1433,11 +1427,11 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 5.0, 0.0, 5.0),
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
                                   controller: _model.streetandNumController,
@@ -1488,7 +1482,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
+                                        const EdgeInsetsDirectional.fromSTEB(
                                             10.0, 15.0, 10.0, 15.0),
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -1506,11 +1500,11 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 5.0, 0.0, 5.0),
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
                                   controller: _model.countryController,
@@ -1561,7 +1555,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
+                                        const EdgeInsetsDirectional.fromSTEB(
                                             10.0, 15.0, 10.0, 15.0),
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -1582,11 +1576,11 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                             color: FlutterFlowTheme.of(context).primary,
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 5.0, 0.0, 5.0),
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
                                   controller: _model.companyController,
@@ -1637,7 +1631,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
+                                        const EdgeInsetsDirectional.fromSTEB(
                                             10.0, 15.0, 10.0, 15.0),
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -1654,11 +1648,11 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 5.0, 0.0, 5.0),
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
                                   controller: _model.industryController,
@@ -1709,7 +1703,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
+                                        const EdgeInsetsDirectional.fromSTEB(
                                             10.0, 15.0, 10.0, 15.0),
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -1749,12 +1743,11 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                   _model.isPreviouse = false;
                                 });
                                 await _model.pageViewController?.nextPage(
-                                  duration: Duration(milliseconds: 300),
+                                  duration: const Duration(milliseconds: 300),
                                   curve: Curves.ease,
                                 );
                               } else {
-                                if (_model.lastNameController.text != null &&
-                                    _model.lastNameController.text != '') {
+                                if (_model.lastNameController.text != '') {
                                   var leadsRecordReference =
                                       LeadsRecord.collection.doc();
                                   await leadsRecordReference.set({
@@ -1825,7 +1818,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                     id: _model.leadResponse?.reference.id,
                                   ));
                                   await _model.pageViewController?.nextPage(
-                                    duration: Duration(milliseconds: 300),
+                                    duration: const Duration(milliseconds: 300),
                                     curve: Curves.ease,
                                   );
                                 } else {
@@ -1838,7 +1831,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                               .primaryText,
                                         ),
                                       ),
-                                      duration: Duration(milliseconds: 4000),
+                                      duration: const Duration(milliseconds: 4000),
                                       backgroundColor:
                                           FlutterFlowTheme.of(context)
                                               .secondary,
@@ -1853,9 +1846,9 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 40.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context).primary,
                               textStyle: FlutterFlowTheme.of(context)
@@ -1865,7 +1858,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                     color: Colors.white,
                                   ),
                               elevation: 3.0,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
@@ -1873,21 +1866,21 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                             ),
                           ),
                         ]
-                            .divide(SizedBox(height: 8.0))
-                            .around(SizedBox(height: 8.0)),
+                            .divide(const SizedBox(height: 8.0))
+                            .around(const SizedBox(height: 8.0)),
                       ),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: double.infinity,
                     height: double.infinity,
                     child: Stack(
                       children: [
                         Container(
                           height: MediaQuery.sizeOf(context).height * 0.72,
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 15.0, 0.0, 15.0, 0.0),
                             child: StreamBuilder<List<TeamComponentsRecord>>(
                               stream: queryTeamComponentsRecord(
@@ -1953,9 +1946,9 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0.0, 1.0),
+                          alignment: const AlignmentDirectional(0.0, 1.0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 15.0, 0.0, 15.0, 10.0),
                             child: FFButtonWidget(
                               onPressed: () async {
@@ -1981,9 +1974,9 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                               options: FFButtonOptions(
                                 width: double.infinity,
                                 height: 50.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     24.0, 0.0, 24.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).primary,
                                 textStyle: FlutterFlowTheme.of(context)
@@ -1993,7 +1986,7 @@ class _AddNewLeadWidgetState extends State<AddNewLeadWidget> {
                                       color: Colors.white,
                                     ),
                                 elevation: 3.0,
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Colors.transparent,
                                   width: 1.0,
                                 ),

@@ -8,11 +8,7 @@ import '/bottomsheet/temperature_bottom_sheet/temperature_bottom_sheet_widget.da
 import '/bottomsheet/text_field_bottom_sheet/text_field_bottom_sheet_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'tile_component_model.dart';
 export 'tile_component_model.dart';
 
@@ -59,12 +55,12 @@ class _TileComponentWidgetState extends State<TileComponentWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(
             color:
-                widget.component?.containLeads?.contains(widget.lead) == false
+                widget.component?.containLeads.contains(widget.lead) == false
                     ? Colors.transparent
                     : FlutterFlowTheme.of(context).primary,
             width: 2.0,
@@ -82,13 +78,13 @@ class _TileComponentWidgetState extends State<TileComponentWidget> {
                 if (widget.component?.type == ComponentType.Note) {
                   await showModalBottomSheet(
                     isScrollControlled: true,
-                    backgroundColor: Color(0x00F1F4F8),
+                    backgroundColor: const Color(0x00F1F4F8),
                     enableDrag: false,
                     context: context,
                     builder: (context) {
                       return Padding(
                         padding: MediaQuery.viewInsetsOf(context),
-                        child: Container(
+                        child: SizedBox(
                           height: MediaQuery.sizeOf(context).height * 0.4,
                           child: NoteBottomSheetWidget(
                             leadDocRef: widget.lead!,
@@ -103,13 +99,13 @@ class _TileComponentWidgetState extends State<TileComponentWidget> {
                 } else if (widget.component?.type == ComponentType.Dropdown) {
                   await showModalBottomSheet(
                     isScrollControlled: true,
-                    backgroundColor: Color(0x00F1F4F8),
+                    backgroundColor: const Color(0x00F1F4F8),
                     enableDrag: false,
                     context: context,
                     builder: (context) {
                       return Padding(
                         padding: MediaQuery.viewInsetsOf(context),
-                        child: Container(
+                        child: SizedBox(
                           height: MediaQuery.sizeOf(context).height * 0.4,
                           child: DropdownBottomSheetWidget(
                             teamComponentDoc: widget.component!,
@@ -125,13 +121,13 @@ class _TileComponentWidgetState extends State<TileComponentWidget> {
                     ComponentType.MultipleChoice) {
                   await showModalBottomSheet(
                     isScrollControlled: true,
-                    backgroundColor: Color(0x00F1F4F8),
+                    backgroundColor: const Color(0x00F1F4F8),
                     enableDrag: false,
                     context: context,
                     builder: (context) {
                       return Padding(
                         padding: MediaQuery.viewInsetsOf(context),
-                        child: Container(
+                        child: SizedBox(
                           height: MediaQuery.sizeOf(context).height * 0.4,
                           child: MultichoiceBottomSheetWidget(
                             componentDoc: widget.component!,
@@ -146,13 +142,13 @@ class _TileComponentWidgetState extends State<TileComponentWidget> {
                 } else if (widget.component?.type == ComponentType.TextField) {
                   await showModalBottomSheet(
                     isScrollControlled: true,
-                    backgroundColor: Color(0x00F1F4F8),
+                    backgroundColor: const Color(0x00F1F4F8),
                     enableDrag: false,
                     context: context,
                     builder: (context) {
                       return Padding(
                         padding: MediaQuery.viewInsetsOf(context),
-                        child: Container(
+                        child: SizedBox(
                           height: MediaQuery.sizeOf(context).height * 0.4,
                           child: TextFieldBottomSheetWidget(
                             isEdit: widget.component!.containLeads
@@ -174,7 +170,7 @@ class _TileComponentWidgetState extends State<TileComponentWidget> {
                     builder: (context) {
                       return Padding(
                         padding: MediaQuery.viewInsetsOf(context),
-                        child: Container(
+                        child: SizedBox(
                           height: MediaQuery.sizeOf(context).height * 0.4,
                           child: TemperatureBottomSheetWidget(
                             leadDocRef: widget.lead!,
@@ -189,13 +185,13 @@ class _TileComponentWidgetState extends State<TileComponentWidget> {
                 } else {
                   await showModalBottomSheet(
                     isScrollControlled: true,
-                    backgroundColor: Color(0x00F1F4F8),
+                    backgroundColor: const Color(0x00F1F4F8),
                     enableDrag: false,
                     context: context,
                     builder: (context) {
                       return Padding(
                         padding: MediaQuery.viewInsetsOf(context),
-                        child: Container(
+                        child: SizedBox(
                           height: MediaQuery.sizeOf(context).height * 0.6,
                           child: SpeechToTextBottomSheetWidget(
                             leadDocRef: widget.lead!,
@@ -216,7 +212,7 @@ class _TileComponentWidgetState extends State<TileComponentWidget> {
                   color: FlutterFlowTheme.of(context).secondaryBackground,
                 ),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -248,7 +244,7 @@ class _TileComponentWidgetState extends State<TileComponentWidget> {
                       Builder(
                         builder: (context) {
                           if (widget.component?.containLeads
-                                  ?.contains(widget.lead) ??
+                                  .contains(widget.lead) ??
                               false) {
                             return Icon(
                               Icons.check_box,

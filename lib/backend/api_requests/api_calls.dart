@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
-import '../schema/structs/index.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
@@ -16,7 +14,7 @@ class BusinessCardReaderEndPointCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "imageData": "${imageByte}"
+  "imageData": "$imageByte"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'BusinessCardReaderEndPoint',

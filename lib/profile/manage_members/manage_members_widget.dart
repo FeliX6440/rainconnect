@@ -342,16 +342,11 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                                 key: const ValueKey('admin list'),
                                 pagingController: _model.setListViewController1(
                                   UsersRecord.collection
-                                      .whereIn(
-                                          'uid',
-                                          manageMembersTeamsRecord.members
-                                                      .map((e) => e.id)
-                                                      .toList() !=
-                                                  ''
-                                              ? manageMembersTeamsRecord.members
-                                                  .map((e) => e.id)
-                                                  .toList()
-                                              : null)
+                                      .where(
+                                        'team_refs',
+                                        arrayContains:
+                                            manageMembersTeamsRecord.reference,
+                                      )
                                       .where(
                                         'display_name',
                                         isEqualTo:

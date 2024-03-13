@@ -1,4 +1,3 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/user_right_card_widget.dart';
 import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
@@ -486,214 +485,154 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                     ),
                   ),
                   Container(
+                    height: 500.0,
                     decoration: const BoxDecoration(),
                     child: Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 80.0),
-                      child: FutureBuilder<List<UsersRecord>>(
-                        future: queryUsersRecordOnce(
-                          queryBuilder: (usersRecord) => usersRecord.whereIn(
-                              'uid',
-                              manageMembersTeamsRecord.requests
-                                          .map((e) => e.id)
-                                          .toList() !=
-                                      ''
-                                  ? manageMembersTeamsRecord.requests
-                                      .map((e) => e.id)
-                                      .toList()
-                                  : null),
+                      child: PagedListView<DocumentSnapshot<Object?>?,
+                          UsersRecord>(
+                        key: const ValueKey('request'),
+                        pagingController: _model.setListViewController2(
+                          UsersRecord.collection.where(
+                            'team_requests_sent',
+                            arrayContains: manageMembersTeamsRecord.reference,
+                          ),
                         ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 30.0,
-                                height: 30.0,
-                                child: SpinKitFadingFour(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  size: 30.0,
-                                ),
+                        padding: EdgeInsets.zero,
+                        primary: false,
+                        shrinkWrap: true,
+                        reverse: false,
+                        scrollDirection: Axis.vertical,
+                        builderDelegate: PagedChildBuilderDelegate<UsersRecord>(
+                          // Customize what your widget looks like when it's loading the first page.
+                          firstPageProgressIndicatorBuilder: (_) => Center(
+                            child: SizedBox(
+                              width: 30.0,
+                              height: 30.0,
+                              child: SpinKitFadingFour(
+                                color: FlutterFlowTheme.of(context).primary,
+                                size: 30.0,
                               ),
-                            );
-                          }
-                          List<UsersRecord> listViewUsersRecordList = snapshot
-                              .data!
-                              .where((u) => u.uid != currentUserUid)
-                              .toList();
-                          return ListView.builder(
-                            key: const ValueKey('request'),
-                            padding: EdgeInsets.zero,
-                            primary: false,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount: listViewUsersRecordList.length,
-                            itemBuilder: (context, listViewIndex) {
-                              final listViewUsersRecord =
-                                  listViewUsersRecordList[listViewIndex];
-                              return Visibility(
-                                visible: listViewUsersRecord.reference !=
-                                    manageMembersTeamsRecord.creatorRef,
-                                child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 4.0, 16.0, 8.0),
-                                  child: Container(
-                                    width: double.infinity,
-                                    height: 60.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      boxShadow: const [
-                                        BoxShadow(
-                                          blurRadius: 4.0,
-                                          color: Color(0x32000000),
-                                          offset: Offset(0.0, 2.0),
-                                        )
-                                      ],
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 0.0, 8.0, 0.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(26.0),
-                                            child: Image.network(
-                                              listViewUsersRecord.photoUrl,
-                                              width: 36.0,
-                                              height: 36.0,
-                                              fit: BoxFit.cover,
-                                            ),
+                            ),
+                          ),
+                          // Customize what your widget looks like when it's loading another page.
+                          newPageProgressIndicatorBuilder: (_) => Center(
+                            child: SizedBox(
+                              width: 30.0,
+                              height: 30.0,
+                              child: SpinKitFadingFour(
+                                color: FlutterFlowTheme.of(context).primary,
+                                size: 30.0,
+                              ),
+                            ),
+                          ),
+
+                          itemBuilder: (context, _, listViewIndex) {
+                            final listViewUsersRecord = _model
+                                .listViewPagingController2!
+                                .itemList![listViewIndex];
+                            return Visibility(
+                              visible: listViewUsersRecord.reference !=
+                                  manageMembersTeamsRecord.creatorRef,
+                              child: Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    16.0, 4.0, 16.0, 8.0),
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 60.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        blurRadius: 4.0,
+                                        color: Color(0x32000000),
+                                        offset: Offset(0.0, 2.0),
+                                      )
+                                    ],
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        8.0, 0.0, 8.0, 0.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(26.0),
+                                          child: Image.network(
+                                            listViewUsersRecord.photoUrl,
+                                            width: 36.0,
+                                            height: 36.0,
+                                            fit: BoxFit.cover,
                                           ),
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      12.0, 0.0, 0.0, 0.0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    listViewUsersRecord
-                                                        .displayName,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium,
-                                                  ),
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    4.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        child: Text(
-                                                          listViewUsersRecord
-                                                              .email,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .labelMedium,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
+                                        ),
+                                        Expanded(
+                                          child: Padding(
                                             padding:
                                                 const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 10.0, 0.0),
-                                            child: FFButtonWidget(
-                                              onPressed: () async {
-                                                await manageMembersTeamsRecord
-                                                    .reference
-                                                    .update({
-                                                  ...mapToFirestore(
-                                                    {
-                                                      'members': FieldValue
-                                                          .arrayUnion([
-                                                        listViewUsersRecord
-                                                            .reference
-                                                      ]),
-                                                      'requests': FieldValue
-                                                          .arrayRemove([
-                                                        listViewUsersRecord
-                                                            .reference
-                                                      ]),
-                                                    },
-                                                  ),
-                                                });
-                                              },
-                                              text: 'Accept',
-                                              options: FFButtonOptions(
-                                                width: 70.0,
-                                                height: 36.0,
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 0.0),
-                                                iconPadding:
-                                                    const EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Outfit',
-                                                          color: Colors.white,
-                                                          fontSize: 14.0,
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                        ),
-                                                elevation: 2.0,
-                                                borderSide: const BorderSide(
-                                                  color: Colors.transparent,
-                                                  width: 1.0,
+                                                    12.0, 0.0, 0.0, 0.0),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  listViewUsersRecord
+                                                      .displayName,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium,
                                                 ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  4.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Text(
+                                                        listViewUsersRecord
+                                                            .email,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          FlutterFlowIconButton(
-                                            borderColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .error,
-                                            borderRadius: 20.0,
-                                            borderWidth: 3.0,
-                                            buttonSize: 35.0,
-                                            icon: Icon(
-                                              Icons.person_remove,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .error,
-                                              size: 20.0,
-                                            ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 10.0, 0.0),
+                                          child: FFButtonWidget(
                                             onPressed: () async {
                                               await manageMembersTeamsRecord
                                                   .reference
                                                   .update({
                                                 ...mapToFirestore(
                                                   {
+                                                    'members':
+                                                        FieldValue.arrayUnion([
+                                                      listViewUsersRecord
+                                                          .reference
+                                                    ]),
                                                     'requests':
                                                         FieldValue.arrayRemove([
                                                       listViewUsersRecord
@@ -702,31 +641,88 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                                                   },
                                                 ),
                                               });
-
-                                              await listViewUsersRecord
-                                                  .reference
-                                                  .update({
-                                                ...mapToFirestore(
-                                                  {
-                                                    'team_requests_sent':
-                                                        FieldValue.arrayRemove([
-                                                      manageMembersTeamsRecord
-                                                          .reference
-                                                    ]),
-                                                  },
-                                                ),
-                                              });
                                             },
+                                            text: 'Accept',
+                                            options: FFButtonOptions(
+                                              width: 70.0,
+                                              height: 36.0,
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              iconPadding: const EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Outfit',
+                                                        color: Colors.white,
+                                                        fontSize: 14.0,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                      ),
+                                              elevation: 2.0,
+                                              borderSide: const BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                        FlutterFlowIconButton(
+                                          borderColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .error,
+                                          borderRadius: 20.0,
+                                          borderWidth: 3.0,
+                                          buttonSize: 35.0,
+                                          icon: Icon(
+                                            Icons.person_remove,
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            size: 20.0,
+                                          ),
+                                          onPressed: () async {
+                                            await manageMembersTeamsRecord
+                                                .reference
+                                                .update({
+                                              ...mapToFirestore(
+                                                {
+                                                  'requests':
+                                                      FieldValue.arrayRemove([
+                                                    listViewUsersRecord
+                                                        .reference
+                                                  ]),
+                                                },
+                                              ),
+                                            });
+
+                                            await listViewUsersRecord.reference
+                                                .update({
+                                              ...mapToFirestore(
+                                                {
+                                                  'team_requests_sent':
+                                                      FieldValue.arrayRemove([
+                                                    manageMembersTeamsRecord
+                                                        .reference
+                                                  ]),
+                                                },
+                                              ),
+                                            });
+                                          },
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
-                              );
-                            },
-                          );
-                        },
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),

@@ -642,19 +642,6 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                   },
                                 ),
                               }, teamComponentsRecordReference1);
-
-                              await ArchiveComponentRecord.createDoc(
-                                      widget.teamDocRef!)
-                                  .set({
-                                ...createArchiveComponentRecordData(
-                                  componentName: _model.textController1.text,
-                                ),
-                                ...mapToFirestore(
-                                  {
-                                    'created_at': FieldValue.serverTimestamp(),
-                                  },
-                                ),
-                              });
                             } else if (_model.componentTypeValue ==
                                 'TextField') {
                               var teamComponentsRecordReference2 =
@@ -689,19 +676,6 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                   },
                                 ),
                               }, teamComponentsRecordReference2);
-
-                              await ArchiveComponentRecord.createDoc(
-                                      widget.teamDocRef!)
-                                  .set({
-                                ...createArchiveComponentRecordData(
-                                  componentName: _model.textController1.text,
-                                ),
-                                ...mapToFirestore(
-                                  {
-                                    'created_at': FieldValue.serverTimestamp(),
-                                  },
-                                ),
-                              });
                             } else {
                               var teamComponentsRecordReference3 =
                                   TeamComponentsRecord.createDoc(
@@ -739,16 +713,61 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                   },
                                 ),
                               }, teamComponentsRecordReference3);
+                            }
 
-                              await ArchiveComponentRecord.createDoc(
-                                      widget.teamDocRef!)
-                                  .set({
-                                ...createArchiveComponentRecordData(
-                                  componentName: _model.textController1.text,
+                            context.safePop();
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Component with same name already existed',
+                                  style: TextStyle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
+                                ),
+                                duration: const Duration(milliseconds: 4000),
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).secondary,
+                              ),
+                            );
+                          }
+                        } else {
+                          _model.isEmpty2 = await actions.checkIFComponentExit(
+                            _model.textController1.text,
+                            widget.teamDocRef!.id,
+                          );
+                          if (_model.isEmpty2!) {
+                            if (_model.componentTypeValue == 'Dropdown') {
+                              await widget.component!.reference.update({
+                                ...createTeamComponentsRecordData(
+                                  name: _model.textController1.text,
+                                  type: ComponentType.Dropdown,
                                 ),
                                 ...mapToFirestore(
                                   {
-                                    'created_at': FieldValue.serverTimestamp(),
+                                    'list_value':
+                                        _model.addedOptionsForDropDown,
+                                  },
+                                ),
+                              });
+                            } else if (_model.componentTypeValue ==
+                                'TextField') {
+                              await widget.component!.reference
+                                  .update(createTeamComponentsRecordData(
+                                name: _model.textController1.text,
+                                type: ComponentType.TextField,
+                              ));
+                            } else {
+                              await widget.component!.reference.update({
+                                ...createTeamComponentsRecordData(
+                                  name: _model.textController1.text,
+                                  type: ComponentType.MultipleChoice,
+                                ),
+                                ...mapToFirestore(
+                                  {
+                                    'list_value':
+                                        _model.addedOptionForMultiChoice,
                                   },
                                 ),
                               });
@@ -771,41 +790,6 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                               ),
                             );
                           }
-                        } else {
-                          if (_model.componentTypeValue == 'Dropdown') {
-                            await widget.component!.reference.update({
-                              ...createTeamComponentsRecordData(
-                                name: _model.textController1.text,
-                                type: ComponentType.Dropdown,
-                              ),
-                              ...mapToFirestore(
-                                {
-                                  'list_value': _model.addedOptionsForDropDown,
-                                },
-                              ),
-                            });
-                          } else if (_model.componentTypeValue == 'TextField') {
-                            await widget.component!.reference
-                                .update(createTeamComponentsRecordData(
-                              name: _model.textController1.text,
-                              type: ComponentType.Dropdown,
-                            ));
-                          } else {
-                            await widget.component!.reference.update({
-                              ...createTeamComponentsRecordData(
-                                name: _model.textController1.text,
-                                type: ComponentType.MultipleChoice,
-                              ),
-                              ...mapToFirestore(
-                                {
-                                  'list_value':
-                                      _model.addedOptionForMultiChoice,
-                                },
-                              ),
-                            });
-                          }
-
-                          context.safePop();
                         }
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -879,6 +863,18 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                               ) ??
                               false;
                           if (confirmDialogResponse) {
+                            await ArchiveComponentRecord.createDoc(
+                                    widget.teamDocRef!)
+                                .set({
+                              ...createArchiveComponentRecordData(
+                                componentName: _model.textController1.text,
+                              ),
+                              ...mapToFirestore(
+                                {
+                                  'created_at': FieldValue.serverTimestamp(),
+                                },
+                              ),
+                            });
                             await widget.component!.reference.delete();
                             context.safePop();
                           }

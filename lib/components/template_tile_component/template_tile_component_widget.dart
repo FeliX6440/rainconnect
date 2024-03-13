@@ -191,6 +191,17 @@ class _TemplateTileComponentWidgetState
                       ) ??
                       false;
                   if (confirmDialogResponse) {
+                    await ArchiveComponentRecord.createDoc(widget.teamDocRef!)
+                        .set({
+                      ...createArchiveComponentRecordData(
+                        componentName: widget.component?.name,
+                      ),
+                      ...mapToFirestore(
+                        {
+                          'created_at': FieldValue.serverTimestamp(),
+                        },
+                      ),
+                    });
                     await widget.component!.reference.delete();
                   }
                 },

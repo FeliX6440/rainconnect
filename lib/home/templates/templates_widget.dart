@@ -217,7 +217,7 @@ class _TemplatesWidgetState extends State<TemplatesWidget> {
                           color: Color(0xFFE0E3E7),
                         ),
                         Container(
-                          height: MediaQuery.sizeOf(context).height * 0.62,
+                          height: MediaQuery.sizeOf(context).height * 0.55,
                           decoration: const BoxDecoration(),
                           child: StreamBuilder<List<TeamComponentsRecord>>(
                             stream: queryTeamComponentsRecord(

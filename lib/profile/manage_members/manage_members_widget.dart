@@ -169,7 +169,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                         const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 15.0),
                     child: Container(
                       width: double.infinity,
-                      height: MediaQuery.sizeOf(context).height * 0.5,
+                      height: 500.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                         borderRadius: BorderRadius.circular(14.0),
@@ -332,71 +332,69 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                           ),
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 12.0, 0.0, 12.0),
-                            child: SingleChildScrollView(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  FutureBuilder<List<UsersRecord>>(
-                                    future: queryUsersRecordOnce(
-                                      queryBuilder: (usersRecord) => usersRecord
-                                          .whereIn(
-                                              'uid',
-                                              manageMembersTeamsRecord.members
-                                                          .map((e) => e.id)
-                                                          .toList() !=
-                                                      ''
-                                                  ? manageMembersTeamsRecord
-                                                      .members
+                                0.0, 10.0, 0.0, 0.0),
+                            child: Container(
+                              height: 380.0,
+                              decoration: const BoxDecoration(),
+                              child: FutureBuilder<List<UsersRecord>>(
+                                future: queryUsersRecordOnce(
+                                  queryBuilder: (usersRecord) => usersRecord
+                                      .whereIn(
+                                          'uid',
+                                          manageMembersTeamsRecord.members
                                                       .map((e) => e.id)
-                                                      .toList()
-                                                  : null)
-                                          .where(
-                                            'display_name',
-                                            isEqualTo:
-                                                _model.textController.text != ''
-                                                    ? _model.textController.text
-                                                    : null,
-                                          ),
-                                    ),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 30.0,
-                                            height: 30.0,
-                                            child: SpinKitFadingFour(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              size: 30.0,
-                                            ),
-                                          ),
+                                                      .toList() !=
+                                                  ''
+                                              ? manageMembersTeamsRecord.members
+                                                  .map((e) => e.id)
+                                                  .toList()
+                                              : null)
+                                      .where(
+                                        'display_name',
+                                        isEqualTo:
+                                            _model.textController.text != ''
+                                                ? _model.textController.text
+                                                : null,
+                                      ),
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 30.0,
+                                        height: 30.0,
+                                        child: SpinKitFadingFour(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          size: 30.0,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  List<UsersRecord> columnUsersRecordList =
+                                      snapshot.data!;
+                                  return SingleChildScrollView(
+                                    child: Column(
+                                      key: const ValueKey('admin list'),
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: List.generate(
+                                          columnUsersRecordList.length,
+                                          (columnIndex) {
+                                        final columnUsersRecord =
+                                            columnUsersRecordList[columnIndex];
+                                        return UserRightCardWidget(
+                                          key: Key(
+                                              'Keylf9_${columnIndex}_of_${columnUsersRecordList.length}'),
+                                          teamDoc: manageMembersTeamsRecord,
+                                          userDoc: columnUsersRecord,
                                         );
-                                      }
-                                      List<UsersRecord> columnUsersRecordList =
-                                          snapshot.data!;
-                                      return Column(
-                                        key: const ValueKey('admin list'),
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: List.generate(
-                                            columnUsersRecordList.length,
-                                            (columnIndex) {
-                                          final columnUsersRecord =
-                                              columnUsersRecordList[
-                                                  columnIndex];
-                                          return UserRightCardWidget(
-                                            key: Key(
-                                                'Keylf9_${columnIndex}_of_${columnUsersRecordList.length}'),
-                                            teamDoc: manageMembersTeamsRecord,
-                                            userDoc: columnUsersRecord,
-                                          );
-                                        }),
-                                      );
-                                    },
-                                  ),
-                                ],
+                                      }),
+                                    ),
+                                  );
+                                },
                               ),
                             ),
                           ),

@@ -67,6 +67,8 @@ class NewOrEditComponentModel
   TeamComponentsRecord? result2;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
   TeamComponentsRecord? result3;
+  // Stores action output result for [Custom Action - checkIFComponentExit] action in Button widget.
+  bool? isEmpty2;
 
   /// Initialization and disposal methods.
 

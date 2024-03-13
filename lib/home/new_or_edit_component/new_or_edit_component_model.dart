@@ -59,6 +59,8 @@ class NewOrEditComponentModel
   FocusNode? choiceOptionFocusNode;
   TextEditingController? choiceOptionController;
   String? Function(BuildContext, String?)? choiceOptionControllerValidator;
+  // Stores action output result for [Custom Action - checkIFComponentExit] action in Button widget.
+  bool? isEmpty1;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
   TeamComponentsRecord? result1;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.

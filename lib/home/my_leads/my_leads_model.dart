@@ -24,8 +24,6 @@ class MyLeadsModel extends FlutterFlowModel<MyLeadsWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Stores action output result for [Firestore Query - Query a collection] action in MyLeads widget.
-  List<ArchiveComponentRecord>? archieveComponents;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
@@ -36,6 +34,8 @@ class MyLeadsModel extends FlutterFlowModel<MyLeadsWidget> {
   PagingController<DocumentSnapshot?, LeadsRecord>? listViewPagingController2;
   Query? listViewPagingQuery2;
 
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  List<ArchiveComponentRecord>? archieveComponents;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   List<LeadsRecord>? selectedLeadList;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.

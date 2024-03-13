@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:text_search/text_search.dart';
@@ -36,13 +35,6 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => MyLeadsModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.archieveComponents = await queryArchiveComponentRecordOnce(
-        parent: widget.teamDocRef,
-      );
-    });
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
@@ -788,6 +780,10 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                 padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 40.0),
                 child: FFButtonWidget(
                   onPressed: () async {
+                    _model.archieveComponents =
+                        await queryArchiveComponentRecordOnce(
+                      parent: widget.teamDocRef,
+                    );
                     if (_model.selectedLeads.isNotEmpty) {
                       _model.selectedLeadList = await queryLeadsRecordOnce(
                         queryBuilder: (leadsRecord) => leadsRecord

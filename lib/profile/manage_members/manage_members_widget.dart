@@ -338,7 +338,7 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                               decoration: const BoxDecoration(),
                               child: PagedListView<DocumentSnapshot<Object?>?,
                                   UsersRecord>(
-                                key: const ValueKey('admin list'),
+                                key: const ValueKey('memberList'),
                                 pagingController: _model.setListViewController1(
                                   UsersRecord.collection
                                       .where(
@@ -494,10 +494,16 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                           UsersRecord>(
                         key: const ValueKey('request'),
                         pagingController: _model.setListViewController2(
-                          UsersRecord.collection.where(
-                            'team_requests_sent',
-                            arrayContains: manageMembersTeamsRecord.reference,
-                          ),
+                          UsersRecord.collection.whereIn(
+                              'uid',
+                              manageMembersTeamsRecord.requests
+                                          .map((e) => e.id)
+                                          .toList() !=
+                                      ''
+                                  ? manageMembersTeamsRecord.requests
+                                      .map((e) => e.id)
+                                      .toList()
+                                  : null),
                         ),
                         padding: EdgeInsets.zero,
                         primary: false,

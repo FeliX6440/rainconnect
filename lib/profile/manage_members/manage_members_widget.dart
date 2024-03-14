@@ -647,6 +647,20 @@ class _ManageMembersWidgetState extends State<ManageMembersWidget> {
                                                   },
                                                 ),
                                               });
+
+                                              await listViewUsersRecord
+                                                  .reference
+                                                  .update({
+                                                ...mapToFirestore(
+                                                  {
+                                                    'team_requests_sent':
+                                                        FieldValue.arrayRemove([
+                                                      manageMembersTeamsRecord
+                                                          .reference
+                                                    ]),
+                                                  },
+                                                ),
+                                              });
                                             },
                                             text: 'Accept',
                                             options: FFButtonOptions(

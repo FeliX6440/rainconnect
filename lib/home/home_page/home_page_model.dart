@@ -30,6 +30,10 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   FocusNode? locationFieldFocusNode;
   TextEditingController? locationFieldController;
   String? Function(BuildContext, String?)? locationFieldControllerValidator;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
+  TextEditingController? textController2;
+  String? Function(BuildContext, String?)? textController2Validator;
 
   /// Initialization and disposal methods.
 
@@ -41,6 +45,9 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
     unfocusNode.dispose();
     locationFieldFocusNode?.dispose();
     locationFieldController?.dispose();
+
+    textFieldFocusNode?.dispose();
+    textController2?.dispose();
   }
 
   /// Action blocks are added here.

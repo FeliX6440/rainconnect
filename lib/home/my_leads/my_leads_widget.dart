@@ -784,6 +784,9 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                         await queryArchiveComponentRecordOnce(
                       parent: widget.teamDocRef,
                     );
+                    _model.components = await queryTeamComponentsRecordOnce(
+                      parent: widget.teamDocRef,
+                    );
                     if (_model.selectedLeads.isNotEmpty) {
                       _model.selectedLeadList = await queryLeadsRecordOnce(
                         queryBuilder: (leadsRecord) => leadsRecord
@@ -797,6 +800,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                         context,
                         _model.selectedLeadList!.toList(),
                         _model.archieveComponents!.toList(),
+                        _model.components!.toList(),
                       );
                     } else {
                       _model.teamLeads = await queryLeadsRecordOnce(
@@ -809,6 +813,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                         context,
                         _model.teamLeads!.toList(),
                         _model.archieveComponents!.toList(),
+                        _model.components!.toList(),
                       );
                     }
 

@@ -37,6 +37,8 @@ class MyLeadsModel extends FlutterFlowModel<MyLeadsWidget> {
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   List<ArchiveComponentRecord>? archieveComponents;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  List<TeamComponentsRecord>? components;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   List<LeadsRecord>? selectedLeadList;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   List<LeadsRecord>? teamLeads;

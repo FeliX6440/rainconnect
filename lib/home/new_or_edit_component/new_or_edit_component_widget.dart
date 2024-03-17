@@ -601,8 +601,8 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                   child: FFButtonWidget(
                     onPressed: () async {
                       if ((_model.textController1.text != '') &&
-                          (_model.componentTypeValue != null &&
-                              _model.componentTypeValue != '')) {
+                          (_model.selectedComponent != null &&
+                              _model.selectedComponent != '')) {
                         if (widget.component == null) {
                           _model.isEmpty1 = await actions.checkIFComponentExit(
                             _model.textController1.text,

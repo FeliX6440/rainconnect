@@ -624,6 +624,8 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                 ...mapToFirestore(
                                   {
                                     'added_at': FieldValue.serverTimestamp(),
+                                    'list_value':
+                                        _model.addedOptionsForDropDown,
                                   },
                                 ),
                               });
@@ -639,6 +641,8 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                                 ...mapToFirestore(
                                   {
                                     'added_at': DateTime.now(),
+                                    'list_value':
+                                        _model.addedOptionsForDropDown,
                                   },
                                 ),
                               }, teamComponentsRecordReference1);

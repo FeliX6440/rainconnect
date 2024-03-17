@@ -126,3 +126,7 @@ String fillEmailBodyTemplate(
       .replaceAll('{u_phone}', userPhone);
   return body;
 }
+
+List<String> createComponentDropDown(ComponentType? type) {
+  return [];
+}

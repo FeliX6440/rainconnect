@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'new_or_edit_component_model.dart';
@@ -42,6 +43,10 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
       if (widget.component != null) {
         setState(() {
           _model.selectedComponent = widget.component?.type?.name;
+        });
+        setState(() {
+          _model.componentTypeValueController?.value =
+              widget.component!.type!.name;
         });
         if (widget.component?.type == ComponentType.Dropdown) {
           setState(() {
@@ -166,43 +171,42 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                         _model.textController1Validator.asValidator(context),
                   ),
                 ),
-                if (widget.component == null)
-                  FlutterFlowDropDown<String>(
-                    controller: _model.componentTypeValueController ??=
-                        FormFieldController<String>(
-                      _model.componentTypeValue ??=
-                          _model.selectedComponent != null &&
-                                  _model.selectedComponent != ''
-                              ? widget.component?.type?.name
-                              : '',
-                    ),
-                    options: const ['TextField', 'MultipleChoice', 'Dropdown'],
-                    onChanged: (val) async {
-                      setState(() => _model.componentTypeValue = val);
-                      setState(() {
-                        _model.selectedComponent = _model.componentTypeValue;
-                      });
-                    },
-                    width: double.infinity,
-                    height: 50.0,
-                    textStyle: FlutterFlowTheme.of(context).bodyMedium,
-                    hintText: 'Chose Component Type...',
-                    icon: Icon(
-                      Icons.keyboard_arrow_down_rounded,
-                      color: FlutterFlowTheme.of(context).secondaryText,
-                      size: 24.0,
-                    ),
-                    elevation: 2.0,
-                    borderColor: FlutterFlowTheme.of(context).alternate,
-                    borderWidth: 2.0,
-                    borderRadius: 8.0,
-                    margin:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 4.0),
-                    hidesUnderline: true,
-                    isOverButton: true,
-                    isSearchable: false,
-                    isMultiSelect: false,
+                FlutterFlowDropDown<String>(
+                  controller: _model.componentTypeValueController ??=
+                      FormFieldController<String>(
+                    _model.componentTypeValue ??=
+                        _model.selectedComponent != null &&
+                                _model.selectedComponent != ''
+                            ? widget.component?.type?.name
+                            : '',
                   ),
+                  options:
+                      functions.createComponentDropDown(widget.component?.type),
+                  onChanged: (val) async {
+                    setState(() => _model.componentTypeValue = val);
+                    setState(() {
+                      _model.selectedComponent = _model.componentTypeValue;
+                    });
+                  },
+                  width: double.infinity,
+                  height: 50.0,
+                  textStyle: FlutterFlowTheme.of(context).bodyMedium,
+                  hintText: 'Chose Component Type...',
+                  icon: Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    color: FlutterFlowTheme.of(context).secondaryText,
+                    size: 24.0,
+                  ),
+                  elevation: 2.0,
+                  borderColor: FlutterFlowTheme.of(context).alternate,
+                  borderWidth: 2.0,
+                  borderRadius: 8.0,
+                  margin: const EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 4.0),
+                  hidesUnderline: true,
+                  isOverButton: true,
+                  isSearchable: false,
+                  isMultiSelect: false,
+                ),
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                   child: Builder(
@@ -601,8 +605,8 @@ class _NewOrEditComponentWidgetState extends State<NewOrEditComponentWidget> {
                   child: FFButtonWidget(
                     onPressed: () async {
                       if ((_model.textController1.text != '') &&
-                          (_model.selectedComponent != null &&
-                              _model.selectedComponent != '')) {
+                          (_model.componentTypeValue != null &&
+                              _model.componentTypeValue != '')) {
                         if (widget.component == null) {
                           _model.isEmpty1 = await actions.checkIFComponentExit(
                             _model.textController1.text,

@@ -37,6 +37,15 @@ class NewOrEditComponentModel
       addedOptionForMultiChoice[index] =
           updateFn(addedOptionForMultiChoice[index]);
 
+  List<String> typeList = ['TextField', 'MultipleChoice', 'Dropdown'];
+  void addToTypeList(String item) => typeList.add(item);
+  void removeFromTypeList(String item) => typeList.remove(item);
+  void removeAtIndexFromTypeList(int index) => typeList.removeAt(index);
+  void insertAtIndexInTypeList(int index, String item) =>
+      typeList.insert(index, item);
+  void updateTypeListAtIndex(int index, Function(String) updateFn) =>
+      typeList[index] = updateFn(typeList[index]);
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

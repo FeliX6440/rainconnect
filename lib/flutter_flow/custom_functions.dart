@@ -128,5 +128,11 @@ String fillEmailBodyTemplate(
 }
 
 List<String> createComponentDropDown(ComponentType? type) {
-  return [];
+  return type != null
+      ? [type.name]
+      : [
+          'TextField',
+          'MultipleChoice',
+          'Dropdown',
+        ];
 }

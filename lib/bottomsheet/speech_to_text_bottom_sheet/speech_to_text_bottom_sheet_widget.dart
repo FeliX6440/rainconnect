@@ -127,7 +127,7 @@ class _SpeechToTextBottomSheetWidgetState
               ),
             ),
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 30.0),
               child: FFButtonWidget(
                 onPressed: () async {
                   if (widget.isEdit!) {

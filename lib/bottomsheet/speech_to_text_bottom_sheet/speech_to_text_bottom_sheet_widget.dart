@@ -142,6 +142,7 @@ class _SpeechToTextBottomSheetWidgetState
                         leadRef: widget.leadDocRef,
                         type: ComponentType.SpeechToText,
                         content: FFAppState().audioTextResult,
+                        componentName: 'Speech to text',
                       ),
                       ...mapToFirestore(
                         {

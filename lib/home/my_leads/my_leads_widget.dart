@@ -912,9 +912,13 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                       setState(() {
                         _model.isDeleteLoading = true;
                       });
+                      await Future.delayed(const Duration(milliseconds: 2000));
                       await actions.deleteMultipleLeads(
                         _model.selectedLeads.toList(),
                       );
+                      setState(() {
+                        _model.selectedLeads = [];
+                      });
                       setState(() {
                         _model.isDeleteLoading = false;
                       });

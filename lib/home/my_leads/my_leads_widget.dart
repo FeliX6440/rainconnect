@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
-import 'dart:async';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -278,16 +277,12 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(4.0, 12.0, 16.0, 0.0),
                       child: FutureBuilder<int>(
-                        future: (_model.firestoreRequestCompleter ??=
-                                Completer<int>()
-                                  ..complete(queryLeadsRecordCount(
-                                    queryBuilder: (leadsRecord) =>
-                                        leadsRecord.where(
-                                      'lead_collected_by',
-                                      isEqualTo: widget.teamDocRef,
-                                    ),
-                                  )))
-                            .future,
+                        future: queryLeadsRecordCount(
+                          queryBuilder: (leadsRecord) => leadsRecord.where(
+                            'lead_collected_by',
+                            isEqualTo: widget.teamDocRef,
+                          ),
+                        ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
@@ -946,8 +941,6 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                         await actions.deleteMultipleLeads(
                           _model.selectedLeads.toList(),
                         );
-                        setState(() => _model.firestoreRequestCompleter = null);
-                        await _model.waitForFirestoreRequestCompleted();
                         setState(() {
                           _model.selectedLeads = [];
                         });

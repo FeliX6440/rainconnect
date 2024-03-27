@@ -219,7 +219,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                             final rowLeadsRecord = rowLeadsRecordList[rowIndex];
                             return Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 10.0, 0.0),
+                                  0.0, 0.0, 12.0, 0.0),
                               child: Material(
                                 color: Colors.transparent,
                                 elevation: 2.0,

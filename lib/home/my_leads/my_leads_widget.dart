@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
+import 'dart:async';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -277,12 +278,16 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(4.0, 12.0, 16.0, 0.0),
                       child: FutureBuilder<int>(
-                        future: queryLeadsRecordCount(
-                          queryBuilder: (leadsRecord) => leadsRecord.where(
-                            'lead_collected_by',
-                            isEqualTo: widget.teamDocRef,
-                          ),
-                        ),
+                        future: (_model.firestoreRequestCompleter ??=
+                                Completer<int>()
+                                  ..complete(queryLeadsRecordCount(
+                                    queryBuilder: (leadsRecord) =>
+                                        leadsRecord.where(
+                                      'lead_collected_by',
+                                      isEqualTo: widget.teamDocRef,
+                                    ),
+                                  )))
+                            .future,
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
@@ -909,19 +914,61 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                       const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 20.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      setState(() {
-                        _model.isDeleteLoading = true;
-                      });
-                      await Future.delayed(const Duration(milliseconds: 2000));
-                      await actions.deleteMultipleLeads(
-                        _model.selectedLeads.toList(),
-                      );
-                      setState(() {
-                        _model.selectedLeads = [];
-                      });
-                      setState(() {
-                        _model.isDeleteLoading = false;
-                      });
+                      var confirmDialogResponse = await showDialog<bool>(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return AlertDialog(
+                                title: const Text('Delete leads'),
+                                content: const Text(
+                                    'Are you sure you want to delete selected leads'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(
+                                        alertDialogContext, false),
+                                    child: const Text('Cancel'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext, true),
+                                    child: const Text('Confirm'),
+                                  ),
+                                ],
+                              );
+                            },
+                          ) ??
+                          false;
+                      if (confirmDialogResponse) {
+                        setState(() {
+                          _model.isDeleteLoading = true;
+                        });
+                        await Future.delayed(
+                            const Duration(milliseconds: 2000));
+                        await actions.deleteMultipleLeads(
+                          _model.selectedLeads.toList(),
+                        );
+                        setState(() => _model.firestoreRequestCompleter = null);
+                        await _model.waitForFirestoreRequestCompleted();
+                        setState(() {
+                          _model.selectedLeads = [];
+                        });
+                        setState(() {
+                          _model.isDeleteLoading = false;
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Leads are deleted',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
+                            ),
+                            duration: const Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).secondary,
+                          ),
+                        );
+                        context.safePop();
+                      }
                     },
                     text: 'Delete selected leads',
                     options: FFButtonOptions(

@@ -318,374 +318,127 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
               Expanded(
                 child: Builder(
                   builder: (context) {
-                    if (_model.simpleSearchResults.isNotEmpty) {
-                      return Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
-                        child: Builder(
-                          builder: (context) {
-                            final searchedLead = _model.simpleSearchResults
-                                .where((e) =>
-                                    e.leadCollectedBy == widget.teamDocRef)
-                                .toList();
-                            return ListView.builder(
-                              padding: EdgeInsets.zero,
-                              scrollDirection: Axis.vertical,
-                              itemCount: searchedLead.length,
-                              itemBuilder: (context, searchedLeadIndex) {
-                                final searchedLeadItem =
-                                    searchedLead[searchedLeadIndex];
-                                return Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 1.0),
-                                  child: InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      context.pushNamed(
-                                        'LeadDetailView',
-                                        queryParameters: {
-                                          'leadDoc': serializeParam(
-                                            searchedLeadItem,
-                                            ParamType.Document,
-                                          ),
-                                        }.withoutNulls,
-                                        extra: <String, dynamic>{
-                                          'leadDoc': searchedLeadItem,
-                                        },
-                                      );
-                                    },
-                                    child: Container(
-                                      width: 100.0,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            blurRadius: 0.0,
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            offset: const Offset(0.0, 1.0),
-                                          )
-                                        ],
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            ToggleIcon(
-                                              onPressed: () async {
-                                                setState(
-                                                  () => _model.selectedLeads
-                                                          .contains(
-                                                              searchedLeadItem
-                                                                  .id)
-                                                      ? _model
-                                                          .removeFromSelectedLeads(
-                                                              searchedLeadItem
-                                                                  .id)
-                                                      : _model
-                                                          .addToSelectedLeads(
-                                                              searchedLeadItem
-                                                                  .id),
-                                                );
+                    if (!_model.isDeleteLoading) {
+                      return Builder(
+                        builder: (context) {
+                          if (_model.simpleSearchResults.isNotEmpty) {
+                            return Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  8.0, 8.0, 8.0, 0.0),
+                              child: Builder(
+                                builder: (context) {
+                                  final searchedLead = _model
+                                      .simpleSearchResults
+                                      .where((e) =>
+                                          e.leadCollectedBy ==
+                                          widget.teamDocRef)
+                                      .toList();
+                                  return ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: searchedLead.length,
+                                    itemBuilder: (context, searchedLeadIndex) {
+                                      final searchedLeadItem =
+                                          searchedLead[searchedLeadIndex];
+                                      return Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 1.0),
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            context.pushNamed(
+                                              'LeadDetailView',
+                                              queryParameters: {
+                                                'leadDoc': serializeParam(
+                                                  searchedLeadItem,
+                                                  ParamType.Document,
+                                                ),
+                                              }.withoutNulls,
+                                              extra: <String, dynamic>{
+                                                'leadDoc': searchedLeadItem,
                                               },
-                                              value: _model.selectedLeads
-                                                  .contains(
-                                                      searchedLeadItem.id),
-                                              onIcon: Icon(
-                                                Icons.check_box,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                size: 25.0,
-                                              ),
-                                              offIcon: Icon(
-                                                Icons.check_box_outline_blank,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                size: 25.0,
-                                              ),
-                                            ),
-                                            ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(40.0),
-                                              child: Image.network(
-                                                searchedLeadItem.photoUrl,
-                                                width: 60.0,
-                                                height: 60.0,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(12.0, 0.0,
-                                                                0.0, 0.0),
-                                                    child: Text(
-                                                      '${searchedLeadItem.firstName} ${searchedLeadItem.lastName}',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyLarge,
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 4.0,
-                                                                0.0, 0.0),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      12.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          child: Text(
-                                                            searchedLeadItem
-                                                                .phone,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .labelMedium,
-                                                          ),
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      4.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          child: Text(
-                                                            searchedLeadItem
-                                                                .website,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Manrope',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Card(
-                                              clipBehavior:
-                                                  Clip.antiAliasWithSaveLayer,
+                                            );
+                                          },
+                                          child: Container(
+                                            width: 100.0,
+                                            decoration: BoxDecoration(
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
-                                              elevation: 1.0,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(40.0),
-                                              ),
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(4.0),
-                                                child: Icon(
-                                                  Icons
-                                                      .keyboard_arrow_right_rounded,
+                                                      .secondaryBackground,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  blurRadius: 0.0,
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .secondaryText,
-                                                  size: 24.0,
-                                                ),
-                                              ),
+                                                      .alternate,
+                                                  offset: const Offset(0.0, 1.0),
+                                                )
+                                              ],
                                             ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      );
-                    } else {
-                      return Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 20.0),
-                        child: PagedListView<DocumentSnapshot<Object?>?,
-                            LeadsRecord>(
-                          pagingController: _model.setListViewController2(
-                            LeadsRecord.collection
-                                .where(
-                                  'lead_collected_by',
-                                  isEqualTo: widget.teamDocRef,
-                                )
-                                .orderBy('location')
-                                .orderBy('first_name'),
-                          ),
-                          padding: EdgeInsets.zero,
-                          reverse: false,
-                          scrollDirection: Axis.vertical,
-                          builderDelegate:
-                              PagedChildBuilderDelegate<LeadsRecord>(
-                            // Customize what your widget looks like when it's loading the first page.
-                            firstPageProgressIndicatorBuilder: (_) => Center(
-                              child: SizedBox(
-                                width: 30.0,
-                                height: 30.0,
-                                child: SpinKitFadingFour(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  size: 30.0,
-                                ),
-                              ),
-                            ),
-                            // Customize what your widget looks like when it's loading another page.
-                            newPageProgressIndicatorBuilder: (_) => Center(
-                              child: SizedBox(
-                                width: 30.0,
-                                height: 30.0,
-                                child: SpinKitFadingFour(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  size: 30.0,
-                                ),
-                              ),
-                            ),
-
-                            itemBuilder: (context, _, listViewIndex) {
-                              final listViewLeadsRecord = _model
-                                  .listViewPagingController2!
-                                  .itemList![listViewIndex];
-                              return Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 1.0),
-                                child: InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    context.pushNamed(
-                                      'LeadDetailView',
-                                      queryParameters: {
-                                        'leadDoc': serializeParam(
-                                          listViewLeadsRecord,
-                                          ParamType.Document,
-                                        ),
-                                      }.withoutNulls,
-                                      extra: <String, dynamic>{
-                                        'leadDoc': listViewLeadsRecord,
-                                      },
-                                    );
-                                  },
-                                  child: Container(
-                                    width: 100.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          blurRadius: 0.0,
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                          offset: const Offset(0.0, 1.0),
-                                        )
-                                      ],
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          ToggleIcon(
-                                            onPressed: () async {
-                                              setState(
-                                                () => _model.selectedLeads.contains(
-                                                        listViewLeadsRecord.id)
-                                                    ? _model
-                                                        .removeFromSelectedLeads(
-                                                            listViewLeadsRecord
-                                                                .id)
-                                                    : _model.addToSelectedLeads(
-                                                        listViewLeadsRecord.id),
-                                              );
-                                            },
-                                            value: _model.selectedLeads
-                                                .contains(
-                                                    listViewLeadsRecord.id),
-                                            onIcon: Icon(
-                                              Icons.check_box,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              size: 25.0,
-                                            ),
-                                            offIcon: Icon(
-                                              Icons.check_box_outline_blank,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              size: 25.0,
-                                            ),
-                                          ),
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                            child: Image.network(
-                                              listViewLeadsRecord.photoUrl,
-                                              width: 60.0,
-                                              height: 60.0,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Container(
-                                              decoration: const BoxDecoration(),
-                                              child: Column(
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Row(
                                                 mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
                                                 children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(12.0, 0.0,
-                                                                0.0, 0.0),
-                                                    child: Text(
-                                                      '${listViewLeadsRecord.firstName} ${listViewLeadsRecord.lastName}',
-                                                      style:
+                                                  ToggleIcon(
+                                                    onPressed: () async {
+                                                      setState(
+                                                        () => _model
+                                                                .selectedLeads
+                                                                .contains(
+                                                                    searchedLeadItem
+                                                                        .id)
+                                                            ? _model.removeFromSelectedLeads(
+                                                                searchedLeadItem
+                                                                    .id)
+                                                            : _model.addToSelectedLeads(
+                                                                searchedLeadItem
+                                                                    .id),
+                                                      );
+                                                    },
+                                                    value: _model.selectedLeads
+                                                        .contains(
+                                                            searchedLeadItem
+                                                                .id),
+                                                    onIcon: Icon(
+                                                      Icons.check_box,
+                                                      color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyLarge,
+                                                              .primary,
+                                                      size: 25.0,
+                                                    ),
+                                                    offIcon: Icon(
+                                                      Icons
+                                                          .check_box_outline_blank,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryText,
+                                                      size: 25.0,
                                                     ),
                                                   ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 4.0,
-                                                                0.0, 0.0),
-                                                    child: Row(
+                                                  ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            40.0),
+                                                    child: Image.network(
+                                                      searchedLeadItem.photoUrl,
+                                                      width: 60.0,
+                                                      height: 60.0,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
                                                       children: [
                                                         Padding(
                                                           padding:
@@ -696,81 +449,387 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                                                                       0.0,
                                                                       0.0),
                                                           child: Text(
-                                                            listViewLeadsRecord
-                                                                .location
-                                                                .maybeHandleOverflow(
-                                                              maxChars: 11,
-                                                              replacement: '…',
-                                                            ),
+                                                            '${searchedLeadItem.firstName} ${searchedLeadItem.lastName}',
                                                             style: FlutterFlowTheme
                                                                     .of(context)
-                                                                .labelMedium,
+                                                                .bodyLarge,
                                                           ),
                                                         ),
                                                         Padding(
                                                           padding:
                                                               const EdgeInsetsDirectional
                                                                   .fromSTEB(
+                                                                      0.0,
                                                                       4.0,
                                                                       0.0,
-                                                                      0.0,
                                                                       0.0),
-                                                          child: Text(
-                                                            listViewLeadsRecord
-                                                                .website
-                                                                .maybeHandleOverflow(
-                                                              maxChars: 15,
-                                                              replacement: '…',
-                                                            ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Manrope',
-                                                                  color: FlutterFlowTheme.of(
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            12.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                child: Text(
+                                                                  searchedLeadItem
+                                                                      .phone,
+                                                                  style: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .primary,
+                                                                      .labelMedium,
                                                                 ),
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            4.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                child: Text(
+                                                                  searchedLeadItem
+                                                                      .website,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Manrope',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primary,
+                                                                      ),
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
+                                                    ),
+                                                  ),
+                                                  Card(
+                                                    clipBehavior: Clip
+                                                        .antiAliasWithSaveLayer,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryBackground,
+                                                    elevation: 1.0,
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              40.0),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(4.0),
+                                                      child: Icon(
+                                                        Icons
+                                                            .keyboard_arrow_right_rounded,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        size: 24.0,
+                                                      ),
                                                     ),
                                                   ),
                                                 ],
                                               ),
                                             ),
                                           ),
-                                          Card(
-                                            clipBehavior:
-                                                Clip.antiAliasWithSaveLayer,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
-                                            elevation: 1.0,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(40.0),
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Icon(
-                                                Icons
-                                                    .keyboard_arrow_right_rounded,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                size: 24.0,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
+                            );
+                          } else {
+                            return Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  8.0, 8.0, 8.0, 20.0),
+                              child: PagedListView<DocumentSnapshot<Object?>?,
+                                  LeadsRecord>(
+                                pagingController: _model.setListViewController2(
+                                  LeadsRecord.collection
+                                      .where(
+                                        'lead_collected_by',
+                                        isEqualTo: widget.teamDocRef,
+                                      )
+                                      .orderBy('location')
+                                      .orderBy('first_name'),
+                                ),
+                                padding: EdgeInsets.zero,
+                                reverse: false,
+                                scrollDirection: Axis.vertical,
+                                builderDelegate:
+                                    PagedChildBuilderDelegate<LeadsRecord>(
+                                  // Customize what your widget looks like when it's loading the first page.
+                                  firstPageProgressIndicatorBuilder: (_) =>
+                                      Center(
+                                    child: SizedBox(
+                                      width: 30.0,
+                                      height: 30.0,
+                                      child: SpinKitFadingFour(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        size: 30.0,
                                       ),
                                     ),
                                   ),
+                                  // Customize what your widget looks like when it's loading another page.
+                                  newPageProgressIndicatorBuilder: (_) =>
+                                      Center(
+                                    child: SizedBox(
+                                      width: 30.0,
+                                      height: 30.0,
+                                      child: SpinKitFadingFour(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        size: 30.0,
+                                      ),
+                                    ),
+                                  ),
+
+                                  itemBuilder: (context, _, listViewIndex) {
+                                    final listViewLeadsRecord = _model
+                                        .listViewPagingController2!
+                                        .itemList![listViewIndex];
+                                    return Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 1.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          context.pushNamed(
+                                            'LeadDetailView',
+                                            queryParameters: {
+                                              'leadDoc': serializeParam(
+                                                listViewLeadsRecord,
+                                                ParamType.Document,
+                                              ),
+                                            }.withoutNulls,
+                                            extra: <String, dynamic>{
+                                              'leadDoc': listViewLeadsRecord,
+                                            },
+                                          );
+                                        },
+                                        child: Container(
+                                          width: 100.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                blurRadius: 0.0,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                                offset: const Offset(0.0, 1.0),
+                                              )
+                                            ],
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                ToggleIcon(
+                                                  onPressed: () async {
+                                                    setState(
+                                                      () => _model.selectedLeads
+                                                              .contains(
+                                                                  listViewLeadsRecord
+                                                                      .id)
+                                                          ? _model.removeFromSelectedLeads(
+                                                              listViewLeadsRecord
+                                                                  .id)
+                                                          : _model.addToSelectedLeads(
+                                                              listViewLeadsRecord
+                                                                  .id),
+                                                    );
+                                                  },
+                                                  value: _model.selectedLeads
+                                                      .contains(
+                                                          listViewLeadsRecord
+                                                              .id),
+                                                  onIcon: Icon(
+                                                    Icons.check_box,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    size: 25.0,
+                                                  ),
+                                                  offIcon: Icon(
+                                                    Icons
+                                                        .check_box_outline_blank,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                    size: 25.0,
+                                                  ),
+                                                ),
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          40.0),
+                                                  child: Image.network(
+                                                    listViewLeadsRecord
+                                                        .photoUrl,
+                                                    width: 60.0,
+                                                    height: 60.0,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Container(
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      12.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: Text(
+                                                            '${listViewLeadsRecord.firstName} ${listViewLeadsRecord.lastName}',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyLarge,
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      4.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            12.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                child: Text(
+                                                                  listViewLeadsRecord
+                                                                      .location
+                                                                      .maybeHandleOverflow(
+                                                                    maxChars:
+                                                                        11,
+                                                                    replacement:
+                                                                        '…',
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium,
+                                                                ),
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            4.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                child: Text(
+                                                                  listViewLeadsRecord
+                                                                      .website
+                                                                      .maybeHandleOverflow(
+                                                                    maxChars:
+                                                                        15,
+                                                                    replacement:
+                                                                        '…',
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Manrope',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primary,
+                                                                      ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                Card(
+                                                  clipBehavior: Clip
+                                                      .antiAliasWithSaveLayer,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryBackground,
+                                                  elevation: 1.0,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            40.0),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(4.0),
+                                                    child: Icon(
+                                                      Icons
+                                                          .keyboard_arrow_right_rounded,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryText,
+                                                      size: 24.0,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
-                              );
-                            },
-                          ),
+                              ),
+                            );
+                          }
+                        },
+                      );
+                    } else {
+                      return Align(
+                        alignment: const AlignmentDirectional(0.0, 0.0),
+                        child: Text(
+                          'Deleting leads...',
+                          style: FlutterFlowTheme.of(context).bodyMedium,
                         ),
                       );
                     }
@@ -778,7 +837,7 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 40.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 10.0),
                 child: FFButtonWidget(
                   onPressed: () async {
                     _model.archieveComponents =
@@ -820,7 +879,9 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
 
                     setState(() {});
                   },
-                  text: 'Export Current List',
+                  text: _model.selectedLeads.isNotEmpty
+                      ? 'Export selected list'
+                      : 'Export Current List',
                   options: FFButtonOptions(
                     width: double.infinity,
                     height: 40.0,
@@ -842,6 +903,45 @@ class _MyLeadsWidgetState extends State<MyLeadsWidget>
                   ),
                 ),
               ),
+              if (_model.selectedLeads.isNotEmpty)
+                Padding(
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 20.0),
+                  child: FFButtonWidget(
+                    onPressed: () async {
+                      setState(() {
+                        _model.isDeleteLoading = true;
+                      });
+                      await actions.deleteMultipleLeads(
+                        _model.selectedLeads.toList(),
+                      );
+                      setState(() {
+                        _model.isDeleteLoading = false;
+                      });
+                    },
+                    text: 'Delete selected leads',
+                    options: FFButtonOptions(
+                      width: double.infinity,
+                      height: 40.0,
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                      iconPadding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).error,
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                fontFamily: 'Manrope',
+                                color: Colors.white,
+                              ),
+                      elevation: 3.0,
+                      borderSide: const BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
             ],
           ),
         ),

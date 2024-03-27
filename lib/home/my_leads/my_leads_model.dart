@@ -21,6 +21,8 @@ class MyLeadsModel extends FlutterFlowModel<MyLeadsWidget> {
 
   bool isDeletedEnable = false;
 
+  bool isDeleteLoading = false;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

@@ -11,6 +11,10 @@
         {
           "fieldPath": "location",
           "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "first_name",
+          "order": "ASCENDING"
         }
       ]
     },
